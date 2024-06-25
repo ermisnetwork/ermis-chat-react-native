@@ -1,6 +1,6 @@
 {
   "name": "stream-chat-react-native-core",
-  "description": "The official React Native and Expo components for Stream Chat, a service for building chat applications",
+  "description": "The official React Native components for Stream Chat, a service for building chat applications",
   "version": "5.32.1",
   "author": {
     "company": "Stream.io Inc",
@@ -78,7 +78,8 @@
     "path": "0.12.7",
     "react-native-markdown-package": "1.8.2",
     "react-native-url-polyfill": "^1.3.0",
-    "stream-chat": "8.31.0"
+    "stream-chat": "8.31.0",
+    "ermis-js-sdk": "^1.0.3"
   },
   "peerDependencies": {
     "react-native-quick-sqlite": ">=5.1.0",

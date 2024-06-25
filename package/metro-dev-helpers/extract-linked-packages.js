@@ -5,7 +5,6 @@ const { extractExtraNodeModules, findLinkedPackages } = require('./lib');
 
 const sdkBlacklistedPaths = [
   '/native-package/node_modules',
-  '/expo-package/node_modules',
   '/node_modules',
 ];
 
@@ -15,7 +14,6 @@ module.exports = function extractLinkedPackages(repoDir) {
 
   const sdkRootPackage = linkedPackages['stream-chat-react-native-core'];
   const sdkNativePackage = linkedPackages['stream-chat-react-native'];
-  const sdkExpoPackage = linkedPackages['stream-chat-expo'];
 
   if (!sdkRootPackage) {
     throw new Error('stream-chat-react-native-core is not linked!');
@@ -27,13 +25,9 @@ module.exports = function extractLinkedPackages(repoDir) {
     alternateRoots.push(sdkNativePackage);
   }
 
-  if (sdkExpoPackage) {
-    alternateRoots.push(sdkExpoPackage);
-  }
-
-  if (!sdkNativePackage && !sdkExpoPackage) {
+  if (!sdkNativePackage) {
     throw new Error(
-      'stream-chat-react-native or stream-chat-expo is not linked! You need to link at least one.',
+      'stream-chat-react-native is not linked! You need to link at least one.',
     );
   }
 

@@ -5354,6 +5354,21 @@ eol@^0.9.1:
   resolved "https://registry.yarnpkg.com/eol/-/eol-0.9.1.tgz#f701912f504074be35c6117a5c4ade49cd547acd"
   integrity sha512-Ds/TEoZjwggRoz/Q2O7SE3i4Jm66mqTDfmdHdq/7DKVk3bro9Q8h6WdXKdPqFLMoqxrDK5SVRzHVPOS6uuGtrg==
 
+ermis-js-sdk@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ermis-js-sdk/-/ermis-js-sdk-1.0.3.tgz#810609c17db791f3b82c9185de8b5c06c32368ec"
+  integrity sha512-HWiNqaOzBGYD5HK0FvavwGM2tvbkkRC0GMviEVuujGl76Pqq9DqNNPJD7cGUzTABoy4PPJObjhFPJB9cAXRw3g==
+  dependencies:
+    "@babel/runtime" "^7.16.3"
+    "@types/jsonwebtoken" "~9.0.0"
+    "@types/ws" "^7.4.0"
+    axios "^1.6.0"
+    base64-js "^1.5.1"
+    form-data "^4.0.0"
+    isomorphic-ws "^4.0.1"
+    jsonwebtoken "~9.0.0"
+    ws "^7.4.4"
+
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/errno/-/errno-0.1.8.tgz#8bb3e9c7d463be4976ff888f76b4809ebc2e811f"

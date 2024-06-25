@@ -2,15 +2,11 @@
 .PHONY: example-build example-deps
 
 EXAMPLES_PATH = ../examples
-NATIVE_EXAMPLES = SampleApp TypeScriptMessaging
+NATIVE_EXAMPLES = SampleApp
 NATIVE_EXAMPLES_APPS = $(addprefix $(EXAMPLES_PATH)/,$(NATIVE_EXAMPLES))
 NATIVE_EXAMPLES_APPS_DEPS = $(addsuffix /node_modules/installed_dependencies,$(NATIVE_EXAMPLES_APPS))
 
-EXPO_EXAMPLES = ExpoMessaging
-EXPO_EXAMPLES_APPS = $(addprefix $(EXAMPLES_PATH)/,$(EXPO_EXAMPLES))
-EXPO_EXAMPLES_APPS_DEPS = $(addsuffix /node_modules/installed_dependencies,$(EXPO_EXAMPLES_APPS))
-
-WRAPPER_PACKAGES = native-package expo-package
+WRAPPER_PACKAGES = native-package
 WRAPPER_PACKAGES_DEPS = $(addsuffix /node_modules/installed_dependencies,$(WRAPPER_PACKAGES))
 
 SOURCES = $(filter(%$(EXAMPLES_PATH)/, $(wildcard *.js) $(wildcard */*.js) $(wildcard */*.scss) $(wildcard */*.png) $(wildcard */*.html) $(wildcard ../client/*/*.js) $(wildcard ../client/*.js))
@@ -20,18 +16,12 @@ CHAT_DEPS = ../client/package.json
 
 
 # By default, we install all dependencies for all the example apps
-.DEFAULT_GOAL = all-example-deps
+.DEFAULT_GOAL = native-example-deps
 
 native-example-deps: $(NATIVE_EXAMPLES_APPS_DEPS)
-expo-example-deps: $(EXPO_EXAMPLES_APPS_DEPS)
-all-example-deps: $(NATIVE_EXAMPLES_APPS_DEPS) $(EXPO_EXAMPLES_APPS_DEPS)
 
 $(NATIVE_EXAMPLES_APPS_DEPS): %/node_modules/installed_dependencies: %/yarn.lock %/package.json $(SOURCES) $(WRAPPER_PACKAGES_DEPS)
 	cd $* && bundle install && yarn install && cd ios && bundle exec pod install
-	touch $@
-
-$(EXPO_EXAMPLES_APPS_DEPS): %/node_modules/installed_dependencies: %/yarn.lock %/package.json $(SOURCES) $(WRAPPER_PACKAGES_DEPS)
-	cd $* && yarn install
 	touch $@
 
 $(WRAPPER_PACKAGES_DEPS): %/node_modules/installed_dependencies: %/yarn.lock %/package.json $(SOURCES) node_modules/installed_dependencies
@@ -48,7 +38,6 @@ dist/built: $(LIB_SOURCES) node_modules/installed_dependencies
 
 clean:
 	rm -rf $(addsuffix /node_modules,$(NATIVE_EXAMPLES_APPS)) || true
-	rm -rf $(addsuffix /node_modules,$(EXPO_EXAMPLES_APPS)) || true
 	rm -rf $(addsuffix /node_modules,$(WRAPPER_PACKAGES)) || true
 	rm -rf dist || true
 	rm -rf node_modules || true

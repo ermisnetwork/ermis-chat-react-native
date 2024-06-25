@@ -7,7 +7,7 @@ import type { Asset, File } from './types/types';
 
 const fail = () => {
   throw Error(
-    'Native handler was not registered, you should import stream-chat-expo or stream-chat-react-native',
+    'Native handler was not registered, you should import stream-chat-react-native',
   );
 };
 
