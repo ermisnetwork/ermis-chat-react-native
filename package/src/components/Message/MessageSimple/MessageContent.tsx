@@ -24,7 +24,7 @@ import {
 } from '../../../contexts/translationContext/TranslationContext';
 
 import { useViewport } from '../../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { MessageStatusTypes } from '../../../utils/utils';
 
 const styles = StyleSheet.create({
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
 });
 
 export type MessageContentPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   | 'alignment'
   | 'disabled'
   | 'isEditedMessageOpen'
@@ -83,7 +83,7 @@ export type MessageContentPropsWithContext<
   | 'threadList'
 > &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'additionalTouchableProps'
     | 'Attachment'
     | 'FileAttachmentGroup'
@@ -108,9 +108,9 @@ export type MessageContentPropsWithContext<
  * Child of MessageSimple that displays a message's content
  */
 const MessageContentWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageContentPropsWithContext<StreamChatGenerics>,
+  props: MessageContentPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTouchableProps,
@@ -382,7 +382,7 @@ const MessageContentWithContext = <
               case 'text':
               default:
                 return otherAttachments.length && otherAttachments[0].actions ? null : (
-                  <MessageTextContainer<StreamChatGenerics>
+                  <MessageTextContainer<ErmisChatGenerics>
                     key={`message_text_container_${messageContentOrderIndex}`}
                   />
                 );
@@ -397,9 +397,9 @@ const MessageContentWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageContentPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageContentPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageContentPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageContentPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     disabled: prevDisabled,
@@ -491,29 +491,29 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
   const attachmentsEqual =
     Array.isArray(prevMessageAttachments) && Array.isArray(nextMessageAttachments)
       ? prevMessageAttachments.length === nextMessageAttachments.length &&
-        prevMessageAttachments.every((attachment, index) => {
-          const attachmentKeysEqual =
-            attachment.image_url === nextMessageAttachments[index].image_url &&
-            attachment.og_scrape_url === nextMessageAttachments[index].og_scrape_url &&
-            attachment.thumb_url === nextMessageAttachments[index].thumb_url &&
-            attachment.type === nextMessageAttachments[index].type;
+      prevMessageAttachments.every((attachment, index) => {
+        const attachmentKeysEqual =
+          attachment.image_url === nextMessageAttachments[index].image_url &&
+          attachment.og_scrape_url === nextMessageAttachments[index].og_scrape_url &&
+          attachment.thumb_url === nextMessageAttachments[index].thumb_url &&
+          attachment.type === nextMessageAttachments[index].type;
 
-          if (isAttachmentEqual)
-            return (
-              attachmentKeysEqual && !!isAttachmentEqual(attachment, nextMessageAttachments[index])
-            );
+        if (isAttachmentEqual)
+          return (
+            attachmentKeysEqual && !!isAttachmentEqual(attachment, nextMessageAttachments[index])
+          );
 
-          return attachmentKeysEqual;
-        })
+        return attachmentKeysEqual;
+      })
       : prevMessageAttachments === nextMessageAttachments;
   if (!attachmentsEqual) return false;
 
   const latestReactionsEqual =
     Array.isArray(prevMessage.latest_reactions) && Array.isArray(nextMessage.latest_reactions)
       ? prevMessage.latest_reactions.length === nextMessage.latest_reactions.length &&
-        prevMessage.latest_reactions.every(
-          ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
-        )
+      prevMessage.latest_reactions.every(
+        ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
+      )
       : prevMessage.latest_reactions === nextMessage.latest_reactions;
   if (!latestReactionsEqual) return false;
 
@@ -540,17 +540,17 @@ const MemoizedMessageContent = React.memo(
 ) as typeof MessageContentWithContext;
 
 export type MessageContentProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<MessageContentPropsWithContext<StreamChatGenerics>, 'setMessageContentWidth'>> &
-  Pick<MessageContentPropsWithContext<StreamChatGenerics>, 'setMessageContentWidth'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<MessageContentPropsWithContext<ErmisChatGenerics>, 'setMessageContentWidth'>> &
+  Pick<MessageContentPropsWithContext<ErmisChatGenerics>, 'setMessageContentWidth'>;
 
 /**
  * Child of MessageSimple that displays a message's content
  */
 export const MessageContent = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageContentProps<StreamChatGenerics>,
+  props: MessageContentProps<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -573,7 +573,7 @@ export const MessageContent = <
     preventPress,
     showMessageStatus,
     threadList,
-  } = useMessageContext<StreamChatGenerics>();
+  } = useMessageContext<ErmisChatGenerics>();
   const {
     additionalTouchableProps,
     Attachment,
@@ -589,11 +589,11 @@ export const MessageContent = <
     MessageStatus,
     myMessageTheme,
     Reply,
-  } = useMessagesContext<StreamChatGenerics>();
+  } = useMessagesContext<ErmisChatGenerics>();
   const { t } = useTranslationContext();
 
   return (
-    <MemoizedMessageContent<StreamChatGenerics>
+    <MemoizedMessageContent<ErmisChatGenerics>
       {...{
         additionalTouchableProps,
         alignment,

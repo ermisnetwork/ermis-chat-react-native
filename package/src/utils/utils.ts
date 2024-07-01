@@ -9,9 +9,9 @@ import type {
   ChannelMemberResponse,
   CommandResponse,
   FormatMessageResponse,
-  StreamChat,
+  ErmisChat,
   UserResponse,
-} from 'stream-chat';
+} from 'ermis-chat-sdk-test';
 
 import { IconProps } from '../../src/icons/utils/base';
 import { MessageType } from '../components/MessageList/hooks/useMessageList';
@@ -26,7 +26,7 @@ import type {
 } from '../contexts/suggestionsContext/SuggestionsContext';
 import { compiledEmojis, Emoji } from '../emoji-data';
 import type { TableRowJoinedUser } from '../store/types';
-import type { DefaultStreamChatGenerics, ValueOf } from '../types/types';
+import type { DefaultErmisChatGenerics, ValueOf } from '../types/types';
 
 export type ReactionData = {
   Icon: React.ComponentType<IconProps>;
@@ -93,9 +93,9 @@ export const getIndicatorTypeForFileState = (
  * @returns boolean
  */
 export const isBlockedMessage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message: MessageType<StreamChatGenerics> | TableRowJoinedUser<'messages'>,
+  message: MessageType<ErmisChatGenerics> | TableRowJoinedUser<'messages'>,
 ) => {
   // The only indicator for the blocked message is its message type is error and that the message text contains "Message was blocked by moderation policies".
   const pattern = /\bMessage was blocked by moderation policies\b/;
@@ -108,9 +108,9 @@ export const isBlockedMessage = <
  * @returns boolean
  */
 export const isBouncedMessage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message: MessageType<StreamChatGenerics>,
+  message: MessageType<ErmisChatGenerics>,
 ) => message.type === 'error' && message.moderation_details !== undefined;
 
 /**
@@ -119,9 +119,9 @@ export const isBouncedMessage = <
  * @returns boolean
  */
 export const isEditedMessage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message: MessageType<StreamChatGenerics>,
+  message: MessageType<ErmisChatGenerics>,
 ) => !!message.message_text_updated_at;
 
 const defaultAutoCompleteSuggestionsLimit = 10;
@@ -132,47 +132,47 @@ const defaultMentionAllAppUsersQuery = {
 };
 
 const isUserResponse = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  user: SuggestionUser<StreamChatGenerics> | undefined,
-): user is SuggestionUser<StreamChatGenerics> =>
-  (user as SuggestionUser<StreamChatGenerics>) !== undefined;
+  user: SuggestionUser<ErmisChatGenerics> | undefined,
+): user is SuggestionUser<ErmisChatGenerics> =>
+  (user as SuggestionUser<ErmisChatGenerics>) !== undefined;
 
 const getCommands = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
 ) => channel.getConfig()?.commands || [];
 
 const getMembers = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
 ) => {
   const members = channel.state.members;
 
   return Object.values(members).length
     ? (
-        Object.values(members).filter((member) => member.user) as Array<
-          ChannelMemberResponse<StreamChatGenerics> & { user: UserResponse<StreamChatGenerics> }
-        >
-      ).map((member) => member.user)
+      Object.values(members).filter((member) => member.user) as Array<
+        ChannelMemberResponse<ErmisChatGenerics> & { user: UserResponse<ErmisChatGenerics> }
+      >
+    ).map((member) => member.user)
     : [];
 };
 
 const getWatchers = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
 ) => {
   const watchers = channel.state.watchers;
   return Object.values(watchers).length ? [...Object.values(watchers)] : [];
 };
 
 const getMembersAndWatchers = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
 ) => {
   const users = [...getMembers(channel), ...getWatchers(channel)];
 
@@ -183,16 +183,16 @@ const getMembersAndWatchers = <
       }
 
       return acc;
-    }, {} as { [key: string]: SuggestionUser<StreamChatGenerics> }),
+    }, {} as { [key: string]: SuggestionUser<ErmisChatGenerics> }),
   );
 };
 
 const queryMembers = async <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
-  query: SuggestionUser<StreamChatGenerics>['name'],
-  onReady?: (users: SuggestionUser<StreamChatGenerics>[]) => void,
+  channel: Channel<ErmisChatGenerics>,
+  query: SuggestionUser<ErmisChatGenerics>['name'],
+  onReady?: (users: SuggestionUser<ErmisChatGenerics>[]) => void,
   options: {
     limit?: number;
   } = {},
@@ -206,9 +206,9 @@ const queryMembers = async <
       },
       {},
       { limit },
-    )) as ChannelMemberAPIResponse<StreamChatGenerics>;
+    )) as ChannelMemberAPIResponse<ErmisChatGenerics>;
 
-    const users: SuggestionUser<StreamChatGenerics>[] = [];
+    const users: SuggestionUser<ErmisChatGenerics>[] = [];
     response.members.forEach((member) => isUserResponse(member.user) && users.push(member.user));
     if (onReady && users) {
       onReady(users);
@@ -222,14 +222,14 @@ export const queryMembersDebounced = debounce(queryMembers, 200, {
 });
 
 const queryUsers = async <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  client: StreamChat<StreamChatGenerics>,
-  query: SuggestionUser<StreamChatGenerics>['name'],
-  onReady?: (users: SuggestionUser<StreamChatGenerics>[]) => void,
+  client: ErmisChat<ErmisChatGenerics>,
+  query: SuggestionUser<ErmisChatGenerics>['name'],
+  onReady?: (users: SuggestionUser<ErmisChatGenerics>[]) => void,
   options: {
     limit?: number;
-    mentionAllAppUsersQuery?: MentionAllAppUsersQuery<StreamChatGenerics>;
+    mentionAllAppUsersQuery?: MentionAllAppUsersQuery<ErmisChatGenerics>;
   } = {},
 ): Promise<void> => {
   if (typeof query === 'string') {
@@ -253,7 +253,7 @@ const queryUsers = async <
       { id: 1, ...mentionAllAppUsersQuery?.sort },
       { limit, ...mentionAllAppUsersQuery?.options },
     );
-    const users: SuggestionUser<StreamChatGenerics>[] = [];
+    const users: SuggestionUser<ErmisChatGenerics>[] = [];
     response.users.forEach((user) => isUserResponse(user) && users.push(user));
     if (onReady && users) {
       onReady(users);
@@ -275,21 +275,21 @@ export const isMentionTrigger = (trigger: Trigger): trigger is '@' => trigger ==
 export type Trigger = '/' | '@' | ':';
 
 export type TriggerSettings<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   '/'?: {
     dataProvider: (
-      query: CommandResponse<StreamChatGenerics>['name'],
+      query: CommandResponse<ErmisChatGenerics>['name'],
       text: string,
       onReady?: (
-        data: CommandResponse<StreamChatGenerics>[],
-        q: CommandResponse<StreamChatGenerics>['name'],
+        data: CommandResponse<ErmisChatGenerics>[],
+        q: CommandResponse<ErmisChatGenerics>['name'],
       ) => void,
       options?: {
         limit?: number;
       },
-    ) => SuggestionCommand<StreamChatGenerics>[];
-    output: (entity: CommandResponse<StreamChatGenerics>) => {
+    ) => SuggestionCommand<ErmisChatGenerics>[];
+    output: (entity: CommandResponse<ErmisChatGenerics>) => {
       caretPosition: string;
       key: string;
       text: string;
@@ -310,21 +310,21 @@ export type TriggerSettings<
     type: SuggestionComponentType;
   };
   '@'?: {
-    callback: (item: SuggestionUser<StreamChatGenerics>) => void;
+    callback: (item: SuggestionUser<ErmisChatGenerics>) => void;
     dataProvider: (
-      query: SuggestionUser<StreamChatGenerics>['name'],
+      query: SuggestionUser<ErmisChatGenerics>['name'],
       _: string,
       onReady?: (
-        data: SuggestionUser<StreamChatGenerics>[],
-        q: SuggestionUser<StreamChatGenerics>['name'],
+        data: SuggestionUser<ErmisChatGenerics>[],
+        q: SuggestionUser<ErmisChatGenerics>['name'],
       ) => void,
       options?: {
         limit?: number;
         mentionAllAppUsersEnabled?: boolean;
-        mentionAllAppUsersQuery?: MentionAllAppUsersQuery<StreamChatGenerics>;
+        mentionAllAppUsersQuery?: MentionAllAppUsersQuery<ErmisChatGenerics>;
       },
-    ) => SuggestionUser<StreamChatGenerics>[] | Promise<void> | void;
-    output: (entity: SuggestionUser<StreamChatGenerics>) => {
+    ) => SuggestionUser<ErmisChatGenerics>[] | Promise<void> | void;
+    output: (entity: SuggestionUser<ErmisChatGenerics>) => {
       caretPosition: string;
       key: string;
       text: string;
@@ -334,32 +334,32 @@ export type TriggerSettings<
 };
 
 export type ACITriggerSettingsParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  channel: Channel<StreamChatGenerics>;
-  client: StreamChat<StreamChatGenerics>;
-  onMentionSelectItem: (item: SuggestionUser<StreamChatGenerics>) => void;
+  channel: Channel<ErmisChatGenerics>;
+  client: ErmisChat<ErmisChatGenerics>;
+  onMentionSelectItem: (item: SuggestionUser<ErmisChatGenerics>) => void;
   emojiSearchIndex?: EmojiSearchIndex;
 };
 
 export type QueryUsersFunction<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = (
-  client: StreamChat<StreamChatGenerics>,
-  query: SuggestionUser<StreamChatGenerics>['name'],
-  onReady?: (users: SuggestionUser<StreamChatGenerics>[]) => void,
+  client: ErmisChat<ErmisChatGenerics>,
+  query: SuggestionUser<ErmisChatGenerics>['name'],
+  onReady?: (users: SuggestionUser<ErmisChatGenerics>[]) => void,
   options?: {
     limit?: number;
-    mentionAllAppUsersQuery?: MentionAllAppUsersQuery<StreamChatGenerics>;
+    mentionAllAppUsersQuery?: MentionAllAppUsersQuery<ErmisChatGenerics>;
   },
 ) => Promise<void>;
 
 export type QueryMembersFunction<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = (
-  channel: Channel<StreamChatGenerics>,
-  query: SuggestionUser<StreamChatGenerics>['name'],
-  onReady?: (users: SuggestionUser<StreamChatGenerics>[]) => void,
+  channel: Channel<ErmisChatGenerics>,
+  query: SuggestionUser<ErmisChatGenerics>['name'],
+  onReady?: (users: SuggestionUser<ErmisChatGenerics>[]) => void,
   options?: {
     limit?: number;
   },
@@ -412,13 +412,13 @@ export const defaultEmojiSearchIndex: EmojiSearchIndex = {
  * end of debounce executes.
  */
 export const ACITriggerSettings = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   client,
   emojiSearchIndex,
   onMentionSelectItem,
-}: ACITriggerSettingsParams<StreamChatGenerics>): TriggerSettings<StreamChatGenerics> => ({
+}: ACITriggerSettingsParams<ErmisChatGenerics>): TriggerSettings<ErmisChatGenerics> => ({
   '/': {
     dataProvider: (query, text, onReady, options = {}) => {
       if (text.indexOf('/') !== 0) return [];
@@ -493,7 +493,7 @@ export const ACITriggerSettings = <
       },
     ) => {
       if (options?.mentionAllAppUsersEnabled) {
-        return (queryUsersDebounced as DebouncedFunc<QueryUsersFunction<StreamChatGenerics>>)(
+        return (queryUsersDebounced as DebouncedFunc<QueryUsersFunction<ErmisChatGenerics>>)(
           client,
           query,
           (data) => {
@@ -537,7 +537,7 @@ export const ACITriggerSettings = <
         return data;
       }
 
-      return (queryMembersDebounced as DebouncedFunc<QueryMembersFunction<StreamChatGenerics>>)(
+      return (queryMembersDebounced as DebouncedFunc<QueryMembersFunction<ErmisChatGenerics>>)(
         channel,
         query,
         (data) => {
@@ -576,7 +576,7 @@ export const isLocalUrl = (url: string) => url.indexOf('http') !== 0;
 export const generateRandomId = (a = ''): string =>
   a
     ? /* eslint-disable no-bitwise */
-      ((Number(a) ^ (Math.random() * 16)) >> (Number(a) / 4)).toString(16)
+    ((Number(a) ^ (Math.random() * 16)) >> (Number(a) / 4)).toString(16)
     : `${1e7}-${1e3}-${4e3}-${8e3}-${1e11}`.replace(/[018]/g, generateRandomId);
 
 /*
@@ -599,11 +599,11 @@ export const hasOnlyEmojis = (text: string) => {
 
 /**
  * Stringifies a message object
- * @param {FormatMessageResponse<StreamChatGenerics>} message - the message object to be stringified
+ * @param {FormatMessageResponse<ErmisChatGenerics>} message - the message object to be stringified
  * @returns {string} The stringified message
  */
 export const stringifyMessage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   deleted_at,
   latest_reactions,
@@ -614,18 +614,16 @@ export const stringifyMessage = <
   text,
   type,
   updated_at,
-}: FormatMessageResponse<StreamChatGenerics> | MessageType<StreamChatGenerics>): string =>
-  `${
-    latest_reactions ? latest_reactions.map(({ type, user }) => `${type}${user?.id}`).join() : ''
-  }${
-    reaction_groups
-      ? Object.entries(reaction_groups)
-          .flatMap(
-            ([type, { count, first_reaction_at, last_reaction_at }]) =>
-              `${type}${count}${first_reaction_at}${last_reaction_at}`,
-          )
-          .join()
-      : ''
+}: FormatMessageResponse<ErmisChatGenerics> | MessageType<ErmisChatGenerics>): string =>
+  `${latest_reactions ? latest_reactions.map(({ type, user }) => `${type}${user?.id}`).join() : ''
+  }${reaction_groups
+    ? Object.entries(reaction_groups)
+      .flatMap(
+        ([type, { count, first_reaction_at, last_reaction_at }]) =>
+          `${type}${count}${first_reaction_at}${last_reaction_at}`,
+      )
+      .join()
+    : ''
   }${type}${deleted_at}${text}${readBy}${reply_count}${status}${updated_at}`;
 
 /**
@@ -634,9 +632,9 @@ export const stringifyMessage = <
  * @returns {string} The mapped message string
  */
 export const reduceMessagesToString = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  messages: FormatMessageResponse<StreamChatGenerics>[],
+  messages: FormatMessageResponse<ErmisChatGenerics>[],
 ): string => messages.map(stringifyMessage).join();
 
 /**

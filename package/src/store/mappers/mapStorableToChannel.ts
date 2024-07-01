@@ -1,14 +1,14 @@
-import type { ChannelAPIResponse } from 'stream-chat';
+import type { ChannelAPIResponse } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { TableRow } from '../types';
 
 export const mapStorableToChannel = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   channelRow: TableRow<'channels'>,
 ): Omit<
-  ChannelAPIResponse<StreamChatGenerics>,
+  ChannelAPIResponse<ErmisChatGenerics>,
   'duration' | 'messages' | 'members' | 'pinned_messages'
 > => {
   const {

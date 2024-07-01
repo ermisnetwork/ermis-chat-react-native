@@ -1,21 +1,21 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import type { Channel } from 'stream-chat';
+import type { Channel } from 'ermis-chat-sdk-test';
 
 import {
   allOwnCapabilities,
   OwnCapabilitiesContextValue,
   OwnCapability,
 } from '../../../contexts/ownCapabilitiesContext/OwnCapabilitiesContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const useCreateOwnCapabilitiesContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   overrideCapabilities,
 }: {
-  channel: Channel<StreamChatGenerics>;
+  channel: Channel<ErmisChatGenerics>;
   overrideCapabilities?: Partial<OwnCapabilitiesContextValue>;
 }) => {
   const [own_capabilities, setOwnCapabilites] = useState(

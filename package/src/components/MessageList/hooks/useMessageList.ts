@@ -1,4 +1,4 @@
-import type { ChannelState, MessageResponse } from 'stream-chat';
+import type { ChannelState, MessageResponse } from 'ermis-chat-sdk-test';
 
 import {
   ChannelContextValue,
@@ -11,7 +11,7 @@ import {
 } from '../../../contexts/messagesContext/MessagesContext';
 import { usePaginatedMessageListContext } from '../../../contexts/paginatedMessageListContext/PaginatedMessageListContext';
 import { useThreadContext } from '../../../contexts/threadContext/ThreadContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { getDateSeparators } from '../utils/getDateSeparators';
 import { getGroupStyles } from '../utils/getGroupStyles';
 import { getReadStates } from '../utils/getReadStates';
@@ -25,54 +25,54 @@ export type UseMessageListParams = {
 export type GroupType = string;
 
 export type MessagesWithStylesReadByAndDateSeparator<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = MessageResponse<StreamChatGenerics> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = MessageResponse<ErmisChatGenerics> & {
   groupStyles: GroupType[];
   readBy: boolean | number;
   dateSeparator?: Date;
 };
 
 export type MessageType<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > =
-  | ReturnType<ChannelState<StreamChatGenerics>['formatMessage']>
-  | MessagesWithStylesReadByAndDateSeparator<StreamChatGenerics>;
+  | ReturnType<ChannelState<ErmisChatGenerics>['formatMessage']>
+  | MessagesWithStylesReadByAndDateSeparator<ErmisChatGenerics>;
 
 // Type guards to check MessageType
 export const isMessageWithStylesReadByAndDateSeparator = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message: MessageType<StreamChatGenerics>,
-): message is MessagesWithStylesReadByAndDateSeparator<StreamChatGenerics> =>
-  (message as MessagesWithStylesReadByAndDateSeparator<StreamChatGenerics>).readBy !== undefined;
+  message: MessageType<ErmisChatGenerics>,
+): message is MessagesWithStylesReadByAndDateSeparator<ErmisChatGenerics> =>
+  (message as MessagesWithStylesReadByAndDateSeparator<ErmisChatGenerics>).readBy !== undefined;
 
 export const useMessageList = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   params: UseMessageListParams,
 ) => {
   const { noGroupByUser, threadList } = params;
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
   const { hideDateSeparators, maxTimeBetweenGroupedMessages, read } =
-    useChannelContext<StreamChatGenerics>();
+    useChannelContext<ErmisChatGenerics>();
   const { deletedMessagesVisibilityType, getMessagesGroupStyles = getGroupStyles } =
-    useMessagesContext<StreamChatGenerics>();
-  const { messages } = usePaginatedMessageListContext<StreamChatGenerics>();
-  const { threadMessages } = useThreadContext<StreamChatGenerics>();
+    useMessagesContext<ErmisChatGenerics>();
+  const { messages } = usePaginatedMessageListContext<ErmisChatGenerics>();
+  const { threadMessages } = useThreadContext<ErmisChatGenerics>();
 
   const messageList = threadList ? threadMessages : messages;
-  const readList: ChannelContextValue<StreamChatGenerics>['read'] | undefined = threadList
+  const readList: ChannelContextValue<ErmisChatGenerics>['read'] | undefined = threadList
     ? undefined
     : read;
 
-  const dateSeparators = getDateSeparators<StreamChatGenerics>({
+  const dateSeparators = getDateSeparators<ErmisChatGenerics>({
     deletedMessagesVisibilityType,
     hideDateSeparators,
     messages: messageList,
     userId: client.userID,
   });
 
-  const messageGroupStyles = getMessagesGroupStyles<StreamChatGenerics>({
+  const messageGroupStyles = getMessagesGroupStyles<ErmisChatGenerics>({
     dateSeparators,
     hideDateSeparators,
     maxTimeBetweenGroupedMessages,
@@ -105,7 +105,7 @@ export const useMessageList = <
 
   const processedMessageList = [
     ...messagesWithStylesReadByAndDateSeparator,
-  ].reverse() as MessageType<StreamChatGenerics>[];
+  ].reverse() as MessageType<ErmisChatGenerics>[];
 
   return {
     /** Messages enriched with dates/readby/groups and also reversed in order */

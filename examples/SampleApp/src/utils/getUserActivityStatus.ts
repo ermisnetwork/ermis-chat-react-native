@@ -1,15 +1,15 @@
 import Dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
-import { StreamChatGenerics } from '../types';
+import { ErmisChatGenerics } from '../types';
 
 import type { Immutable } from 'seamless-immutable';
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
 Dayjs.extend(relativeTime);
 
 export const getUserActivityStatus = (
-  user?: Immutable<UserResponse<StreamChatGenerics>> | UserResponse<StreamChatGenerics>,
+  user?: Immutable<UserResponse<ErmisChatGenerics>> | UserResponse<ErmisChatGenerics>,
 ) => {
   if (!user) {
     return '';

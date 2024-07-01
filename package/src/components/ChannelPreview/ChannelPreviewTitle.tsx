@@ -4,15 +4,15 @@ import { StyleSheet, Text } from 'react-native';
 import type { ChannelPreviewProps } from './ChannelPreview';
 
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   title: { fontSize: 14, fontWeight: '700' },
 });
 
 export type ChannelPreviewTitleProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelPreviewProps<StreamChatGenerics>, 'channel'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'> & {
   /**
    * Formatted name for the previewed channel.
    */
@@ -20,9 +20,9 @@ export type ChannelPreviewTitleProps<
 };
 
 export const ChannelPreviewTitle = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewTitleProps<StreamChatGenerics>,
+  props: ChannelPreviewTitleProps<ErmisChatGenerics>,
 ) => {
   const { displayName } = props;
   const {

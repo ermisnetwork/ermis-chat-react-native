@@ -16,7 +16,7 @@ import {
 import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const styles = StyleSheet.create({
   containerInner: {
@@ -41,15 +41,15 @@ type MessageDeletedComponentProps = {
 };
 
 type MessageDeletedPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageContextValue<StreamChatGenerics>, 'alignment' | 'message'> &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'MessageFooter'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageContextValue<ErmisChatGenerics>, 'alignment' | 'message'> &
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'MessageFooter'> &
   MessageDeletedComponentProps;
 
 const MessageDeletedWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageDeletedPropsWithContext<StreamChatGenerics>,
+  props: MessageDeletedPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { alignment, date, groupStyle, message, MessageFooter, noBorder, onLayout } = props;
 
@@ -96,7 +96,7 @@ const MessageDeletedWithContext = <
         ]}
         testID='message-content-wrapper'
       >
-        <MessageTextContainer<StreamChatGenerics>
+        <MessageTextContainer<ErmisChatGenerics>
           markdownStyles={merge({ em: { color: grey } }, deletedText)}
           message={{ ...message, text: `_${t('Message deleted')}_` }}
         />
@@ -106,9 +106,9 @@ const MessageDeletedWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageDeletedPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageDeletedPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageDeletedPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageDeletedPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { alignment: prevAlignment, date: prevDate, message: prevMessage } = prevProps;
   const { alignment: nextAlignment, date: nextDate, message: nextMessage } = nextProps;
@@ -139,21 +139,21 @@ const MemoizedMessageDeleted = React.memo(
 ) as typeof MessageDeletedWithContext;
 
 export type MessageDeletedProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageDeletedPropsWithContext<StreamChatGenerics>> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageDeletedPropsWithContext<ErmisChatGenerics>> & {
   groupStyle: string;
   noBorder: boolean;
   onLayout: (event: LayoutChangeEvent) => void;
 };
 
 export const MessageDeleted = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageDeletedProps<StreamChatGenerics>,
+  props: MessageDeletedProps<ErmisChatGenerics>,
 ) => {
-  const { alignment, message } = useMessageContext<StreamChatGenerics>();
+  const { alignment, message } = useMessageContext<ErmisChatGenerics>();
 
-  const { MessageFooter } = useMessagesContext<StreamChatGenerics>();
+  const { MessageFooter } = useMessagesContext<ErmisChatGenerics>();
 
   return (
     <MemoizedMessageDeleted

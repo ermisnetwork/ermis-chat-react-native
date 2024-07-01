@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext, useState } from 'react';
 
 import type { MessageType } from '../../components/MessageList/hooks/useMessageList';
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
@@ -13,10 +13,10 @@ type SelectedMessage = {
 };
 
 export type ImageGalleryContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  messages: MessageType<StreamChatGenerics>[];
-  setMessages: React.Dispatch<React.SetStateAction<MessageType<StreamChatGenerics>[]>>;
+  messages: MessageType<ErmisChatGenerics>[];
+  setMessages: React.Dispatch<React.SetStateAction<MessageType<ErmisChatGenerics>[]>>;
   setSelectedMessage: React.Dispatch<React.SetStateAction<SelectedMessage | undefined>>;
   selectedMessage?: SelectedMessage;
 };
@@ -26,11 +26,11 @@ export const ImageGalleryContext = React.createContext(
 );
 
 export const ImageGalleryProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
 }: PropsWithChildren<UnknownType>) => {
-  const [messages, setMessages] = useState<MessageType<StreamChatGenerics>[]>([]);
+  const [messages, setMessages] = useState<MessageType<ErmisChatGenerics>[]>([]);
   const [selectedMessage, setSelectedMessage] = useState<SelectedMessage>();
 
   return (
@@ -50,11 +50,11 @@ export const ImageGalleryProvider = <
 };
 
 export const useImageGalleryContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     ImageGalleryContext,
-  ) as unknown as ImageGalleryContextValue<StreamChatGenerics>;
+  ) as unknown as ImageGalleryContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -62,7 +62,7 @@ export const useImageGalleryContext = <
     );
   }
 
-  return contextValue as ImageGalleryContextValue<StreamChatGenerics>;
+  return contextValue as ImageGalleryContextValue<ErmisChatGenerics>;
 };
 
 /**
@@ -76,14 +76,14 @@ export const useImageGalleryContext = <
  */
 export const withImageGalleryContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof ImageGalleryContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof ImageGalleryContextValue<ErmisChatGenerics>>> => {
   const WithImageGalleryContextComponent = (
-    props: Omit<P, keyof ImageGalleryContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof ImageGalleryContextValue<ErmisChatGenerics>>,
   ) => {
-    const imageGalleryContext = useImageGalleryContext<StreamChatGenerics>();
+    const imageGalleryContext = useImageGalleryContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...imageGalleryContext} />;
   };

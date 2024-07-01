@@ -1,13 +1,13 @@
-import type { ReadResponse } from 'stream-chat';
+import type { ReadResponse } from 'ermis-chat-sdk-test';
 
 import { selectReadsForChannels } from './queries/selectReadsForChannels';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { mapStorableToRead } from '../mappers/mapStorableToRead';
 import { QuickSqliteClient } from '../QuickSqliteClient';
 
 export const getReads = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channelIds,
 }: {
@@ -15,13 +15,13 @@ export const getReads = <
 }) => {
   QuickSqliteClient.logger?.('info', 'getReads', { channelIds });
   const reads = selectReadsForChannels(channelIds);
-  const cidVsReads: Record<string, ReadResponse<StreamChatGenerics>[]> = {};
+  const cidVsReads: Record<string, ReadResponse<ErmisChatGenerics>[]> = {};
 
   reads.forEach((read) => {
     if (!cidVsReads[read.cid]) {
       cidVsReads[read.cid] = [];
     }
-    cidVsReads[read.cid].push(mapStorableToRead<StreamChatGenerics>(read));
+    cidVsReads[read.cid].push(mapStorableToRead<ErmisChatGenerics>(read));
   });
 
   return cidVsReads;

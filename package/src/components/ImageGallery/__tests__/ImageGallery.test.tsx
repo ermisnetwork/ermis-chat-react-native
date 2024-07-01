@@ -17,7 +17,7 @@ import {
   generateVideoAttachment,
 } from '../../../mock-builders/generator/attachment';
 import { generateMessage } from '../../../mock-builders/generator/message';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import type { MessageType } from '../../MessageList/hooks/useMessageList';
 import { ImageGallery } from '../ImageGallery';
 
@@ -54,7 +54,7 @@ describe('ImageGallery', () => {
               generateVideoAttachment({ type: 'video' }),
             ],
           }),
-        ] as unknown as MessageType<DefaultStreamChatGenerics>[],
+        ] as unknown as MessageType<DefaultErmisChatGenerics>[],
       }),
     );
 
@@ -71,7 +71,7 @@ describe('ImageGallery', () => {
     });
     render(
       getComponent({
-        messages: [message] as unknown as MessageType<DefaultStreamChatGenerics>[],
+        messages: [message] as unknown as MessageType<DefaultErmisChatGenerics>[],
       }),
     );
 
@@ -100,7 +100,7 @@ describe('ImageGallery', () => {
           generateMessage({
             attachments: [generateVideoAttachment({ type: 'video' })],
           }),
-        ] as unknown as MessageType<DefaultStreamChatGenerics>[],
+        ] as unknown as MessageType<DefaultErmisChatGenerics>[],
       }),
     );
 
@@ -126,7 +126,7 @@ describe('ImageGallery', () => {
 
     render(
       getComponent({
-        messages: [message] as unknown as MessageType<DefaultStreamChatGenerics>[],
+        messages: [message] as unknown as MessageType<DefaultErmisChatGenerics>[],
       }),
     );
 
@@ -161,7 +161,7 @@ describe('ImageGallery', () => {
           generateMessage({
             attachments: [generateVideoAttachment({ type: 'video' })],
           }),
-        ] as unknown as MessageType<DefaultStreamChatGenerics>[],
+        ] as unknown as MessageType<DefaultErmisChatGenerics>[],
       }),
     );
 
@@ -191,7 +191,7 @@ describe('ImageGallery', () => {
     });
     render(
       getComponent({
-        messages: [message] as unknown as MessageType<DefaultStreamChatGenerics>[],
+        messages: [message] as unknown as MessageType<DefaultErmisChatGenerics>[],
       }),
     );
 

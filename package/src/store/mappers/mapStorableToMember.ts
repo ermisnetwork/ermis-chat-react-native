@@ -1,15 +1,15 @@
-import type { ChannelMemberResponse } from 'stream-chat';
+import type { ChannelMemberResponse } from 'ermis-chat-sdk-test';
 
 import { mapStorableToUser } from './mapStorableToUser';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { TableRowJoinedUser } from '../types';
 
 export const mapStorableToMember = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   memberRow: TableRowJoinedUser<'members'>,
-): ChannelMemberResponse<StreamChatGenerics> => {
+): ChannelMemberResponse<ErmisChatGenerics> => {
   const {
     banned,
     channelRole,

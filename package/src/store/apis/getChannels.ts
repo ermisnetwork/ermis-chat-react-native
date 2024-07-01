@@ -1,11 +1,11 @@
-import type { ChannelAPIResponse } from 'stream-chat';
+import type { ChannelAPIResponse } from 'ermis-chat-sdk-test';
 
 import { getChannelMessages } from './getChannelMessages';
 import { getMembers } from './getMembers';
 import { getReads } from './getReads';
 import { selectChannels } from './queries/selectChannels';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { mapStorableToChannel } from '../mappers/mapStorableToChannel';
 import { QuickSqliteClient } from '../QuickSqliteClient';
 
@@ -19,27 +19,27 @@ import { QuickSqliteClient } from '../QuickSqliteClient';
  * @returns {Array} Channels with enriched state.
  */
 export const getChannels = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channelIds,
   currentUserId,
 }: {
   channelIds: string[];
   currentUserId: string;
-}): Omit<ChannelAPIResponse<StreamChatGenerics>, 'duration'>[] => {
+}): Omit<ChannelAPIResponse<ErmisChatGenerics>, 'duration'>[] => {
   QuickSqliteClient.logger?.('info', 'getChannels', { channelIds, currentUserId });
   const channels = selectChannels({ channelIds });
 
-  const cidVsMembers = getMembers<StreamChatGenerics>({ channelIds });
-  const cidVsReads = getReads<StreamChatGenerics>({ channelIds });
-  const cidVsMessages = getChannelMessages<StreamChatGenerics>({
+  const cidVsMembers = getMembers<ErmisChatGenerics>({ channelIds });
+  const cidVsReads = getReads<ErmisChatGenerics>({ channelIds });
+  const cidVsMessages = getChannelMessages<ErmisChatGenerics>({
     channelIds,
     currentUserId,
   });
 
   // Enrich the channels with state
   return channels.map((c) => ({
-    ...mapStorableToChannel<StreamChatGenerics>(c),
+    ...mapStorableToChannel<ErmisChatGenerics>(c),
     members: cidVsMembers[c.cid],
     messages: cidVsMessages[c.cid],
     pinned_messages: [],

@@ -1,4 +1,4 @@
-import type { ReadResponse } from 'stream-chat';
+import type { ReadResponse } from 'ermis-chat-sdk-test';
 
 import { mapReadToStorable } from '../mappers/mapReadToStorable';
 import { mapUserToStorable } from '../mappers/mapUserToStorable';

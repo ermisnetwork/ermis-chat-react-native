@@ -1,4 +1,4 @@
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { buildGalleryOfSingleImage } from './buildGalleryOfSingleImage';
 import { buildGalleryOfThreeImages } from './buildGalleryOfThreeImages';
@@ -8,7 +8,7 @@ import { buildThumbnailGrid } from './buildThumbnailGrid';
 
 import type { GallerySizeAndThumbnailGrid, GallerySizeConfig } from './types';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 
 /**
  * Builds and returns a gallery of optimized images to be rendered on UI.
@@ -27,12 +27,12 @@ import type { DefaultStreamChatGenerics } from '../../../../types/types';
  * @return {GallerySizeAndThumbnailGrid}
  */
 export function buildGallery<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   images,
   sizeConfig,
 }: {
-  images: Attachment<StreamChatGenerics>[];
+  images: Attachment<ErmisChatGenerics>[];
   sizeConfig: GallerySizeConfig;
 }): GallerySizeAndThumbnailGrid {
   if (images.length === 1) {

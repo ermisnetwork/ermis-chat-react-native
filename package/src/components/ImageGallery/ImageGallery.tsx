@@ -19,7 +19,7 @@ import Animated, {
 
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
 import { AnimatedGalleryImage } from './components/AnimatedGalleryImage';
 import { AnimatedGalleryVideo } from './components/AnimatedGalleryVideo';
@@ -48,7 +48,7 @@ import {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useViewport } from '../../hooks/useViewport';
 import { isVideoPackageAvailable, VideoType } from '../../native';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getResizedImageUrl } from '../../utils/getResizedImageUrl';
 import { getUrlOfImageAttachment } from '../../utils/getUrlOfImageAttachment';
 import { getGiphyMimeType } from '../Attachment/utils/getGiphyMimeType';
@@ -69,7 +69,7 @@ export enum IsSwiping {
 }
 
 export type ImageGalleryCustomComponents<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
    * Override props for following UI components, which are part of [image gallery](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#gallery-components).
@@ -103,29 +103,29 @@ export type ImageGalleryCustomComponents<
    * @overrideType object
    */
   imageGalleryCustomComponents?: {
-    footer?: ImageGalleryFooterCustomComponentProps<StreamChatGenerics>;
-    grid?: ImageGalleryGridImageComponents<StreamChatGenerics>;
+    footer?: ImageGalleryFooterCustomComponentProps<ErmisChatGenerics>;
+    grid?: ImageGalleryGridImageComponents<ErmisChatGenerics>;
     gridHandle?: ImageGalleryGridHandleCustomComponentProps;
-    header?: ImageGalleryHeaderCustomComponentProps<StreamChatGenerics>;
+    header?: ImageGalleryHeaderCustomComponentProps<ErmisChatGenerics>;
   };
 };
 
-type Props<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
-  ImageGalleryCustomComponents<StreamChatGenerics> & {
+type Props<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
+  ImageGalleryCustomComponents<ErmisChatGenerics> & {
     overlayOpacity: Animated.SharedValue<number>;
   } & Pick<
-      OverlayProviderProps<StreamChatGenerics>,
-      | 'giphyVersion'
-      | 'imageGalleryGridSnapPoints'
-      | 'imageGalleryGridHandleHeight'
-      | 'numberOfImageGalleryGridColumns'
-      | 'autoPlayVideo'
-    >;
+    OverlayProviderProps<ErmisChatGenerics>,
+    | 'giphyVersion'
+    | 'imageGalleryGridSnapPoints'
+    | 'imageGalleryGridHandleHeight'
+    | 'numberOfImageGalleryGridColumns'
+    | 'autoPlayVideo'
+  >;
 
 export const ImageGallery = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: Props<StreamChatGenerics>,
+  props: Props<ErmisChatGenerics>,
 ) => {
   const {
     autoPlayVideo = false,
@@ -137,7 +137,7 @@ export const ImageGallery = <
     overlayOpacity,
   } = props;
   const [imageGalleryAttachments, setImageGalleryAttachments] = useState<
-    Photo<StreamChatGenerics>[]
+    Photo<ErmisChatGenerics>[]
   >([]);
   const {
     theme: {
@@ -145,10 +145,10 @@ export const ImageGallery = <
       imageGallery: { backgroundColor, pager, slide },
     },
   } = useTheme();
-  const [gridPhotos, setGridPhotos] = useState<Photo<StreamChatGenerics>[]>([]);
+  const [gridPhotos, setGridPhotos] = useState<Photo<ErmisChatGenerics>[]>([]);
   const { overlay } = useOverlayContext();
   const { messages, selectedMessage, setSelectedMessage } =
-    useImageGalleryContext<StreamChatGenerics>();
+    useImageGalleryContext<ErmisChatGenerics>();
 
   const { vh, vw } = useViewport();
 
@@ -234,7 +234,7 @@ export const ImageGallery = <
    * photo attachments
    */
 
-  const photos = messages.reduce((acc: Photo<StreamChatGenerics>[], cur) => {
+  const photos = messages.reduce((acc: Photo<ErmisChatGenerics>[], cur) => {
     const attachmentImages =
       cur.attachments
         ?.filter(
@@ -273,16 +273,16 @@ export const ImageGallery = <
           a.type === 'giphy'
             ? giphyURL
             : getResizedImageUrl({
-                height: fullWindowHeight,
-                url: imageUrl,
-                width: fullWindowWidth,
-              }),
+              height: fullWindowHeight,
+              url: imageUrl,
+              width: fullWindowWidth,
+            }),
         user: cur.user,
         user_id: cur.user_id,
       };
     });
 
-    return [...attachmentPhotos, ...acc] as Photo<StreamChatGenerics>[];
+    return [...attachmentPhotos, ...acc] as Photo<ErmisChatGenerics>[];
   }, []);
 
   /**
@@ -381,10 +381,10 @@ export const ImageGallery = <
         ? 1 - translateY.value / quarterScreenHeight
         : currentImageHeight * scale.value > fullWindowHeight &&
           translateY.value > (currentImageHeight / 2) * scale.value - halfScreenHeight
-        ? 1 -
+          ? 1 -
           (translateY.value - ((currentImageHeight / 2) * scale.value - halfScreenHeight)) /
-            quarterScreenHeight
-        : 1,
+          quarterScreenHeight
+          : 1,
     [currentImageHeight],
   );
 
@@ -616,7 +616,7 @@ export const ImageGallery = <
           </TapGestureHandler>
         </Animated.View>
       </TapGestureHandler>
-      <ImageGalleryHeader<StreamChatGenerics>
+      <ImageGalleryHeader<ErmisChatGenerics>
         opacity={headerFooterOpacity}
         photo={imageGalleryAttachments[selectedIndex]}
         visible={headerFooterVisible}
@@ -624,7 +624,7 @@ export const ImageGallery = <
       />
 
       {imageGalleryAttachments[selectedIndex] && (
-        <ImageGalleryFooter<StreamChatGenerics>
+        <ImageGalleryFooter<ErmisChatGenerics>
           accessibilityLabel={'Image Gallery Footer'}
           duration={imageGalleryAttachments[selectedIndex].duration || 0}
           onPlayPause={onPlayPause}
@@ -691,7 +691,7 @@ const styles = StyleSheet.create({
 });
 
 export type Photo<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   id: string;
   uri: string;
@@ -706,7 +706,7 @@ export type Photo<
   progress?: number;
   thumb_url?: string;
   type?: string;
-  user?: UserResponse<StreamChatGenerics> | null;
+  user?: UserResponse<ErmisChatGenerics> | null;
   user_id?: string;
 };
 

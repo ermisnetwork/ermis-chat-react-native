@@ -1,18 +1,18 @@
-import type { ReadResponse } from 'stream-chat';
+import type { ReadResponse } from 'ermis-chat-sdk-test';
 
 import { mapDateTimeToStorable } from './mapDateTimeToStorable';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { TableRow } from '../types';
 
 export const mapReadToStorable = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   cid,
   read,
 }: {
   cid: string;
-  read: ReadResponse<StreamChatGenerics>;
+  read: ReadResponse<ErmisChatGenerics>;
 }): TableRow<'reads'> => {
   const { last_read, unread_messages, user } = read;
 

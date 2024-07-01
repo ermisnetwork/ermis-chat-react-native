@@ -8,7 +8,7 @@ import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { ThreadContextValue, useThreadContext } from '../../contexts/threadContext/ThreadContext';
 import { TypingContextValue, useTypingContext } from '../../contexts/typingContext/TypingContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,15 +19,15 @@ const styles = StyleSheet.create({
 });
 
 type TypingIndicatorContainerPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<TypingContextValue<StreamChatGenerics>, 'typing'> &
-  Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'thread'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<TypingContextValue<ErmisChatGenerics>, 'typing'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'thread'>;
 
 const TypingIndicatorContainerWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: PropsWithChildren<TypingIndicatorContainerPropsWithContext<StreamChatGenerics>>,
+  props: PropsWithChildren<TypingIndicatorContainerPropsWithContext<ErmisChatGenerics>>,
 ) => {
   const { children, client, thread, typing } = props;
 
@@ -50,17 +50,17 @@ const TypingIndicatorContainerWithContext = <
 };
 
 export type TypingIndicatorContainerProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = PropsWithChildren<Partial<TypingIndicatorContainerPropsWithContext<StreamChatGenerics>>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = PropsWithChildren<Partial<TypingIndicatorContainerPropsWithContext<ErmisChatGenerics>>>;
 
 export const TypingIndicatorContainer = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: TypingIndicatorContainerProps<StreamChatGenerics>,
+  props: TypingIndicatorContainerProps<ErmisChatGenerics>,
 ) => {
-  const { typing } = useTypingContext<StreamChatGenerics>();
-  const { client } = useChatContext<StreamChatGenerics>();
-  const { thread } = useThreadContext<StreamChatGenerics>();
+  const { typing } = useTypingContext<ErmisChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
+  const { thread } = useThreadContext<ErmisChatGenerics>();
 
   return <TypingIndicatorContainerWithContext {...{ client, thread, typing }} {...props} />;
 };

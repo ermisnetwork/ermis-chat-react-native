@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 
 import type { ImageProps } from 'react-native';
 
-import type { Attachment, TranslationLanguages } from 'stream-chat';
+import type { Attachment, TranslationLanguages } from 'ermis-chat-sdk-test';
 
 import { useResettableState } from './hooks/useResettableState';
 
@@ -15,7 +15,7 @@ import type {
 import type { OverlayReactionListProps } from '../../components/MessageOverlay/OverlayReactionList';
 import type { OverlayReactionsProps } from '../../components/MessageOverlay/OverlayReactions';
 import type { OverlayReactionsAvatarProps } from '../../components/MessageOverlay/OverlayReactionsAvatar';
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import type { ReactionData } from '../../utils/utils';
 import type { ChatContextValue } from '../chatContext/ChatContext';
 import type { Alignment, MessageContextValue } from '../messageContext/MessageContext';
@@ -27,57 +27,57 @@ import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
 export type MessageOverlayData<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   alignment?: Alignment;
-  chatContext?: ChatContextValue<StreamChatGenerics>;
+  chatContext?: ChatContextValue<ErmisChatGenerics>;
   clientId?: string;
-  files?: Attachment<StreamChatGenerics>[];
+  files?: Attachment<ErmisChatGenerics>[];
   groupStyles?: GroupType[];
   handleReaction?: (reactionType: string) => Promise<void>;
   ImageComponent?: React.ComponentType<ImageProps>;
-  images?: Attachment<StreamChatGenerics>[];
-  message?: MessageType<StreamChatGenerics>;
+  images?: Attachment<ErmisChatGenerics>[];
+  message?: MessageType<ErmisChatGenerics>;
   messageActions?: MessageActionType[];
-  messageContext?: MessageContextValue<StreamChatGenerics>;
+  messageContext?: MessageContextValue<ErmisChatGenerics>;
   messageReactionTitle?: string;
-  messagesContext?: MessagesContextValue<StreamChatGenerics>;
+  messagesContext?: MessagesContextValue<ErmisChatGenerics>;
   onlyEmojis?: boolean;
-  otherAttachments?: Attachment<StreamChatGenerics>[];
-  OverlayReactionList?: React.ComponentType<OverlayReactionListProps<StreamChatGenerics>>;
+  otherAttachments?: Attachment<ErmisChatGenerics>[];
+  OverlayReactionList?: React.ComponentType<OverlayReactionListProps<ErmisChatGenerics>>;
   ownCapabilities?: OwnCapabilitiesContextValue;
   supportedReactions?: ReactionData[];
   threadList?: boolean;
   userLanguage?: TranslationLanguages;
-  videos?: Attachment<StreamChatGenerics>[];
+  videos?: Attachment<ErmisChatGenerics>[];
 };
 
 export type MessageOverlayContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
    * Custom UI component for rendering [message actions](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/2.png) in overlay.
    *
    * **Default** [MessageActionList](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageOverlay/MessageActions.tsx)
    */
-  MessageActionList: React.ComponentType<MessageActionListProps<StreamChatGenerics>>;
-  MessageActionListItem: React.ComponentType<MessageActionListItemProps<StreamChatGenerics>>;
+  MessageActionList: React.ComponentType<MessageActionListProps<ErmisChatGenerics>>;
+  MessageActionListItem: React.ComponentType<MessageActionListItemProps<ErmisChatGenerics>>;
   /**
    * Custom UI component for rendering [reaction selector](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/2.png) in overlay (which shows up on long press on message).
    *
    * **Default** [OverlayReactionList](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageOverlay/OverlayReactionList.tsx)
    */
-  OverlayReactionList: React.ComponentType<OverlayReactionListProps<StreamChatGenerics>>;
+  OverlayReactionList: React.ComponentType<OverlayReactionListProps<ErmisChatGenerics>>;
   /**
    * Custom UI component for rendering [reactions list](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/2.png), in overlay (which shows up on long press on message).
    *
    * **Default** [OverlayReactions](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageOverlay/OverlayReactions.tsx)
    */
-  OverlayReactions: React.ComponentType<OverlayReactionsProps<StreamChatGenerics>>;
+  OverlayReactions: React.ComponentType<OverlayReactionsProps<ErmisChatGenerics>>;
   OverlayReactionsAvatar: React.ComponentType<OverlayReactionsAvatarProps>;
   reset: () => void;
-  setData: React.Dispatch<React.SetStateAction<MessageOverlayData<StreamChatGenerics>>>;
-  data?: MessageOverlayData<StreamChatGenerics>;
+  setData: React.Dispatch<React.SetStateAction<MessageOverlayData<ErmisChatGenerics>>>;
+  data?: MessageOverlayData<ErmisChatGenerics>;
 };
 
 export const MessageOverlayContext = React.createContext(
@@ -85,12 +85,12 @@ export const MessageOverlayContext = React.createContext(
 );
 
 export const MessageOverlayProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value?: MessageOverlayContextValue<StreamChatGenerics>;
+  value?: MessageOverlayContextValue<ErmisChatGenerics>;
 }>) => {
   const messageOverlayContext = useResettableState(value);
   return (
@@ -103,11 +103,11 @@ export const MessageOverlayProvider = <
 };
 
 export const useMessageOverlayContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     MessageOverlayContext,
-  ) as unknown as MessageOverlayContextValue<StreamChatGenerics>;
+  ) as unknown as MessageOverlayContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -129,14 +129,14 @@ export const useMessageOverlayContext = <
  */
 export const withMessageOverlayContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof MessageOverlayContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof MessageOverlayContextValue<ErmisChatGenerics>>> => {
   const WithMessageOverlayContextComponent = (
-    props: Omit<P, keyof MessageOverlayContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof MessageOverlayContextValue<ErmisChatGenerics>>,
   ) => {
-    const messageContext = useMessageOverlayContext<StreamChatGenerics>();
+    const messageContext = useMessageOverlayContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...messageContext} />;
   };

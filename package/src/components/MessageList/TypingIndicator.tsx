@@ -5,7 +5,7 @@ import { useTypingString } from './hooks/useTypingString';
 
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { LoadingDots } from '../Indicators/LoadingDots';
 
 const styles = StyleSheet.create({
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 });
 
 export const TypingIndicator = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const {
     theme: {
@@ -32,7 +32,7 @@ export const TypingIndicator = <
       typingIndicator: { container, text },
     },
   } = useTheme();
-  const typingString = useTypingString<StreamChatGenerics>();
+  const typingString = useTypingString<ErmisChatGenerics>();
 
   return (
     <View

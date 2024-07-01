@@ -15,7 +15,7 @@ import {
   useTranslationContext,
 } from '../../../contexts/translationContext/TranslationContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
 });
 
 export type MessageRepliesPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   | 'alignment'
   | 'message'
   | 'onLongPress'
@@ -61,16 +61,16 @@ export type MessageRepliesPropsWithContext<
   | 'preventPress'
   | 'threadList'
 > &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'MessageRepliesAvatars'> &
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'MessageRepliesAvatars'> &
   Pick<TranslationContextValue, 't'> & {
     noBorder?: boolean;
     repliesCurveColor?: ColorValue;
   };
 
 const MessageRepliesWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageRepliesPropsWithContext<StreamChatGenerics>,
+  props: MessageRepliesPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -150,8 +150,8 @@ const MessageRepliesWithContext = <
           {message.reply_count === 1
             ? t<string>('1 Thread Reply')
             : t<string>('{{ replyCount }} Thread Replies', {
-                replyCount: message.reply_count,
-              })}
+              replyCount: message.reply_count,
+            })}
         </Text>
       </TouchableOpacity>
       {alignment === 'right' && (
@@ -173,9 +173,9 @@ const MessageRepliesWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageRepliesPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageRepliesPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageRepliesPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageRepliesPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     message: prevMessage,
@@ -216,13 +216,13 @@ const MemoizedMessageReplies = React.memo(
 ) as typeof MessageRepliesWithContext;
 
 export type MessageRepliesProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageRepliesPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageRepliesPropsWithContext<ErmisChatGenerics>>;
 
 export const MessageReplies = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageRepliesProps<StreamChatGenerics>,
+  props: MessageRepliesProps<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -233,8 +233,8 @@ export const MessageReplies = <
     onPressIn,
     preventPress,
     threadList,
-  } = useMessageContext<StreamChatGenerics>();
-  const { MessageRepliesAvatars } = useMessagesContext<StreamChatGenerics>();
+  } = useMessageContext<ErmisChatGenerics>();
+  const { MessageRepliesAvatars } = useMessagesContext<ErmisChatGenerics>();
   const { t } = useTranslationContext();
 
   return (

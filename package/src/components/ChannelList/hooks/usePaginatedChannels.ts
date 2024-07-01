@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import type { Channel, ChannelFilters, ChannelOptions, ChannelSort } from 'stream-chat';
+import type { Channel, ChannelFilters, ChannelOptions, ChannelSort } from 'ermis-chat-sdk-test';
 
 import { useActiveChannelsRefContext } from '../../../contexts/activeChannelsRefContext/ActiveChannelsRefContext';
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { useIsMountedRef } from '../../../hooks/useIsMountedRef';
 
 import { getChannelsForFilterSort } from '../../../store/apis/getChannelsForFilterSort';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { ONE_SECOND_IN_MS } from '../../../utils/date';
 import { DBSyncManager } from '../../../utils/DBSyncManager';
 import { MAX_QUERY_CHANNELS_LIMIT } from '../utils';
@@ -17,13 +17,13 @@ const waitSeconds = (seconds: number) =>
     setTimeout(resolve, seconds * ONE_SECOND_IN_MS);
   });
 
-type Parameters<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
+type Parameters<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
   {
     enableOfflineSupport: boolean;
-    filters: ChannelFilters<StreamChatGenerics>;
+    filters: ChannelFilters<ErmisChatGenerics>;
     options: ChannelOptions;
     setForceUpdate: React.Dispatch<React.SetStateAction<number>>;
-    sort: ChannelSort<StreamChatGenerics>;
+    sort: ChannelSort<ErmisChatGenerics>;
   };
 
 const DEFAULT_OPTIONS = {
@@ -38,22 +38,22 @@ type QueryType = 'queryLocalDB' | 'reload' | 'refresh' | 'loadChannels';
 export type QueryChannels = (queryType?: QueryType, retryCount?: number) => Promise<void>;
 
 export const usePaginatedChannels = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   enableOfflineSupport,
   filters = {},
   options = DEFAULT_OPTIONS,
   setForceUpdate,
   sort = {},
-}: Parameters<StreamChatGenerics>) => {
-  const [channels, setChannels] = useState<Channel<StreamChatGenerics>[] | null>(null);
+}: Parameters<ErmisChatGenerics>) => {
+  const [channels, setChannels] = useState<Channel<ErmisChatGenerics>[] | null>(null);
   const [error, setError] = useState<Error | undefined>(undefined);
   const [staticChannelsActive, setStaticChannelsActive] = useState<boolean>(false);
   const [activeQueryType, setActiveQueryType] = useState<QueryType | null>('queryLocalDB');
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
   const activeChannels = useActiveChannelsRefContext();
   const isMountedRef = useIsMountedRef();
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
 
   const filtersRef = useRef<typeof filters | null>(null);
   const sortRef = useRef<typeof sort | null>(null);
@@ -117,13 +117,13 @@ export const usePaginatedChannels = <
         queryType === 'loadChannels' && !staticChannelsActive && channels
           ? [...channels, ...channelQueryResponse]
           : channelQueryResponse.map((c) => {
-              const existingChannel = client.activeChannels[c.cid];
-              if (existingChannel) {
-                return existingChannel;
-              }
+            const existingChannel = client.activeChannels[c.cid];
+            if (existingChannel) {
+              return existingChannel;
+            }
 
-              return c;
-            });
+            return c;
+          });
 
       setChannels(newChannels);
       setStaticChannelsActive(false);

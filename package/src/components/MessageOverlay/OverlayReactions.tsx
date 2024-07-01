@@ -3,7 +3,7 @@ import { StyleSheet, Text, useWindowDimensions, View, ViewStyle } from 'react-na
 import { FlatList } from 'react-native-gesture-handler';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
-import { ReactionSortBase } from 'stream-chat';
+import { ReactionSortBase } from 'ermis-chat-sdk-test';
 
 import { useFetchReactions } from './hooks/useFetchReactions';
 
@@ -20,7 +20,7 @@ import {
   WutReaction,
 } from '../../icons';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { ReactionData } from '../../utils/utils';
 
 const styles = StyleSheet.create({
@@ -84,8 +84,8 @@ export type Reaction = {
 };
 
 export type OverlayReactionsProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageOverlayContextValue<StreamChatGenerics>, 'OverlayReactionsAvatar'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageOverlayContextValue<ErmisChatGenerics>, 'OverlayReactionsAvatar'> & {
   showScreen: Animated.SharedValue<number>;
   title: string;
   alignment?: Alignment;
@@ -162,8 +162,8 @@ export const OverlayReactions = (props: OverlayReactionsProps) => {
       ((Number(flatListContainer.paddingHorizontal || 0) ||
         styles.flatListContainer.paddingHorizontal) +
         (Number(avatarContainer.padding || 0) || styles.avatarContainer.padding)) *
-        2) /
-      (avatarSize + (Number(avatarContainer.padding || 0) || styles.avatarContainer.padding) * 2),
+      2) /
+    (avatarSize + (Number(avatarContainer.padding || 0) || styles.avatarContainer.padding) * 2),
   );
 
   const renderItem = ({ item }: { item: Reaction }) => (

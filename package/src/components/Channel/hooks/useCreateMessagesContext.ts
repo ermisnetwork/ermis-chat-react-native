@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
 import type { MessagesContextValue } from '../../../contexts/messagesContext/MessagesContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const useCreateMessagesContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   additionalTouchableProps,
   Attachment,
@@ -91,7 +91,7 @@ export const useCreateMessagesContext = <
   updateMessage,
   UrlPreview,
   VideoThumbnail,
-}: MessagesContextValue<StreamChatGenerics> & {
+}: MessagesContextValue<ErmisChatGenerics> & {
   /**
    * To ensure we allow re-render, when channel is changed
    */
@@ -102,7 +102,7 @@ export const useCreateMessagesContext = <
   const messageContentOrderValue = messageContentOrder.join();
   const supportedReactionsLength = supportedReactions.length;
 
-  const messagesContext: MessagesContextValue<StreamChatGenerics> = useMemo(
+  const messagesContext: MessagesContextValue<ErmisChatGenerics> = useMemo(
     () => ({
       additionalTouchableProps,
       Attachment,

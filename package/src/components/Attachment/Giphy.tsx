@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { ChatContextValue, useChatContext } from '../../contexts/chatContext/ChatContext';
 
@@ -25,7 +25,7 @@ import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useLoadingImage } from '../../hooks/useLoadingImage';
 import { GiphyIcon } from '../../icons';
 import { Lightning } from '../../icons/Lightning';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { makeImageCompatibleUrl } from '../../utils/utils';
 
 const styles = StyleSheet.create({
@@ -136,10 +136,10 @@ const styles = StyleSheet.create({
 });
 
 export type GiphyPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ImageGalleryContextValue<StreamChatGenerics>, 'setSelectedMessage' | 'setMessages'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ImageGalleryContextValue<ErmisChatGenerics>, 'setSelectedMessage' | 'setMessages'> &
   Pick<
-    MessageContextValue<StreamChatGenerics>,
+    MessageContextValue<ErmisChatGenerics>,
     | 'handleAction'
     | 'isMyMessage'
     | 'message'
@@ -148,21 +148,21 @@ export type GiphyPropsWithContext<
     | 'onPressIn'
     | 'preventPress'
   > &
-  Pick<ChatContextValue<StreamChatGenerics>, 'ImageComponent'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'ImageComponent'> &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'giphyVersion'
     | 'additionalTouchableProps'
     | 'ImageLoadingIndicator'
     | 'ImageLoadingFailedIndicator'
   > & {
-    attachment: Attachment<StreamChatGenerics>;
+    attachment: Attachment<ErmisChatGenerics>;
   } & Pick<OverlayContextValue, 'setOverlay'>;
 
 const GiphyWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: GiphyPropsWithContext<StreamChatGenerics>,
+  props: GiphyPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTouchableProps,
@@ -388,9 +388,9 @@ const GiphyWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: GiphyPropsWithContext<StreamChatGenerics>,
-  nextProps: GiphyPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: GiphyPropsWithContext<ErmisChatGenerics>,
+  nextProps: GiphyPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     attachment: { actions: prevActions, image_url: prevImageUrl, thumb_url: prevThumbUrl },
@@ -436,30 +436,30 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
 const MemoizedGiphy = React.memo(GiphyWithContext, areEqual) as typeof GiphyWithContext;
 
 export type GiphyProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<GiphyPropsWithContext<StreamChatGenerics>> & {
-  attachment: Attachment<StreamChatGenerics>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<GiphyPropsWithContext<ErmisChatGenerics>> & {
+  attachment: Attachment<ErmisChatGenerics>;
 };
 
 /**
  * UI component for card in attachments.
  */
 export const Giphy = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: GiphyProps<StreamChatGenerics>,
+  props: GiphyProps<ErmisChatGenerics>,
 ) => {
   const { handleAction, isMyMessage, message, onLongPress, onPress, onPressIn, preventPress } =
-    useMessageContext<StreamChatGenerics>();
-  const { ImageComponent } = useChatContext<StreamChatGenerics>();
-  const { additionalTouchableProps, giphyVersion } = useMessagesContext<StreamChatGenerics>();
-  const { setMessages, setSelectedMessage } = useImageGalleryContext<StreamChatGenerics>();
+    useMessageContext<ErmisChatGenerics>();
+  const { ImageComponent } = useChatContext<ErmisChatGenerics>();
+  const { additionalTouchableProps, giphyVersion } = useMessagesContext<ErmisChatGenerics>();
+  const { setMessages, setSelectedMessage } = useImageGalleryContext<ErmisChatGenerics>();
   const { setOverlay } = useOverlayContext();
 
   const {
     ImageLoadingFailedIndicator: ContextImageLoadingFailedIndicator,
     ImageLoadingIndicator: ContextImageLoadingIndicator,
-  } = useMessagesContext<StreamChatGenerics>();
+  } = useMessagesContext<ErmisChatGenerics>();
   const ImageLoadingFailedIndicator =
     ContextImageLoadingFailedIndicator || props.ImageLoadingFailedIndicator;
   const ImageLoadingIndicator = ContextImageLoadingIndicator || props.ImageLoadingIndicator;

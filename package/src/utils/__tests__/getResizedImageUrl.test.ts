@@ -1,7 +1,7 @@
 import { PixelRatio } from 'react-native';
 
 import { getResizedImageUrl, GetResizedImageUrlParams } from '../getResizedImageUrl';
-import { StreamChatRN } from '../StreamChatRN';
+import { ErmisChatRN } from '../ErmisChatRN';
 
 const TEST_URL_1 =
   'http://us-east.stream-io-cdn.com/blah?sig=34k23n4k23nk423&oh=300&ow=200&h=*&w=*&resize=*';
@@ -31,7 +31,7 @@ describe('getResizedImageUrl (happy flow)', () => {
   );
 
   it('should append all related params with resizableCDNHosts was set', () => {
-    StreamChatRN.setConfig({ resizableCDNHosts: ['my-company-cdn.com'] });
+    ErmisChatRN.setConfig({ resizableCDNHosts: ['my-company-cdn.com'] });
     const resizedUrl = getResizedImageUrl({
       height: 100,
       url: 'http://my-company-cdn.com/cat-photo?sig=34k23n4k23nk423&oh=300&ow=200',

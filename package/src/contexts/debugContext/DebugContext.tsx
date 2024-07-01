@@ -1,32 +1,32 @@
 import React, { PropsWithChildren, useContext, useRef } from 'react';
 
-import type { Channel, ChannelState, StreamChat } from 'stream-chat';
+import type { Channel, ChannelState, ErmisChat } from 'ermis-chat-sdk-test';
 
 import type { MessageType } from '../../components/MessageList/hooks/useMessageList';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 export type DebugDataType<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > =
-  | StreamChat<StreamChatGenerics>['user']
+  | ErmisChat<ErmisChatGenerics>['user']
   | {
-      data: Channel<StreamChatGenerics>['data'];
-      members: ChannelState<StreamChatGenerics>['members'];
-    }[]
-  | MessageType<StreamChatGenerics>[];
+    data: Channel<ErmisChatGenerics>['data'];
+    members: ChannelState<ErmisChatGenerics>['members'];
+  }[]
+  | MessageType<ErmisChatGenerics>[];
 
 export type DebugContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   eventType?: string;
   sendEventParams?: {
     action: string;
-    data: DebugDataType<StreamChatGenerics>;
+    data: DebugDataType<ErmisChatGenerics>;
   };
   setEventType?: (data: string) => void;
-  setSendEventParams?: (data: { action: string; data: DebugDataType<StreamChatGenerics> }) => void;
+  setSendEventParams?: (data: { action: string; data: DebugDataType<ErmisChatGenerics> }) => void;
 };
 
 export const DebugContext = React.createContext(
@@ -34,28 +34,28 @@ export const DebugContext = React.createContext(
 );
 
 export const DebugContextProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   useFlipper,
 }: PropsWithChildren<{
   useFlipper: () => {
-    updateData: (ref: React.RefObject<DebugContextValue<StreamChatGenerics>>) => void;
+    updateData: (ref: React.RefObject<DebugContextValue<ErmisChatGenerics>>) => void;
   };
 }>) => {
-  const debugRef = useRef<DebugContextValue<StreamChatGenerics>>({
+  const debugRef = useRef<DebugContextValue<ErmisChatGenerics>>({
     eventType: undefined,
     sendEventParams: undefined,
   });
 
   const { updateData } = useFlipper();
 
-  const ref = useRef<DebugContextValue<StreamChatGenerics>>({
+  const ref = useRef<DebugContextValue<ErmisChatGenerics>>({
     setEventType: (data: string) => {
       debugRef.current.eventType = data;
       updateData(debugRef);
     },
-    setSendEventParams: (data: { action: string; data: DebugDataType<StreamChatGenerics> }) => {
+    setSendEventParams: (data: { action: string; data: DebugDataType<ErmisChatGenerics> }) => {
       debugRef.current.sendEventParams = data;
       updateData(debugRef);
     },

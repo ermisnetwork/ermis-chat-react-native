@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { Attachment as AttachmentDefault } from './Attachment';
 
@@ -17,12 +17,12 @@ import {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { isAudioPackageAvailable } from '../../native';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 export type FileAttachmentGroupPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageContextValue<StreamChatGenerics>, 'files'> &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'Attachment' | 'AudioAttachment'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageContextValue<ErmisChatGenerics>, 'files'> &
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'Attachment' | 'AudioAttachment'> & {
     /**
      * The unique id for the message with file attachments
      */
@@ -34,17 +34,17 @@ export type FileAttachmentGroupPropsWithContext<
   };
 
 type FilesToDisplayType<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Attachment<StreamChatGenerics> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Attachment<ErmisChatGenerics> & {
   duration: number;
   paused: boolean;
   progress: number;
 };
 
 const FileAttachmentGroupWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: FileAttachmentGroupPropsWithContext<StreamChatGenerics>,
+  props: FileAttachmentGroupPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { Attachment, AudioAttachment, files, messageId, styles: stylesProp = {} } = props;
   const [filesToDisplay, setFilesToDisplay] = useState<FilesToDisplayType[]>([]);
@@ -75,8 +75,8 @@ const FileAttachmentGroupWithContext = <
             ? hasEnd
               ? 1
               : currentTime
-              ? currentTime / (filesToDisplay.duration as number)
-              : 0
+                ? currentTime / (filesToDisplay.duration as number)
+                : 0
             : filesToDisplay.progress,
       })),
     );
@@ -123,7 +123,7 @@ const FileAttachmentGroupWithContext = <
           ]}
         >
           {(file.type === 'audio' || file.type === 'voiceRecording') &&
-          isAudioPackageAvailable() ? (
+            isAudioPackageAvailable() ? (
             <AudioAttachment
               item={{
                 duration: file.duration,
@@ -151,9 +151,9 @@ const FileAttachmentGroupWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: FileAttachmentGroupPropsWithContext<StreamChatGenerics>,
-  nextProps: FileAttachmentGroupPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: FileAttachmentGroupPropsWithContext<ErmisChatGenerics>,
+  nextProps: FileAttachmentGroupPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { files: prevFiles } = prevProps;
   const { files: nextFiles } = nextProps;
@@ -167,21 +167,21 @@ const MemoizedFileAttachmentGroup = React.memo(
 ) as typeof FileAttachmentGroupWithContext;
 
 export type FileAttachmentGroupProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<FileAttachmentGroupPropsWithContext<StreamChatGenerics>, 'messageId'>> &
-  Pick<FileAttachmentGroupPropsWithContext<StreamChatGenerics>, 'messageId'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<FileAttachmentGroupPropsWithContext<ErmisChatGenerics>, 'messageId'>> &
+  Pick<FileAttachmentGroupPropsWithContext<ErmisChatGenerics>, 'messageId'>;
 
 export const FileAttachmentGroup = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: FileAttachmentGroupProps<StreamChatGenerics>,
+  props: FileAttachmentGroupProps<ErmisChatGenerics>,
 ) => {
   const { files: propFiles, messageId } = props;
 
-  const { files: contextFiles } = useMessageContext<StreamChatGenerics>();
+  const { files: contextFiles } = useMessageContext<ErmisChatGenerics>();
 
   const { Attachment = AttachmentDefault, AudioAttachment } =
-    useMessagesContext<StreamChatGenerics>();
+    useMessagesContext<ErmisChatGenerics>();
 
   const files = propFiles || contextFiles;
 

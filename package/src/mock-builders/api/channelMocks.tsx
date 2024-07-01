@@ -4,20 +4,20 @@ import type {
   FormatMessageResponse,
   MessageResponse,
   UserResponse,
-} from 'stream-chat';
+} from 'ermis-chat-sdk-test';
 
 import {
   GROUP_CHANNEL_MEMBERS_MOCK,
   ONE_MEMBER_WITH_EMPTY_USER_MOCK,
 } from '../../mock-builders/api/queryMembers';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const channelName = 'okechukwu';
 const CHANNEL = {
   data: { name: channelName },
   state: { messages: [] },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const CHANNEL_WITH_MESSAGES_TEXT = {
   data: { name: channelName },
@@ -36,8 +36,8 @@ const CHANNEL_WITH_MESSAGES_TEXT = {
         id: 'ljkblk',
         text: 'jkbkbiubicbi',
         type: 'MessageLabel',
-        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultStreamChatGenerics>,
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultErmisChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
       {
         args: 'string',
         attachments: [],
@@ -50,11 +50,11 @@ const CHANNEL_WITH_MESSAGES_TEXT = {
         id: 'jbkjb',
         text: 'jkbkbiubicbi',
         type: 'MessageLabel',
-        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultStreamChatGenerics>,
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultErmisChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
     ],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const CHANNEL_WITH_DELETED_MESSAGES = {
   data: { name: channelName },
@@ -63,13 +63,13 @@ const CHANNEL_WITH_DELETED_MESSAGES = {
     messages: [
       {
         type: 'deleted',
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
       {
         type: 'deleted',
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
     ],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const CHANNEL_WITH_NO_MESSAGES = {
   data: { name: channelName },
@@ -77,7 +77,7 @@ const CHANNEL_WITH_NO_MESSAGES = {
     members: GROUP_CHANNEL_MEMBERS_MOCK,
     messages: [],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const CHANNEL_WITH_MESSAGE_COMMAND = {
   data: { name: channelName },
@@ -94,8 +94,8 @@ const CHANNEL_WITH_MESSAGE_COMMAND = {
         created_at: new Date('2021-02-12T12:12:35.862Z'),
         deleted_at: new Date('2021-02-12T12:12:35.862Z'),
         id: 'ljkblk',
-        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultStreamChatGenerics>,
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultErmisChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
       {
         args: 'string',
         attachments: [],
@@ -106,11 +106,11 @@ const CHANNEL_WITH_MESSAGE_COMMAND = {
         created_at: new Date('2021-02-12T12:12:35.862Z'),
         deleted_at: new Date('2021-02-12T12:12:35.862Z'),
         id: 'jbkjb',
-        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultStreamChatGenerics>,
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultErmisChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
     ],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const CHANNEL_WITH_MESSAGES_ATTACHMENTS = {
   data: { name: channelName },
@@ -143,17 +143,17 @@ const CHANNEL_WITH_MESSAGES_ATTACHMENTS = {
             title: 'string',
             title_link: 'string',
             type: 'string',
-          } as Attachment<DefaultStreamChatGenerics>,
+          } as Attachment<DefaultErmisChatGenerics>,
         ],
         channel: CHANNEL,
         created_at: new Date('2021-02-12T12:12:35.862Z'),
         deleted_at: new Date('2021-02-12T12:12:35.862Z'),
         id: 'ljkblk',
-        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultStreamChatGenerics>,
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+        user: { id: 'okechukwu' } as unknown as UserResponse<DefaultErmisChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
     ],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const LATEST_MESSAGE = {
   args: 'string',
@@ -167,13 +167,13 @@ const LATEST_MESSAGE = {
   id: 'string',
   text: 'jkbkbiubicbi',
   type: 'MessageLabel',
-  user: { id: 'okechukwu' } as unknown as UserResponse<DefaultStreamChatGenerics>,
-} as unknown as MessageResponse<DefaultStreamChatGenerics>;
+  user: { id: 'okechukwu' } as unknown as UserResponse<DefaultErmisChatGenerics>,
+} as unknown as MessageResponse<DefaultErmisChatGenerics>;
 
-const FORMATTED_MESSAGE: FormatMessageResponse<DefaultStreamChatGenerics> = {
+const FORMATTED_MESSAGE: FormatMessageResponse<DefaultErmisChatGenerics> = {
   created_at: new Date('2021-02-12T12:12:35.862282Z'),
   id: '',
-  message: {} as unknown as MessageResponse<DefaultStreamChatGenerics>,
+  message: {} as unknown as MessageResponse<DefaultErmisChatGenerics>,
   pinned_at: new Date('2021-02-12T12:12:35.862282Z'),
   status: 'received',
   type: 'regular',
@@ -195,9 +195,9 @@ const CHANNEL_WITH_MENTIONED_USERS = {
           { id: 'Max', name: 'Max' },
           { id: 'Ada', name: 'Ada' },
           { id: 'Enzo', name: 'Enzo' },
-        ] as UserResponse<DefaultStreamChatGenerics>[],
+        ] as UserResponse<DefaultErmisChatGenerics>[],
         text: 'Max',
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
       {
         args: 'string',
         attachments: [],
@@ -209,12 +209,12 @@ const CHANNEL_WITH_MENTIONED_USERS = {
           { id: 'Max', name: 'Max' },
           { id: 'Ada', name: 'Ada' },
           { id: 'Enzo', name: 'Enzo' },
-        ] as UserResponse<DefaultStreamChatGenerics>[],
+        ] as UserResponse<DefaultErmisChatGenerics>[],
         text: 'Max',
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
     ],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const CHANNEL_WITH_EMPTY_MESSAGE = {
   state: {
@@ -231,8 +231,8 @@ const CHANNEL_WITH_EMPTY_MESSAGE = {
           { id: 'Max', name: 'Max' },
           { id: 'Ada', name: 'Ada' },
           { id: 'Enzo', name: 'Enzo' },
-        ] as UserResponse<DefaultStreamChatGenerics>[],
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+        ] as UserResponse<DefaultErmisChatGenerics>[],
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
       {
         args: 'string',
         attachments: [],
@@ -244,11 +244,11 @@ const CHANNEL_WITH_EMPTY_MESSAGE = {
           { id: 'Max', name: 'Max' },
           { id: 'Ada', name: 'Ada' },
           { id: 'Enzo', name: 'Enzo' },
-        ] as UserResponse<DefaultStreamChatGenerics>[],
-      } as unknown as MessageResponse<DefaultStreamChatGenerics>,
+        ] as UserResponse<DefaultErmisChatGenerics>[],
+      } as unknown as MessageResponse<DefaultErmisChatGenerics>,
     ],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 const CHANNEL_WITH_MESSAGES = {
   data: { name: channelName },
@@ -256,7 +256,7 @@ const CHANNEL_WITH_MESSAGES = {
     members: GROUP_CHANNEL_MEMBERS_MOCK,
     messages: [FORMATTED_MESSAGE, FORMATTED_MESSAGE],
   },
-} as unknown as Channel<DefaultStreamChatGenerics>;
+} as unknown as Channel<DefaultErmisChatGenerics>;
 
 export {
   CHANNEL,

@@ -2,19 +2,19 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
-import type { Channel, MessageResponse } from 'stream-chat';
+import type { Channel, MessageResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../types';
+import type { ErmisChatGenerics } from '../types';
 import { DEFAULT_PAGINATION_LIMIT } from '../utils/constants';
 
-export const usePaginatedPinnedMessages = (channel: Channel<StreamChatGenerics>) => {
+export const usePaginatedPinnedMessages = (channel: Channel<ErmisChatGenerics>) => {
   const { chatClient } = useAppContext();
   const offset = useRef(0);
   const hasMoreResults = useRef(true);
   const queryInProgress = useRef(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | boolean>(false);
-  const [messages, setMessages] = useState<MessageResponse<StreamChatGenerics>[]>([]);
+  const [messages, setMessages] = useState<MessageResponse<ErmisChatGenerics>[]>([]);
 
   const fetchPinnedMessages = async () => {
     if (queryInProgress.current) {

@@ -1,9 +1,9 @@
-import type { ChannelAPIResponse, ChannelFilters, ChannelSort } from 'stream-chat';
+import type { ChannelAPIResponse, ChannelFilters, ChannelSort } from 'ermis-chat-sdk-test';
 
 import { getChannels } from './getChannels';
 import { selectChannelIdsForFilterSort } from './queries/selectChannelIdsForFilterSort';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 import { QuickSqliteClient } from '../QuickSqliteClient';
 
@@ -18,16 +18,16 @@ import { QuickSqliteClient } from '../QuickSqliteClient';
  * @returns Array of channels corresponding to filters & sort. Returns null if filters + sort query doesn't exist in "channelQueries" table.
  */
 export const getChannelsForFilterSort = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   currentUserId,
   filters,
   sort,
 }: {
   currentUserId: string;
-  filters?: ChannelFilters<StreamChatGenerics>;
-  sort?: ChannelSort<StreamChatGenerics>;
-}): Omit<ChannelAPIResponse<StreamChatGenerics>, 'duration'>[] | null => {
+  filters?: ChannelFilters<ErmisChatGenerics>;
+  sort?: ChannelSort<ErmisChatGenerics>;
+}): Omit<ChannelAPIResponse<ErmisChatGenerics>, 'duration'>[] | null => {
   if (!filters && !sort) {
     console.warn('Please provide the query (filters/sort) to fetch channels from DB');
     return null;

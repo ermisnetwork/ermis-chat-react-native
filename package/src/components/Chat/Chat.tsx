@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { Image, Platform } from 'react-native';
 
-import type { Channel, StreamChat } from 'stream-chat';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { useAppSettings } from './hooks/useAppSettings';
 import { useCreateChatContext } from './hooks/useCreateChatContext';
@@ -25,18 +25,18 @@ import init from '../../init';
 
 import { SDK } from '../../native';
 import { QuickSqliteClient } from '../../store/QuickSqliteClient';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { DBSyncManager } from '../../utils/DBSyncManager';
 import type { Streami18n } from '../../utils/i18n/Streami18n';
-import { StreamChatRN } from '../../utils/StreamChatRN';
+import { ErmisChatRN } from '../../utils/ErmisChatRN';
 import { version } from '../../version.json';
 
 init();
 
 export type ChatProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
-  Partial<Pick<ChatContextValue<StreamChatGenerics>, 'ImageComponent' | 'resizableCDNHosts'>> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
+  Partial<Pick<ChatContextValue<ErmisChatGenerics>, 'ImageComponent' | 'resizableCDNHosts'>> & {
     /**
      * When false, ws connection won't be disconnection upon backgrounding the app.
      * To receive push notifications, its necessary that user doesn't have active
@@ -132,9 +132,9 @@ export type ChatProps<
   };
 
 const ChatWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: PropsWithChildren<ChatProps<StreamChatGenerics>>,
+  props: PropsWithChildren<ChatProps<ErmisChatGenerics>>,
 ) => {
   const {
     children,
@@ -147,7 +147,7 @@ const ChatWithContext = <
     style,
   } = props;
 
-  const [channel, setChannel] = useState<Channel<StreamChatGenerics>>();
+  const [channel, setChannel] = useState<Channel<ErmisChatGenerics>>();
 
   // Setup translators
   const translators = useStreami18n(i18nInstance);
@@ -155,7 +155,7 @@ const ChatWithContext = <
   /**
    * Setup connection event listeners
    */
-  const { connectionRecovering, isOnline } = useIsOnline<StreamChatGenerics>(
+  const { connectionRecovering, isOnline } = useIsOnline<ErmisChatGenerics>(
     client,
     closeConnectionOnBackground,
   );
@@ -171,7 +171,7 @@ const ChatWithContext = <
    * Setup muted user listener
    * TODO: reimplement
    */
-  const mutedUsers = useMutedUsers<StreamChatGenerics>(client);
+  const mutedUsers = useMutedUsers<ErmisChatGenerics>(client);
 
   const debugRef = useDebugContext();
   const isDebugModeEnabled = __DEV__ && debugRef && debugRef.current;
@@ -179,7 +179,7 @@ const ChatWithContext = <
   const userID = client.userID;
 
   // Set the `resizableCDNHosts` as per the prop.
-  StreamChatRN.setConfig({ resizableCDNHosts });
+  ErmisChatRN.setConfig({ resizableCDNHosts });
 
   useEffect(() => {
     if (client) {
@@ -199,13 +199,13 @@ const ChatWithContext = <
     }
   }, [client, enableOfflineSupport]);
 
-  const setActiveChannel = (newChannel?: Channel<StreamChatGenerics>) => setChannel(newChannel);
+  const setActiveChannel = (newChannel?: Channel<ErmisChatGenerics>) => setChannel(newChannel);
 
   useEffect(() => {
     if (userID && enableOfflineSupport) {
       setInitialisedDatabaseConfig({ initialised: false, userID });
       QuickSqliteClient.initializeDatabase();
-      DBSyncManager.init(client as unknown as StreamChat);
+      DBSyncManager.init(client as unknown as ErmisChat);
       setInitialisedDatabaseConfig({ initialised: true, userID });
     }
   }, [userID, enableOfflineSupport]);
@@ -240,12 +240,12 @@ const ChatWithContext = <
   }
 
   return (
-    <ChatProvider<StreamChatGenerics> value={chatContext}>
+    <ChatProvider<ErmisChatGenerics> value={chatContext}>
       <TranslationProvider
         value={{ ...translators, userLanguage: client.user?.language || DEFAULT_USER_LANGUAGE }}
       >
         <ThemeProvider style={style}>
-          <ChannelsStateProvider<StreamChatGenerics>>{children}</ChannelsStateProvider>
+          <ChannelsStateProvider<ErmisChatGenerics>>{children}</ChannelsStateProvider>
         </ThemeProvider>
       </TranslationProvider>
     </ChatProvider>
@@ -274,9 +274,9 @@ const ChatWithContext = <
  * - Us (UserType) - custom User object extension
  */
 export const Chat = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: PropsWithChildren<ChatProps<StreamChatGenerics>>,
+  props: PropsWithChildren<ChatProps<ErmisChatGenerics>>,
 ) => {
   const { style } = useOverlayContext();
 

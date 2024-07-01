@@ -8,7 +8,7 @@ import React, {
   useRef,
 } from 'react';
 
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { ActiveChannelsProvider } from '../activeChannelsRefContext/ActiveChannelsRefContext';
 
 import type { ChannelContextValue } from '../channelContext/ChannelContext';
@@ -21,39 +21,39 @@ import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
 export type ChannelState<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  members: ChannelContextValue<StreamChatGenerics>['members'];
-  messages: PaginatedMessageListContextValue<StreamChatGenerics>['messages'];
-  read: ChannelContextValue<StreamChatGenerics>['read'];
+  members: ChannelContextValue<ErmisChatGenerics>['members'];
+  messages: PaginatedMessageListContextValue<ErmisChatGenerics>['messages'];
+  read: ChannelContextValue<ErmisChatGenerics>['read'];
   subscriberCount: number;
-  threadMessages: ThreadContextValue<StreamChatGenerics>['threadMessages'];
-  typing: TypingContextValue<StreamChatGenerics>['typing'];
-  watcherCount: ChannelContextValue<StreamChatGenerics>['watcherCount'];
-  watchers: ChannelContextValue<StreamChatGenerics>['watchers'];
+  threadMessages: ThreadContextValue<ErmisChatGenerics>['threadMessages'];
+  typing: TypingContextValue<ErmisChatGenerics>['typing'];
+  watcherCount: ChannelContextValue<ErmisChatGenerics>['watcherCount'];
+  watchers: ChannelContextValue<ErmisChatGenerics>['watchers'];
 };
 
 type ChannelsState<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  [cid: string]: ChannelState<StreamChatGenerics>;
+  [cid: string]: ChannelState<ErmisChatGenerics>;
 };
 
 export type Keys = keyof ChannelState;
 
 export type Payload<
   Key extends Keys = Keys,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   cid: string;
   key: Key;
-  value: ChannelState<StreamChatGenerics>[Key];
+  value: ChannelState<ErmisChatGenerics>[Key];
 };
 
 type SetStateAction<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  payload: Payload<Keys, StreamChatGenerics>;
+  payload: Payload<Keys, ErmisChatGenerics>;
   type: 'SET_STATE';
 };
 
@@ -66,24 +66,24 @@ type DecreaseSubscriberCountAction = {
   type: 'DECREASE_SUBSCRIBER_COUNT';
 };
 
-type Action<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
-  | SetStateAction<StreamChatGenerics>
+type Action<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
+  | SetStateAction<ErmisChatGenerics>
   | IncreaseSubscriberCountAction
   | DecreaseSubscriberCountAction;
 
 export type ChannelsStateContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   decreaseSubscriberCount: (value: { cid: string }) => void;
   increaseSubscriberCount: (value: { cid: string }) => void;
-  setState: (value: Payload<Keys, StreamChatGenerics>) => void;
-  state: ChannelsState<StreamChatGenerics>;
+  setState: (value: Payload<Keys, ErmisChatGenerics>) => void;
+  state: ChannelsState<ErmisChatGenerics>;
 };
 
-type Reducer<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> = (
-  state: ChannelsState<StreamChatGenerics>,
-  action: Action<StreamChatGenerics>,
-) => ChannelsState<StreamChatGenerics>;
+type Reducer<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> = (
+  state: ChannelsState<ErmisChatGenerics>,
+  action: Action<ErmisChatGenerics>,
+) => ChannelsState<ErmisChatGenerics>;
 
 function reducer(state: ChannelsState, action: Action) {
   switch (action.type) {
@@ -139,15 +139,15 @@ const ChannelsStateContext = React.createContext(
 );
 
 export const ChannelsStateProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
 }: {
   children: ReactNode;
 }) => {
-  const [state, dispatch] = useReducer(reducer as unknown as Reducer<StreamChatGenerics>, {});
+  const [state, dispatch] = useReducer(reducer as unknown as Reducer<ErmisChatGenerics>, {});
 
-  const setState = useCallback((payload: Payload<Keys, StreamChatGenerics>) => {
+  const setState = useCallback((payload: Payload<Keys, ErmisChatGenerics>) => {
     dispatch({ payload, type: 'SET_STATE' });
   }, []);
 
@@ -183,11 +183,11 @@ export const ChannelsStateProvider = <
 };
 
 export const useChannelsStateContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     ChannelsStateContext,
-  ) as unknown as ChannelsStateContextValue<StreamChatGenerics>;
+  ) as unknown as ChannelsStateContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -209,14 +209,14 @@ export const useChannelsStateContext = <
  */
 export const withChannelsStateContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof ChannelsStateContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof ChannelsStateContextValue<ErmisChatGenerics>>> => {
   const WithChannelsStateContextComponent = (
-    props: Omit<P, keyof ChannelsStateContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof ChannelsStateContextValue<ErmisChatGenerics>>,
   ) => {
-    const channelsStateContext = useChannelsStateContext<StreamChatGenerics>();
+    const channelsStateContext = useChannelsStateContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...channelsStateContext} />;
   };

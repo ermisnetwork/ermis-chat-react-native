@@ -9,7 +9,7 @@ import {
 import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
 import { CircleClose, Lightning } from '../../../icons';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { AutoCompleteInput } from '../../AutoCompleteInput/AutoCompleteInput';
 import { useCountdown } from '../hooks/useCountdown';
 
@@ -35,22 +35,22 @@ const styles = StyleSheet.create({
 });
 
 export type InputGiphySearchPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageInputContextValue<StreamChatGenerics>,
+  MessageInputContextValue<ErmisChatGenerics>,
   'additionalTextInputProps' | 'cooldownEndsAt' | 'setGiphyActive' | 'setShowMoreOptions'
 > &
-  Pick<ChannelContextValue<StreamChatGenerics>, 'disabled'>;
+  Pick<ChannelContextValue<ErmisChatGenerics>, 'disabled'>;
 
 export const InputGiphySearchWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   additionalTextInputProps,
   cooldownEndsAt,
   disabled,
   setGiphyActive,
   setShowMoreOptions,
-}: InputGiphySearchPropsWithContext<StreamChatGenerics>) => {
+}: InputGiphySearchPropsWithContext<ErmisChatGenerics>) => {
   const { seconds: cooldownRemainingSeconds } = useCountdown(cooldownEndsAt);
 
   const {
@@ -70,7 +70,7 @@ export const InputGiphySearchWithContext = <
         <Text style={[styles.giphyText, { color: white }, giphyText]}>GIPHY</Text>
       </View>
 
-      <AutoCompleteInput<StreamChatGenerics>
+      <AutoCompleteInput<ErmisChatGenerics>
         additionalTextInputProps={additionalTextInputProps}
         cooldownActive={!!cooldownRemainingSeconds}
       />
@@ -88,9 +88,9 @@ export const InputGiphySearchWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: InputGiphySearchPropsWithContext<StreamChatGenerics>,
-  nextProps: InputGiphySearchPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: InputGiphySearchPropsWithContext<ErmisChatGenerics>,
+  nextProps: InputGiphySearchPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { disabled: prevDisabled } = prevProps;
   const { disabled: nextDisabled } = nextProps;
@@ -107,16 +107,16 @@ const MemoizedInputGiphySearch = React.memo(
 ) as typeof InputGiphySearchWithContext;
 
 export type InputGiphySearchProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<InputGiphySearchPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<InputGiphySearchPropsWithContext<ErmisChatGenerics>>;
 
 export const InputGiphySearch = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: InputGiphySearchProps<StreamChatGenerics>,
+  props: InputGiphySearchProps<ErmisChatGenerics>,
 ) => {
   const { additionalTextInputProps, cooldownEndsAt, setGiphyActive, setShowMoreOptions } =
-    useMessageInputContext<StreamChatGenerics>();
+    useMessageInputContext<ErmisChatGenerics>();
 
   return (
     <MemoizedInputGiphySearch

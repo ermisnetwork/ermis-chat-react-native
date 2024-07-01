@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import {
   MessageContextValue,
@@ -17,7 +17,7 @@ import {
 } from '../../contexts/messageContext/MessageContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   actionButton: {
@@ -34,9 +34,9 @@ const styles = StyleSheet.create({
 });
 
 export type AttachmentActionsPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<Attachment<StreamChatGenerics>, 'actions'> &
-  Pick<MessageContextValue<StreamChatGenerics>, 'handleAction'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<Attachment<ErmisChatGenerics>, 'actions'> &
+  Pick<MessageContextValue<ErmisChatGenerics>, 'handleAction'> & {
     styles?: Partial<{
       actionButton: StyleProp<ViewStyle>;
       buttonText: StyleProp<TextStyle>;
@@ -45,9 +45,9 @@ export type AttachmentActionsPropsWithContext<
   };
 
 const AttachmentActionsWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AttachmentActionsPropsWithContext<StreamChatGenerics>,
+  props: AttachmentActionsPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { actions, handleAction, styles: stylesProp = {} } = props;
 
@@ -116,9 +116,9 @@ const AttachmentActionsWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AttachmentActionsPropsWithContext<StreamChatGenerics>,
-  nextProps: AttachmentActionsPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AttachmentActionsPropsWithContext<ErmisChatGenerics>,
+  nextProps: AttachmentActionsPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { actions: prevActions } = prevProps;
   const { actions: nextActions } = nextProps;
@@ -134,20 +134,20 @@ const MemoizedAttachmentActions = React.memo(
 ) as typeof AttachmentActionsWithContext;
 
 export type AttachmentActionsProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Attachment<StreamChatGenerics> &
-  Partial<Pick<MessageContextValue<StreamChatGenerics>, 'handleAction'>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Attachment<ErmisChatGenerics> &
+  Partial<Pick<MessageContextValue<ErmisChatGenerics>, 'handleAction'>>;
 
 /**
  * AttachmentActions - The actions you can take on an attachment.
  * Actions in combination with attachments can be used to build [commands](https://getstream.io/chat/docs/#channel_commands).
  */
 export const AttachmentActions = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AttachmentActionsProps<StreamChatGenerics>,
+  props: AttachmentActionsProps<ErmisChatGenerics>,
 ) => {
-  const { handleAction } = useMessageContext<StreamChatGenerics>();
+  const { handleAction } = useMessageContext<ErmisChatGenerics>();
   return <MemoizedAttachmentActions {...{ handleAction }} {...props} />;
 };
 

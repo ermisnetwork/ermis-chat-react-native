@@ -2,17 +2,17 @@ import type { DateSeparators } from './getDateSeparators';
 
 import type { PaginatedMessageListContextValue } from '../../../contexts/paginatedMessageListContext/PaginatedMessageListContext';
 import type { ThreadContextValue } from '../../../contexts/threadContext/ThreadContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { isEditedMessage } from '../../../utils/utils';
 import type { GroupType } from '../hooks/useMessageList';
 
 export type GetGroupStylesParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   dateSeparators: DateSeparators;
   messages:
-    | PaginatedMessageListContextValue<StreamChatGenerics>['messages']
-    | ThreadContextValue<StreamChatGenerics>['threadMessages'];
+  | PaginatedMessageListContextValue<ErmisChatGenerics>['messages']
+  | ThreadContextValue<ErmisChatGenerics>['threadMessages'];
   hideDateSeparators?: boolean;
   maxTimeBetweenGroupedMessages?: number;
   noGroupByUser?: boolean;
@@ -20,9 +20,9 @@ export type GetGroupStylesParams<
 };
 
 export const getGroupStyles = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  params: GetGroupStylesParams<StreamChatGenerics>,
+  params: GetGroupStylesParams<ErmisChatGenerics>,
 ) => {
   const {
     dateSeparators,
@@ -76,7 +76,7 @@ export const getGroupStyles = <
       (!hideDateSeparators && dateSeparators[nextMessage.id]) ||
       (maxTimeBetweenGroupedMessages !== undefined &&
         nextMessage.created_at.getTime() - message.created_at.getTime() >
-          maxTimeBetweenGroupedMessages) ||
+        maxTimeBetweenGroupedMessages) ||
       isEditedMessage(message);
 
     /**

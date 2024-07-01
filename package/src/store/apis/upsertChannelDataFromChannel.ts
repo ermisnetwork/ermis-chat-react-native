@@ -1,17 +1,17 @@
-import type { Channel } from 'stream-chat';
+import type { Channel } from 'ermis-chat-sdk-test';
 
-import { DefaultStreamChatGenerics } from '../../types/types';
+import { DefaultErmisChatGenerics } from '../../types/types';
 import { mapChannelToStorable } from '../mappers/mapChannelToStorable';
 import { QuickSqliteClient } from '../QuickSqliteClient';
 import { createUpsertQuery } from '../sqlite-utils/createUpsertQuery';
 
 export const upsertChannelDataFromChannel = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   flush = true,
 }: {
-  channel: Channel<StreamChatGenerics>;
+  channel: Channel<ErmisChatGenerics>;
   flush?: boolean;
 }) => {
   const storableChannel = mapChannelToStorable(channel);

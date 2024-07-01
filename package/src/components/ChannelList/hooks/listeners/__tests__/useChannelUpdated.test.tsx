@@ -4,7 +4,7 @@ import { Image, Text } from 'react-native';
 import { act } from 'react-test-renderer';
 
 import { render, waitFor } from '@testing-library/react-native';
-import type { Channel, ChannelResponse, Event, StreamChat } from 'stream-chat';
+import type { Channel, ChannelResponse, Event, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { ChatContext, useChannelUpdated } from '../../../../../index';
 
@@ -32,7 +32,7 @@ describe('useChannelUpdated', () => {
       on: jest.fn().mockImplementation((_eventName: string, handler: (event: Event) => void) => {
         eventHanler = handler;
       }),
-    } as unknown as StreamChat;
+    } as unknown as ErmisChat;
 
     const TestComponent = () => {
       const [channels, setChannels] = useState<Channel[] | null>([mockChannel]);

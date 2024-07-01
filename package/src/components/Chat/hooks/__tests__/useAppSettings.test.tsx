@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { render, waitFor } from '@testing-library/react-native';
 
-import type { StreamChat } from 'stream-chat';
+import type { ErmisChat } from 'ermis-chat-sdk-test';
 
 import { useAppSettings } from '../useAppSettings';
 
@@ -19,7 +19,7 @@ describe('useAppSettings', () => {
             }),
           ),
           userID: 'some-user-id',
-        } as unknown as StreamChat,
+        } as unknown as ErmisChat,
         isOnline,
         false,
         false,

@@ -1,15 +1,15 @@
-import type { ChannelResponse } from 'stream-chat';
+import type { ChannelResponse } from 'ermis-chat-sdk-test';
 
 import { mapDateTimeToStorable } from './mapDateTimeToStorable';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 import type { TableRow } from '../types';
 
 export const mapChannelDataToStorable = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: ChannelResponse<StreamChatGenerics>,
+  channel: ChannelResponse<ErmisChatGenerics>,
 ): TableRow<'channels'> => {
   const {
     auto_translation_enabled,

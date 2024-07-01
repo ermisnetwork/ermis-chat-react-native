@@ -1,6 +1,6 @@
 import { PixelRatio } from 'react-native';
 
-import { StreamChatRN } from './StreamChatRN';
+import { ErmisChatRN } from './ErmisChatRN';
 
 export type GetResizedImageUrlParams = {
   url: string;
@@ -38,7 +38,7 @@ export function getResizedImageUrl({
     // In case of old CDN we don't want to do any kind of resizing.
 
     const isResizableUrl =
-      StreamChatRN.config.resizableCDNHosts.some((rCDNh) => url.includes(rCDNh)) &&
+      ErmisChatRN.config.resizableCDNHosts.some((rCDNh) => url.includes(rCDNh)) &&
       originalHeight &&
       originalWidth;
 

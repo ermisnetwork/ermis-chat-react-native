@@ -42,7 +42,7 @@ import {
 import { mergeThemes, ThemeProvider, useTheme } from '../../contexts/themeContext/ThemeContext';
 
 import { useViewport } from '../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { MessageTextContainer } from '../Message/MessageSimple/MessageTextContainer';
 import { OverlayReactions as DefaultOverlayReactions } from '../MessageOverlay/OverlayReactions';
 import type { ReplyProps } from '../Reply/Reply';
@@ -78,19 +78,19 @@ const styles = StyleSheet.create({
 const DefaultMessageTextNumberOfLines = 5;
 
 export type MessageOverlayPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageOverlayContextValue<StreamChatGenerics>,
+  MessageOverlayContextValue<ErmisChatGenerics>,
   | 'MessageActionList'
   | 'MessageActionListItem'
   | 'OverlayReactionList'
   | 'OverlayReactions'
   | 'OverlayReactionsAvatar'
 > &
-  Omit<MessageOverlayData<StreamChatGenerics>, 'supportedReactions'> &
+  Omit<MessageOverlayData<ErmisChatGenerics>, 'supportedReactions'> &
   Pick<OverlayContextValue, 'overlay' | 'setOverlay'> &
   Pick<
-    OverlayProviderProps<StreamChatGenerics>,
+    OverlayProviderProps<ErmisChatGenerics>,
     | 'error'
     | 'isMyMessage'
     | 'isThreadMessage'
@@ -103,9 +103,9 @@ export type MessageOverlayPropsWithContext<
   };
 
 const MessageOverlayWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageOverlayPropsWithContext<StreamChatGenerics>,
+  props: MessageOverlayPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -242,12 +242,12 @@ const MessageOverlayWithContext = <
         translateY.value =
           evt.velocityY > 1000
             ? withDecay({
-                velocity: evt.velocityY,
-              })
+              velocity: evt.velocityY,
+            })
             : withTiming(screenHeight, {
-                duration: 200,
-                easing: Easing.out(Easing.ease),
-              });
+              duration: 200,
+              easing: Easing.out(Easing.ease),
+            });
       } else {
         translateY.value = withTiming(0);
         scale.value = withTiming(1);
@@ -352,22 +352,22 @@ const MessageOverlayWithContext = <
                       onlyEmojis && !message.quoted_message
                         ? transparent
                         : otherAttachments?.length
-                        ? otherAttachments[0].type === 'giphy'
-                          ? !message.quoted_message
-                            ? transparent
-                            : grey_gainsboro
-                          : blue_alice
-                        : alignment === 'left'
-                        ? white_smoke
-                        : grey_gainsboro,
+                          ? otherAttachments[0].type === 'giphy'
+                            ? !message.quoted_message
+                              ? transparent
+                              : grey_gainsboro
+                            : blue_alice
+                          : alignment === 'left'
+                            ? white_smoke
+                            : grey_gainsboro,
                     borderBottomLeftRadius:
                       (groupStyle === 'left_bottom' || groupStyle === 'left_single') &&
-                      (!hasThreadReplies || threadList)
+                        (!hasThreadReplies || threadList)
                         ? borderRadiusS
                         : borderRadiusL,
                     borderBottomRightRadius:
                       (groupStyle === 'right_bottom' || groupStyle === 'right_single') &&
-                      (!hasThreadReplies || threadList)
+                        (!hasThreadReplies || threadList)
                         ? borderRadiusS
                         : borderRadiusL,
                     borderColor: grey_whisper,
@@ -391,7 +391,7 @@ const MessageOverlayWithContext = <
                             >
                               <Reply
                                 quotedMessage={
-                                  message.quoted_message as ReplyProps<StreamChatGenerics>['quotedMessage']
+                                  message.quoted_message as ReplyProps<ErmisChatGenerics>['quotedMessage']
                                 }
                                 styles={{
                                   messageContainer: {
@@ -440,7 +440,7 @@ const MessageOverlayWithContext = <
                       case 'text':
                       default:
                         return otherAttachments?.length && otherAttachments[0].actions ? null : (
-                          <MessageTextContainer<StreamChatGenerics>
+                          <MessageTextContainer<ErmisChatGenerics>
                             key={`message_text_container_${messageContentOrderIndex}`}
                             message={message}
                             messageOverlay
@@ -527,9 +527,9 @@ const MessageOverlayWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageOverlayPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageOverlayPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageOverlayPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageOverlayPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment: prevAlignment,
@@ -559,9 +559,9 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
   const latestReactionsEqual =
     Array.isArray(prevMessage?.latest_reactions) && Array.isArray(nextMessage?.latest_reactions)
       ? prevMessage?.latest_reactions.length === nextMessage?.latest_reactions.length &&
-        prevMessage?.latest_reactions.every(
-          ({ type }, index) => type === nextMessage?.latest_reactions?.[index].type,
-        )
+      prevMessage?.latest_reactions.every(
+        ({ type }, index) => type === nextMessage?.latest_reactions?.[index].type,
+      )
       : prevMessage?.latest_reactions === nextMessage?.latest_reactions;
   if (!latestReactionsEqual) return false;
 
@@ -574,11 +574,11 @@ const MemoizedMessageOverlay = React.memo(
 ) as typeof MessageOverlayWithContext;
 
 export type MessageOverlayProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<MessageOverlayPropsWithContext<StreamChatGenerics>, 'overlayOpacity'>> &
-  Pick<MessageOverlayPropsWithContext<StreamChatGenerics>, 'overlayOpacity'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<MessageOverlayPropsWithContext<ErmisChatGenerics>, 'overlayOpacity'>> &
+  Pick<MessageOverlayPropsWithContext<ErmisChatGenerics>, 'overlayOpacity'> &
   Pick<
-    MessageOverlayPropsWithContext<StreamChatGenerics>,
+    MessageOverlayPropsWithContext<ErmisChatGenerics>,
     'isMyMessage' | 'error' | 'isThreadMessage' | 'message' | 'messageReactions'
   >;
 
@@ -586,9 +586,9 @@ export type MessageOverlayProps<
  * MessageOverlay - A high level component which implements all the logic required for a message overlay
  */
 export const MessageOverlay = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageOverlayProps<StreamChatGenerics>,
+  props: MessageOverlayProps<ErmisChatGenerics>,
 ) => {
   const {
     data,
@@ -597,7 +597,7 @@ export const MessageOverlay = <
     OverlayReactionList,
     OverlayReactions,
     OverlayReactionsAvatar,
-  } = useMessageOverlayContext<StreamChatGenerics>();
+  } = useMessageOverlayContext<ErmisChatGenerics>();
   const { overlay, setOverlay } = useOverlayContext();
 
   const componentProps = {

@@ -9,7 +9,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { Check } from '../../../icons/Check';
 import { CheckAll } from '../../../icons/CheckAll';
 import { Time } from '../../../icons/Time';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { MessageStatusTypes } from '../../../utils/utils';
 
 import { isMessageWithStylesReadByAndDateSeparator } from '../../MessageList/hooks/useMessageList';
@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
 });
 
 export type MessageStatusPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageContextValue<StreamChatGenerics>, 'message' | 'threadList'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageContextValue<ErmisChatGenerics>, 'message' | 'threadList'>;
 
 const MessageStatusWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageStatusPropsWithContext<StreamChatGenerics>,
+  props: MessageStatusPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { message, threadList } = props;
 
@@ -91,9 +91,9 @@ const MessageStatusWithContext = <
   return null;
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageStatusPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageStatusPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageStatusPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageStatusPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { message: prevMessage, threadList: prevThreadList } = prevProps;
   const { message: nextMessage, threadList: nextThreadList } = nextProps;
@@ -105,7 +105,7 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
     prevMessage.status === nextMessage.status &&
     prevMessage.type === nextMessage.type &&
     (isMessageWithStylesReadByAndDateSeparator(prevMessage) && prevMessage.readBy) ===
-      (isMessageWithStylesReadByAndDateSeparator(nextMessage) && nextMessage.readBy);
+    (isMessageWithStylesReadByAndDateSeparator(nextMessage) && nextMessage.readBy);
   if (!messageEqual) return false;
 
   return true;
@@ -117,15 +117,15 @@ const MemoizedMessageStatus = React.memo(
 ) as typeof MessageStatusWithContext;
 
 export type MessageStatusProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageStatusPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageStatusPropsWithContext<ErmisChatGenerics>>;
 
 export const MessageStatus = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageStatusProps<StreamChatGenerics>,
+  props: MessageStatusProps<ErmisChatGenerics>,
 ) => {
-  const { message, threadList } = useMessageContext<StreamChatGenerics>();
+  const { message, threadList } = useMessageContext<ErmisChatGenerics>();
 
   return <MemoizedMessageStatus {...{ message, threadList }} {...props} />;
 };

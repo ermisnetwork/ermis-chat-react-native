@@ -9,7 +9,7 @@ import {
   ViewToken,
 } from 'react-native';
 
-import type { FormatMessageResponse } from 'stream-chat';
+import type { FormatMessageResponse } from 'ermis-chat-sdk-test';
 
 import {
   isMessageWithStylesReadByAndDateSeparator,
@@ -52,7 +52,7 @@ import {
 import { mergeThemes, ThemeProvider, useTheme } from '../../contexts/themeContext/ThemeContext';
 import { ThreadContextValue, useThreadContext } from '../../contexts/threadContext/ThreadContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const WAIT_FOR_SCROLL_TO_OFFSET_TIMEOUT = 150;
 const MAX_RETRIES_AFTER_SCROLL_FAILURE = 10;
@@ -93,9 +93,9 @@ const InvertedCellRendererComponent = (props: React.PropsWithChildren<unknown>) 
 );
 
 const keyExtractor = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  item: MessageType<StreamChatGenerics>,
+  item: MessageType<ErmisChatGenerics>,
 ) => {
   if (item.id) return item.id;
   if (item.created_at)
@@ -108,10 +108,10 @@ const flatListViewabilityConfig = {
 };
 
 type MessageListPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<AttachmentPickerContextValue, 'closePicker' | 'selectedPicker' | 'setSelectedPicker'> &
   Pick<
-    ChannelContextValue<StreamChatGenerics>,
+    ChannelContextValue<ErmisChatGenerics>,
     | 'channel'
     | 'disabled'
     | 'EmptyStateIndicator'
@@ -128,15 +128,15 @@ type MessageListPropsWithContext<
     | 'targetedMessage'
     | 'threadList'
   > &
-  Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
-  Pick<ImageGalleryContextValue<StreamChatGenerics>, 'setMessages'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
+  Pick<ImageGalleryContextValue<ErmisChatGenerics>, 'setMessages'> &
   Pick<
-    PaginatedMessageListContextValue<StreamChatGenerics>,
+    PaginatedMessageListContextValue<ErmisChatGenerics>,
     'hasNoMoreRecentMessagesToLoad' | 'loadMore' | 'loadMoreRecent'
   > &
   Pick<OverlayContextValue, 'overlay'> &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'DateHeader'
     | 'disableTypingIndicator'
     | 'FlatList'
@@ -151,7 +151,7 @@ type MessageListPropsWithContext<
     | 'TypingIndicator'
     | 'TypingIndicatorContainer'
   > &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'loadMoreThread' | 'thread'> & {
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'loadMoreThread' | 'thread'> & {
     /**
      * Besides existing (default) UX behavior of underlying FlatList of MessageList component, if you want
      * to attach some additional props to underlying FlatList, you can add it to following prop.
@@ -166,7 +166,7 @@ type MessageListPropsWithContext<
      *  additionalFlatListProps={{ bounces: true, keyboardDismissMode: true }} />
      * ```
      */
-    additionalFlatListProps?: Partial<FlatListProps<MessageType<StreamChatGenerics>>>;
+    additionalFlatListProps?: Partial<FlatListProps<MessageType<ErmisChatGenerics>>>;
     /**
      * UI component for footer of message list. By default message list will use `InlineLoadingMoreIndicator`
      * as FooterComponent. If you want to implement your own inline loading indicator, you can access `loadingMore`
@@ -196,7 +196,7 @@ type MessageListPropsWithContext<
      *
      * @param message A message object to open the thread upon.
      */
-    onThreadSelect?: (message: ThreadContextValue<StreamChatGenerics>['thread']) => void;
+    onThreadSelect?: (message: ThreadContextValue<ErmisChatGenerics>['thread']) => void;
     /**
      * Use `setFlatListRef` to get access to ref to inner FlatList.
      *
@@ -208,7 +208,7 @@ type MessageListPropsWithContext<
      *  }}
      * ```
      */
-    setFlatListRef?: (ref: FlatListType<MessageType<StreamChatGenerics>> | null) => void;
+    setFlatListRef?: (ref: FlatListType<MessageType<ErmisChatGenerics>> | null) => void;
   };
 
 /**
@@ -221,9 +221,9 @@ type MessageListPropsWithContext<
  * [TranslationContext](https://getstream.io/chat/docs/sdk/reactnative/contexts/translation-context/)
  */
 const MessageListWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageListPropsWithContext<StreamChatGenerics>,
+  props: MessageListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const LoadingMoreIndicator = props.threadList
     ? InlineLoadingMoreThreadIndicator
@@ -297,7 +297,7 @@ const MessageListWithContext = <
    * NOTE: rawMessageList changes only when messages array state changes
    * processedMessageList changes on any state change
    */
-  const { processedMessageList, rawMessageList } = useMessageList<StreamChatGenerics>({
+  const { processedMessageList, rawMessageList } = useMessageList<ErmisChatGenerics>({
     noGroupByUser,
     threadList,
   });
@@ -308,10 +308,10 @@ const MessageListWithContext = <
    * We need topMessage and channelLastRead values to set the initial scroll position.
    * So these values only get used if `initialScrollToFirstUnreadMessage` prop is true.
    */
-  const topMessageBeforeUpdate = useRef<FormatMessageResponse<StreamChatGenerics>>();
+  const topMessageBeforeUpdate = useRef<FormatMessageResponse<ErmisChatGenerics>>();
   const latestNonCurrentMessageBeforeUpdateRef =
-    useRef<FormatMessageResponse<StreamChatGenerics>>();
-  const topMessageAfterUpdate: FormatMessageResponse<StreamChatGenerics> | undefined =
+    useRef<FormatMessageResponse<ErmisChatGenerics>>();
+  const topMessageAfterUpdate: FormatMessageResponse<ErmisChatGenerics> | undefined =
     rawMessageList[0];
 
   const shouldScrollToRecentOnNewOwnMessageRef = useShouldScrollToRecentOnNewOwnMessage(
@@ -331,7 +331,7 @@ const MessageListWithContext = <
   const onStartReachedInPromise = useRef<Promise<void> | null>(null);
   const onEndReachedInPromise = useRef<Promise<void> | null>(null);
 
-  const flatListRef = useRef<FlatListType<MessageType<StreamChatGenerics>> | null>(null);
+  const flatListRef = useRef<FlatListType<MessageType<ErmisChatGenerics>> | null>(null);
 
   /**
    * Flag to track if the initial scroll has been set
@@ -377,7 +377,7 @@ const MessageListWithContext = <
   const updateStickyHeaderDateIfNeeded = (viewableItems: ViewToken[]) => {
     if (viewableItems.length) {
       const lastItem = viewableItems.pop() as {
-        item: MessageType<StreamChatGenerics>;
+        item: MessageType<ErmisChatGenerics>;
       };
 
       const isMessageTypeDeleted = lastItem.item.type === 'deleted';
@@ -592,7 +592,7 @@ const MessageListWithContext = <
     item: message,
   }: {
     index: number;
-    item: MessageType<StreamChatGenerics>;
+    item: MessageType<ErmisChatGenerics>;
   }) => {
     if (!channel || channel.disconnected || (!channel.initialized && !channel.offlineMode))
       return null;
@@ -858,7 +858,7 @@ const MessageListWithContext = <
   const scrollToIndexFailedRetryCountRef = useRef<number>(0);
   const failScrollTimeoutId = useRef<ReturnType<typeof setTimeout>>();
   const onScrollToIndexFailedRef = useRef<
-    FlatListProps<MessageType<StreamChatGenerics>>['onScrollToIndexFailed']
+    FlatListProps<MessageType<ErmisChatGenerics>>['onScrollToIndexFailed']
   >((info) => {
     // We got a failure as we tried to scroll to an item that was outside the render length
     if (!flatListRef.current) return;
@@ -1007,7 +1007,7 @@ const MessageListWithContext = <
       isListActive &&
       ((threadList && thread) || (!threadList && !thread))
     ) {
-      setMessages(messagesWithImages as MessageType<StreamChatGenerics>[]);
+      setMessages(messagesWithImages as MessageType<ErmisChatGenerics>[]);
     }
   }, [
     imageString,
@@ -1034,7 +1034,7 @@ const MessageListWithContext = <
     onUserScrollEvent(event);
   };
 
-  const refCallback = (ref: FlatListType<MessageType<StreamChatGenerics>>) => {
+  const refCallback = (ref: FlatListType<MessageType<ErmisChatGenerics>>) => {
     flatListRef.current = ref;
 
     if (setFlatListRef) {
@@ -1179,13 +1179,13 @@ const MessageListWithContext = <
 };
 
 export type MessageListProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageListPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageListPropsWithContext<ErmisChatGenerics>>;
 
 export const MessageList = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageListProps<StreamChatGenerics>,
+  props: MessageListProps<ErmisChatGenerics>,
 ) => {
   const { closePicker, selectedPicker, setSelectedPicker } = useAttachmentPickerContext();
   const {
@@ -1207,9 +1207,9 @@ export const MessageList = <
     StickyHeader,
     targetedMessage,
     threadList,
-  } = useChannelContext<StreamChatGenerics>();
-  const { client } = useChatContext<StreamChatGenerics>();
-  const { setMessages } = useImageGalleryContext<StreamChatGenerics>();
+  } = useChannelContext<ErmisChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
+  const { setMessages } = useImageGalleryContext<ErmisChatGenerics>();
   const {
     DateHeader,
     disableTypingIndicator,
@@ -1224,11 +1224,11 @@ export const MessageList = <
     ScrollToBottomButton,
     TypingIndicator,
     TypingIndicatorContainer,
-  } = useMessagesContext<StreamChatGenerics>();
+  } = useMessagesContext<ErmisChatGenerics>();
   const { hasNoMoreRecentMessagesToLoad, loadMore, loadMoreRecent } =
-    usePaginatedMessageListContext<StreamChatGenerics>();
+    usePaginatedMessageListContext<ErmisChatGenerics>();
   const { overlay } = useOverlayContext();
-  const { loadMoreThread, thread } = useThreadContext<StreamChatGenerics>();
+  const { loadMoreThread, thread } = useThreadContext<ErmisChatGenerics>();
 
   return (
     <MessageListWithContext

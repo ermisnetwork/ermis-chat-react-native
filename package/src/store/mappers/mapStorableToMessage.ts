@@ -1,15 +1,15 @@
-import type { MessageResponse } from 'stream-chat';
+import type { MessageResponse } from 'ermis-chat-sdk-test';
 
 import { mapStorableToReaction } from './mapStorableToReaction';
 
 import { mapStorableToUser } from './mapStorableToUser';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 import type { TableRowJoinedUser } from '../types';
 
 export const mapStorableToMessage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   currentUserId,
   messageRow,
@@ -18,7 +18,7 @@ export const mapStorableToMessage = <
   currentUserId: string;
   messageRow: TableRowJoinedUser<'messages'>;
   reactionRows: TableRowJoinedUser<'reactions'>[];
-}): MessageResponse<StreamChatGenerics> => {
+}): MessageResponse<ErmisChatGenerics> => {
   const {
     createdAt,
     deletedAt,
@@ -30,7 +30,7 @@ export const mapStorableToMessage = <
     ...rest
   } = messageRow;
   const latestReactions =
-    reactionRows?.map((reaction) => mapStorableToReaction<StreamChatGenerics>(reaction)) || [];
+    reactionRows?.map((reaction) => mapStorableToReaction<ErmisChatGenerics>(reaction)) || [];
 
   const ownReactions = latestReactions.filter((reaction) => reaction.user?.id === currentUserId);
 

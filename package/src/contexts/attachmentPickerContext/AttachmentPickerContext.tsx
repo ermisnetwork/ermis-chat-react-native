@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext, useEffect, useState } from 'react
 
 import { BottomSheetHandleProps } from '@gorhom/bottom-sheet';
 
-import type { Asset, DefaultStreamChatGenerics, File } from '../../types/types';
+import type { Asset, DefaultErmisChatGenerics, File } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
@@ -100,7 +100,7 @@ export const AttachmentPickerProvider = ({
     AttachmentPickerContextValue,
     'CameraSelectorIcon' | 'closePicker' | 'FileSelectorIcon' | 'ImageSelectorIcon' | 'openPicker'
   > &
-    Partial<Pick<AttachmentPickerContextValue, 'bottomInset' | 'topInset'>>;
+  Partial<Pick<AttachmentPickerContextValue, 'bottomInset' | 'topInset'>>;
 }>) => {
   const bottomInsetValue = value?.bottomInset;
   const topInsetValue = value?.topInset;
@@ -169,16 +169,16 @@ export const useAttachmentPickerContext = () => {
  * wrapped component must be provided as the first generic.
  */
 export const withAttachmentPickerContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  Component: React.ComponentType<StreamChatGenerics>,
-): React.ComponentType<Omit<StreamChatGenerics, keyof AttachmentPickerContextValue>> => {
+  Component: React.ComponentType<ErmisChatGenerics>,
+): React.ComponentType<Omit<ErmisChatGenerics, keyof AttachmentPickerContextValue>> => {
   const WithAttachmentPickerContextComponent = (
-    props: Omit<StreamChatGenerics, keyof AttachmentPickerContextValue>,
+    props: Omit<ErmisChatGenerics, keyof AttachmentPickerContextValue>,
   ) => {
     const attachmentPickerContext = useAttachmentPickerContext();
 
-    return <Component {...(props as StreamChatGenerics)} {...attachmentPickerContext} />;
+    return <Component {...(props as ErmisChatGenerics)} {...attachmentPickerContext} />;
   };
   WithAttachmentPickerContextComponent.displayName = `WithAttachmentPickerContext${getDisplayName(
     Component as React.ComponentType,

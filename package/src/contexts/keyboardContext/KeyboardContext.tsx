@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { Keyboard } from 'react-native';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getDisplayName } from '../utils/getDisplayName';
 
 export type KeyboardContextValue = {
@@ -33,16 +33,16 @@ export const useKeyboardContext = () => useContext(KeyboardContext);
  * wrapped component must be provided as the first generic.
  */
 export const withKeyboardContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  Component: React.ComponentType<StreamChatGenerics>,
-): React.ComponentType<Omit<StreamChatGenerics, keyof KeyboardContextValue>> => {
+  Component: React.ComponentType<ErmisChatGenerics>,
+): React.ComponentType<Omit<ErmisChatGenerics, keyof KeyboardContextValue>> => {
   const WithKeyboardContextComponent = (
-    props: Omit<StreamChatGenerics, keyof KeyboardContextValue>,
+    props: Omit<ErmisChatGenerics, keyof KeyboardContextValue>,
   ) => {
     const keyboardContext = useKeyboardContext();
 
-    return <Component {...(props as StreamChatGenerics)} {...keyboardContext} />;
+    return <Component {...(props as ErmisChatGenerics)} {...keyboardContext} />;
   };
   WithKeyboardContextComponent.displayName = `WithKeyboardContext${getDisplayName(
     Component as React.ComponentType,

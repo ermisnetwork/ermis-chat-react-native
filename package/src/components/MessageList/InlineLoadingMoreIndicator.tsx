@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { usePaginatedMessageListContext } from '../../contexts/paginatedMessageListContext/PaginatedMessageListContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   activityIndicatorContainer: {
@@ -56,9 +56,9 @@ const MemoizedInlineLoadingMoreIndicator = React.memo(
 ) as typeof InlineLoadingMoreIndicatorWithContext;
 
 export const InlineLoadingMoreIndicator = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
-  const { loadingMore } = usePaginatedMessageListContext<StreamChatGenerics>();
+  const { loadingMore } = usePaginatedMessageListContext<ErmisChatGenerics>();
 
   return <MemoizedInlineLoadingMoreIndicator loadingMore={loadingMore} />;
 };

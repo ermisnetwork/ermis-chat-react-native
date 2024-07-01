@@ -20,25 +20,25 @@ import {
 } from '../../contexts/suggestionsContext/SuggestionsContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { FlatList } from '../../native';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const AUTO_COMPLETE_SUGGESTION_LIST_HEADER_HEIGHT = 50;
 
 type AutoCompleteSuggestionListComponentProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<SuggestionsContextValue, 'queryText' | 'triggerType'> & {
   active: boolean;
-  data: Suggestion<StreamChatGenerics>[];
-  onSelect: (item: Suggestion<StreamChatGenerics>) => void;
+  data: Suggestion<ErmisChatGenerics>[];
+  onSelect: (item: Suggestion<ErmisChatGenerics>) => void;
 };
 
 export type AutoCompleteSuggestionListPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  SuggestionsContextValue<StreamChatGenerics>,
+  SuggestionsContextValue<ErmisChatGenerics>,
   'AutoCompleteSuggestionHeader' | 'AutoCompleteSuggestionItem'
 > &
-  AutoCompleteSuggestionListComponentProps<StreamChatGenerics>;
+  AutoCompleteSuggestionListComponentProps<ErmisChatGenerics>;
 
 const SuggestionsItem = (props: PressableProps) => {
   const { children, style: propsStyle, ...pressableProps } = props;
@@ -58,9 +58,9 @@ const SuggestionsItem = (props: PressableProps) => {
 SuggestionsItem.displayName = 'SuggestionsHeader{messageInput{suggestions}}';
 
 export const AutoCompleteSuggestionListWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AutoCompleteSuggestionListPropsWithContext<StreamChatGenerics>,
+  props: AutoCompleteSuggestionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const [itemHeight, setItemHeight] = useState<number>(0);
   const {
@@ -97,7 +97,7 @@ export const AutoCompleteSuggestionListWithContext = <
       : totalItemHeight;
   }, [itemHeight, data.length]);
 
-  const renderItem = ({ item }: { item: Suggestion<StreamChatGenerics> }) => {
+  const renderItem = ({ item }: { item: Suggestion<ErmisChatGenerics> }) => {
     switch (triggerType) {
       case 'command':
       case 'mention':
@@ -142,9 +142,9 @@ export const AutoCompleteSuggestionListWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AutoCompleteSuggestionListPropsWithContext<StreamChatGenerics>,
-  nextProps: AutoCompleteSuggestionListPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AutoCompleteSuggestionListPropsWithContext<ErmisChatGenerics>,
+  nextProps: AutoCompleteSuggestionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     active: prevActive,
@@ -180,21 +180,21 @@ const MemoizedAutoCompleteSuggestionList = React.memo(
 ) as typeof AutoCompleteSuggestionListWithContext;
 
 export type AutoCompleteSuggestionListProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = AutoCompleteSuggestionListComponentProps<StreamChatGenerics> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = AutoCompleteSuggestionListComponentProps<ErmisChatGenerics> & {
   AutoCompleteSuggestionHeader?: React.ComponentType<AutoCompleteSuggestionHeaderProps>;
   AutoCompleteSuggestionItem?: React.ComponentType<
-    AutoCompleteSuggestionItemProps<StreamChatGenerics>
+    AutoCompleteSuggestionItemProps<ErmisChatGenerics>
   >;
 };
 
 export const AutoCompleteSuggestionList = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AutoCompleteSuggestionListProps<StreamChatGenerics>,
+  props: AutoCompleteSuggestionListProps<ErmisChatGenerics>,
 ) => {
   const { AutoCompleteSuggestionHeader, AutoCompleteSuggestionItem } =
-    useSuggestionsContext<StreamChatGenerics>();
+    useSuggestionsContext<ErmisChatGenerics>();
 
   return (
     <MemoizedAutoCompleteSuggestionList

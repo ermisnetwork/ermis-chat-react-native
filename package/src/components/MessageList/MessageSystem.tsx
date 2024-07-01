@@ -6,14 +6,14 @@ import type { MessageType } from './hooks/useMessageList';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../contexts/translationContext/TranslationContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getDateString } from '../../utils/i18n/getDateString';
 
 export type MessageSystemProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /** Current [message object](https://getstream.io/chat/docs/#message_format) */
-  message: MessageType<StreamChatGenerics>;
+  message: MessageType<ErmisChatGenerics>;
   /**
    * Additional styles for the system message container.
    */
@@ -29,9 +29,9 @@ export type MessageSystemProps<
  * in message list as (type) system message.
  */
 export const MessageSystem = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageSystemProps<StreamChatGenerics>,
+  props: MessageSystemProps<ErmisChatGenerics>,
 ) => {
   const { message, style } = props;
 

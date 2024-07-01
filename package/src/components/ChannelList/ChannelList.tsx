@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import type { FlatList } from 'react-native-gesture-handler';
 
-import type { Channel, ChannelFilters, ChannelOptions, ChannelSort, Event } from 'stream-chat';
+import type { Channel, ChannelFilters, ChannelOptions, ChannelSort, Event } from 'ermis-chat-sdk-test';
 
 import { ChannelListFooterLoadingIndicator } from './ChannelListFooterLoadingIndicator';
 import { ChannelListHeaderErrorIndicator } from './ChannelListHeaderErrorIndicator';
@@ -29,16 +29,16 @@ import {
 } from '../../contexts/channelsContext/ChannelsContext';
 import { useChatContext } from '../../contexts/chatContext/ChatContext';
 import { upsertCidsForQuery } from '../../store/apis/upsertCidsForQuery';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { ChannelPreviewMessenger } from '../ChannelPreview/ChannelPreviewMessenger';
 import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../Indicators/EmptyStateIndicator';
 import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../Indicators/LoadingErrorIndicator';
 
 export type ChannelListProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Partial<
   Pick<
-    ChannelsContextValue<StreamChatGenerics>,
+    ChannelsContextValue<ErmisChatGenerics>,
     | 'additionalFlatListProps'
     | 'EmptyStateIndicator'
     | 'FooterLoadingIndicator'
@@ -64,8 +64,8 @@ export type ChannelListProps<
 > & {
   /** Optional function to filter channels prior to rendering the list. Do not use any complex logic that would delay the loading of the ChannelList. We recommend using a pure function with array methods like filter/sort/reduce. */
   channelRenderFilterFn?: (
-    channels: Array<Channel<StreamChatGenerics>>,
-  ) => Array<Channel<StreamChatGenerics>>;
+    channels: Array<Channel<ErmisChatGenerics>>,
+  ) => Array<Channel<ErmisChatGenerics>>;
   /**
    * Object containing channel query filters
    *
@@ -73,13 +73,13 @@ export type ChannelListProps<
    *
    * @overrideType object
    * */
-  filters?: ChannelFilters<StreamChatGenerics>;
+  filters?: ChannelFilters<ErmisChatGenerics>;
   /**
    * Custom UI component to display the list of channels
    *
    * Default: [ChannelListMessenger](https://getstream.io/chat/docs/sdk/reactnative/ui-components/channel-list-messenger/)
    */
-  List?: React.ComponentType<ChannelListMessengerProps<StreamChatGenerics>>;
+  List?: React.ComponentType<ChannelListMessengerProps<ErmisChatGenerics>>;
   /**
    * If set to true, channels won't dynamically sort by most recent message, defaults to false
    */
@@ -93,8 +93,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onAddedToChannel?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Function that overrides default behavior when a channel gets deleted. In absence of this prop, the channel will be removed from the list.
@@ -105,8 +105,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onChannelDeleted?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Function that overrides default behavior when a channel gets hidden. In absence of this prop, the channel will be removed from the list.
@@ -117,8 +117,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onChannelHidden?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Function to customize behavior when a channel gets truncated
@@ -129,8 +129,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onChannelTruncated?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Function that overrides default behavior when a channel gets updated
@@ -141,8 +141,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onChannelUpdated?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Function that overrides default behavior when a channel gets visible. In absence of this prop, the channel will be added to the list.
@@ -153,8 +153,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onChannelVisible?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * @deprecated use onNewMessageNotification instead
@@ -168,8 +168,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onMessageNew?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Override the default listener/handler for event `message.new`
@@ -183,8 +183,8 @@ export type ChannelListProps<
    * */
   onNewMessage?: (
     lockChannelOrder: boolean,
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Override the default listener/handler for event `notification.message_new`
@@ -196,8 +196,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onNewMessageNotification?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Function that overrides default behavior when a user gets removed from a channel
@@ -208,8 +208,8 @@ export type ChannelListProps<
    * @overrideType Function
    * */
   onRemovedFromChannel?: (
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-    event: Event<StreamChatGenerics>,
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
   ) => void;
   /**
    * Object containing channel query options
@@ -220,7 +220,7 @@ export type ChannelListProps<
    * Object containing channel sort parameters
    * @see See [Channel query documentation](https://getstream.io/chat/docs/query_channels) for a list of available sorting fields
    * */
-  sort?: ChannelSort<StreamChatGenerics>;
+  sort?: ChannelSort<ErmisChatGenerics>;
 };
 
 const DEFAULT_FILTERS = {};
@@ -235,9 +235,9 @@ const DEFAULT_SORT = {};
  * @example ./ChannelList.md
  */
 export const ChannelList = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelListProps<StreamChatGenerics>,
+  props: ChannelListProps<ErmisChatGenerics>,
 ) => {
   const {
     additionalFlatListProps = {},
@@ -281,7 +281,7 @@ export const ChannelList = <
   } = props;
 
   const [forceUpdate, setForceUpdate] = useState(0);
-  const { enableOfflineSupport } = useChatContext<StreamChatGenerics>();
+  const { enableOfflineSupport } = useChatContext<ErmisChatGenerics>();
   const {
     channels,
     error,
@@ -294,7 +294,7 @@ export const ChannelList = <
     reloadList,
     setChannels,
     staticChannelsActive,
-  } = usePaginatedChannels<StreamChatGenerics>({
+  } = usePaginatedChannels<ErmisChatGenerics>({
     enableOfflineSupport,
     filters,
     options,
@@ -400,7 +400,7 @@ export const ChannelList = <
     refreshing,
     refreshList,
     reloadList,
-    setFlatListRef: (ref: FlatList<Channel<StreamChatGenerics>> | null) => {
+    setFlatListRef: (ref: FlatList<Channel<ErmisChatGenerics>> | null) => {
       if (setFlatListRef) {
         setFlatListRef(ref);
       }
@@ -410,7 +410,7 @@ export const ChannelList = <
 
   return (
     <ChannelsProvider value={channelsContext}>
-      <List<StreamChatGenerics> />
+      <List<ErmisChatGenerics> />
     </ChannelsProvider>
   );
 };

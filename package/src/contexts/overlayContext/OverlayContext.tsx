@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 
 import type { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import type { AttachmentPickerProps } from '../../components/AttachmentPicker/AttachmentPicker';
 import type { ImageGalleryCustomComponents } from '../../components/ImageGallery/ImageGallery';
 
 import type { MessageType } from '../../components/MessageList/hooks/useMessageList';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { Streami18n } from '../../utils/i18n/Streami18n';
 import type { AttachmentPickerContextValue } from '../attachmentPickerContext/AttachmentPickerContext';
 import type { MessageOverlayContextValue } from '../messageOverlayContext/MessageOverlayContext';
@@ -31,7 +31,7 @@ export const OverlayContext = React.createContext(
 );
 
 export type OverlayProviderProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Partial<AttachmentPickerProps> &
   Partial<
     Pick<
@@ -48,10 +48,10 @@ export type OverlayProviderProps<
       | 'topInset'
     >
   > &
-  ImageGalleryCustomComponents<StreamChatGenerics> &
+  ImageGalleryCustomComponents<ErmisChatGenerics> &
   Partial<
     Pick<
-      MessageOverlayContextValue<StreamChatGenerics>,
+      MessageOverlayContextValue<ErmisChatGenerics>,
       | 'MessageActionList'
       | 'MessageActionListItem'
       | 'OverlayReactionList'
@@ -72,7 +72,7 @@ export type OverlayProviderProps<
     imageGalleryGridSnapPoints?: [string | number, string | number];
     isMyMessage?: boolean;
     isThreadMessage?: boolean;
-    message?: MessageType<StreamChatGenerics>;
+    message?: MessageType<ErmisChatGenerics>;
     messageReactions?: boolean;
     messageTextNumberOfLines?: number;
     numberOfImageGalleryGridColumns?: number;
@@ -102,16 +102,16 @@ export const useOverlayContext = () => {
  * wrapped component must be provided as the first generic.
  */
 export const withOverlayContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  Component: React.ComponentType<StreamChatGenerics>,
-): React.ComponentType<Omit<StreamChatGenerics, keyof OverlayContextValue>> => {
+  Component: React.ComponentType<ErmisChatGenerics>,
+): React.ComponentType<Omit<ErmisChatGenerics, keyof OverlayContextValue>> => {
   const WithOverlayContextComponent = (
-    props: Omit<StreamChatGenerics, keyof OverlayContextValue>,
+    props: Omit<ErmisChatGenerics, keyof OverlayContextValue>,
   ) => {
     const overlayContext = useOverlayContext();
 
-    return <Component {...(props as StreamChatGenerics)} {...overlayContext} />;
+    return <Component {...(props as ErmisChatGenerics)} {...overlayContext} />;
   };
   WithOverlayContextComponent.displayName = `WithOverlayContext${getDisplayName(
     Component as React.ComponentType,

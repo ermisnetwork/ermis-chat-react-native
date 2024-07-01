@@ -1,38 +1,38 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { ChannelState } from 'stream-chat';
+import type { ChannelState } from 'ermis-chat-sdk-test';
 
 import type { MessageType } from '../../components/MessageList/hooks/useMessageList';
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
 export type ThreadContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   allowThreadMessagesInChannel: boolean;
   closeThread: () => void;
   loadMoreThread: () => Promise<void>;
-  openThread: (message: MessageType<StreamChatGenerics>) => void;
+  openThread: (message: MessageType<ErmisChatGenerics>) => void;
   reloadThread: () => void;
   setThreadLoadingMore: React.Dispatch<React.SetStateAction<boolean>>;
-  thread: MessageType<StreamChatGenerics> | null;
+  thread: MessageType<ErmisChatGenerics> | null;
   threadHasMore: boolean;
   threadLoadingMore: boolean;
-  threadMessages: ChannelState<StreamChatGenerics>['threads'][string];
+  threadMessages: ChannelState<ErmisChatGenerics>['threads'][string];
 };
 
 export const ThreadContext = React.createContext(DEFAULT_BASE_CONTEXT_VALUE as ThreadContextValue);
 
 export const ThreadProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value: ThreadContextValue<StreamChatGenerics>;
+  value: ThreadContextValue<ErmisChatGenerics>;
 }>) => (
   <ThreadContext.Provider value={value as unknown as ThreadContextValue}>
     {children}
@@ -40,11 +40,11 @@ export const ThreadProvider = <
 );
 
 export const useThreadContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     ThreadContext,
-  ) as unknown as ThreadContextValue<StreamChatGenerics>;
+  ) as unknown as ThreadContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -66,14 +66,14 @@ export const useThreadContext = <
  */
 export const withThreadContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof ThreadContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof ThreadContextValue<ErmisChatGenerics>>> => {
   const WithThreadContextComponent = (
-    props: Omit<P, keyof ThreadContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof ThreadContextValue<ErmisChatGenerics>>,
   ) => {
-    const threadContext = useThreadContext<StreamChatGenerics>();
+    const threadContext = useThreadContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...threadContext} />;
   };

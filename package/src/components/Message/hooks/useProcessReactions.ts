@@ -1,12 +1,12 @@
 import { ComponentType, useMemo } from 'react';
 
-import { ReactionResponse } from 'stream-chat';
+import { ReactionResponse } from 'ermis-chat-sdk-test';
 
 import {
   MessagesContextValue,
   useMessagesContext,
 } from '../../../contexts/messagesContext/MessagesContext';
-import { DefaultStreamChatGenerics } from '../../../types/types';
+import { DefaultErmisChatGenerics } from '../../../types/types';
 import { ReactionData } from '../../../utils/utils';
 import { ReactionListProps } from '../MessageSimple/ReactionList';
 
@@ -24,12 +24,12 @@ export type ReactionSummary = {
 export type ReactionsComparator = (a: ReactionSummary, b: ReactionSummary) => number;
 
 type UseProcessReactionsParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  ReactionListProps<StreamChatGenerics>,
+  ReactionListProps<ErmisChatGenerics>,
   'own_reactions' | 'reaction_groups' | 'latest_reactions'
 > &
-  Partial<Pick<MessagesContextValue<StreamChatGenerics>, 'supportedReactions'>> & {
+  Partial<Pick<MessagesContextValue<ErmisChatGenerics>, 'supportedReactions'>> & {
     sortReactions?: ReactionsComparator;
   };
 
@@ -42,10 +42,10 @@ export const defaultReactionsSort: ReactionsComparator = (a, b) => {
 };
 
 const isOwnReaction = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   reactionType: string,
-  ownReactions?: ReactionResponse<StreamChatGenerics>[] | null,
+  ownReactions?: ReactionResponse<ErmisChatGenerics>[] | null,
 ) => (ownReactions ? ownReactions.some((reaction) => reaction.type === reactionType) : false);
 
 const isSupportedReaction = (reactionType: string, supportedReactions: ReactionData[]) =>
@@ -59,21 +59,21 @@ const getEmojiByReactionType = (reactionType: string, supportedReactions: Reacti
 const getLatestReactedUserNames = (reactionType: string, latestReactions?: ReactionResponse[]) =>
   latestReactions
     ? latestReactions.flatMap((reaction) => {
-        if (reactionType && reactionType === reaction.type) {
-          const username = reaction.user?.name || reaction.user?.id;
-          return username ? [username] : [];
-        }
-        return [];
-      })
+      if (reactionType && reactionType === reaction.type) {
+        const username = reaction.user?.name || reaction.user?.id;
+        return username ? [username] : [];
+      }
+      return [];
+    })
     : [];
 
 /**
  * Custom hook to process reactions data from message and return a list of reactions with additional info.
  */
 export const useProcessReactions = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: UseProcessReactionsParams<StreamChatGenerics>,
+  props: UseProcessReactionsParams<ErmisChatGenerics>,
 ) => {
   const { supportedReactions: contextSupportedReactions } = useMessagesContext();
 
@@ -100,7 +100,7 @@ export const useProcessReactions = <
           Icon: getEmojiByReactionType(reactionType, supportedReactions),
           lastReactionAt: last_reaction_at ? new Date(last_reaction_at) : null,
           latestReactedUserNames,
-          own: isOwnReaction<StreamChatGenerics>(reactionType, own_reactions),
+          own: isOwnReaction<ErmisChatGenerics>(reactionType, own_reactions),
           type: reactionType,
           unlistedReactedUserCount: count - latestReactedUserNames.length,
         };

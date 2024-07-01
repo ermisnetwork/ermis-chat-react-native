@@ -1,14 +1,14 @@
-import type { MessageResponse } from 'stream-chat';
+import type { MessageResponse } from 'ermis-chat-sdk-test';
 
 import type { ChannelContextValue } from '../../../contexts/channelContext/ChannelContext';
 import type { ChatContextValue } from '../../../contexts/chatContext/ChatContext';
 import type { MessageContextValue } from '../../../contexts/messageContext/MessageContext';
 import type { MessagesContextValue } from '../../../contexts/messagesContext/MessagesContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const useMessageActionHandlers = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   client,
@@ -20,7 +20,7 @@ export const useMessageActionHandlers = <
   setEditingState,
   setQuotedMessageState,
 }: Pick<
-  MessagesContextValue<StreamChatGenerics>,
+  MessagesContextValue<ErmisChatGenerics>,
   | 'sendReaction'
   | 'deleteMessage'
   | 'deleteReaction'
@@ -29,9 +29,9 @@ export const useMessageActionHandlers = <
   | 'setQuotedMessageState'
   | 'supportedReactions'
 > &
-  Pick<ChannelContextValue<StreamChatGenerics>, 'channel' | 'enforceUniqueReaction'> &
-  Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
-  Pick<MessageContextValue<StreamChatGenerics>, 'message'>) => {
+  Pick<ChannelContextValue<ErmisChatGenerics>, 'channel' | 'enforceUniqueReaction'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
+  Pick<MessageContextValue<ErmisChatGenerics>, 'message'>) => {
   const handleResendMessage = () => retrySendMessage(message);
 
   const handleQuotedReplyMessage = () => {
@@ -43,7 +43,7 @@ export const useMessageActionHandlers = <
   );
 
   const handleDeleteMessage = async () => {
-    await deleteMessage(message as MessageResponse<StreamChatGenerics>);
+    await deleteMessage(message as MessageResponse<ErmisChatGenerics>);
   };
 
   const handleToggleMuteUser = async () => {

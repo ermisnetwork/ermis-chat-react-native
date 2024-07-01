@@ -13,9 +13,9 @@ import { Avatar, CheckSend, Close, useTheme, useViewport } from 'stream-chat-rea
 
 import { useUserSearchContext } from '../../context/UserSearchContext';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../../types';
+import type { ErmisChatGenerics } from '../../types';
 import { Search } from '../../icons/Search';
 import calendar from 'dayjs/plugin/calendar';
 
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
 type UserSearchResultsProps = {
   groupedAlphabetically?: boolean;
   removeOnPressOnly?: boolean;
-  results?: UserResponse<StreamChatGenerics>[];
+  results?: UserResponse<ErmisChatGenerics>[];
   showOnlineStatus?: boolean;
-  toggleSelectedUser?: (user: UserResponse<StreamChatGenerics>) => void;
+  toggleSelectedUser?: (user: UserResponse<ErmisChatGenerics>) => void;
 };
 
 export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
@@ -87,7 +87,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
   } = useUserSearchContext();
   const [sections, setSections] = useState<
     Array<{
-      data: UserResponse<StreamChatGenerics>[];
+      data: UserResponse<ErmisChatGenerics>[];
       title: string;
     }>
   >([]);
@@ -113,7 +113,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
   useEffect(() => {
     const newSections: {
       [key: string]: {
-        data: UserResponse<StreamChatGenerics>[];
+        data: UserResponse<ErmisChatGenerics>[];
         title: string;
       };
     } = {};

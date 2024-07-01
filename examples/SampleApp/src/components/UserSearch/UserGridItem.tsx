@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { Avatar, Close, useTheme } from 'stream-chat-react-native';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../../types';
+import type { ErmisChatGenerics } from '../../types';
 
 const presenceIndicator = { cx: 7, cy: 7, r: 5 };
 
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
 export type UserGridItemProps = {
   onPress: () => void;
-  user: UserResponse<StreamChatGenerics>;
+  user: UserResponse<ErmisChatGenerics>;
   removeButton?: boolean;
 };
 

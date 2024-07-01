@@ -9,11 +9,11 @@ import {
 } from '../../../../contexts/messageInputContext/MessageInputContext';
 import { useTheme } from '../../../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 
 type AudioRecordingInProgressPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageInputContextValue<StreamChatGenerics>, 'AudioRecordingWaveform'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageInputContextValue<ErmisChatGenerics>, 'AudioRecordingWaveform'> & {
   /**
    * The waveform data to be presented to show the audio levels.
    */
@@ -29,9 +29,9 @@ type AudioRecordingInProgressPropsWithContext<
 };
 
 const AudioRecordingInProgressWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AudioRecordingInProgressPropsWithContext<StreamChatGenerics>,
+  props: AudioRecordingInProgressPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     AudioRecordingWaveform,
@@ -60,9 +60,9 @@ const AudioRecordingInProgressWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AudioRecordingInProgressPropsWithContext<StreamChatGenerics>,
-  nextProps: AudioRecordingInProgressPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AudioRecordingInProgressPropsWithContext<ErmisChatGenerics>,
+  nextProps: AudioRecordingInProgressPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { recordingDuration: prevRecordingDuration } = prevProps;
   const { recordingDuration: nextRecordingDuration } = nextProps;
@@ -80,8 +80,8 @@ const MemoizedAudioRecordingInProgress = React.memo(
 ) as typeof AudioRecordingInProgressWithContext;
 
 export type AudioRecordingInProgressProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<AudioRecordingInProgressPropsWithContext<StreamChatGenerics>> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<AudioRecordingInProgressPropsWithContext<ErmisChatGenerics>> & {
   waveformData: number[];
 };
 
@@ -89,11 +89,11 @@ export type AudioRecordingInProgressProps<
  * Component displayed when the audio is in the recording state.
  */
 export const AudioRecordingInProgress = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AudioRecordingInProgressProps<StreamChatGenerics>,
+  props: AudioRecordingInProgressProps<ErmisChatGenerics>,
 ) => {
-  const { AudioRecordingWaveform } = useMessageInputContext<StreamChatGenerics>();
+  const { AudioRecordingWaveform } = useMessageInputContext<ErmisChatGenerics>();
 
   return <MemoizedAudioRecordingInProgress {...{ AudioRecordingWaveform }} {...props} />;
 };

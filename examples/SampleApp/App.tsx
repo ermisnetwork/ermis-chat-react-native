@@ -17,7 +17,7 @@ import { AppContext } from './src/context/AppContext';
 import { AppOverlayProvider } from './src/context/AppOverlayProvider';
 import { UserSearchProvider } from './src/context/UserSearchContext';
 import { useChatClient } from './src/hooks/useChatClient';
-import { useStreamChatTheme } from './src/hooks/useStreamChatTheme';
+import { useErmisChatTheme } from './src/hooks/useErmisChatTheme';
 import { AdvancedUserSelectorScreen } from './src/screens/AdvancedUserSelectorScreen';
 import { ChannelFilesScreen } from './src/screens/ChannelFilesScreen';
 import { ChannelImagesScreen } from './src/screens/ChannelImagesScreen';
@@ -35,7 +35,7 @@ import { SharedGroupsScreen } from './src/screens/SharedGroupsScreen';
 import { ThreadScreen } from './src/screens/ThreadScreen';
 import { UserSelectorScreen } from './src/screens/UserSelectorScreen';
 
-import type { StreamChat } from 'stream-chat';
+import type { ErmisChat } from 'ermis-chat-sdk-test';
 
 if (__DEV__) {
   DevSettings.addMenuItem('Reset local DB (offline storage)', () => {
@@ -46,7 +46,7 @@ if (__DEV__) {
 
 import type {
   StackNavigatorParamList,
-  StreamChatGenerics,
+  ErmisChatGenerics,
   UserSelectorParamList,
 } from './src/types';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -76,8 +76,7 @@ const UserSelectorStack = createStackNavigator<UserSelectorParamList>();
 const App = () => {
   const { chatClient, isConnecting, loginUser, logout, switchUser, unreadCount } = useChatClient();
   const colorScheme = useColorScheme();
-  const streamChatTheme = useStreamChatTheme();
-
+  const ErmisChatTheme = useErmisChatTheme();
   useEffect(() => {
     const unsubscribeOnNotificationOpen = messaging().onNotificationOpenedApp((remoteMessage) => {
       // Notification caused app to open from background state on iOS
@@ -126,16 +125,16 @@ const App = () => {
   return (
     <SafeAreaProvider
       style={{
-        backgroundColor: streamChatTheme.colors?.white_snow || '#FCFCFC',
+        backgroundColor: ErmisChatTheme.colors?.white_snow || '#FCFCFC',
       }}
     >
-      <ThemeProvider style={streamChatTheme}>
+      <ThemeProvider style={ErmisChatTheme}>
         <NavigationContainer
           ref={RootNavigationRef}
           theme={{
             colors: {
               ...(colorScheme === 'dark' ? DarkTheme : DefaultTheme).colors,
-              background: streamChatTheme.colors?.white_snow || '#FCFCFC',
+              background: ErmisChatTheme.colors?.white_snow || '#FCFCFC',
             },
             dark: colorScheme === 'dark',
           }}
@@ -169,15 +168,15 @@ const DrawerNavigator: React.FC = () => (
 );
 
 const DrawerNavigatorWrapper: React.FC<{
-  chatClient: StreamChat<StreamChatGenerics>;
+  chatClient: ErmisChat<ErmisChatGenerics>;
 }> = ({ chatClient }) => {
   const { bottom } = useSafeAreaInsets();
-  const streamChatTheme = useStreamChatTheme();
+  const ErmisChatTheme = useErmisChatTheme();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <OverlayProvider<StreamChatGenerics> bottomInset={bottom} value={{ style: streamChatTheme }}>
-        <Chat<StreamChatGenerics>
+      <OverlayProvider<ErmisChatGenerics> bottomInset={bottom} value={{ style: ErmisChatTheme }}>
+        <Chat<ErmisChatGenerics>
           client={chatClient}
           enableOfflineSupport
           // @ts-expect-error

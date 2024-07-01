@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 
 import { TFunction } from 'i18next';
-import type { Channel, ChannelState, MessageResponse, StreamChat, UserResponse } from 'stream-chat';
+import type { Channel, ChannelState, MessageResponse, ErmisChat, UserResponse } from 'ermis-chat-sdk-test';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 
 import { useTranslatedMessage } from '../../../hooks/useTranslatedMessage';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 type LatestMessage<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > =
-  | ReturnType<ChannelState<StreamChatGenerics>['formatMessage']>
-  | MessageResponse<StreamChatGenerics>;
+  | ReturnType<ChannelState<ErmisChatGenerics>['formatMessage']>
+  | MessageResponse<ErmisChatGenerics>;
 
 export type LatestMessagePreview<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  messageObject: LatestMessage<StreamChatGenerics> | undefined;
+  messageObject: LatestMessage<ErmisChatGenerics> | undefined;
   previews: {
     bold: boolean;
     text: string;
@@ -28,9 +28,9 @@ export type LatestMessagePreview<
 };
 
 const getMessageSenderName = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message: LatestMessage<StreamChatGenerics> | undefined,
+  message: LatestMessage<ErmisChatGenerics> | undefined,
   currentUserId: string | undefined,
   t: (key: string) => string,
   membersLength: number,
@@ -47,9 +47,9 @@ const getMessageSenderName = <
 };
 
 const getMentionUsers = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  mentionedUser: UserResponse<StreamChatGenerics>[] | undefined,
+  mentionedUser: UserResponse<ErmisChatGenerics>[] | undefined,
 ) => {
   if (Array.isArray(mentionedUser)) {
     const mentionUserString = mentionedUser.reduce((acc, cur) => {
@@ -70,11 +70,11 @@ const getMentionUsers = <
 };
 
 const getLatestMessageDisplayText = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
-  client: StreamChat<StreamChatGenerics>,
-  message: LatestMessage<StreamChatGenerics> | undefined,
+  channel: Channel<ErmisChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
+  message: LatestMessage<ErmisChatGenerics> | undefined,
   t: (key: string) => string,
 ) => {
   if (!message) return [{ bold: false, text: t('Nothing yet...') }];
@@ -135,11 +135,11 @@ export enum MessageReadStatus {
 }
 
 const getLatestMessageReadStatus = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
-  client: StreamChat<StreamChatGenerics>,
-  message: LatestMessage<StreamChatGenerics> | undefined,
+  channel: Channel<ErmisChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
+  message: LatestMessage<ErmisChatGenerics> | undefined,
   readEvents: boolean,
 ): MessageReadStatus => {
   const currentUserId = client.userID;
@@ -166,15 +166,15 @@ const getLatestMessageReadStatus = <
 };
 
 const getLatestMessagePreview = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(params: {
-  channel: Channel<StreamChatGenerics>;
-  client: StreamChat<StreamChatGenerics>;
+  channel: Channel<ErmisChatGenerics>;
+  client: ErmisChat<ErmisChatGenerics>;
   readEvents: boolean;
   t: TFunction;
   lastMessage?:
-    | ReturnType<ChannelState<StreamChatGenerics>['formatMessage']>
-    | MessageResponse<StreamChatGenerics>;
+  | ReturnType<ChannelState<ErmisChatGenerics>['formatMessage']>
+  | MessageResponse<ErmisChatGenerics>;
 }) => {
   const { channel, client, lastMessage, readEvents, t } = params;
 
@@ -214,12 +214,12 @@ const getLatestMessagePreview = <
  * @returns {object} latest message preview e.g.. { text: 'this was last message ...', created_at: '11/12/2020', messageObject: { originalMessageObject } }
  */
 export const useLatestMessagePreview = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
   forceUpdate: number,
 ) => {
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
   const { t } = useTranslationContext();
 
   const channelConfigExists = typeof channel?.getConfig === 'function';
@@ -227,13 +227,13 @@ export const useLatestMessagePreview = <
   const messages = channel.state.messages;
   const message = messages.length ? messages[messages.length - 1] : undefined;
 
-  const translatedLastMessage = useTranslatedMessage<StreamChatGenerics>(message);
+  const translatedLastMessage = useTranslatedMessage<ErmisChatGenerics>(message);
 
   const channelLastMessageString = `${message?.id}${message?.updated_at}`;
 
   const [readEvents, setReadEvents] = useState(true);
   const [latestMessagePreview, setLatestMessagePreview] = useState<
-    LatestMessagePreview<StreamChatGenerics>
+    LatestMessagePreview<ErmisChatGenerics>
   >({
     created_at: '',
     messageObject: undefined,

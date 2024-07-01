@@ -1,4 +1,4 @@
-import type { ChannelResponse } from 'stream-chat';
+import type { ChannelResponse } from 'ermis-chat-sdk-test';
 
 import { mapChannelDataToStorable } from '../mappers/mapChannelDataToStorable';
 import { QuickSqliteClient } from '../QuickSqliteClient';

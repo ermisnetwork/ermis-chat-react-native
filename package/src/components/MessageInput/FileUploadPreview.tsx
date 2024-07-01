@@ -19,7 +19,7 @@ import { useTranslationContext } from '../../contexts/translationContext/Transla
 import { Close } from '../../icons/Close';
 import { Warning } from '../../icons/Warning';
 import { isAudioPackageAvailable } from '../../native';
-import type { DefaultStreamChatGenerics, FileUpload } from '../../types/types';
+import type { DefaultErmisChatGenerics, FileUpload } from '../../types/types';
 import { getTrimmedAttachmentTitle } from '../../utils/getTrimmedAttachmentTitle';
 import { getIndicatorTypeForFileState, ProgressIndicatorTypes } from '../../utils/utils';
 import { getFileSizeDisplayText } from '../Attachment/FileAttachment';
@@ -132,18 +132,18 @@ const UnsupportedFileTypeOrFileSizeIndicator = ({
 };
 
 type FileUploadPreviewPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageInputContextValue<StreamChatGenerics>,
+  MessageInputContextValue<ErmisChatGenerics>,
   'fileUploads' | 'removeFile' | 'uploadFile' | 'setFileUploads' | 'AudioAttachmentUploadPreview'
 > &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'FileAttachmentIcon'> &
-  Pick<ChatContextValue<StreamChatGenerics>, 'enableOfflineSupport'>;
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'FileAttachmentIcon'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'enableOfflineSupport'>;
 
 const FileUploadPreviewWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: FileUploadPreviewPropsWithContext<StreamChatGenerics>,
+  props: FileUploadPreviewPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     AudioAttachmentUploadPreview,
@@ -193,8 +193,8 @@ const FileUploadPreviewWithContext = <
             ? hasEnd
               ? 1
               : currentTime
-              ? currentTime / (fileUpload.duration as number)
-              : 0
+                ? currentTime / (fileUpload.duration as number)
+                : 0
             : fileUpload.progress,
       })),
     );
@@ -338,9 +338,9 @@ const FileUploadPreviewWithContext = <
   ) : null;
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: FileUploadPreviewPropsWithContext<StreamChatGenerics>,
-  nextProps: FileUploadPreviewPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: FileUploadPreviewPropsWithContext<ErmisChatGenerics>,
+  nextProps: FileUploadPreviewPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { fileUploads: prevFileUploads } = prevProps;
   const { fileUploads: nextFileUploads } = nextProps;
@@ -363,22 +363,22 @@ const MemoizedFileUploadPreview = React.memo(
 ) as typeof FileUploadPreviewWithContext;
 
 export type FileUploadPreviewProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<FileUploadPreviewPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<FileUploadPreviewPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * FileUploadPreview
  * UI Component to preview the files set for upload
  */
 export const FileUploadPreview = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: FileUploadPreviewProps<StreamChatGenerics>,
+  props: FileUploadPreviewProps<ErmisChatGenerics>,
 ) => {
-  const { enableOfflineSupport } = useChatContext<StreamChatGenerics>();
+  const { enableOfflineSupport } = useChatContext<ErmisChatGenerics>();
   const { AudioAttachmentUploadPreview, fileUploads, removeFile, setFileUploads, uploadFile } =
-    useMessageInputContext<StreamChatGenerics>();
-  const { FileAttachmentIcon } = useMessagesContext<StreamChatGenerics>();
+    useMessageInputContext<ErmisChatGenerics>();
+  const { FileAttachmentIcon } = useMessagesContext<ErmisChatGenerics>();
 
   return (
     <MemoizedFileUploadPreview

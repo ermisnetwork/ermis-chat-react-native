@@ -1,10 +1,10 @@
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { buildThumbnail } from './buildThumbnail';
 
 import type { GallerySizeAndThumbnailGrid, GallerySizeConfig } from './types';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 import { getAspectRatio } from '../getAspectRatio';
 
 /**
@@ -20,8 +20,8 @@ function clamp(number: number, min: number, max: number) {
 }
 
 function getContainerSize<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
->({ image, sizeConfig }: { image: Attachment<StreamChatGenerics>; sizeConfig: GallerySizeConfig }) {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+>({ image, sizeConfig }: { image: Attachment<ErmisChatGenerics>; sizeConfig: GallerySizeConfig }) {
   const { original_height: height, original_width: width } = image;
   const { gridHeight, gridWidth, maxHeight, maxWidth, minHeight, minWidth } = sizeConfig;
 
@@ -64,12 +64,12 @@ function getContainerSize<
 }
 
 export function buildGalleryOfSingleImage<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   image,
   sizeConfig,
 }: {
-  image: Attachment<StreamChatGenerics>;
+  image: Attachment<ErmisChatGenerics>;
   sizeConfig: GallerySizeConfig;
 }): GallerySizeAndThumbnailGrid {
   const container = getContainerSize({

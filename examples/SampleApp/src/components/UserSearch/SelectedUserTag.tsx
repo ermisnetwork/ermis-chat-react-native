@@ -2,9 +2,9 @@ import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from 'stream-chat-react-native';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../../types';
+import type { ErmisChatGenerics } from '../../types';
 
 const styles = StyleSheet.create({
   tagContainer: {
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 type SelectedUserTagProps = {
   index: number;
   onPress: () => void;
-  tag: UserResponse<StreamChatGenerics>;
+  tag: UserResponse<ErmisChatGenerics>;
   disabled?: boolean;
 };
 

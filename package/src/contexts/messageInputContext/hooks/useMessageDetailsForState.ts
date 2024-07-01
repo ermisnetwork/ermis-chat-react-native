@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import { Attachment } from 'stream-chat';
+import { Attachment } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics, FileUpload, ImageUpload } from '../../../types/types';
+import type { DefaultErmisChatGenerics, FileUpload, ImageUpload } from '../../../types/types';
 import { generateRandomId } from '../../../utils/utils';
 
 import type { MessageInputContextValue } from '../MessageInputContext';
 
 export const useMessageDetailsForState = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message: MessageInputContextValue<StreamChatGenerics>['editing'],
+  message: MessageInputContextValue<ErmisChatGenerics>['editing'],
   initialValue?: string,
 ) => {
   const [fileUploads, setFileUploads] = useState<FileUpload[]>([]);
@@ -41,7 +41,7 @@ export const useMessageDetailsForState = <
     }
   }, [messageValue]);
 
-  const mapAttachmentToFileUpload = (attachment: Attachment<StreamChatGenerics>): FileUpload => {
+  const mapAttachmentToFileUpload = (attachment: Attachment<ErmisChatGenerics>): FileUpload => {
     const id = generateRandomId();
 
     if (attachment.type === 'audio') {

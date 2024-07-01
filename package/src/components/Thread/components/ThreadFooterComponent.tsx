@@ -13,7 +13,7 @@ import {
 } from '../../../contexts/threadContext/ThreadContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 import { useViewport } from '../../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const styles = StyleSheet.create({
   absolute: { position: 'absolute' },
@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
 });
 
 type ThreadFooterComponentPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessagesContextValue<StreamChatGenerics>, 'Message'> &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'thread'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessagesContextValue<ErmisChatGenerics>, 'Message'> &
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'thread'>;
 
 const ThreadFooterComponentWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ThreadFooterComponentPropsWithContext<StreamChatGenerics>,
+  props: ThreadFooterComponentPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { Message, thread } = props;
   const { t } = useTranslationContext();
@@ -102,17 +102,17 @@ const ThreadFooterComponentWithContext = <
           {replyCount === 1
             ? t<string>('1 Reply')
             : t<string>('{{ replyCount }} Replies', {
-                replyCount,
-              })}
+              replyCount,
+            })}
         </Text>
       </View>
     </View>
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: ThreadFooterComponentPropsWithContext<StreamChatGenerics>,
-  nextProps: ThreadFooterComponentPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: ThreadFooterComponentPropsWithContext<ErmisChatGenerics>,
+  nextProps: ThreadFooterComponentPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { thread: prevThread } = prevProps;
   const { thread: nextThread } = nextProps;
@@ -125,13 +125,13 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
 
   const latestReactionsEqual =
     prevThread &&
-    nextThread &&
-    Array.isArray(prevThread.latest_reactions) &&
-    Array.isArray(nextThread.latest_reactions)
+      nextThread &&
+      Array.isArray(prevThread.latest_reactions) &&
+      Array.isArray(nextThread.latest_reactions)
       ? prevThread.latest_reactions.length === nextThread.latest_reactions.length &&
-        prevThread.latest_reactions.every(
-          ({ type }, index) => type === nextThread.latest_reactions?.[index].type,
-        )
+      prevThread.latest_reactions.every(
+        ({ type }, index) => type === nextThread.latest_reactions?.[index].type,
+      )
       : prevThread?.latest_reactions === nextThread?.latest_reactions;
   if (!latestReactionsEqual) return false;
 
@@ -144,10 +144,10 @@ const MemoizedThreadFooter = React.memo(
 ) as typeof ThreadFooterComponentWithContext;
 
 export const ThreadFooterComponent = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
-  const { Message } = useMessagesContext<StreamChatGenerics>();
-  const { thread } = useThreadContext<StreamChatGenerics>();
+  const { Message } = useMessagesContext<ErmisChatGenerics>();
+  const { thread } = useThreadContext<ErmisChatGenerics>();
 
   return (
     <MemoizedThreadFooter

@@ -1,38 +1,38 @@
 import React, { PropsWithChildren, useContext } from 'react';
 import type { ImageProps } from 'react-native';
 
-import type { AppSettingsAPIResponse, Channel, Mute, StreamChat } from 'stream-chat';
+import type { AppSettingsAPIResponse, Channel, Mute, ErmisChat } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
 export type ChatContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
    * Object of application settings returned from Stream.
    * */
-  appSettings: AppSettingsAPIResponse<StreamChatGenerics> | null;
+  appSettings: AppSettingsAPIResponse<ErmisChatGenerics> | null;
   /**
-   * The StreamChat client object
+   * The ErmisChat client object
    *
    * ```
-   * import { StreamChat } from 'stream-chat';
+   * import { ErmisChat } from 'ermis-chat-sdk-test';
    * import { Chat } from 'stream-chat-react-native';
    *
-   * const client = StreamChat.getInstance('api_key);
+   * const client = ErmisChat.getInstance('api_key);
    * await client.connectUser('user_id', 'userToken');
    *
    * <Chat client={client}>
    * </Chat>
    * ```
    *
-   * @overrideType StreamChat
+   * @overrideType ErmisChat
    * */
-  client: StreamChat<StreamChatGenerics>;
+  client: ErmisChat<ErmisChatGenerics>;
   connectionRecovering: boolean;
   enableOfflineSupport: boolean;
   /**
@@ -40,23 +40,23 @@ export type ChatContextValue<
    */
   ImageComponent: React.ComponentType<ImageProps>;
   isOnline: boolean | null;
-  mutedUsers: Mute<StreamChatGenerics>[];
+  mutedUsers: Mute<ErmisChatGenerics>[];
   /**
    * @param newChannel Channel to set as active.
    *
    * @overrideType Function
    */
-  setActiveChannel: (newChannel?: Channel<StreamChatGenerics>) => void;
+  setActiveChannel: (newChannel?: Channel<ErmisChatGenerics>) => void;
   /**
    * Instance of channel object from stream-chat package.
    *
    * Please check the docs around how to create or query channel - https://getstream.io/chat/docs/javascript/creating_channels/?language=javascript
    *
    * ```
-   * import { StreamChat, Channel } from 'stream-chat';
+   * import { ErmisChat, Channel } from 'ermis-chat-sdk-test';
    * import { Chat, Channel} from 'stream-chat-react-native';
    *
-   * const client = StreamChat.getInstance('api_key');
+   * const client = ErmisChat.getInstance('api_key');
    * await client.connectUser('user_id', 'user_token');
    * const channel = client.channel('messaging', 'channel_id');
    * await channel.watch();
@@ -64,7 +64,7 @@ export type ChatContextValue<
    *
    * @overrideType Channel
    */
-  channel?: Channel<StreamChatGenerics>;
+  channel?: Channel<ErmisChatGenerics>;
   /**
    * This option allows you to specify a list of CDNs that offer image resizing.
    */
@@ -74,12 +74,12 @@ export type ChatContextValue<
 export const ChatContext = React.createContext(DEFAULT_BASE_CONTEXT_VALUE as ChatContextValue);
 
 export const ChatProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value?: ChatContextValue<StreamChatGenerics>;
+  value?: ChatContextValue<ErmisChatGenerics>;
 }>) => (
   <ChatContext.Provider value={value as unknown as ChatContextValue}>
     {children}
@@ -87,9 +87,9 @@ export const ChatProvider = <
 );
 
 export const useChatContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
-  const contextValue = useContext(ChatContext) as unknown as ChatContextValue<StreamChatGenerics>;
+  const contextValue = useContext(ChatContext) as unknown as ChatContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -111,12 +111,12 @@ export const useChatContext = <
  */
 export const withChatContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof ChatContextValue<StreamChatGenerics>>> => {
-  const WithChatContextComponent = (props: Omit<P, keyof ChatContextValue<StreamChatGenerics>>) => {
-    const chatContext = useChatContext<StreamChatGenerics>();
+): React.ComponentType<Omit<P, keyof ChatContextValue<ErmisChatGenerics>>> => {
+  const WithChatContextComponent = (props: Omit<P, keyof ChatContextValue<ErmisChatGenerics>>) => {
+    const chatContext = useChatContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...chatContext} />;
   };

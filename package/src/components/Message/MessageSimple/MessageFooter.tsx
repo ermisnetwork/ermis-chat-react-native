@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import type { MessageStatusProps } from './MessageStatus';
 
@@ -20,7 +20,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 import { Eye } from '../../../icons';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { isEditedMessage, MessageStatusTypes } from '../../../utils/utils';
 import type { MessageType } from '../../MessageList/hooks/useMessageList';
 
@@ -31,9 +31,9 @@ type MessageFooterComponentProps = {
 };
 
 type MessageFooterPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   | 'alignment'
   | 'isEditedMessageOpen'
   | 'members'
@@ -43,7 +43,7 @@ type MessageFooterPropsWithContext<
   | 'lastGroupMessage'
 > &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'deletedMessagesVisibilityType'
     | 'MessageEditedTimestamp'
     | 'MessageStatus'
@@ -83,9 +83,9 @@ const OnlyVisibleToYouComponent = ({ alignment }: { alignment: Alignment }) => {
 };
 
 const MessageFooterWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageFooterPropsWithContext<StreamChatGenerics>,
+  props: MessageFooterPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -168,9 +168,9 @@ const MessageFooterWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageFooterPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageFooterPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageFooterPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageFooterPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment: prevAlignment,
@@ -246,21 +246,21 @@ const MemoizedMessageFooter = React.memo(
 ) as typeof MessageFooterWithContext;
 
 export type MessageFooterProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Pick<ChannelContextValue<StreamChatGenerics>, 'members'>> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Pick<ChannelContextValue<ErmisChatGenerics>, 'members'>> &
   MessageFooterComponentProps & {
     alignment?: Alignment;
     lastGroupMessage?: boolean;
-    message?: MessageType<StreamChatGenerics>;
-    MessageStatus?: React.ComponentType<MessageStatusProps<StreamChatGenerics>>;
-    otherAttachments?: Attachment<StreamChatGenerics>[];
+    message?: MessageType<ErmisChatGenerics>;
+    MessageStatus?: React.ComponentType<MessageStatusProps<ErmisChatGenerics>>;
+    otherAttachments?: Attachment<ErmisChatGenerics>[];
     showMessageStatus?: boolean;
   };
 
 export const MessageFooter = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageFooterProps<StreamChatGenerics>,
+  props: MessageFooterProps<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -270,10 +270,10 @@ export const MessageFooter = <
     message,
     otherAttachments,
     showMessageStatus,
-  } = useMessageContext<StreamChatGenerics>();
+  } = useMessageContext<ErmisChatGenerics>();
 
   const { deletedMessagesVisibilityType, MessageEditedTimestamp, MessageStatus, MessageTimestamp } =
-    useMessagesContext<StreamChatGenerics>();
+    useMessagesContext<ErmisChatGenerics>();
 
   return (
     <MemoizedMessageFooter

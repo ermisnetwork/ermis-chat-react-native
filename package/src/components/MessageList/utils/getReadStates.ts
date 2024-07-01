@@ -1,16 +1,16 @@
 import type { ChannelContextValue } from '../../../contexts/channelContext/ChannelContext';
 import type { PaginatedMessageListContextValue } from '../../../contexts/paginatedMessageListContext/PaginatedMessageListContext';
 import type { ThreadContextValue } from '../../../contexts/threadContext/ThreadContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const getReadStates = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   clientUserId: string | undefined,
   messages:
-    | PaginatedMessageListContextValue<StreamChatGenerics>['messages']
-    | ThreadContextValue<StreamChatGenerics>['threadMessages'],
-  read?: ChannelContextValue<StreamChatGenerics>['read'],
+    | PaginatedMessageListContextValue<ErmisChatGenerics>['messages']
+    | ThreadContextValue<ErmisChatGenerics>['threadMessages'],
+  read?: ChannelContextValue<ErmisChatGenerics>['read'],
 ) => {
   const readData = messages.reduce((acc, cur) => {
     if (cur.id) {

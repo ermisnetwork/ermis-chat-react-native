@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-import { BuiltinRoles, ChannelResponse, Role } from 'stream-chat';
+import { BuiltinRoles, ChannelResponse, Role } from 'ermis-chat-sdk-test';
 
 import { useChannelContext } from '../../../contexts/channelContext/ChannelContext';
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { ONE_SECOND_IN_MS } from '../../../utils/date';
 
 type Roles = Array<Role>;
@@ -14,13 +14,13 @@ type Roles = Array<Role>;
  * for a Channel by setting an end time for
  **/
 export const useCooldown = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const [endsAt, setEndsAt] = useState(new Date());
 
-  const { client } = useChatContext<StreamChatGenerics>();
-  const { channel } = useChannelContext<StreamChatGenerics>();
-  const { cooldown } = (channel?.data || {}) as ChannelResponse<StreamChatGenerics>;
+  const { client } = useChatContext<ErmisChatGenerics>();
+  const { channel } = useChannelContext<ErmisChatGenerics>();
+  const { cooldown } = (channel?.data || {}) as ChannelResponse<ErmisChatGenerics>;
   const interval: number = cooldown ?? 0;
 
   /**

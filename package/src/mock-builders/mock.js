@@ -1,7 +1,7 @@
 /* eslint no-underscore-dangle: 0 */
 /* eslint no-param-reassign: 0 */
 
-import { StreamChat } from 'stream-chat';
+import { ErmisChat } from 'ermis-chat-sdk-test';
 
 const apiKey = 'API_KEY';
 const token = 'dummy_token';
@@ -35,11 +35,11 @@ function mockClient(client, options = {}) {
   return client;
 }
 
-export const getTestClient = (options = {}) => mockClient(new StreamChat(apiKey), options);
+export const getTestClient = (options = {}) => mockClient(new ErmisChat(apiKey), options);
 
 export const getTestClientWithUser = async (user, options = {}) => {
   const { disableAppSettings = true } = options;
-  const client = mockClient(new StreamChat(apiKey));
+  const client = mockClient(new ErmisChat(apiKey));
   await setUser(client, user);
   client.wsPromise = Promise.resolve();
 

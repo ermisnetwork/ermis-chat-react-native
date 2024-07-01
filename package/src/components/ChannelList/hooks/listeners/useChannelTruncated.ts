@@ -1,34 +1,34 @@
 import { useEffect } from 'react';
 
-import type { Channel, Event } from 'stream-chat';
+import type { Channel, Event } from 'ermis-chat-sdk-test';
 
 import { useChatContext } from '../../../../contexts/chatContext/ChatContext';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 
-type Parameters<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
+type Parameters<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
   {
     refreshList: () => void;
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>;
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>;
     setForceUpdate: React.Dispatch<React.SetStateAction<number>>;
     onChannelTruncated?: (
-      setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-      event: Event<StreamChatGenerics>,
+      setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+      event: Event<ErmisChatGenerics>,
     ) => void;
   };
 
 export const useChannelTruncated = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   onChannelTruncated,
   refreshList,
   setChannels,
   setForceUpdate,
-}: Parameters<StreamChatGenerics>) => {
-  const { client } = useChatContext<StreamChatGenerics>();
+}: Parameters<ErmisChatGenerics>) => {
+  const { client } = useChatContext<ErmisChatGenerics>();
 
   useEffect(() => {
-    const handleEvent = (event: Event<StreamChatGenerics>) => {
+    const handleEvent = (event: Event<ErmisChatGenerics>) => {
       if (typeof onChannelTruncated === 'function') {
         onChannelTruncated(setChannels, event);
       }

@@ -1,7 +1,7 @@
 /* global require */
 const Dayjs = require('dayjs');
-const StreamChat = require('stream-chat').StreamChat;
-export const client = new StreamChat('qk4nn7rpcn75');
+const ErmisChat = require('ermis-chat-sdk-test').ErmisChat;
+export const client = new ErmisChat('qk4nn7rpcn75');
 
 client.connectUser(
   {
@@ -26,10 +26,10 @@ export const translationContext = {
   tDateTimeParser: (date) => Dayjs(date),
 };
 export const suggestionsContext = {
-  closeSuggestions: () => {},
-  openSuggestions: () => {},
-  setInputBoxContainerRef: () => {},
-  updateSuggestions: () => {},
+  closeSuggestions: () => { },
+  openSuggestions: () => { },
+  setInputBoxContainerRef: () => { },
+  updateSuggestions: () => { },
 };
 
 const filters = { example: 1, type: 'team' };
@@ -245,7 +245,7 @@ export const messageWithImages = {
     role: 'user',
     updated_at: '2019-01-25T16:23:47.052538Z',
   },
-  
+
 };
 
 export const messageWithUrlPreview = {
@@ -388,7 +388,7 @@ export const thread = {
     role: 'user',
     updated_at: '2019-01-25T21:27:39.606466Z',
   },
-  
+
 };
 
 export const threadMessages = [
@@ -527,7 +527,7 @@ export const MessageMock = {
 
 // Based on: https://javascript.info/promise-basics#example-loadscript
 function dynamicallyLoadScript(url) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const script = document.createElement('script');
     script.src = url;
     script.onload = resolve;

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { GestureResponderEvent, Keyboard, StyleProp, View, ViewStyle } from 'react-native';
 
-import type { Attachment, UserResponse } from 'stream-chat';
+import type { Attachment, UserResponse } from 'ermis-chat-sdk-test';
 
 import { useCreateMessageContext } from './hooks/useCreateMessageContext';
 import { useMessageActionHandlers } from './hooks/useMessageActionHandlers';
@@ -40,7 +40,7 @@ import {
 } from '../../contexts/translationContext/TranslationContext';
 
 import { isVideoPackageAvailable, triggerHaptic } from '../../native';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import {
   hasOnlyEmojis,
   isBlockedMessage,
@@ -65,10 +65,10 @@ export type TouchableEmitter =
   | 'reactionList';
 
 export type TextMentionTouchableHandlerPayload<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   emitter: 'textMention';
-  additionalInfo?: { user?: UserResponse<StreamChatGenerics> };
+  additionalInfo?: { user?: UserResponse<ErmisChatGenerics> };
 };
 
 export type UrlTouchableHandlerPayload = {
@@ -77,26 +77,26 @@ export type UrlTouchableHandlerPayload = {
 };
 
 export type FileAttachmentTouchableHandlerPayload<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   emitter: 'fileAttachment';
-  additionalInfo?: { attachment?: Attachment<StreamChatGenerics> };
+  additionalInfo?: { attachment?: Attachment<ErmisChatGenerics> };
 };
 
 export type TouchableHandlerPayload = {
   defaultHandler?: () => void;
   event?: GestureResponderEvent;
 } & (
-  | {
+    | {
       emitter?: Exclude<TouchableEmitter, 'textMention' | 'textLink' | 'card' | 'fileAttachment'>;
     }
-  | TextMentionTouchableHandlerPayload
-  | UrlTouchableHandlerPayload
-  | FileAttachmentTouchableHandlerPayload
-);
+    | TextMentionTouchableHandlerPayload
+    | UrlTouchableHandlerPayload
+    | FileAttachmentTouchableHandlerPayload
+  );
 
 export type MessageTouchableHandlerPayload<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = TouchableHandlerPayload & {
   /**
    * Set of action handler functions for various message actions. You can use these functions to perform any action when give interaction occurs.
@@ -109,7 +109,7 @@ export type MessageTouchableHandlerPayload<
   /**
    * Message object, on which interaction occurred.
    */
-  message?: MessageType<StreamChatGenerics>;
+  message?: MessageType<ErmisChatGenerics>;
 };
 
 export type MessageActionHandlers = {
@@ -125,16 +125,16 @@ export type MessageActionHandlers = {
 };
 
 export type MessagePropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  ChannelContextValue<StreamChatGenerics>,
+  ChannelContextValue<ErmisChatGenerics>,
   'channel' | 'disabled' | 'enforceUniqueReaction' | 'members'
 > &
   Pick<KeyboardContextValue, 'dismissKeyboard'> &
-  Partial<Omit<MessageContextValue<StreamChatGenerics>, 'groupStyles' | 'message'>> &
-  Pick<MessageContextValue<StreamChatGenerics>, 'groupStyles' | 'message'> &
+  Partial<Omit<MessageContextValue<ErmisChatGenerics>, 'groupStyles' | 'message'>> &
+  Pick<MessageContextValue<ErmisChatGenerics>, 'groupStyles' | 'message'> &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'sendReaction'
     | 'deleteMessage'
     | 'dismissKeyboardOnMessageTouch'
@@ -168,12 +168,12 @@ export type MessagePropsWithContext<
     | 'supportedReactions'
     | 'updateMessage'
   > &
-  Pick<MessageOverlayContextValue<StreamChatGenerics>, 'setData'> &
+  Pick<MessageOverlayContextValue<ErmisChatGenerics>, 'setData'> &
   Pick<OverlayContextValue, 'setOverlay'> &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'openThread'> &
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'openThread'> &
   Pick<TranslationContextValue, 't'> & {
-    chatContext: ChatContextValue<StreamChatGenerics>;
-    messagesContext: MessagesContextValue<StreamChatGenerics>;
+    chatContext: ChatContextValue<ErmisChatGenerics>;
+    messagesContext: MessagesContextValue<ErmisChatGenerics>;
     /**
      * Whether or not users are able to long press messages.
      */
@@ -195,7 +195,7 @@ export type MessagePropsWithContext<
      * @param message Message object which was long pressed
      * @param event   Event object for onLongPress event
      **/
-    onLongPress?: (payload: Partial<MessageTouchableHandlerPayload<StreamChatGenerics>>) => void;
+    onLongPress?: (payload: Partial<MessageTouchableHandlerPayload<ErmisChatGenerics>>) => void;
 
     /**
      * You can call methods available on the Message
@@ -208,14 +208,14 @@ export type MessagePropsWithContext<
      * @param message Message object which was long pressed
      * @param event   Event object for onLongPress event
      * */
-    onPress?: (payload: Partial<MessageTouchableHandlerPayload<StreamChatGenerics>>) => void;
-    onPressIn?: (payload: Partial<MessageTouchableHandlerPayload<StreamChatGenerics>>) => void;
+    onPress?: (payload: Partial<MessageTouchableHandlerPayload<ErmisChatGenerics>>) => void;
+    onPressIn?: (payload: Partial<MessageTouchableHandlerPayload<ErmisChatGenerics>>) => void;
     /**
      * Handler to open the thread on message. This is callback for touch event for replies button.
      *
      * @param message A message object to open the thread upon.
      */
-    onThreadSelect?: (message: MessageType<StreamChatGenerics>) => void;
+    onThreadSelect?: (message: MessageType<ErmisChatGenerics>) => void;
     showUnreadUnderlay?: boolean;
     style?: StyleProp<ViewStyle>;
   };
@@ -226,9 +226,9 @@ export type MessagePropsWithContext<
  * each individual Message component.
  */
 const MessageWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessagePropsWithContext<StreamChatGenerics>,
+  props: MessagePropsWithContext<ErmisChatGenerics>,
 ) => {
   const [isBounceDialogOpen, setIsBounceDialogOpen] = useState(false);
   const [isEditedMessageOpen, setIsEditedMessageOpen] = useState(false);
@@ -321,7 +321,7 @@ const MessageWithContext = <
     }
   };
 
-  const onPressQuotedMessage = (quotedMessage: MessageType<StreamChatGenerics>) => {
+  const onPressQuotedMessage = (quotedMessage: MessageType<ErmisChatGenerics>) => {
     if (!goToMessage) return;
 
     goToMessage(quotedMessage.id);
@@ -336,7 +336,7 @@ const MessageWithContext = <
     if (isEditedMessage(message)) {
       setIsEditedMessageOpen((prevState) => !prevState);
     }
-    const quotedMessage = message.quoted_message as MessageType<StreamChatGenerics>;
+    const quotedMessage = message.quoted_message as MessageType<ErmisChatGenerics>;
     if (error) {
       /**
        * If its a Blocked message, we don't do anything as per specs.
@@ -361,8 +361,8 @@ const MessageWithContext = <
     forceAlignMessages && (forceAlignMessages === 'left' || forceAlignMessages === 'right')
       ? forceAlignMessages
       : isMyMessage
-      ? 'right'
-      : 'left';
+        ? 'right'
+        : 'left';
 
   /**
    * attachments contain files/images or other attachments
@@ -374,51 +374,51 @@ const MessageWithContext = <
   const attachments =
     !isMessageTypeDeleted && Array.isArray(message.attachments)
       ? message.attachments.reduce(
-          (acc, cur) => {
-            if (cur.type === 'file') {
-              acc.files.push(cur);
-              acc.other = []; // remove other attachments if a file exists
-            } else if (cur.type === 'video' && !cur.og_scrape_url && isVideoPackageAvailable()) {
-              acc.videos.push({
-                image_url: cur.asset_url,
-                thumb_url: cur.thumb_url,
-                type: 'video',
-              });
-              acc.other = [];
-            } else if (cur.type === 'video' && !cur.og_scrape_url) {
-              acc.files.push(cur);
-              acc.other = []; // remove other attachments if a file exists
-            } else if (cur.type === 'audio' || cur.type === 'voiceRecording') {
-              acc.files.push(cur);
-            } else if (cur.type === 'image' && !cur.title_link && !cur.og_scrape_url) {
-              /**
-               * this next if is not combined with the above one for cases where we have
-               * an image with no url links at all falling back to being an attachment
-               */
-              if (cur.image_url || cur.thumb_url) {
-                acc.images.push(cur);
-                acc.other = []; // remove other attachments if an image exists
-              }
-              // only add other attachments if there are no files/images
-            } else if (!acc.files.length && !acc.images.length && !acc.videos.length) {
-              acc.other.push(cur);
+        (acc, cur) => {
+          if (cur.type === 'file') {
+            acc.files.push(cur);
+            acc.other = []; // remove other attachments if a file exists
+          } else if (cur.type === 'video' && !cur.og_scrape_url && isVideoPackageAvailable()) {
+            acc.videos.push({
+              image_url: cur.asset_url,
+              thumb_url: cur.thumb_url,
+              type: 'video',
+            });
+            acc.other = [];
+          } else if (cur.type === 'video' && !cur.og_scrape_url) {
+            acc.files.push(cur);
+            acc.other = []; // remove other attachments if a file exists
+          } else if (cur.type === 'audio' || cur.type === 'voiceRecording') {
+            acc.files.push(cur);
+          } else if (cur.type === 'image' && !cur.title_link && !cur.og_scrape_url) {
+            /**
+             * this next if is not combined with the above one for cases where we have
+             * an image with no url links at all falling back to being an attachment
+             */
+            if (cur.image_url || cur.thumb_url) {
+              acc.images.push(cur);
+              acc.other = []; // remove other attachments if an image exists
             }
+            // only add other attachments if there are no files/images
+          } else if (!acc.files.length && !acc.images.length && !acc.videos.length) {
+            acc.other.push(cur);
+          }
 
-            return acc;
-          },
-          {
-            files: [] as Attachment<StreamChatGenerics>[],
-            images: [] as Attachment<StreamChatGenerics>[],
-            other: [] as Attachment<StreamChatGenerics>[],
-            videos: [] as Attachment<StreamChatGenerics>[],
-          },
-        )
+          return acc;
+        },
+        {
+          files: [] as Attachment<ErmisChatGenerics>[],
+          images: [] as Attachment<ErmisChatGenerics>[],
+          other: [] as Attachment<ErmisChatGenerics>[],
+          videos: [] as Attachment<ErmisChatGenerics>[],
+        },
+      )
       : {
-          files: [] as Attachment<StreamChatGenerics>[],
-          images: [] as Attachment<StreamChatGenerics>[],
-          other: [] as Attachment<StreamChatGenerics>[],
-          videos: [] as Attachment<StreamChatGenerics>[],
-        };
+        files: [] as Attachment<ErmisChatGenerics>[],
+        images: [] as Attachment<ErmisChatGenerics>[],
+        other: [] as Attachment<ErmisChatGenerics>[],
+        videos: [] as Attachment<ErmisChatGenerics>[],
+      };
   /**
    * Check if any actions to prevent long press
    */
@@ -556,25 +556,25 @@ const MessageWithContext = <
       typeof messageActionsProp !== 'function'
         ? messageActionsProp
         : messageActionsProp({
-            blockUser,
-            copyMessage,
-            deleteMessage,
-            dismissOverlay,
-            editMessage,
-            error,
-            flagMessage,
-            isMyMessage,
-            isThreadMessage,
-            message,
-            messageReactions,
-            muteUser,
-            ownCapabilities,
-            pinMessage,
-            quotedReply,
-            retry,
-            threadReply,
-            unpinMessage,
-          });
+          blockUser,
+          copyMessage,
+          deleteMessage,
+          dismissOverlay,
+          editMessage,
+          error,
+          flagMessage,
+          isMyMessage,
+          isThreadMessage,
+          message,
+          messageReactions,
+          muteUser,
+          ownCapabilities,
+          pinMessage,
+          quotedReply,
+          retry,
+          threadReply,
+          unpinMessage,
+        });
 
     setData({
       alignment,
@@ -618,7 +618,7 @@ const MessageWithContext = <
     disabled || hasAttachmentActions || isBlockedMessage(message)
       ? () => null
       : onLongPressMessageProp
-      ? (payload?: TouchableHandlerPayload) =>
+        ? (payload?: TouchableHandlerPayload) =>
           onLongPressMessageProp({
             actionHandlers,
             defaultHandler: payload?.defaultHandler || showMessageOverlay,
@@ -626,25 +626,25 @@ const MessageWithContext = <
             event: payload?.event,
             message,
           })
-      : onLongPressProp
-      ? (payload?: TouchableHandlerPayload) =>
-          onLongPressProp({
-            actionHandlers,
-            defaultHandler: payload?.defaultHandler || showMessageOverlay,
-            emitter: payload?.emitter || 'message',
-            event: payload?.event,
-          })
-      : enableLongPress
-      ? () => {
-          // If a message is bounced, on long press the message bounce options modal should open.
-          if (isBouncedMessage(message)) {
-            setIsBounceDialogOpen(true);
-            return;
-          }
-          triggerHaptic('impactMedium');
-          showMessageOverlay(false);
-        }
-      : () => null;
+        : onLongPressProp
+          ? (payload?: TouchableHandlerPayload) =>
+            onLongPressProp({
+              actionHandlers,
+              defaultHandler: payload?.defaultHandler || showMessageOverlay,
+              emitter: payload?.emitter || 'message',
+              event: payload?.event,
+            })
+          : enableLongPress
+            ? () => {
+              // If a message is bounced, on long press the message bounce options modal should open.
+              if (isBouncedMessage(message)) {
+                setIsBounceDialogOpen(true);
+                return;
+              }
+              triggerHaptic('impactMedium');
+              showMessageOverlay(false);
+            }
+            : () => null;
 
   const messageContext = useCreateMessageContext({
     actionsEnabled,
@@ -698,19 +698,19 @@ const MessageWithContext = <
     onPressIn:
       onPressInProp || onPressInMessageProp
         ? (payload) => {
-            const onPressInArgs = {
-              actionHandlers,
-              defaultHandler: payload.defaultHandler,
-              emitter: payload.emitter || 'message',
-              event: payload.event,
-              message,
-            };
-            const handleOnpressIn = () => {
-              if (onPressInProp) return onPressInProp(onPressInArgs);
-              if (onPressInMessageProp) return onPressInMessageProp(onPressInArgs);
-            };
-            handleOnpressIn();
-          }
+          const onPressInArgs = {
+            actionHandlers,
+            defaultHandler: payload.defaultHandler,
+            emitter: payload.emitter || 'message',
+            event: payload.event,
+            message,
+          };
+          const handleOnpressIn = () => {
+            if (onPressInProp) return onPressInProp(onPressInArgs);
+            if (onPressInMessageProp) return onPressInMessageProp(onPressInArgs);
+          };
+          handleOnpressIn();
+        }
         : null,
     otherAttachments: attachments.other,
     preventPress,
@@ -760,9 +760,9 @@ const MessageWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessagePropsWithContext<StreamChatGenerics>,
-  nextProps: MessagePropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessagePropsWithContext<ErmisChatGenerics>,
+  nextProps: MessagePropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     chatContext: { mutedUsers: prevMutedUsers },
@@ -825,7 +825,7 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
   const messageEqual =
     isPrevMessageTypeDeleted === isNextMessageTypeDeleted &&
     (isMessageWithStylesReadByAndDateSeparator(prevMessage) && prevMessage.readBy) ===
-      (isMessageWithStylesReadByAndDateSeparator(nextMessage) && nextMessage.readBy) &&
+    (isMessageWithStylesReadByAndDateSeparator(nextMessage) && nextMessage.readBy) &&
     prevMessage.status === nextMessage.status &&
     prevMessage.type === nextMessage.type &&
     prevMessage.text === nextMessage.text &&
@@ -857,7 +857,7 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
         const attachmentKeysEqual =
           attachment.type === 'image'
             ? attachment.image_url === nextMessageAttachments[index].image_url &&
-              attachment.thumb_url === nextMessageAttachments[index].thumb_url
+            attachment.thumb_url === nextMessageAttachments[index].thumb_url
             : attachment.type === nextMessageAttachments[index].type;
 
         if (isAttachmentEqual)
@@ -873,16 +873,16 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
   const latestReactionsEqual =
     Array.isArray(prevMessage.latest_reactions) && Array.isArray(nextMessage.latest_reactions)
       ? prevMessage.latest_reactions.length === nextMessage.latest_reactions.length &&
-        prevMessage.latest_reactions.every(
-          ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
-        )
+      prevMessage.latest_reactions.every(
+        ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
+      )
       : prevMessage.latest_reactions === nextMessage.latest_reactions;
   if (!latestReactionsEqual) return false;
 
   const mutedUserSame =
     prevMutedUsers.length === nextMutedUsers.length ||
     prevMutedUsers.some((mutedUser) => mutedUser.target.id === prevMessage.user?.id) ===
-      nextMutedUsers.some((mutedUser) => mutedUser.target.id === nextMessage.user?.id);
+    nextMutedUsers.some((mutedUser) => mutedUser.target.id === nextMessage.user?.id);
   if (!mutedUserSame) return false;
 
   const showUnreadUnderlayEqual = prevShowUnreadUnderlay === nextShowUnreadUnderlay;
@@ -906,9 +906,9 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
 const MemoizedMessage = React.memo(MessageWithContext, areEqual) as typeof MessageWithContext;
 
 export type MessageProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<MessagePropsWithContext<StreamChatGenerics>, 'groupStyles' | 'message'>> &
-  Pick<MessagePropsWithContext<StreamChatGenerics>, 'groupStyles' | 'message'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<MessagePropsWithContext<ErmisChatGenerics>, 'groupStyles' | 'message'>> &
+  Pick<MessagePropsWithContext<ErmisChatGenerics>, 'groupStyles' | 'message'>;
 
 /**
  * Message - A high level component which implements all the logic required for a message.
@@ -917,22 +917,22 @@ export type MessageProps<
  * @example ./Message.md
  */
 export const Message = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageProps<StreamChatGenerics>,
+  props: MessageProps<ErmisChatGenerics>,
 ) => {
   const { channel, disabled, enforceUniqueReaction, members } =
-    useChannelContext<StreamChatGenerics>();
-  const chatContext = useChatContext<StreamChatGenerics>();
+    useChannelContext<ErmisChatGenerics>();
+  const chatContext = useChatContext<ErmisChatGenerics>();
   const { dismissKeyboard } = useKeyboardContext();
-  const { setData } = useMessageOverlayContext<StreamChatGenerics>();
-  const messagesContext = useMessagesContext<StreamChatGenerics>();
+  const { setData } = useMessageOverlayContext<ErmisChatGenerics>();
+  const messagesContext = useMessagesContext<ErmisChatGenerics>();
   const { setOverlay } = useOverlayContext();
-  const { openThread } = useThreadContext<StreamChatGenerics>();
+  const { openThread } = useThreadContext<ErmisChatGenerics>();
   const { t } = useTranslationContext();
 
   return (
-    <MemoizedMessage<StreamChatGenerics>
+    <MemoizedMessage<ErmisChatGenerics>
       {...messagesContext}
       {...{
         channel,

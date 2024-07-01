@@ -40,7 +40,7 @@ import {
 
 import { triggerHaptic } from '../../native';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { ReactionData } from '../../utils/utils';
 
 const AnimatedCircle = Animated.createAnimatedComponent
@@ -89,9 +89,9 @@ const reactionData: ReactionData[] = [
 ];
 
 type ReactionButtonProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  OverlayReactionListPropsWithContext<StreamChatGenerics>,
+  OverlayReactionListPropsWithContext<ErmisChatGenerics>,
   'ownReactionTypes' | 'handleReaction' | 'setOverlay'
 > & {
   Icon: React.ComponentType<IconProps>;
@@ -102,9 +102,9 @@ type ReactionButtonProps<
 };
 
 export const ReactionButton = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ReactionButtonProps<StreamChatGenerics>,
+  props: ReactionButtonProps<ErmisChatGenerics>,
 ) => {
   const {
     handleReaction,
@@ -227,12 +227,12 @@ export const ReactionButton = <
 };
 
 export type OverlayReactionListPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageOverlayData<StreamChatGenerics>,
+  MessageOverlayData<ErmisChatGenerics>,
   'alignment' | 'handleReaction' | 'messagesContext'
 > &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'supportedReactions'> &
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'supportedReactions'> &
   Pick<OverlayContextValue, 'setOverlay'> & {
     messageLayout: Animated.SharedValue<{
       x: number;
@@ -245,9 +245,9 @@ export type OverlayReactionListPropsWithContext<
   };
 
 const OverlayReactionListWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: OverlayReactionListPropsWithContext<StreamChatGenerics>,
+  props: OverlayReactionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -288,8 +288,8 @@ const OverlayReactionListWithContext = <
     const left = !insideLeftBound
       ? screenPadding
       : !insideRightBound
-      ? width - screenPadding - reactionListLayout.value.width
-      : messageLayout.value.x - reactionListLayout.value.width + borderRadius;
+        ? width - screenPadding - reactionListLayout.value.width
+        : messageLayout.value.x - reactionListLayout.value.width + borderRadius;
     const top = messageLayout.value.y - reactionListLayout.value.height - radius * 2;
 
     return {
@@ -366,7 +366,7 @@ const OverlayReactionListWithContext = <
           ]}
         >
           {supportedReactions?.map(({ Icon, type }, index) => (
-            <ReactionButton<StreamChatGenerics>
+            <ReactionButton<ErmisChatGenerics>
               handleReaction={handleReaction}
               Icon={Icon}
               index={index}
@@ -384,9 +384,9 @@ const OverlayReactionListWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: OverlayReactionListPropsWithContext<StreamChatGenerics>,
-  nextProps: OverlayReactionListPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: OverlayReactionListPropsWithContext<ErmisChatGenerics>,
+  nextProps: OverlayReactionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { alignment: prevAlignment, ownReactionTypes: prevOwnReactionTypes } = prevProps;
   const { alignment: nextAlignment, ownReactionTypes: nextOwnReactionTypes } = nextProps;
@@ -406,14 +406,14 @@ const MemoizedOverlayReactionList = React.memo(
 ) as typeof OverlayReactionListWithContext;
 
 export type OverlayReactionListProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Omit<
-  OverlayReactionListPropsWithContext<StreamChatGenerics>,
+  OverlayReactionListPropsWithContext<ErmisChatGenerics>,
   'setOverlay' | 'supportedReactions'
 > &
   Partial<
     Pick<
-      OverlayReactionListPropsWithContext<StreamChatGenerics>,
+      OverlayReactionListPropsWithContext<ErmisChatGenerics>,
       'setOverlay' | 'supportedReactions'
     >
   >;
@@ -422,12 +422,12 @@ export type OverlayReactionListProps<
  * OverlayReactionList - A high level component which implements all the logic required for a message overlay reaction list
  */
 export const OverlayReactionList = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: OverlayReactionListProps<StreamChatGenerics>,
+  props: OverlayReactionListProps<ErmisChatGenerics>,
 ) => {
-  const { data } = useMessageOverlayContext<StreamChatGenerics>();
-  const { supportedReactions } = useMessagesContext<StreamChatGenerics>();
+  const { data } = useMessageOverlayContext<ErmisChatGenerics>();
+  const { supportedReactions } = useMessagesContext<ErmisChatGenerics>();
   const { setOverlay } = useOverlayContext();
 
   return (

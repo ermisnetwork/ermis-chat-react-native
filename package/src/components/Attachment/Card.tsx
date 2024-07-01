@@ -11,7 +11,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { openUrlSafely } from './utils/openUrlSafely';
 
@@ -27,7 +27,7 @@ import {
 } from '../../contexts/messagesContext/MessagesContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { Play } from '../../icons/Play';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { makeImageCompatibleUrl } from '../../utils/utils';
 import { ImageBackground } from '../ImageBackground';
 
@@ -83,15 +83,15 @@ const styles = StyleSheet.create({
 });
 
 export type CardPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Attachment<StreamChatGenerics> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Attachment<ErmisChatGenerics> &
   Pick<ChatContextValue, 'ImageComponent'> &
   Pick<
-    MessageContextValue<StreamChatGenerics>,
+    MessageContextValue<ErmisChatGenerics>,
     'onLongPress' | 'onPress' | 'onPressIn' | 'preventPress'
   > &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     'additionalTouchableProps' | 'CardCover' | 'CardFooter' | 'CardHeader' | 'myMessageTheme'
   > & {
     channelId: string | undefined;
@@ -111,9 +111,9 @@ export type CardPropsWithContext<
   };
 
 const CardWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: CardPropsWithContext<StreamChatGenerics>,
+  props: CardPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTouchableProps,
@@ -287,9 +287,9 @@ const CardWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: CardPropsWithContext<StreamChatGenerics>,
-  nextProps: CardPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: CardPropsWithContext<ErmisChatGenerics>,
+  nextProps: CardPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { myMessageTheme: prevMyMessageTheme } = prevProps;
   const { myMessageTheme: nextMyMessageTheme } = nextProps;
@@ -304,33 +304,33 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
 const MemoizedCard = React.memo(CardWithContext, areEqual) as typeof CardWithContext;
 
 export type CardProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Attachment<StreamChatGenerics> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Attachment<ErmisChatGenerics> &
   Partial<
-    Pick<ChatContextValue<StreamChatGenerics>, 'ImageComponent'> &
-      Pick<
-        MessageContextValue<StreamChatGenerics>,
-        'onLongPress' | 'onPress' | 'onPressIn' | 'myMessageTheme'
-      > &
-      Pick<
-        MessagesContextValue<StreamChatGenerics>,
-        'additionalTouchableProps' | 'CardCover' | 'CardFooter' | 'CardHeader'
-      >
+    Pick<ChatContextValue<ErmisChatGenerics>, 'ImageComponent'> &
+    Pick<
+      MessageContextValue<ErmisChatGenerics>,
+      'onLongPress' | 'onPress' | 'onPressIn' | 'myMessageTheme'
+    > &
+    Pick<
+      MessagesContextValue<ErmisChatGenerics>,
+      'additionalTouchableProps' | 'CardCover' | 'CardFooter' | 'CardHeader'
+    >
   >;
 
 /**
  * UI component for card in attachments.
  */
 export const Card = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: CardProps<StreamChatGenerics>,
+  props: CardProps<ErmisChatGenerics>,
 ) => {
-  const { ImageComponent } = useChatContext<StreamChatGenerics>();
+  const { ImageComponent } = useChatContext<ErmisChatGenerics>();
   const { message, onLongPress, onPress, onPressIn, preventPress } =
-    useMessageContext<StreamChatGenerics>();
+    useMessageContext<ErmisChatGenerics>();
   const { additionalTouchableProps, CardCover, CardFooter, CardHeader, myMessageTheme } =
-    useMessagesContext<StreamChatGenerics>();
+    useMessagesContext<ErmisChatGenerics>();
 
   return (
     <MemoizedCard

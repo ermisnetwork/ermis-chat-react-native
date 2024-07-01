@@ -16,7 +16,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
 import { useAudioController } from './hooks/useAudioController';
 import { useCountdown } from './hooks/useCountdown';
@@ -51,7 +51,7 @@ import {
 } from '../../contexts/translationContext/TranslationContext';
 
 import { triggerHaptic } from '../../native';
-import type { Asset, DefaultStreamChatGenerics } from '../../types/types';
+import type { Asset, DefaultErmisChatGenerics } from '../../types/types';
 import { AutoCompleteInput } from '../AutoCompleteInput/AutoCompleteInput';
 
 const styles = StyleSheet.create({
@@ -93,15 +93,15 @@ const styles = StyleSheet.create({
 });
 
 type MessageInputPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<AttachmentPickerContextValue, 'AttachmentPickerSelectionBar'> &
-  Pick<ChatContextValue<StreamChatGenerics>, 'isOnline'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'isOnline'> &
   Pick<
-    ChannelContextValue<StreamChatGenerics>,
+    ChannelContextValue<ErmisChatGenerics>,
     'disabled' | 'members' | 'threadList' | 'watchers'
   > &
   Pick<
-    MessageInputContextValue<StreamChatGenerics>,
+    MessageInputContextValue<ErmisChatGenerics>,
     | 'additionalTextInputProps'
     | 'asyncIds'
     | 'audioRecordingEnabled'
@@ -150,22 +150,22 @@ type MessageInputPropsWithContext<
     | 'uploadNewFile'
     | 'uploadNewImage'
   > &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'Reply'> &
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'Reply'> &
   Pick<
-    SuggestionsContextValue<StreamChatGenerics>,
+    SuggestionsContextValue<ErmisChatGenerics>,
     | 'AutoCompleteSuggestionHeader'
     | 'AutoCompleteSuggestionItem'
     | 'AutoCompleteSuggestionList'
     | 'suggestions'
     | 'triggerType'
   > &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'thread'> &
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'thread'> &
   Pick<TranslationContextValue, 't'>;
 
 const MessageInputWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageInputPropsWithContext<StreamChatGenerics>,
+  props: MessageInputPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTextInputProps,
@@ -480,7 +480,7 @@ const MessageInputWithContext = <
   }, [asyncIdsString, asyncUploadsString, sendMessageAsync]);
 
   const getMembers = () => {
-    const result: UserResponse<StreamChatGenerics>[] = [];
+    const result: UserResponse<ErmisChatGenerics>[] = [];
     if (members && Object.values(members).length) {
       Object.values(members).forEach((member) => {
         if (member.user) {
@@ -496,7 +496,7 @@ const MessageInputWithContext = <
     const users = [...getMembers(), ...getWatchers()];
 
     // make sure we don't list users twice
-    const uniqueUsers: { [key: string]: UserResponse<StreamChatGenerics> } = {};
+    const uniqueUsers: { [key: string]: UserResponse<ErmisChatGenerics> } = {};
     for (const user of users) {
       if (user && !uniqueUsers[user.id]) {
         uniqueUsers[user.id] = user;
@@ -508,7 +508,7 @@ const MessageInputWithContext = <
   };
 
   const getWatchers = () => {
-    const result: UserResponse<StreamChatGenerics>[] = [];
+    const result: UserResponse<ErmisChatGenerics>[] = [];
     if (watchers && Object.values(watchers).length) {
       result.push(...Object.values(watchers));
     }
@@ -733,10 +733,10 @@ const MessageInputWithContext = <
                   >
                     {((typeof editing !== 'boolean' && editing?.quoted_message) ||
                       quotedMessage) && (
-                      <View style={[styles.replyContainer, replyContainer]}>
-                        <Reply />
-                      </View>
-                    )}
+                        <View style={[styles.replyContainer, replyContainer]}>
+                          <Reply />
+                        </View>
+                      )}
                     {imageUploads.length ? <ImageUploadPreview /> : null}
                     {imageUploads.length && fileUploads.length ? (
                       <View
@@ -755,7 +755,7 @@ const MessageInputWithContext = <
                       <InputGiphySearch disabled={!isOnline} />
                     ) : (
                       <View style={[styles.autoCompleteInputContainer, autoCompleteInputContainer]}>
-                        <AutoCompleteInput<StreamChatGenerics>
+                        <AutoCompleteInput<ErmisChatGenerics>
                           additionalTextInputProps={memoizedAdditionalTextInputProps}
                           cooldownActive={!!cooldownRemainingSeconds}
                         />
@@ -838,9 +838,9 @@ const MessageInputWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageInputPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageInputPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageInputPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageInputPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTextInputProps: prevAdditionalTextInputProps,
@@ -925,9 +925,9 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
 
   const quotedMessageEqual =
     !!prevQuotedMessage &&
-    !!nextQuotedMessage &&
-    typeof prevQuotedMessage !== 'boolean' &&
-    typeof nextQuotedMessage !== 'boolean'
+      !!nextQuotedMessage &&
+      typeof prevQuotedMessage !== 'boolean' &&
+      typeof nextQuotedMessage !== 'boolean'
       ? prevQuotedMessage.id === nextQuotedMessage.id
       : !!prevQuotedMessage === !!nextQuotedMessage;
   if (!quotedMessageEqual) return false;
@@ -960,7 +960,7 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
   const suggestionsEqual =
     !!prevSuggestions?.data && !!nextSuggestions?.data
       ? prevSuggestions.data.length === nextSuggestions.data.length &&
-        prevSuggestions.data.every(({ name }, index) => name === nextSuggestions.data[index].name)
+      prevSuggestions.data.every(({ name }, index) => name === nextSuggestions.data[index].name)
       : !!prevSuggestions === !!nextSuggestions;
   if (!suggestionsEqual) return false;
 
@@ -982,8 +982,8 @@ const MemoizedMessageInput = React.memo(
 ) as typeof MessageInputWithContext;
 
 export type MessageInputProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageInputPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageInputPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * UI Component for message input
@@ -995,15 +995,15 @@ export type MessageInputProps<
  * [Translation Context](https://getstream.io/chat/docs/sdk/reactnative/contexts/translation-context/)
  */
 export const MessageInput = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageInputProps<StreamChatGenerics>,
+  props: MessageInputProps<ErmisChatGenerics>,
 ) => {
   const { AttachmentPickerSelectionBar } = useAttachmentPickerContext();
   const { isOnline } = useChatContext();
   const ownCapabilities = useOwnCapabilitiesContext();
 
-  const { disabled, members, threadList, watchers } = useChannelContext<StreamChatGenerics>();
+  const { disabled, members, threadList, watchers } = useChannelContext<ErmisChatGenerics>();
 
   const {
     additionalTextInputProps,
@@ -1055,9 +1055,9 @@ export const MessageInput = <
     text,
     uploadNewFile,
     uploadNewImage,
-  } = useMessageInputContext<StreamChatGenerics>();
+  } = useMessageInputContext<ErmisChatGenerics>();
 
-  const { Reply } = useMessagesContext<StreamChatGenerics>();
+  const { Reply } = useMessagesContext<ErmisChatGenerics>();
 
   const {
     AutoCompleteSuggestionHeader,
@@ -1065,9 +1065,9 @@ export const MessageInput = <
     AutoCompleteSuggestionList,
     suggestions,
     triggerType,
-  } = useSuggestionsContext<StreamChatGenerics>();
+  } = useSuggestionsContext<ErmisChatGenerics>();
 
-  const { thread } = useThreadContext<StreamChatGenerics>();
+  const { thread } = useThreadContext<ErmisChatGenerics>();
 
   const { t } = useTranslationContext();
 

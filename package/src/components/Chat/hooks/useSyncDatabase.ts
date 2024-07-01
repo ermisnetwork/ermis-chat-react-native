@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
 
-import type { StreamChat } from 'stream-chat';
+import type { ErmisChat } from 'ermis-chat-sdk-test';
 
 import { handleEventToSyncDB } from './handleEventToSyncDB';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
-type Params<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> = {
-  client: StreamChat<StreamChatGenerics>;
+type Params<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> = {
+  client: ErmisChat<ErmisChatGenerics>;
   enableOfflineSupport: boolean;
   initialisedDatabase: boolean;
 };
 export const useSyncDatabase = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   client,
   enableOfflineSupport,
   initialisedDatabase,
-}: Params<StreamChatGenerics>) => {
+}: Params<ErmisChatGenerics>) => {
   useEffect(() => {
-    let listener: ReturnType<StreamChat['on']> | undefined;
+    let listener: ReturnType<ErmisChat['on']> | undefined;
 
     if (enableOfflineSupport && initialisedDatabase) {
       listener = client?.on((event) => handleEventToSyncDB(event, client));

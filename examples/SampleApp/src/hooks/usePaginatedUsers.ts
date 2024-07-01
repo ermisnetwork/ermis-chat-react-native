@@ -2,43 +2,43 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
-import type { UserFilters, UserResponse } from 'stream-chat';
+import type { UserFilters, UserResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../types';
+import type { ErmisChatGenerics } from '../types';
 
 export type PaginatedUsers = {
   clearText: () => void;
-  initialResults: UserResponse<StreamChatGenerics>[] | null;
+  initialResults: UserResponse<ErmisChatGenerics>[] | null;
   loading: boolean;
   loadMore: () => void;
   onChangeSearchText: (newText: string) => void;
   onFocusInput: () => void;
   removeUser: (index: number) => void;
   reset: () => void;
-  results: UserResponse<StreamChatGenerics>[];
+  results: UserResponse<ErmisChatGenerics>[];
   searchText: string;
   selectedUserIds: string[];
-  selectedUsers: UserResponse<StreamChatGenerics>[];
+  selectedUsers: UserResponse<ErmisChatGenerics>[];
   setInitialResults: React.Dispatch<
-    React.SetStateAction<UserResponse<StreamChatGenerics>[] | null>
+    React.SetStateAction<UserResponse<ErmisChatGenerics>[] | null>
   >;
-  setResults: React.Dispatch<React.SetStateAction<UserResponse<StreamChatGenerics>[]>>;
+  setResults: React.Dispatch<React.SetStateAction<UserResponse<ErmisChatGenerics>[]>>;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedUsers: React.Dispatch<React.SetStateAction<UserResponse<StreamChatGenerics>[]>>;
-  toggleUser: (user: UserResponse<StreamChatGenerics>) => void;
+  setSelectedUsers: React.Dispatch<React.SetStateAction<UserResponse<ErmisChatGenerics>[]>>;
+  toggleUser: (user: UserResponse<ErmisChatGenerics>) => void;
 };
 
 export const usePaginatedUsers = (): PaginatedUsers => {
   const { chatClient } = useAppContext();
 
-  const [initialResults, setInitialResults] = useState<UserResponse<StreamChatGenerics>[] | null>(
+  const [initialResults, setInitialResults] = useState<UserResponse<ErmisChatGenerics>[] | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
-  const [results, setResults] = useState<UserResponse<StreamChatGenerics>[]>([]);
+  const [results, setResults] = useState<UserResponse<ErmisChatGenerics>[]>([]);
   const [searchText, setSearchText] = useState('');
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
-  const [selectedUsers, setSelectedUsers] = useState<UserResponse<StreamChatGenerics>[]>([]);
+  const [selectedUsers, setSelectedUsers] = useState<UserResponse<ErmisChatGenerics>[]>([]);
 
   const hasMoreResults = useRef(true);
   const offset = useRef(0);
@@ -51,7 +51,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     setSelectedUsers([]);
   };
 
-  const addUser = (user: UserResponse<StreamChatGenerics>) => {
+  const addUser = (user: UserResponse<ErmisChatGenerics>) => {
     setSelectedUsers([...selectedUsers, user]);
     setSelectedUserIds((prevSelectedUserIds) => {
       prevSelectedUserIds.push(user.id);
@@ -79,7 +79,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     });
   };
 
-  const toggleUser = (user: UserResponse<StreamChatGenerics>) => {
+  const toggleUser = (user: UserResponse<ErmisChatGenerics>) => {
     if (!user.id) {
       return;
     }

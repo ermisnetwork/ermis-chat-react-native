@@ -18,16 +18,16 @@ const styles = StyleSheet.create({
   label: {},
 });
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export type MessagePinnedHeaderPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageContextValue<StreamChatGenerics>, 'alignment' | 'message'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageContextValue<ErmisChatGenerics>, 'alignment' | 'message'>;
 
 const MessagePinnedHeaderWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessagePinnedHeaderPropsWithContext<StreamChatGenerics>,
+  props: MessagePinnedHeaderPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { alignment, message } = props;
   const {
@@ -59,9 +59,9 @@ const MessagePinnedHeaderWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessagePinnedHeaderPropsWithContext<StreamChatGenerics>,
-  nextProps: MessagePinnedHeaderPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessagePinnedHeaderPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessagePinnedHeaderPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { message: prevMessage } = prevProps;
   const { message: nextMessage } = nextProps;
@@ -81,15 +81,15 @@ const MemoizedMessagePinnedHeader = React.memo(
 ) as typeof MessagePinnedHeaderWithContext;
 
 export type MessagePinnedHeaderProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessagePinnedHeaderPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessagePinnedHeaderPropsWithContext<ErmisChatGenerics>>;
 
 export const MessagePinnedHeader = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessagePinnedHeaderProps<StreamChatGenerics>,
+  props: MessagePinnedHeaderProps<ErmisChatGenerics>,
 ) => {
-  const { alignment, lastGroupMessage, message } = useMessageContext<StreamChatGenerics>();
+  const { alignment, lastGroupMessage, message } = useMessageContext<ErmisChatGenerics>();
 
   return (
     <MemoizedMessagePinnedHeader

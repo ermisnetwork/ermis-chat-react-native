@@ -15,7 +15,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
 import type { MarkdownStyle, Theme } from '../../../contexts/themeContext/utils/theme';
 import { useTranslatedMessage } from '../../../hooks/useTranslatedMessage';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import type { MessageType } from '../../MessageList/hooks/useMessageList';
 
 const styles = StyleSheet.create({
@@ -23,20 +23,20 @@ const styles = StyleSheet.create({
 });
 
 export type MessageTextProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = MessageTextContainerProps<StreamChatGenerics> & {
-  renderText: (params: RenderTextParams<StreamChatGenerics>) => JSX.Element | null;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = MessageTextContainerProps<ErmisChatGenerics> & {
+  renderText: (params: RenderTextParams<ErmisChatGenerics>) => JSX.Element | null;
   theme: { theme: Theme };
 };
 
 export type MessageTextContainerPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   'message' | 'onLongPress' | 'onlyEmojis' | 'onPress' | 'preventPress'
 > &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     'markdownRules' | 'MessageText' | 'myMessageTheme'
   > & {
     markdownStyles?: MarkdownStyle;
@@ -48,9 +48,9 @@ export type MessageTextContainerPropsWithContext<
   };
 
 const MessageTextContainerWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageTextContainerPropsWithContext<StreamChatGenerics>,
+  props: MessageTextContainerPropsWithContext<ErmisChatGenerics>,
 ) => {
   const theme = useTheme();
 
@@ -80,9 +80,9 @@ const MessageTextContainerWithContext = <
     },
   } = theme;
 
-  const translatedMessage = useTranslatedMessage<StreamChatGenerics>(
+  const translatedMessage = useTranslatedMessage<ErmisChatGenerics>(
     message,
-  ) as MessageType<StreamChatGenerics>;
+  ) as MessageType<ErmisChatGenerics>;
 
   if (!message.text) return null;
 
@@ -96,7 +96,7 @@ const MessageTextContainerWithContext = <
       {MessageText ? (
         <MessageText {...props} renderText={renderText} theme={theme} />
       ) : (
-        renderText<StreamChatGenerics>({
+        renderText<ErmisChatGenerics>({
           colors,
           markdownRules,
           markdownStyles: {
@@ -116,9 +116,9 @@ const MessageTextContainerWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageTextContainerPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageTextContainerPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageTextContainerPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageTextContainerPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     markdownStyles: prevMarkdownStyles,
@@ -173,17 +173,17 @@ const MemoizedMessageTextContainer = React.memo(
 ) as typeof MessageTextContainerWithContext;
 
 export type MessageTextContainerProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageTextContainerPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageTextContainerPropsWithContext<ErmisChatGenerics>>;
 
 export const MessageTextContainer = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageTextContainerProps<StreamChatGenerics>,
+  props: MessageTextContainerProps<ErmisChatGenerics>,
 ) => {
   const { message, onLongPress, onlyEmojis, onPress, preventPress } =
-    useMessageContext<StreamChatGenerics>();
-  const { markdownRules, MessageText, myMessageTheme } = useMessagesContext<StreamChatGenerics>();
+    useMessageContext<ErmisChatGenerics>();
+  const { markdownRules, MessageText, myMessageTheme } = useMessagesContext<ErmisChatGenerics>();
   const { messageTextNumberOfLines } = props;
 
   return (

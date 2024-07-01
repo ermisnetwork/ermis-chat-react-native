@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { AtMentions, useTheme } from 'stream-chat-react-native';
-import { MessageResponse } from 'stream-chat';
+import { MessageResponse } from 'ermis-chat-sdk-test';
 
 import { ChatScreenHeader } from '../components/ChatScreenHeader';
 import { MessageSearchList } from '../components/MessageSearch/MessageSearchList';
@@ -12,7 +12,7 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 
 import type { BottomTabNavigatorParamList } from '../types';
 import { useAppContext } from '../context/AppContext';
-import type { StreamChatGenerics } from '../types';
+import type { ErmisChatGenerics } from '../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -64,7 +64,7 @@ export const MentionsScreen: React.FC<MentionsScreenProps> = () => {
     [chatClient],
   );
 
-  const scrollRef = useRef<FlatList<MessageResponse<StreamChatGenerics>> | null>(null);
+  const scrollRef = useRef<FlatList<MessageResponse<ErmisChatGenerics>> | null>(null);
 
   useScrollToTop(scrollRef);
 

@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
 import type { ThreadContextValue } from '../../../contexts/threadContext/ThreadContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { reduceMessagesToString } from '../../../utils/utils';
 
 export const useCreateThreadContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   allowThreadMessagesInChannel,
   closeThread,
@@ -17,12 +17,12 @@ export const useCreateThreadContext = <
   threadHasMore,
   threadLoadingMore,
   threadMessages,
-}: ThreadContextValue<StreamChatGenerics>) => {
+}: ThreadContextValue<ErmisChatGenerics>) => {
   const threadId = thread?.id;
   const threadReplyCount = thread?.reply_count;
   const threadMessagesStr = reduceMessagesToString(threadMessages);
 
-  const threadContext: ThreadContextValue<StreamChatGenerics> = useMemo(
+  const threadContext: ThreadContextValue<ErmisChatGenerics> = useMemo(
     () => ({
       allowThreadMessagesInChannel,
       closeThread,

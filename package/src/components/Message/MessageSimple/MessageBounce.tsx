@@ -11,22 +11,22 @@ import {
 } from '../../../contexts/messagesContext/MessagesContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export type MessageBouncePropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessagesContextValue<StreamChatGenerics>,
+  MessagesContextValue<ErmisChatGenerics>,
   'setEditingState' | 'removeMessage' | 'retrySendMessage'
 > &
-  Pick<MessageContextValue<StreamChatGenerics>, 'message'> & {
+  Pick<MessageContextValue<ErmisChatGenerics>, 'message'> & {
     setIsBounceDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
   };
 
 export const MessageBounceWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageBouncePropsWithContext<StreamChatGenerics>,
+  props: MessageBouncePropsWithContext<ErmisChatGenerics>,
 ) => {
   const { t } = useTranslationContext();
   const { message, removeMessage, retrySendMessage, setEditingState, setIsBounceDialogOpen } =
@@ -71,9 +71,9 @@ export const MessageBounceWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageBouncePropsWithContext<StreamChatGenerics>,
-  nextProps: MessageBouncePropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageBouncePropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageBouncePropsWithContext<ErmisChatGenerics>,
 ) => {
   const { message: prevMessage } = prevProps;
   const { message: nextMessage } = nextProps;
@@ -92,21 +92,21 @@ const MemoizedMessageBounce = React.memo(
 ) as typeof MessageBounceWithContext;
 
 export type MessageBounceProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageBouncePropsWithContext<StreamChatGenerics>> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageBouncePropsWithContext<ErmisChatGenerics>> & {
   setIsBounceDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const MessageBounce = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageBounceProps<StreamChatGenerics>,
+  props: MessageBounceProps<ErmisChatGenerics>,
 ) => {
-  const { message } = useMessageContext<StreamChatGenerics>();
+  const { message } = useMessageContext<ErmisChatGenerics>();
   const { removeMessage, retrySendMessage, setEditingState } =
-    useMessagesContext<StreamChatGenerics>();
+    useMessagesContext<ErmisChatGenerics>();
   return (
-    <MemoizedMessageBounce<StreamChatGenerics>
+    <MemoizedMessageBounce<ErmisChatGenerics>
       {...{
         message,
         removeMessage,

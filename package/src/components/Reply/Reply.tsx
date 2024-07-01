@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 import merge from 'lodash/merge';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { useMessageContext } from '../../contexts/messageContext/MessageContext';
 import {
@@ -22,7 +22,7 @@ import {
   TranslationContextValue,
   useTranslationContext,
 } from '../../contexts/translationContext/TranslationContext';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getResizedImageUrl } from '../../utils/getResizedImageUrl';
 import { getTrimmedAttachmentTitle } from '../../utils/getTrimmedAttachmentTitle';
 import { hasOnlyEmojis } from '../../utils/utils';
@@ -73,9 +73,9 @@ const styles = StyleSheet.create({
 });
 
 type ReplyPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageInputContextValue<StreamChatGenerics>, 'quotedMessage'> &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'FileAttachmentIcon' | 'MessageAvatar'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageInputContextValue<ErmisChatGenerics>, 'quotedMessage'> &
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'FileAttachmentIcon' | 'MessageAvatar'> &
   Pick<TranslationContextValue, 't'> & {
     attachmentSize?: number;
     styles?: Partial<{
@@ -88,9 +88,9 @@ type ReplyPropsWithContext<
   };
 
 const getMessageType = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  lastAttachment: Attachment<StreamChatGenerics>,
+  lastAttachment: Attachment<ErmisChatGenerics>,
 ) => {
   let messageType;
 
@@ -130,9 +130,9 @@ const getMessageType = <
 };
 
 const ReplyWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ReplyPropsWithContext<StreamChatGenerics>,
+  props: ReplyPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     attachmentSize = 40,
@@ -176,7 +176,7 @@ const ReplyWithContext = <
 
   if (typeof quotedMessage === 'boolean') return null;
 
-  const lastAttachment = quotedMessage.attachments?.slice(-1)[0] as Attachment<StreamChatGenerics>;
+  const lastAttachment = quotedMessage.attachments?.slice(-1)[0] as Attachment<ErmisChatGenerics>;
   const messageType = lastAttachment && getMessageType(lastAttachment);
 
   const trimmedLastAttachmentTitle = getTrimmedAttachmentTitle(lastAttachment?.title);
@@ -249,7 +249,7 @@ const ReplyWithContext = <
           />
         ) : null}
         <View style={{ flexDirection: 'column' }}>
-          <MessageTextContainer<StreamChatGenerics>
+          <MessageTextContainer<ErmisChatGenerics>
             markdownStyles={
               quotedMessage.type === 'deleted'
                 ? merge({ em: { color: grey } }, deletedText)
@@ -261,18 +261,18 @@ const ReplyWithContext = <
                 quotedMessage.type === 'deleted'
                   ? `_${t('Message deleted')}_`
                   : quotedMessage.text
-                  ? quotedMessage.text.length > 170
-                    ? `${quotedMessage.text.slice(0, 170)}...`
-                    : quotedMessage.text
-                  : messageType === 'image'
-                  ? t('Photo')
-                  : messageType === 'video'
-                  ? t('Video')
-                  : messageType === 'file' ||
-                    messageType === 'audio' ||
-                    messageType === 'voiceRecording'
-                  ? trimmedLastAttachmentTitle || ''
-                  : '',
+                    ? quotedMessage.text.length > 170
+                      ? `${quotedMessage.text.slice(0, 170)}...`
+                      : quotedMessage.text
+                    : messageType === 'image'
+                      ? t('Photo')
+                      : messageType === 'video'
+                        ? t('Video')
+                        : messageType === 'file' ||
+                          messageType === 'audio' ||
+                          messageType === 'voiceRecording'
+                          ? trimmedLastAttachmentTitle || ''
+                          : '',
             }}
             onlyEmojis={onlyEmojis}
             styles={{
@@ -281,25 +281,25 @@ const ReplyWithContext = <
                   marginRight:
                     hasImage || messageType === 'video'
                       ? Number(
-                          stylesProp.imageAttachment?.height ||
-                            imageAttachment.height ||
-                            styles.imageAttachment.height,
-                        ) +
-                        Number(
-                          stylesProp.imageAttachment?.marginLeft ||
-                            imageAttachment.marginLeft ||
-                            styles.imageAttachment.marginLeft,
-                        )
+                        stylesProp.imageAttachment?.height ||
+                        imageAttachment.height ||
+                        styles.imageAttachment.height,
+                      ) +
+                      Number(
+                        stylesProp.imageAttachment?.marginLeft ||
+                        imageAttachment.marginLeft ||
+                        styles.imageAttachment.marginLeft,
+                      )
                       : messageType === 'file' ||
                         messageType === 'audio' ||
                         messageType === 'voiceRecording'
-                      ? attachmentSize +
+                        ? attachmentSize +
                         Number(
                           stylesProp.fileAttachmentContainer?.paddingLeft ||
-                            fileAttachmentContainer.paddingLeft ||
-                            styles.fileAttachmentContainer.paddingLeft,
+                          fileAttachmentContainer.paddingLeft ||
+                          styles.fileAttachmentContainer.paddingLeft,
                         )
-                      : undefined,
+                        : undefined,
                 },
                 styles.textContainer,
                 textContainer,
@@ -327,30 +327,30 @@ const ReplyWithContext = <
  * using a context outside of its provider.
  * */
 const useMessageInputContextIfAvailable = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     MessageInputContext,
-  ) as unknown as MessageInputContextValue<StreamChatGenerics>;
+  ) as unknown as MessageInputContextValue<ErmisChatGenerics>;
 
   return contextValue;
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: ReplyPropsWithContext<StreamChatGenerics>,
-  nextProps: ReplyPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: ReplyPropsWithContext<ErmisChatGenerics>,
+  nextProps: ReplyPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { quotedMessage: prevQuotedMessage } = prevProps;
   const { quotedMessage: nextQuotedMessage } = nextProps;
 
   const quotedMessageEqual =
     !!prevQuotedMessage &&
-    !!nextQuotedMessage &&
-    typeof prevQuotedMessage !== 'boolean' &&
-    typeof nextQuotedMessage !== 'boolean'
+      !!nextQuotedMessage &&
+      typeof prevQuotedMessage !== 'boolean' &&
+      typeof nextQuotedMessage !== 'boolean'
       ? prevQuotedMessage.id === nextQuotedMessage.id &&
-        prevQuotedMessage.deleted_at === nextQuotedMessage.deleted_at &&
-        prevQuotedMessage.type === nextQuotedMessage.type
+      prevQuotedMessage.deleted_at === nextQuotedMessage.deleted_at &&
+      prevQuotedMessage.type === nextQuotedMessage.type
       : !!prevQuotedMessage === !!nextQuotedMessage;
 
   if (!quotedMessageEqual) return false;
@@ -361,27 +361,27 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
 const MemoizedReply = React.memo(ReplyWithContext, areEqual) as typeof ReplyWithContext;
 
 export type ReplyProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<ReplyPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<ReplyPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * UI Component for reply
  */
 export const Reply = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ReplyProps<StreamChatGenerics>,
+  props: ReplyProps<ErmisChatGenerics>,
 ) => {
-  const { message } = useMessageContext<StreamChatGenerics>();
+  const { message } = useMessageContext<ErmisChatGenerics>();
 
   const { FileAttachmentIcon = FileIconDefault, MessageAvatar = MessageAvatarDefault } =
-    useMessagesContext<StreamChatGenerics>();
+    useMessagesContext<ErmisChatGenerics>();
 
-  const { editing, quotedMessage } = useMessageInputContextIfAvailable<StreamChatGenerics>();
+  const { editing, quotedMessage } = useMessageInputContextIfAvailable<ErmisChatGenerics>();
 
   const quotedEditingMessage = (
     typeof editing !== 'boolean' ? editing?.quoted_message || false : false
-  ) as MessageInputContextValue<StreamChatGenerics>['quotedMessage'];
+  ) as MessageInputContextValue<ErmisChatGenerics>['quotedMessage'];
 
   const { t } = useTranslationContext();
 
@@ -391,7 +391,7 @@ export const Reply = <
         FileAttachmentIcon,
         MessageAvatar,
         quotedMessage: message
-          ? (message.quoted_message as MessageInputContextValue<StreamChatGenerics>['quotedMessage'])
+          ? (message.quoted_message as MessageInputContextValue<ErmisChatGenerics>['quotedMessage'])
           : quotedMessage || quotedEditingMessage,
         t,
       }}

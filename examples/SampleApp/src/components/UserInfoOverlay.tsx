@@ -35,9 +35,9 @@ import { useAppOverlayContext } from '../context/AppOverlayContext';
 import { useBottomSheetOverlayContext } from '../context/BottomSheetOverlayContext';
 import { useUserInfoOverlayContext } from '../context/UserInfoOverlayContext';
 
-import type { StreamChatGenerics } from '../types';
+import type { ErmisChatGenerics } from '../types';
 import { useAppContext } from '../context/AppContext';
-import { UserResponse } from 'stream-chat';
+import { UserResponse } from 'ermis-chat-sdk-test';
 
 dayjs.extend(relativeTime);
 
@@ -105,7 +105,7 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
   const { overlayOpacity, visible } = props;
   const { chatClient } = useAppContext();
   const { overlay, setOverlay } = useAppOverlayContext();
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
   const { setData } = useBottomSheetOverlayContext();
   const { data, reset } = useUserInfoOverlayContext();
   const { vh } = useViewport();
@@ -134,19 +134,19 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
     }
     showScreen.value = show
       ? withTiming(1, {
-          duration: 150,
-          easing: Easing.in(Easing.ease),
-        })
+        duration: 150,
+        easing: Easing.in(Easing.ease),
+      })
       : withTiming(
-          0,
-          {
-            duration: 150,
-            easing: Easing.out(Easing.ease),
-          },
-          () => {
-            runOnJS(reset)();
-          },
-        );
+        0,
+        {
+          duration: 150,
+          easing: Easing.out(Easing.ease),
+        },
+        () => {
+          runOnJS(reset)();
+        },
+      );
   };
 
   useEffect(() => {
@@ -185,12 +185,12 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
         translateY.value =
           evt.velocityY > 1000
             ? withDecay({
-                velocity: evt.velocityY,
-              })
+              velocity: evt.velocityY,
+            })
             : withTiming(screenHeight, {
-                duration: 200,
-                easing: Easing.out(Easing.ease),
-              });
+              duration: 200,
+              easing: Easing.out(Easing.ease),
+            });
       } else {
         translateY.value = withTiming(0);
         overlayOpacity.value = withTiming(1);
@@ -220,8 +220,8 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
 
   const self = channel
     ? Object.values(channel.state.members).find(
-        (channelMember) => channelMember.user?.id === client.user?.id,
-      )
+      (channelMember) => channelMember.user?.id === client.user?.id,
+    )
     : undefined;
 
   if (!self || !member) {
@@ -306,8 +306,8 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
                               channels.length === 1
                                 ? channels[0]
                                 : client.channel('messaging', {
-                                    members,
-                                  });
+                                  members,
+                                });
                             setOverlay('none');
                             if (navigation) {
                               navigation.navigate('OneOnOneChannelDetailScreen', {
@@ -350,8 +350,8 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
                               channels.length === 1
                                 ? channels[0]
                                 : client.channel('messaging', {
-                                    members,
-                                  });
+                                  members,
+                                });
 
                             setOverlay('none');
                             if (navigation) {
@@ -389,9 +389,8 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
                                   }
                                   setOverlay('none');
                                 },
-                                subtext: `Are you sure you want to remove User from ${
-                                  channel?.data?.name || 'group'
-                                }?`,
+                                subtext: `Are you sure you want to remove User from ${channel?.data?.name || 'group'
+                                  }?`,
                                 title: 'Remove User',
                               });
                               setOverlay('confirmation');

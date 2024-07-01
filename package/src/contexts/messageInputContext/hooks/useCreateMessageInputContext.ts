@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import type { ThreadContextValue } from '../../threadContext/ThreadContext';
 import type { MessageInputContextValue } from '../MessageInputContext';
 
 export const useCreateMessageInputContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   additionalTextInputProps,
   appendText,
@@ -108,8 +108,8 @@ export const useCreateMessageInputContext = <
   uploadNewFile,
   uploadNewImage,
   UploadProgressIndicator,
-}: MessageInputContextValue<StreamChatGenerics> &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'thread'>) => {
+}: MessageInputContextValue<ErmisChatGenerics> &
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'thread'>) => {
   const editingdep = editing?.id;
   const fileUploadsValue = fileUploads
     .map(({ duration, paused, progress, state }) => `${state},${paused},${progress},${duration}`)
@@ -125,7 +125,7 @@ export const useCreateMessageInputContext = <
   const threadId = thread?.id;
   const asyncIdsLength = asyncIds.length;
 
-  const messageInputContext: MessageInputContextValue<StreamChatGenerics> = useMemo(
+  const messageInputContext: MessageInputContextValue<ErmisChatGenerics> = useMemo(
     () => ({
       additionalTextInputProps,
       appendText,

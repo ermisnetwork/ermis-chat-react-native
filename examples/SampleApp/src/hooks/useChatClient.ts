@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { StreamChat } from 'stream-chat';
+import { ErmisChat } from 'ermis-chat-sdk-test';
 import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
 import { QuickSqliteClient } from 'stream-chat-react-native';
 import { USER_TOKENS, USERS } from '../ChatUsers';
 import AsyncStore from '../utils/AsyncStore';
 
-import type { LoginConfig, StreamChatGenerics } from '../types';
+import type { LoginConfig, ErmisChatGenerics } from '../types';
 
 // Request Push Notification permission from device.
 const requestNotificationPermission = async () => {
@@ -30,7 +30,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     return;
   }
 
-  const client = StreamChat.getInstance(config.apiKey);
+  const client = ErmisChat.getInstance(config.apiKey);
 
   const user = {
     id: config.userId,
@@ -68,7 +68,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 });
 
 export const useChatClient = () => {
-  const [chatClient, setChatClient] = useState<StreamChat<StreamChatGenerics> | null>(null);
+  const [chatClient, setChatClient] = useState<ErmisChat<ErmisChatGenerics> | null>(null);
   const [isConnecting, setIsConnecting] = useState(true);
   const [unreadCount, setUnreadCount] = useState<number>();
 
@@ -81,18 +81,21 @@ export const useChatClient = () => {
   const loginUser = async (config: LoginConfig) => {
     // unsubscribe from previous push listeners
     unsubscribePushListenersRef.current?.();
-    const client = StreamChat.getInstance<StreamChatGenerics>(config.apiKey, {
+    const client = ErmisChat.getInstance<ErmisChatGenerics>(config.apiKey, {
       timeout: 6000,
-      // logger: (type, msg) => console.log(type, msg)
+      logger: (type, msg) => console.log(type, msg),
+      // baseURL: 'https://api-staging.ermis.network',
     });
     setChatClient(client);
-
     const user = {
       id: config.userId,
       image: config.userImage,
       name: config.userName,
+      api_key: config.apiKey,
     };
+    console.log('User:k__________ ');
     const connectedUser = await client.connectUser(user, config.userToken);
+    console.log('User:k__________ 222222');
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
     await AsyncStore.setItem('@stream-rn-sampleapp-login-config', config);
@@ -154,16 +157,22 @@ export const useChatClient = () => {
 
   const switchUser = async (userId?: string) => {
     setIsConnecting(true);
-
     try {
+      console.log('Inner: ', userId);
       if (userId) {
         await loginUser({
-          apiKey: 'yjrt5yxw77ev',
-          userId: USERS[userId].id,
-          userImage: USERS[userId].image,
-          userName: USERS[userId].name,
-          userToken: USER_TOKENS[userId],
+          // apiKey: 'yjrt5yxw77ev',
+          // userId: USERS[userId].id,
+          // userImage: USERS[userId].image,
+          // userName: USERS[userId].name,
+          // userToken: USER_TOKENS[userId],
+          apiKey: 'KzubBBcsO3KT1747826418734',
+          userId: '0xc019189ba7222ffe0e23d3b6474d104266f0ffb2',
+          userImage: 'https://randomuser.me/api/portraits/thumb/women/12.jpg',
+          userName: '0xc019189ba7222ffe0e23d3b6474d104266f0ffb2',
+          userToken: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMHhjMDE5MTg5YmE3MjIyZmZlMGUyM2QzYjY0NzRkMTA0MjY2ZjBmZmIyIiwiZXhwIjoxNzE5ODQzMTQzODgxfQ.VmTi2Y0m1VaaRhgLXiW0uoBTrFCMjjNPvzUqbZO8JXQ',
         });
+        console.log('Switched to user', userId);
       } else {
         const config = await AsyncStore.getItem<LoginConfig | null>(
           '@stream-rn-sampleapp-login-config',
@@ -175,7 +184,7 @@ export const useChatClient = () => {
         }
       }
     } catch (e) {
-      console.warn(e);
+      console.warn("hehe: ", e);
     }
     setIsConnecting(false);
   };

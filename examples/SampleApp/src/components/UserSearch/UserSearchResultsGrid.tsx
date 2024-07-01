@@ -6,9 +6,9 @@ import { UserGridItem } from './UserGridItem';
 
 import { EmptySearchState } from '../../icons/EmptySearchState';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../../types';
+import type { ErmisChatGenerics } from '../../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
 });
 
 type UserSearchResultsGridProps = {
-  onPress: (user: UserResponse<StreamChatGenerics>) => void;
-  results: UserResponse<StreamChatGenerics>[];
+  onPress: (user: UserResponse<ErmisChatGenerics>) => void;
+  results: UserResponse<ErmisChatGenerics>[];
   gridSize?: number;
   loading?: boolean;
   loadMore?: () => void;

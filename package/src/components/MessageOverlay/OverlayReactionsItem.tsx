@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-import { ReactionResponse } from 'stream-chat';
+import { ReactionResponse } from 'ermis-chat-sdk-test';
 
 import { Reaction } from './OverlayReactions';
 
@@ -12,19 +12,19 @@ import type { MessageOverlayContextValue } from '../../contexts/messageOverlayCo
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { Unknown } from '../../icons';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { ReactionData } from '../../utils/utils';
 
 export type OverlayReactionsItemProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageOverlayContextValue<StreamChatGenerics>, 'OverlayReactionsAvatar'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageOverlayContextValue<ErmisChatGenerics>, 'OverlayReactionsAvatar'> & {
   reaction: Reaction;
   supportedReactions: ReactionData[];
 };
 
 type ReactionIconProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ReactionResponse<StreamChatGenerics>, 'type'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ReactionResponse<ErmisChatGenerics>, 'type'> & {
   pathFill: string;
   size: number;
   supportedReactions: ReactionData[];
@@ -36,12 +36,12 @@ const ReactionIcon = ({ pathFill, size, supportedReactions, type }: ReactionIcon
 };
 
 export const OverlayReactionsItem = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   OverlayReactionsAvatar,
   reaction,
   supportedReactions,
-}: OverlayReactionsItemProps<StreamChatGenerics>) => {
+}: OverlayReactionsItemProps<ErmisChatGenerics>) => {
   const { id, name, type } = reaction;
   const {
     theme: {
@@ -67,8 +67,8 @@ export const OverlayReactionsItem = <
   const left =
     alignment === 'left'
       ? x -
-        (Number(reactionBubbleBackground.width || 0) || styles.reactionBubbleBackground.width) +
-        radius
+      (Number(reactionBubbleBackground.width || 0) || styles.reactionBubbleBackground.width) +
+      radius
       : x - radius;
   const top =
     y -

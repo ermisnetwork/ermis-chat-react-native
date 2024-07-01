@@ -27,7 +27,7 @@ import {
   useTranslationContext,
 } from '../../contexts/translationContext/TranslationContext';
 import type { Emoji } from '../../emoji-data';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { isCommandTrigger, isEmojiTrigger, isMentionTrigger } from '../../utils/utils';
 
 import type { Trigger } from '../../utils/utils';
@@ -49,10 +49,10 @@ const computeCaretPosition = (token: string, startOfTokenPosition: number) =>
 const isCommand = (text: string) => text[0] === '/' && text.split(' ').length <= 1;
 
 type AutoCompleteInputPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelContextValue<StreamChatGenerics>, 'giphyEnabled'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelContextValue<ErmisChatGenerics>, 'giphyEnabled'> &
   Pick<
-    MessageInputContextValue<StreamChatGenerics>,
+    MessageInputContextValue<ErmisChatGenerics>,
     | 'additionalTextInputProps'
     | 'autoCompleteSuggestionsLimit'
     | 'giphyActive'
@@ -67,7 +67,7 @@ type AutoCompleteInputPropsWithContext<
     | 'triggerSettings'
   > &
   Pick<
-    SuggestionsContextValue<StreamChatGenerics>,
+    SuggestionsContextValue<ErmisChatGenerics>,
     'closeSuggestions' | 'openSuggestions' | 'updateSuggestions'
   > &
   Pick<TranslationContextValue, 't'> & {
@@ -79,13 +79,13 @@ type AutoCompleteInputPropsWithContext<
   };
 
 export type AutoCompleteInputProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<AutoCompleteInputPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<AutoCompleteInputPropsWithContext<ErmisChatGenerics>>;
 
 const AutoCompleteInputWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AutoCompleteInputPropsWithContext<StreamChatGenerics>,
+  props: AutoCompleteInputPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTextInputProps,
@@ -156,7 +156,7 @@ const AutoCompleteInputWithContext = <
       const triggerSetting = triggerSettings[trigger];
       if (triggerSetting) {
         await triggerSetting.dataProvider(
-          query as SuggestionUser<StreamChatGenerics>['name'],
+          query as SuggestionUser<ErmisChatGenerics>['name'],
           text,
           (data, queryCallback) => {
             if (query === queryCallback) {
@@ -178,7 +178,7 @@ const AutoCompleteInputWithContext = <
       const triggerSetting = triggerSettings[trigger];
       if (triggerSetting) {
         await triggerSetting.dataProvider(
-          query as SuggestionCommand<StreamChatGenerics>['name'],
+          query as SuggestionCommand<ErmisChatGenerics>['name'],
           text,
           (data, queryCallback) => {
             if (query !== queryCallback) {
@@ -226,7 +226,7 @@ const AutoCompleteInputWithContext = <
     item,
     trigger,
   }: {
-    item: Suggestion<StreamChatGenerics>;
+    item: Suggestion<ErmisChatGenerics>;
     trigger: Trigger;
   }) => {
     if (!trigger || !triggerSettings[trigger]) {
@@ -379,8 +379,8 @@ const AutoCompleteInputWithContext = <
   const placeholderText = giphyActive
     ? t('Search GIFs')
     : cooldownActive
-    ? t('Slow mode ON')
-    : t('Send a message');
+      ? t('Slow mode ON')
+      : t('Send a message');
 
   const handleSuggestionsThrottled = throttle(handleSuggestions, 100, {
     leading: false,
@@ -428,9 +428,9 @@ const AutoCompleteInputWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AutoCompleteInputPropsWithContext<StreamChatGenerics>,
-  nextProps: AutoCompleteInputPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AutoCompleteInputPropsWithContext<ErmisChatGenerics>,
+  nextProps: AutoCompleteInputPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     cooldownActive: prevCooldownActive,
@@ -466,11 +466,11 @@ const MemoizedAutoCompleteInput = React.memo(
 ) as typeof AutoCompleteInputWithContext;
 
 export const AutoCompleteInput = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AutoCompleteInputProps<StreamChatGenerics>,
+  props: AutoCompleteInputProps<ErmisChatGenerics>,
 ) => {
-  const { giphyEnabled } = useChannelContext<StreamChatGenerics>();
+  const { giphyEnabled } = useChannelContext<ErmisChatGenerics>();
   const {
     additionalTextInputProps,
     autoCompleteSuggestionsLimit,
@@ -484,9 +484,9 @@ export const AutoCompleteInput = <
     setInputBoxRef,
     text,
     triggerSettings,
-  } = useMessageInputContext<StreamChatGenerics>();
+  } = useMessageInputContext<ErmisChatGenerics>();
   const { closeSuggestions, openSuggestions, updateSuggestions } =
-    useSuggestionsContext<StreamChatGenerics>();
+    useSuggestionsContext<ErmisChatGenerics>();
   const { t } = useTranslationContext();
 
   return (

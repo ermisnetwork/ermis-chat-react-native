@@ -1,4 +1,4 @@
-import type { ExtendableGenerics, LiteralStringForUnion } from 'stream-chat';
+import type { ExtendableGenerics, LiteralStringForUnion } from 'ermis-chat-sdk-test';
 
 import type { FileStateValue } from '../utils/utils';
 
@@ -67,7 +67,7 @@ interface DefaultChannelType extends UnknownType {
   image?: string;
 }
 
-export interface DefaultStreamChatGenerics extends ExtendableGenerics {
+export interface DefaultErmisChatGenerics extends ExtendableGenerics {
   attachmentType: DefaultAttachmentType;
   channelType: DefaultChannelType;
   commandType: LiteralStringForUnion;

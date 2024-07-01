@@ -1,6 +1,6 @@
-import type { ChannelFilters, ChannelSort } from 'stream-chat';
+import type { ChannelFilters, ChannelSort } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { QuickSqliteClient } from '../../QuickSqliteClient';
 import { createSelectQuery } from '../../sqlite-utils/createSelectQuery';
 
@@ -17,13 +17,13 @@ import { convertFilterSortToQuery } from '../utils/convertFilterSortToQuery';
  */
 
 export const selectChannelIdsForFilterSort = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   filters,
   sort,
 }: {
-  filters?: ChannelFilters<StreamChatGenerics>;
-  sort?: ChannelSort<StreamChatGenerics>;
+  filters?: ChannelFilters<ErmisChatGenerics>;
+  sort?: ChannelSort<ErmisChatGenerics>;
 }): string[] | null => {
   const query = convertFilterSortToQuery({ filters, sort });
 

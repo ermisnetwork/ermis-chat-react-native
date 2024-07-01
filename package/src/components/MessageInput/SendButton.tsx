@@ -11,18 +11,18 @@ import { Search } from '../../icons/Search';
 import { SendRight } from '../../icons/SendRight';
 import { SendUp } from '../../icons/SendUp';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 type SendButtonPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageInputContextValue<StreamChatGenerics>, 'giphyActive' | 'sendMessage'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageInputContextValue<ErmisChatGenerics>, 'giphyActive' | 'sendMessage'> & {
   /** Disables the button */ disabled: boolean;
 };
 
 const SendButtonWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: SendButtonPropsWithContext<StreamChatGenerics>,
+  props: SendButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { disabled = false, giphyActive, sendMessage } = props;
   const {
@@ -50,9 +50,9 @@ const SendButtonWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: SendButtonPropsWithContext<StreamChatGenerics>,
-  nextProps: SendButtonPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: SendButtonPropsWithContext<ErmisChatGenerics>,
+  nextProps: SendButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     disabled: prevDisabled,
@@ -83,18 +83,18 @@ const MemoizedSendButton = React.memo(
 ) as typeof SendButtonWithContext;
 
 export type SendButtonProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<SendButtonPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<SendButtonPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * UI Component for send button in MessageInput component.
  */
 export const SendButton = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: SendButtonProps<StreamChatGenerics>,
+  props: SendButtonProps<ErmisChatGenerics>,
 ) => {
-  const { giphyActive, sendMessage } = useMessageInputContext<StreamChatGenerics>();
+  const { giphyActive, sendMessage } = useMessageInputContext<ErmisChatGenerics>();
 
   return (
     <MemoizedSendButton

@@ -3,15 +3,15 @@ import React, { useMemo } from 'react';
 import { MessagesContextValue } from '../../contexts/messagesContext/MessagesContext';
 import { useTranslationContext } from '../../contexts/translationContext/TranslationContext';
 
-import { DefaultStreamChatGenerics } from '../../types/types';
+import { DefaultErmisChatGenerics } from '../../types/types';
 import { getDateString } from '../../utils/i18n/getDateString';
 
 /**
  * Props for the StickyHeader component.
  */
 export type StickyHeaderProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessagesContextValue<StreamChatGenerics>, 'DateHeader'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessagesContextValue<ErmisChatGenerics>, 'DateHeader'> & {
   /**
    * Date to be displayed in the sticky header.
    */

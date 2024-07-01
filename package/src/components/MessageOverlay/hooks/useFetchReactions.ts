@@ -1,29 +1,29 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { ReactionResponse, ReactionSort } from 'stream-chat';
+import { ReactionResponse, ReactionSort } from 'ermis-chat-sdk-test';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { getReactionsForFilterSort } from '../../../store/apis/getReactionsforFilterSort';
-import { DefaultStreamChatGenerics } from '../../../types/types';
+import { DefaultErmisChatGenerics } from '../../../types/types';
 
 export type UseFetchReactionParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   limit?: number;
   messageId?: string;
   reactionType?: string;
-  sort?: ReactionSort<StreamChatGenerics>;
+  sort?: ReactionSort<ErmisChatGenerics>;
 };
 
 export const useFetchReactions = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   limit = 25,
   messageId,
   reactionType,
   sort,
 }: UseFetchReactionParams) => {
-  const [reactions, setReactions] = useState<ReactionResponse<StreamChatGenerics>[]>([]);
+  const [reactions, setReactions] = useState<ReactionResponse<ErmisChatGenerics>[]>([]);
   const [loading, setLoading] = useState(true);
   const [next, setNext] = useState<string | undefined>(undefined);
 

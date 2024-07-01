@@ -11,7 +11,7 @@ import {
 } from '../../../contexts/messagesContext/MessagesContext';
 import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
 });
 
 export type MessageSimplePropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   | 'alignment'
   | 'channel'
   | 'disabled'
@@ -40,7 +40,7 @@ export type MessageSimplePropsWithContext<
   | 'message'
 > &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'enableMessageGroupingByUser'
     | 'myMessageTheme'
     | 'MessageAvatar'
@@ -49,9 +49,9 @@ export type MessageSimplePropsWithContext<
   >;
 
 const MessageSimpleWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageSimplePropsWithContext<StreamChatGenerics>,
+  props: MessageSimplePropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -119,9 +119,9 @@ const MessageSimpleWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageSimplePropsWithContext<StreamChatGenerics>,
-  nextProps: MessageSimplePropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageSimplePropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageSimplePropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     channel: prevChannel,
@@ -185,24 +185,24 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
   const attachmentsEqual =
     Array.isArray(prevMessageAttachments) && Array.isArray(nextMessageAttachments)
       ? prevMessageAttachments.length === nextMessageAttachments.length &&
-        prevMessageAttachments.every((attachment, index) => {
-          const attachmentKeysEqual =
-            attachment.image_url === nextMessageAttachments[index].image_url &&
-            attachment.og_scrape_url === nextMessageAttachments[index].og_scrape_url &&
-            attachment.thumb_url === nextMessageAttachments[index].thumb_url &&
-            attachment.type === nextMessageAttachments[index].type;
+      prevMessageAttachments.every((attachment, index) => {
+        const attachmentKeysEqual =
+          attachment.image_url === nextMessageAttachments[index].image_url &&
+          attachment.og_scrape_url === nextMessageAttachments[index].og_scrape_url &&
+          attachment.thumb_url === nextMessageAttachments[index].thumb_url &&
+          attachment.type === nextMessageAttachments[index].type;
 
-          return attachmentKeysEqual;
-        })
+        return attachmentKeysEqual;
+      })
       : prevMessageAttachments === nextMessageAttachments;
   if (!attachmentsEqual) return false;
 
   const latestReactionsEqual =
     Array.isArray(prevMessage.latest_reactions) && Array.isArray(nextMessage.latest_reactions)
       ? prevMessage.latest_reactions.length === nextMessage.latest_reactions.length &&
-        prevMessage.latest_reactions.every(
-          ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
-        )
+      prevMessage.latest_reactions.every(
+        ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
+      )
       : prevMessage.latest_reactions === nextMessage.latest_reactions;
   if (!latestReactionsEqual) return false;
 
@@ -219,30 +219,30 @@ const MemoizedMessageSimple = React.memo(
 ) as typeof MessageSimpleWithContext;
 
 export type MessageSimpleProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageSimplePropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageSimplePropsWithContext<ErmisChatGenerics>>;
 
 /**
  *
  * Message UI component
  */
 export const MessageSimple = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageSimpleProps<StreamChatGenerics>,
+  props: MessageSimpleProps<ErmisChatGenerics>,
 ) => {
   const { alignment, channel, disabled, groupStyles, hasReactions, isEditedMessageOpen, message } =
-    useMessageContext<StreamChatGenerics>();
+    useMessageContext<ErmisChatGenerics>();
   const {
     enableMessageGroupingByUser,
     MessageAvatar,
     MessageContent,
     myMessageTheme,
     ReactionList,
-  } = useMessagesContext<StreamChatGenerics>();
+  } = useMessagesContext<ErmisChatGenerics>();
 
   return (
-    <MemoizedMessageSimple<StreamChatGenerics>
+    <MemoizedMessageSimple<ErmisChatGenerics>
       {...{
         alignment,
         channel,

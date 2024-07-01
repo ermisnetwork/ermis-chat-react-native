@@ -1,21 +1,21 @@
 import uniqBy from 'lodash/uniqBy';
-import type { Channel, StreamChat } from 'stream-chat';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 type MoveParameters<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  channels: Channel<StreamChatGenerics>[];
+  channels: Channel<ErmisChatGenerics>[];
   cid: string;
 };
 
 export const moveChannelUp = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channels = [],
   cid,
-}: MoveParameters<StreamChatGenerics>) => {
+}: MoveParameters<ErmisChatGenerics>) => {
   // get channel from channels
   const index = channels.findIndex((c) => c.cid === cid);
   if (index <= 0) return channels;
@@ -29,20 +29,20 @@ export const moveChannelUp = <
 };
 
 type GetParameters<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  client: StreamChat<StreamChatGenerics>;
+  client: ErmisChat<ErmisChatGenerics>;
   id: string;
   type: string;
 };
 
 export const getChannel = async <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   client,
   id,
   type,
-}: GetParameters<StreamChatGenerics>) => {
+}: GetParameters<ErmisChatGenerics>) => {
   const channel = client.channel(type, id);
   await channel.watch();
   return channel;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import type { Channel, ChannelMemberResponse } from 'stream-chat';
+import type { Channel, ChannelMemberResponse } from 'ermis-chat-sdk-test';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { useViewport } from '../../../hooks/useViewport';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const ELLIPSIS = `...`;
 
@@ -13,7 +13,7 @@ const getMemberName = (member: ChannelMemberResponse) =>
   member.user?.name || member.user?.id || 'Unknown User';
 
 export const getChannelPreviewDisplayName = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channelName,
   characterLimit,
@@ -23,7 +23,7 @@ export const getChannelPreviewDisplayName = <
   characterLimit: number;
   channelName?: string;
   currentUserId?: string;
-  members?: Channel<StreamChatGenerics>['state']['members'];
+  members?: Channel<ErmisChatGenerics>['state']['members'];
 }): string => {
   if (channelName) return channelName;
 
@@ -73,12 +73,12 @@ export const getChannelPreviewDisplayName = <
 };
 
 export const useChannelPreviewDisplayName = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel?: Channel<StreamChatGenerics>,
+  channel?: Channel<ErmisChatGenerics>,
   characterLength?: number,
 ) => {
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
   const { vw } = useViewport();
 
   const DEFAULT_MAX_CHARACTER_LENGTH = (vw(100) - 16) / 6;

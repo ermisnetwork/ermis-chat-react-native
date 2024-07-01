@@ -1,4 +1,4 @@
-import type { ChannelMemberResponse } from 'stream-chat';
+import type { ChannelMemberResponse } from 'ermis-chat-sdk-test';
 
 import { QuickSqliteClient } from '../QuickSqliteClient';
 import { createDeleteQuery } from '../sqlite-utils/createDeleteQuery';

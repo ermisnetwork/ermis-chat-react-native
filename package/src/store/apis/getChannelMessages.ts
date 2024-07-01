@@ -1,17 +1,17 @@
-import type { MessageResponse } from 'stream-chat';
+import type { MessageResponse } from 'ermis-chat-sdk-test';
 
 import { selectMessagesForChannels } from './queries/selectMessagesForChannels';
 
 import { selectReactionsForMessages } from './queries/selectReactionsForMessages';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { isBlockedMessage } from '../../utils/utils';
 import { mapStorableToMessage } from '../mappers/mapStorableToMessage';
 import { QuickSqliteClient } from '../QuickSqliteClient';
 import type { TableRowJoinedUser } from '../types';
 
 export const getChannelMessages = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channelIds,
   currentUserId,
@@ -37,7 +37,7 @@ export const getChannelMessages = <
   });
 
   // Populate the messages.
-  const cidVsMessages: Record<string, MessageResponse<StreamChatGenerics>[]> = {};
+  const cidVsMessages: Record<string, MessageResponse<ErmisChatGenerics>[]> = {};
   messageRows.forEach((m) => {
     if (!cidVsMessages[m.cid]) {
       cidVsMessages[m.cid] = [];
@@ -45,7 +45,7 @@ export const getChannelMessages = <
 
     if (!isBlockedMessage(m)) {
       cidVsMessages[m.cid].push(
-        mapStorableToMessage<StreamChatGenerics>({
+        mapStorableToMessage<ErmisChatGenerics>({
           currentUserId,
           messageRow: m,
           reactionRows: messageIdVsReactions[m.id],

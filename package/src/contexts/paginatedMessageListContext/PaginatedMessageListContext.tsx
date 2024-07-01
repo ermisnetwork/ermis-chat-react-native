@@ -1,15 +1,15 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { ChannelState } from 'stream-chat';
+import type { ChannelState } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
 export type PaginatedMessageListContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
    * Has more messages to load
@@ -38,7 +38,7 @@ export type PaginatedMessageListContextValue<
   /**
    * Messages from client state
    */
-  messages: ChannelState<StreamChatGenerics>['messages'];
+  messages: ChannelState<ErmisChatGenerics>['messages'];
   /**
    * Set loadingMore
    */
@@ -54,12 +54,12 @@ export const PaginatedMessageListContext = React.createContext(
 );
 
 export const PaginatedMessageListProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value?: PaginatedMessageListContextValue<StreamChatGenerics>;
+  value?: PaginatedMessageListContextValue<ErmisChatGenerics>;
 }>) => (
   <PaginatedMessageListContext.Provider
     value={value as unknown as PaginatedMessageListContextValue}
@@ -69,11 +69,11 @@ export const PaginatedMessageListProvider = <
 );
 
 export const usePaginatedMessageListContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     PaginatedMessageListContext,
-  ) as unknown as PaginatedMessageListContextValue<StreamChatGenerics>;
+  ) as unknown as PaginatedMessageListContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -95,14 +95,14 @@ export const usePaginatedMessageListContext = <
  */
 export const withPaginatedMessageListContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof PaginatedMessageListContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof PaginatedMessageListContextValue<ErmisChatGenerics>>> => {
   const WithPaginatedMessageListContextComponent = (
-    props: Omit<P, keyof PaginatedMessageListContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof PaginatedMessageListContextValue<ErmisChatGenerics>>,
   ) => {
-    const paginatedMessageListContext = usePaginatedMessageListContext<StreamChatGenerics>();
+    const paginatedMessageListContext = usePaginatedMessageListContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...paginatedMessageListContext} />;
   };

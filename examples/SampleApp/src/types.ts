@@ -1,5 +1,5 @@
 import type { Immutable } from 'seamless-immutable';
-import type { Channel, UserResponse } from 'stream-chat';
+import type { Channel, UserResponse } from 'ermis-chat-sdk-test';
 import type { ThreadContextValue } from 'stream-chat-react-native';
 import type { Theme } from '@react-navigation/native';
 
@@ -18,7 +18,7 @@ export type LocalUserType = {
 type LocalPollOptionType = Record<string, unknown>;
 type LocalPollType = Record<string, unknown>;
 
-export type StreamChatGenerics = {
+export type ErmisChatGenerics = {
   attachmentType: LocalAttachmentType;
   channelType: LocalChannelType;
   commandType: LocalCommandType;
@@ -37,36 +37,36 @@ export type DrawerNavigatorParamList = {
 
 export type StackNavigatorParamList = {
   ChannelFilesScreen: {
-    channel: Channel<StreamChatGenerics>;
+    channel: Channel<ErmisChatGenerics>;
   };
   ChannelImagesScreen: {
-    channel: Channel<StreamChatGenerics>;
+    channel: Channel<ErmisChatGenerics>;
   };
   ChannelListScreen: undefined;
   ChannelPinnedMessagesScreen: {
-    channel: Channel<StreamChatGenerics>;
+    channel: Channel<ErmisChatGenerics>;
   };
   ChannelScreen: {
-    channel?: Channel<StreamChatGenerics>;
+    channel?: Channel<ErmisChatGenerics>;
     channelId?: string;
     messageId?: string;
   };
   GroupChannelDetailsScreen: {
-    channel: Channel<StreamChatGenerics>;
+    channel: Channel<ErmisChatGenerics>;
   };
   MessagingScreen: undefined;
   NewDirectMessagingScreen: undefined;
   NewGroupChannelAddMemberScreen: undefined;
   NewGroupChannelAssignNameScreen: undefined;
   OneOnOneChannelDetailScreen: {
-    channel: Channel<StreamChatGenerics>;
+    channel: Channel<ErmisChatGenerics>;
   };
   SharedGroupsScreen: {
-    user: Immutable<UserResponse<StreamChatGenerics>> | UserResponse<StreamChatGenerics>;
+    user: Immutable<UserResponse<ErmisChatGenerics>> | UserResponse<ErmisChatGenerics>;
   };
   ThreadScreen: {
-    channel: Channel<StreamChatGenerics>;
-    thread: ThreadContextValue<StreamChatGenerics>['thread'];
+    channel: Channel<ErmisChatGenerics>;
+    thread: ThreadContextValue<ErmisChatGenerics>['thread'];
   };
 };
 

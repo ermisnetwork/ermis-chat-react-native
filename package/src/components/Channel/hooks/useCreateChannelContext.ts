@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
 import type { ChannelContextValue } from '../../../contexts/channelContext/ChannelContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const useCreateChannelContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   disabled,
@@ -39,7 +39,7 @@ export const useCreateChannelContext = <
   uploadAbortControllerRef,
   watcherCount,
   watchers,
-}: ChannelContextValue<StreamChatGenerics>) => {
+}: ChannelContextValue<ErmisChatGenerics>) => {
   const channelId = channel?.id;
   const lastReadTime = lastRead?.getTime();
   const membersLength = Object.keys(members).length;
@@ -48,7 +48,7 @@ export const useCreateChannelContext = <
   const readUsersLength = readUsers.length;
   const readUsersLastReads = readUsers.map(({ last_read }) => last_read.toISOString()).join();
 
-  const channelContext: ChannelContextValue<StreamChatGenerics> = useMemo(
+  const channelContext: ChannelContextValue<ErmisChatGenerics> = useMemo(
     () => ({
       channel,
       disabled,

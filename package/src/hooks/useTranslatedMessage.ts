@@ -1,18 +1,18 @@
-import type { FormatMessageResponse, MessageResponse, TranslationLanguages } from 'stream-chat';
+import type { FormatMessageResponse, MessageResponse, TranslationLanguages } from 'ermis-chat-sdk-test';
 
 import { useMessageOverlayContext } from '../contexts/messageOverlayContext/MessageOverlayContext';
 import { useTranslationContext } from '../contexts/translationContext/TranslationContext';
-import type { DefaultStreamChatGenerics } from '../types/types';
+import type { DefaultErmisChatGenerics } from '../types/types';
 
 type TranslationKey = `${TranslationLanguages}_text`;
 
 export const useTranslatedMessage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message?: MessageResponse<StreamChatGenerics> | FormatMessageResponse<StreamChatGenerics>,
+  message?: MessageResponse<ErmisChatGenerics> | FormatMessageResponse<ErmisChatGenerics>,
 ) => {
   const { userLanguage: translationContextUserLanguage } = useTranslationContext();
-  const messageOverlayContextValue = useMessageOverlayContext<StreamChatGenerics>();
+  const messageOverlayContextValue = useMessageOverlayContext<ErmisChatGenerics>();
 
   const userLanguage =
     messageOverlayContextValue.data?.userLanguage || translationContextUserLanguage;

@@ -1,9 +1,9 @@
-import type { ReactionFilters, ReactionResponse, ReactionSort } from 'stream-chat';
+import type { ReactionFilters, ReactionResponse, ReactionSort } from 'ermis-chat-sdk-test';
 
 import { getReactions } from './getReactions';
 import { selectReactionsForMessages } from './queries/selectReactionsForMessages';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 import { QuickSqliteClient } from '../QuickSqliteClient';
 
@@ -14,16 +14,16 @@ import { QuickSqliteClient } from '../QuickSqliteClient';
  * @param sort The sort to be applied while fetching reactions.
  */
 export const getReactionsForFilterSort = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   currentMessageId,
   filters,
   sort,
 }: {
   currentMessageId: string;
-  filters?: ReactionFilters<StreamChatGenerics>;
-  sort?: ReactionSort<StreamChatGenerics>;
-}): ReactionResponse<StreamChatGenerics>[] | null => {
+  filters?: ReactionFilters<ErmisChatGenerics>;
+  sort?: ReactionSort<ErmisChatGenerics>;
+}): ReactionResponse<ErmisChatGenerics>[] | null => {
   if (!filters && !sort) {
     console.warn('Please provide the query (filters/sort) to fetch channels from DB');
     return null;

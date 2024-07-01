@@ -1,13 +1,13 @@
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { TableRow } from '../types';
 
 export const mapStorableToUser = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   userRow: TableRow<'users'>,
-): UserResponse<StreamChatGenerics> => {
+): UserResponse<ErmisChatGenerics> => {
   const { banned, createdAt, extraData, id, lastActive, online, role, updatedAt } = userRow;
 
   return {

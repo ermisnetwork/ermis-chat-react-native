@@ -23,7 +23,7 @@ import {
 
 import { NewDirectMessagingScreenNavigationProp } from '../screens/NewDirectMessagingScreen';
 
-import { StreamChatGenerics } from '../types';
+import { ErmisChatGenerics } from '../types';
 
 type NewDirectMessagingSendButtonPropsWithContext<
   At extends UnknownType = DefaultAttachmentType,
@@ -129,11 +129,11 @@ export type SendButtonProps<
 /**
  * UI Component for send button in MessageInput component.
  */
-export const NewDirectMessagingSendButton = (props: SendButtonProps<StreamChatGenerics>) => {
+export const NewDirectMessagingSendButton = (props: SendButtonProps<ErmisChatGenerics>) => {
   const navigation = useNavigation<NewDirectMessagingScreenNavigationProp>();
-  const { channel } = useChannelContext<StreamChatGenerics>();
+  const { channel } = useChannelContext<ErmisChatGenerics>();
 
-  const { giphyActive, text } = useMessageInputContext<StreamChatGenerics>();
+  const { giphyActive, text } = useMessageInputContext<ErmisChatGenerics>();
 
   const sendMessage = async () => {
     if (!channel) {
@@ -152,7 +152,7 @@ export const NewDirectMessagingSendButton = (props: SendButtonProps<StreamChatGe
   };
 
   return (
-    <MemoizedNewDirectMessagingSendButton<StreamChatGenerics>
+    <MemoizedNewDirectMessagingSendButton<ErmisChatGenerics>
       {...{ giphyActive, sendMessage }}
       {...props}
       {...{ disabled: props.disabled || false }}

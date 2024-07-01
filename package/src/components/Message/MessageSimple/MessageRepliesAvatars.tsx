@@ -5,7 +5,7 @@ import { ChatContextValue, useChatContext } from '../../../contexts/chatContext/
 import type { MessageContextValue } from '../../../contexts/messageContext/MessageContext';
 import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { Avatar } from '../../Avatar/Avatar';
 
 const styles = StyleSheet.create({
@@ -21,13 +21,13 @@ const styles = StyleSheet.create({
 });
 
 export type MessageRepliesAvatarsProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageContextValue<StreamChatGenerics>, 'alignment' | 'message'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageContextValue<ErmisChatGenerics>, 'alignment' | 'message'>;
 
 export const MessageRepliesAvatarsWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageRepliesAvatarsProps<StreamChatGenerics> & Pick<ChatContextValue, 'ImageComponent'>,
+  props: MessageRepliesAvatarsProps<ErmisChatGenerics> & Pick<ChatContextValue, 'ImageComponent'>,
 ) => {
   const { alignment, ImageComponent, message } = props;
 
@@ -64,9 +64,9 @@ export const MessageRepliesAvatarsWithContext = <
             i === 1
               ? { ...styles.topAvatar, ...avatarContainerSingle }
               : {
-                  paddingLeft: hasMoreThanOneReply ? 8 : 0,
-                  ...avatarContainerMultiple,
-                }
+                paddingLeft: hasMoreThanOneReply ? 8 : 0,
+                ...avatarContainerMultiple,
+              }
           }
         >
           <Avatar
@@ -89,9 +89,9 @@ export const MessageRepliesAvatarsWithContext = <
 };
 
 export const MessageRepliesAvatars = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageRepliesAvatarsProps<StreamChatGenerics>,
+  props: MessageRepliesAvatarsProps<ErmisChatGenerics>,
 ) => {
   const { ImageComponent } = useChatContext();
 

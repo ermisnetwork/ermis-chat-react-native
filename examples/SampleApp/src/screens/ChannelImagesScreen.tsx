@@ -24,9 +24,9 @@ import { usePaginatedAttachments } from '../hooks/usePaginatedAttachments';
 import { Picture } from '../icons/Picture';
 
 import type { RouteProp } from '@react-navigation/native';
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
-import type { StackNavigatorParamList, StreamChatGenerics } from '../types';
+import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 
 const screen = Dimensions.get('screen').width;
 
@@ -70,7 +70,7 @@ export const ChannelImagesScreen: React.FC<ChannelImagesScreenProps> = ({
     messages: images,
     setMessages: setImages,
     setSelectedMessage: setImage,
-  } = useImageGalleryContext<StreamChatGenerics>();
+  } = useImageGalleryContext<ErmisChatGenerics>();
   const { setOverlay } = useOverlayContext();
   const { loading, loadMore, messages } = usePaginatedAttachments(channel, 'image');
   const {
@@ -110,9 +110,9 @@ export const ChannelImagesScreen: React.FC<ChannelImagesScreenProps> = ({
    * Photos array created from all currently available
    * photo attachments
    */
-  const photos = messages.reduce((acc: Photo<StreamChatGenerics>[], cur) => {
+  const photos = messages.reduce((acc: Photo<ErmisChatGenerics>[], cur) => {
     const attachmentImages =
-      (cur.attachments as Attachment<StreamChatGenerics>[])?.filter(
+      (cur.attachments as Attachment<ErmisChatGenerics>[])?.filter(
         (attachment) =>
           attachment.type === 'image' &&
           !attachment.title_link &&
@@ -151,7 +151,7 @@ export const ChannelImagesScreen: React.FC<ChannelImagesScreenProps> = ({
    */
   const imageString = messagesWithImages
     .map((message) =>
-      (message.attachments as Attachment<StreamChatGenerics>[])
+      (message.attachments as Attachment<ErmisChatGenerics>[])
         .map((attachment) => attachment.image_url || attachment.thumb_url || '')
         .join(),
     )

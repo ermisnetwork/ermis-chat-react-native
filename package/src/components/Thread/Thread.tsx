@@ -10,7 +10,7 @@ import {
 } from '../../contexts/messagesContext/MessagesContext';
 import { ThreadContextValue, useThreadContext } from '../../contexts/threadContext/ThreadContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import {
   MessageInput as DefaultMessageInput,
   MessageInputProps,
@@ -18,23 +18,23 @@ import {
 import type { MessageListProps } from '../MessageList/MessageList';
 
 type ThreadPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'MessageList'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'MessageList'> &
   Pick<
-    ThreadContextValue<StreamChatGenerics>,
+    ThreadContextValue<ErmisChatGenerics>,
     'closeThread' | 'loadMoreThread' | 'reloadThread' | 'thread'
   > & {
     /**
      * Additional props for underlying MessageInput component.
      * Available props - https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-input/#props
      * */
-    additionalMessageInputProps?: Partial<MessageInputProps<StreamChatGenerics>>;
+    additionalMessageInputProps?: Partial<MessageInputProps<ErmisChatGenerics>>;
     /**
      * Additional props for underlying MessageList component.
      * Available props - https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-list/#props
      * */
-    additionalMessageListProps?: Partial<MessageListProps<StreamChatGenerics>>;
+    additionalMessageListProps?: Partial<MessageListProps<ErmisChatGenerics>>;
     /** Make input focus on mounting thread */
     autoFocus?: boolean;
     /** Closes thread on dismount, defaults to true */
@@ -45,7 +45,7 @@ type ThreadPropsWithContext<
      * **Customized MessageInput component to used within Thread instead of default MessageInput
      * **Available from [MessageInput](https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-input)**
      */
-    MessageInput?: React.ComponentType<MessageInputProps<StreamChatGenerics>>;
+    MessageInput?: React.ComponentType<MessageInputProps<ErmisChatGenerics>>;
     /**
      * Call custom function on closing thread if handling thread state elsewhere
      */
@@ -53,9 +53,9 @@ type ThreadPropsWithContext<
   };
 
 const ThreadWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ThreadPropsWithContext<StreamChatGenerics>,
+  props: ThreadPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalMessageInputProps,
@@ -102,7 +102,7 @@ const ThreadWithContext = <
         threadList
         {...additionalMessageListProps}
       />
-      <MessageInput<StreamChatGenerics>
+      <MessageInput<ErmisChatGenerics>
         additionalTextInputProps={{ autoFocus, editable: !disabled }}
         threadList
         {...additionalMessageInputProps}
@@ -112,8 +112,8 @@ const ThreadWithContext = <
 };
 
 export type ThreadProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<ThreadPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<ThreadPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * Thread - The Thread renders a parent message with a list of replies. Use the standard message list of the main channel's messages.
@@ -125,15 +125,15 @@ export type ThreadProps<
  * - additionalMessageInputProps
  */
 export const Thread = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ThreadProps<StreamChatGenerics>,
+  props: ThreadProps<ErmisChatGenerics>,
 ) => {
-  const { client } = useChatContext<StreamChatGenerics>();
-  const { threadList } = useChannelContext<StreamChatGenerics>();
-  const { MessageList } = useMessagesContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
+  const { threadList } = useChannelContext<ErmisChatGenerics>();
+  const { MessageList } = useMessagesContext<ErmisChatGenerics>();
   const { closeThread, loadMoreThread, reloadThread, thread } =
-    useThreadContext<StreamChatGenerics>();
+    useThreadContext<ErmisChatGenerics>();
 
   if (thread?.id && !threadList) {
     throw new Error(
@@ -142,7 +142,7 @@ export const Thread = <
   }
 
   return (
-    <ThreadWithContext<StreamChatGenerics>
+    <ThreadWithContext<ErmisChatGenerics>
       {...{
         client,
         closeThread,

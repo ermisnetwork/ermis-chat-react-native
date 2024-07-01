@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { act, render, waitFor } from '@testing-library/react-native';
 
-import type { Channel, StreamChat } from 'stream-chat';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
 
 import {
   getOrCreateChannelApi,
@@ -48,7 +48,7 @@ const ChannelPreviewUIComponent = (props: ChannelPreviewUIComponentProps) => (
 
 describe('ChannelPreview', () => {
   const clientUser = generateUser();
-  let chatClient: StreamChat;
+  let chatClient: ErmisChat;
   let channel: Channel | null;
 
   const TestComponent = (props = {}) => {

@@ -1,4 +1,4 @@
-import type { FormatMessageResponse, MessageResponse, ReactionResponse } from 'stream-chat';
+import type { FormatMessageResponse, MessageResponse, ReactionResponse } from 'ermis-chat-sdk-test';
 
 import { mapMessageToStorable } from '../mappers/mapMessageToStorable';
 import { mapReactionToStorable } from '../mappers/mapReactionToStorable';

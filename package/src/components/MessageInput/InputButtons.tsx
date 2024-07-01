@@ -8,20 +8,20 @@ import {
 import { useOwnCapabilitiesContext } from '../../contexts/ownCapabilitiesContext/OwnCapabilitiesContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   attachButtonContainer: { paddingRight: 5 },
 });
 
 export type InputButtonsProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<InputButtonsWithContextProps<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<InputButtonsWithContextProps<ErmisChatGenerics>>;
 
 export type InputButtonsWithContextProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageInputContextValue<StreamChatGenerics>,
+  MessageInputContextValue<ErmisChatGenerics>,
   | 'AttachButton'
   | 'CommandsButton'
   | 'giphyActive'
@@ -38,9 +38,9 @@ export type InputButtonsWithContextProps<
 >;
 
 export const InputButtonsWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: InputButtonsWithContextProps<StreamChatGenerics>,
+  props: InputButtonsWithContextProps<ErmisChatGenerics>,
 ) => {
   const {
     AttachButton,
@@ -89,9 +89,9 @@ export const InputButtonsWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: InputButtonsWithContextProps<StreamChatGenerics>,
-  nextProps: InputButtonsWithContextProps<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: InputButtonsWithContextProps<ErmisChatGenerics>,
+  nextProps: InputButtonsWithContextProps<ErmisChatGenerics>,
 ) => {
   const {
     giphyActive: prevGiphyActive,
@@ -150,9 +150,9 @@ const MemoizedInputButtonsWithContext = React.memo(
 ) as typeof InputButtonsWithContext;
 
 export const InputButtons = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: InputButtonsProps<StreamChatGenerics>,
+  props: InputButtonsProps<ErmisChatGenerics>,
 ) => {
   const {
     AttachButton,
@@ -168,7 +168,7 @@ export const InputButtons = <
     showMoreOptions,
     text,
     toggleAttachmentPicker,
-  } = useMessageInputContext<StreamChatGenerics>();
+  } = useMessageInputContext<ErmisChatGenerics>();
 
   return (
     <MemoizedInputButtonsWithContext

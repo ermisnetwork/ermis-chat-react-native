@@ -1,5 +1,5 @@
-const { StreamChat } = require('stream-chat');
+const { ErmisChat } = require('ermis-chat-sdk-test');
 
-const client = StreamChat.getInstance('yjrt5yxw77ev');
+const client = ErmisChat.getInstance('KzubBBcsO3KT1747826418734');
 
 module.exports = client;

@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
 import type { MessageContextValue } from '../../../contexts/messageContext/MessageContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { stringifyMessage } from '../../../utils/utils';
 
 export const useCreateMessageContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   actionsEnabled,
   alignment,
@@ -46,7 +46,7 @@ export const useCreateMessageContext = <
   showMessageStatus,
   threadList,
   videos,
-}: MessageContextValue<StreamChatGenerics>) => {
+}: MessageContextValue<ErmisChatGenerics>) => {
   const groupStylesLength = groupStyles.length;
   const reactionsValue = reactions.map(({ count, own, type }) => `${own}${type}${count}`).join();
   const stringifiedMessage = stringifyMessage(message);
@@ -56,7 +56,7 @@ export const useCreateMessageContext = <
 
   const quotedMessageDeletedValue = message.quoted_message?.deleted_at;
 
-  const messageContext: MessageContextValue<StreamChatGenerics> = useMemo(
+  const messageContext: MessageContextValue<ErmisChatGenerics> = useMemo(
     () => ({
       actionsEnabled,
       alignment,

@@ -1,5 +1,5 @@
 import { lookup } from 'mime-types';
-import type { FileUploadConfig } from 'stream-chat';
+import type { FileUploadConfig } from 'ermis-chat-sdk-test';
 
 import { Asset, File } from '../../../types/types';
 

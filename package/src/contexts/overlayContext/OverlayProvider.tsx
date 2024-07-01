@@ -30,7 +30,7 @@ import { OverlayBackdrop } from '../../components/MessageOverlay/OverlayBackdrop
 import { useStreami18n } from '../../hooks/useStreami18n';
 
 import { useViewport } from '../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { AttachmentPickerProvider } from '../attachmentPickerContext/AttachmentPickerContext';
 import { ImageGalleryProvider } from '../imageGalleryContext/ImageGalleryContext';
 import { MessageOverlayProvider } from '../messageOverlayContext/MessageOverlayContext';
@@ -61,9 +61,9 @@ import {
  * @example ./OverlayProvider.md
  */
 export const OverlayProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: PropsWithChildren<OverlayProviderProps<StreamChatGenerics>>,
+  props: PropsWithChildren<OverlayProviderProps<ErmisChatGenerics>>,
 ) => {
   const { vh } = useViewport();
   const bottomSheetCloseTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -220,7 +220,7 @@ export const OverlayProvider = <
   return (
     <TranslationProvider value={{ ...translators, userLanguage: DEFAULT_USER_LANGUAGE }}>
       <OverlayContext.Provider value={overlayContext}>
-        <MessageOverlayProvider<StreamChatGenerics>>
+        <MessageOverlayProvider<ErmisChatGenerics>>
           <AttachmentPickerProvider value={attachmentPickerContext}>
             <ImageGalleryProvider>
               {children}
@@ -232,7 +232,7 @@ export const OverlayProvider = <
                   <OverlayBackdrop style={[StyleSheet.absoluteFill, { height, width }]} />
                 </Animated.View>
                 {overlay === 'message' && (
-                  <MessageOverlay<StreamChatGenerics>
+                  <MessageOverlay<ErmisChatGenerics>
                     MessageActionList={MessageActionList}
                     MessageActionListItem={MessageActionListItem}
                     messageTextNumberOfLines={messageTextNumberOfLines}
@@ -243,7 +243,7 @@ export const OverlayProvider = <
                   />
                 )}
                 {overlay === 'gallery' && (
-                  <ImageGallery<StreamChatGenerics>
+                  <ImageGallery<ErmisChatGenerics>
                     autoPlayVideo={autoPlayVideo}
                     giphyVersion={giphyVersion}
                     imageGalleryCustomComponents={imageGalleryCustomComponents}

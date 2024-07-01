@@ -6,7 +6,7 @@ import { BottomSheetFlatList, TouchableOpacity } from '@gorhom/bottom-sheet';
 import { VideoThumbnail } from '../../../components/Attachment/VideoThumbnail';
 import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { useViewport } from '../../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 import type { Photo } from '../ImageGallery';
 
@@ -32,37 +32,37 @@ const styles = StyleSheet.create({
 });
 
 export type ImageGalleryGridImageComponent<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = ({
   item,
 }: {
-  item: Photo<StreamChatGenerics> & {
+  item: Photo<ErmisChatGenerics> & {
     selectAndClose: () => void;
     numberOfImageGalleryGridColumns?: number;
   };
 }) => React.ReactElement | null;
 
 export type ImageGalleryGridImageComponents<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  avatarComponent?: ImageGalleryGridImageComponent<StreamChatGenerics>;
-  imageComponent?: ImageGalleryGridImageComponent<StreamChatGenerics>;
+  avatarComponent?: ImageGalleryGridImageComponent<ErmisChatGenerics>;
+  imageComponent?: ImageGalleryGridImageComponent<ErmisChatGenerics>;
 };
 
 export type GridImageItem<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Photo<StreamChatGenerics> &
-  ImageGalleryGridImageComponents<StreamChatGenerics> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Photo<ErmisChatGenerics> &
+  ImageGalleryGridImageComponents<ErmisChatGenerics> & {
     selectAndClose: () => void;
     numberOfImageGalleryGridColumns?: number;
   };
 
 const GridImage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   item,
 }: {
-  item: GridImageItem<StreamChatGenerics>;
+  item: GridImageItem<ErmisChatGenerics>;
 }) => {
   const {
     theme: {
@@ -96,24 +96,24 @@ const GridImage = <
 };
 
 const renderItem = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   item,
 }: {
-  item: GridImageItem<StreamChatGenerics>;
+  item: GridImageItem<ErmisChatGenerics>;
 }) => <GridImage item={item} />;
 
 export type ImageGridType<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = ImageGalleryGridImageComponents<StreamChatGenerics> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = ImageGalleryGridImageComponents<ErmisChatGenerics> & {
   closeGridView: () => void;
-  photos: Photo<StreamChatGenerics>[];
+  photos: Photo<ErmisChatGenerics>[];
   setSelectedMessage: React.Dispatch<
     React.SetStateAction<
       | {
-          messageId?: string | undefined;
-          url?: string | undefined;
-        }
+        messageId?: string | undefined;
+        url?: string | undefined;
+      }
       | undefined
     >
   >;
@@ -121,9 +121,9 @@ export type ImageGridType<
 };
 
 export const ImageGrid = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ImageGridType<StreamChatGenerics>,
+  props: ImageGridType<ErmisChatGenerics>,
 ) => {
   const {
     avatarComponent,
@@ -155,14 +155,14 @@ export const ImageGrid = <
   }));
 
   return (
-    <BottomSheetFlatList<GridImageItem<StreamChatGenerics>>
+    <BottomSheetFlatList<GridImageItem<ErmisChatGenerics>>
       accessibilityLabel='Image Grid'
       contentContainerStyle={[
         styles.contentContainer,
         { backgroundColor: white },
         contentContainer,
       ]}
-      data={imageGridItems as GridImageItem<StreamChatGenerics>[]}
+      data={imageGridItems as GridImageItem<ErmisChatGenerics>[]}
       keyExtractor={(item, index) => `${item.uri}-${index}`}
       numColumns={numberOfImageGalleryGridColumns || 3}
       renderItem={renderItem}

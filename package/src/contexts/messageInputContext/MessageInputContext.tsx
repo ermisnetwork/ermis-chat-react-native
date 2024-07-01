@@ -10,13 +10,13 @@ import {
   logChatPromiseExecution,
   Message,
   SendFileAPIResponse,
-  StreamChat,
+  ErmisChat,
   Message as StreamMessage,
   UserFilters,
   UserOptions,
   UserResponse,
   UserSort,
-} from 'stream-chat';
+} from 'ermis-chat-sdk-test';
 
 import { useCreateMessageInputContext } from './hooks/useCreateMessageInputContext';
 import { useMessageDetailsForState } from './hooks/useMessageDetailsForState';
@@ -50,7 +50,7 @@ import type { Emoji } from '../../emoji-data';
 import { pickDocument } from '../../native';
 import type {
   Asset,
-  DefaultStreamChatGenerics,
+  DefaultErmisChatGenerics,
   File,
   FileUpload,
   ImageUpload,
@@ -85,15 +85,15 @@ export type EmojiSearchIndex = {
 };
 
 export type MentionAllAppUsersQuery<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  filters?: UserFilters<StreamChatGenerics>;
+  filters?: UserFilters<ErmisChatGenerics>;
   options?: UserOptions;
-  sort?: UserSort<StreamChatGenerics>;
+  sort?: UserSort<ErmisChatGenerics>;
 };
 
 export type LocalMessageInputContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   appendText: (newText: string) => void;
   asyncIds: string[];
@@ -154,7 +154,7 @@ export type LocalMessageInputContext<
   mentionedUsers: string[];
   numberOfUploads: number;
   onChange: (newText: string) => void;
-  onSelectItem: (item: UserResponse<StreamChatGenerics>) => void;
+  onSelectItem: (item: UserResponse<ErmisChatGenerics>) => void;
   openAttachmentPicker: () => void;
   openCommandsPicker: () => void;
   openFilePicker: () => void;
@@ -172,11 +172,11 @@ export type LocalMessageInputContext<
    * @param id string ID of image in `imageUploads` object in state of MessageInput
    */
   removeImage: (id: string) => void;
-  resetInput: (pendingAttachments?: Attachment<StreamChatGenerics>[]) => void;
+  resetInput: (pendingAttachments?: Attachment<ErmisChatGenerics>[]) => void;
   selectedPicker: string | undefined;
   sending: React.MutableRefObject<boolean>;
   sendMessage: (params?: {
-    customMessageData?: Partial<Message<StreamChatGenerics>>;
+    customMessageData?: Partial<Message<ErmisChatGenerics>>;
   }) => Promise<void>;
   sendMessageAsync: (id: string) => void;
   sendThreadMessageInChannel: boolean;
@@ -207,7 +207,7 @@ export type LocalMessageInputContext<
   /**
    * Mapping of input triggers to the outputs to be displayed by the AutoCompleteInput
    */
-  triggerSettings: TriggerSettings<StreamChatGenerics>;
+  triggerSettings: TriggerSettings<ErmisChatGenerics>;
   updateMessage: () => Promise<void>;
   /** Function for attempting to upload a file */
   uploadFile: ({ newFile }: { newFile: FileUpload }) => Promise<void>;
@@ -218,8 +218,8 @@ export type LocalMessageInputContext<
 };
 
 export type InputMessageInputContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelContextValue<StreamChatGenerics>, 'disabled'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelContextValue<ErmisChatGenerics>, 'disabled'> & {
   /**
    * Controls how many pixels to the top side the user has to scroll in order to lock the recording view and allow the user to lift their finger from the screen without stopping the recording.
    */
@@ -241,7 +241,7 @@ export type InputMessageInputContextValue<
    *
    * Defaults to and accepts same props as: [AttachButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/attach-button/)
    */
-  AttachButton: React.ComponentType<AttachButtonProps<StreamChatGenerics>>;
+  AttachButton: React.ComponentType<AttachButtonProps<ErmisChatGenerics>>;
   /**
    * Custom UI component for audio attachment upload preview.
    *
@@ -253,7 +253,7 @@ export type InputMessageInputContextValue<
    *
    * Defaults to and accepts same props as: [AudioRecorder](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/AudioRecorder.tsx)
    */
-  AudioRecorder: React.ComponentType<AudioRecorderProps<StreamChatGenerics>>;
+  AudioRecorder: React.ComponentType<AudioRecorderProps<ErmisChatGenerics>>;
   /**
    * Controls whether the async audio feature is enabled.
    */
@@ -290,7 +290,7 @@ export type InputMessageInputContextValue<
    *
    * Defaults to and accepts same props as: [CommandsButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/commands-button/)
    */
-  CommandsButton: React.ComponentType<CommandsButtonProps<StreamChatGenerics>>;
+  CommandsButton: React.ComponentType<CommandsButtonProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to display the remaining cooldown a user will have to wait before
    * being allowed to send another message. This component is displayed in place of the
@@ -299,13 +299,13 @@ export type InputMessageInputContextValue<
    * **default** [CooldownTimer](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/CooldownTimer.tsx)
    */
   CooldownTimer: React.ComponentType<CooldownTimerProps>;
-  editMessage: StreamChat<StreamChatGenerics>['updateMessage'];
+  editMessage: ErmisChat<ErmisChatGenerics>['updateMessage'];
 
   /**
    * Custom UI component for FileUploadPreview.
    * Defaults to and accepts same props as: https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/FileUploadPreview.tsx
    */
-  FileUploadPreview: React.ComponentType<FileUploadPreviewProps<StreamChatGenerics>>;
+  FileUploadPreview: React.ComponentType<FileUploadPreviewProps<ErmisChatGenerics>>;
 
   /** When false, CommandsButton will be hidden */
   hasCommands: boolean;
@@ -317,10 +317,10 @@ export type InputMessageInputContextValue<
    * Custom UI component for ImageUploadPreview.
    * Defaults to and accepts same props as: https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/ImageUploadPreview.tsx
    */
-  ImageUploadPreview: React.ComponentType<ImageUploadPreviewProps<StreamChatGenerics>>;
-  InputEditingStateHeader: React.ComponentType<InputEditingStateHeaderProps<StreamChatGenerics>>;
-  InputGiphySearch: React.ComponentType<InputGiphySearchProps<StreamChatGenerics>>;
-  InputReplyStateHeader: React.ComponentType<InputReplyStateHeaderProps<StreamChatGenerics>>;
+  ImageUploadPreview: React.ComponentType<ImageUploadPreviewProps<ErmisChatGenerics>>;
+  InputEditingStateHeader: React.ComponentType<InputEditingStateHeaderProps<ErmisChatGenerics>>;
+  InputGiphySearch: React.ComponentType<InputGiphySearchProps<ErmisChatGenerics>>;
+  InputReplyStateHeader: React.ComponentType<InputReplyStateHeaderProps<ErmisChatGenerics>>;
   /** Limit on allowed number of files to attach at a time. */
   maxNumberOfFiles: number;
 
@@ -329,19 +329,19 @@ export type InputMessageInputContextValue<
    *
    * Defaults to and accepts same props as: [MoreOptionsButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/more-options-button/)
    */
-  MoreOptionsButton: React.ComponentType<MoreOptionsButtonProps<StreamChatGenerics>>;
+  MoreOptionsButton: React.ComponentType<MoreOptionsButtonProps<ErmisChatGenerics>>;
   /** Limit on the number of lines in the text input before scrolling */
   numberOfLines: number;
-  quotedMessage: boolean | MessageType<StreamChatGenerics>;
+  quotedMessage: boolean | MessageType<ErmisChatGenerics>;
   /**
    * Custom UI component for send button.
    *
    * Defaults to and accepts same props as: [SendButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/send-button/)
    */
-  SendButton: React.ComponentType<SendButtonProps<StreamChatGenerics>>;
+  SendButton: React.ComponentType<SendButtonProps<ErmisChatGenerics>>;
   sendImageAsync: boolean;
-  sendMessage: (message: Partial<StreamMessage<StreamChatGenerics>>) => Promise<void>;
-  setQuotedMessageState: (message: MessageType<StreamChatGenerics>) => void;
+  sendMessage: (message: Partial<StreamMessage<ErmisChatGenerics>>) => Promise<void>;
+  setQuotedMessageState: (message: MessageType<ErmisChatGenerics>) => void;
   /**
    * Custom UI component to render checkbox with text ("Also send to channel") in Thread's input box.
    * When ticked, message will also be sent in parent channel.
@@ -354,7 +354,7 @@ export type InputMessageInputContextValue<
    *
    * Defaults to and accepts same props as: [AudioRecordingButton](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/components/AudioRecorder/AudioRecordingButton.tsx)
    */
-  StartAudioRecordingButton: React.ComponentType<AudioRecordingButtonProps<StreamChatGenerics>>;
+  StartAudioRecordingButton: React.ComponentType<AudioRecordingButtonProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to render upload progress indicator on attachment preview.
    *
@@ -374,8 +374,8 @@ export type InputMessageInputContextValue<
    * Mapping of input triggers to the outputs to be displayed by the AutoCompleteInput
    */
   autoCompleteTriggerSettings?: (
-    settings: ACITriggerSettingsParams<StreamChatGenerics>,
-  ) => TriggerSettings<StreamChatGenerics>;
+    settings: ACITriggerSettingsParams<ErmisChatGenerics>,
+  ) => TriggerSettings<ErmisChatGenerics>;
   /**
    * Compress image with quality (from 0 to 1, where 1 is best quality).
    * On iOS, values larger than 0.8 don't produce a noticeable quality increase in most images,
@@ -393,7 +393,7 @@ export type InputMessageInputContextValue<
    */
   doDocUploadRequest?: (
     file: File,
-    channel: ChannelContextValue<StreamChatGenerics>['channel'],
+    channel: ChannelContextValue<ErmisChatGenerics>['channel'],
   ) => Promise<SendFileAPIResponse>;
   /**
    * Override image upload request
@@ -408,14 +408,14 @@ export type InputMessageInputContextValue<
       name?: string;
       uri?: string;
     },
-    channel: ChannelContextValue<StreamChatGenerics>['channel'],
+    channel: ChannelContextValue<ErmisChatGenerics>['channel'],
   ) => Promise<SendFileAPIResponse>;
 
   /**
    * Variable that tracks the editing state.
    * It is defined with message type if the editing state is true, else its undefined.
    */
-  editing?: MessageType<StreamChatGenerics>;
+  editing?: MessageType<ErmisChatGenerics>;
 
   /**
    * Prop to override the default emoji search index in auto complete suggestion list.
@@ -429,10 +429,10 @@ export type InputMessageInputContextValue<
    * Has access to all of [MessageInputContext](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/contexts/messageInputContext/MessageInputContext.tsx)
    */
   Input?: React.ComponentType<
-    Omit<MessageInputProps<StreamChatGenerics>, 'Input'> &
-      InputButtonsProps<StreamChatGenerics> & {
-        getUsers: () => UserResponse<StreamChatGenerics>[];
-      }
+    Omit<MessageInputProps<ErmisChatGenerics>, 'Input'> &
+    InputButtonsProps<ErmisChatGenerics> & {
+      getUsers: () => UserResponse<ErmisChatGenerics>[];
+    }
   >;
   /**
    * Custom UI component to override buttons on left side of input box
@@ -449,11 +449,11 @@ export type InputMessageInputContextValue<
    * - openCommandsPicker
    * - toggleAttachmentPicker
    */
-  InputButtons?: React.ComponentType<InputButtonsProps<StreamChatGenerics>>;
+  InputButtons?: React.ComponentType<InputButtonsProps<ErmisChatGenerics>>;
   maxMessageLength?: number;
   mentionAllAppUsersEnabled?: boolean;
   /** Object containing filters/sort/options overrides for an @mention user query */
-  mentionAllAppUsersQuery?: MentionAllAppUsersQuery<StreamChatGenerics>;
+  mentionAllAppUsersQuery?: MentionAllAppUsersQuery<ErmisChatGenerics>;
   /**
    * Callback that is called when the text input's text changes. Changed text is passed as a single string argument to the callback handler.
    */
@@ -470,21 +470,21 @@ export type InputMessageInputContextValue<
 };
 
 export type MessageInputContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = LocalMessageInputContext<StreamChatGenerics> &
-  Omit<InputMessageInputContextValue<StreamChatGenerics>, 'sendMessage'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = LocalMessageInputContext<ErmisChatGenerics> &
+  Omit<InputMessageInputContextValue<ErmisChatGenerics>, 'sendMessage'>;
 
 export const MessageInputContext = React.createContext(
   DEFAULT_BASE_CONTEXT_VALUE as MessageInputContextValue,
 );
 
 export const MessageInputProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value: InputMessageInputContextValue<StreamChatGenerics>;
+  value: InputMessageInputContextValue<ErmisChatGenerics>;
 }>) => {
   const {
     closePicker,
@@ -496,7 +496,7 @@ export const MessageInputProvider = <
     setSelectedImages,
     setSelectedPicker,
   } = useAttachmentPickerContext();
-  const { appSettings, client, enableOfflineSupport } = useChatContext<StreamChatGenerics>();
+  const { appSettings, client, enableOfflineSupport } = useChatContext<ErmisChatGenerics>();
   const { removeMessage } = useMessagesContext();
 
   const getFileUploadConfig = () => {
@@ -519,8 +519,8 @@ export const MessageInputProvider = <
   const channelCapabities = useOwnCapabilitiesContext();
 
   const { channel, giphyEnabled, uploadAbortControllerRef } =
-    useChannelContext<StreamChatGenerics>();
-  const { thread } = useThreadContext<StreamChatGenerics>();
+    useChannelContext<ErmisChatGenerics>();
+  const { thread } = useThreadContext<ErmisChatGenerics>();
   const { t } = useTranslationContext();
   const inputBoxRef = useRef<TextInput | null>(null);
   const sending = useRef(false);
@@ -548,8 +548,8 @@ export const MessageInputProvider = <
     setText,
     showMoreOptions,
     text,
-  } = useMessageDetailsForState<StreamChatGenerics>(editing, initialValue);
-  const { endsAt: cooldownEndsAt, start: startCooldown } = useCooldown<StreamChatGenerics>();
+  } = useMessageDetailsForState<ErmisChatGenerics>(editing, initialValue);
+  const { endsAt: cooldownEndsAt, start: startCooldown } = useCooldown<ErmisChatGenerics>();
 
   const threadId = thread?.id;
   useEffect(() => {
@@ -647,7 +647,7 @@ export const MessageInputProvider = <
     }
   };
 
-  const onSelectItem = (item: UserResponse<StreamChatGenerics>) => {
+  const onSelectItem = (item: UserResponse<ErmisChatGenerics>) => {
     setMentionedUsers((prevMentionedUsers) => [...prevMentionedUsers, item.id]);
   };
 
@@ -696,7 +696,7 @@ export const MessageInputProvider = <
     }
   };
 
-  const resetInput = (pendingAttachments: Attachment<StreamChatGenerics>[] = []) => {
+  const resetInput = (pendingAttachments: Attachment<ErmisChatGenerics>[] = []) => {
     setFileUploads([]);
     setGiphyActive(false);
     setShowMoreOptions(true);
@@ -711,7 +711,7 @@ export const MessageInputProvider = <
     }
   };
 
-  const mapImageUploadToAttachment = (image: ImageUpload): Attachment<StreamChatGenerics> => {
+  const mapImageUploadToAttachment = (image: ImageUpload): Attachment<ErmisChatGenerics> => {
     const mime_type: string | boolean = lookup(image.file.name as string);
     const name = image.file.name as string;
     return {
@@ -725,7 +725,7 @@ export const MessageInputProvider = <
     };
   };
 
-  const mapFileUploadToAttachment = (file: FileUpload): Attachment<StreamChatGenerics> => {
+  const mapFileUploadToAttachment = (file: FileUpload): Attachment<ErmisChatGenerics> => {
     if (file.type === 'image') {
       return {
         fallback: file.file.name,
@@ -782,7 +782,7 @@ export const MessageInputProvider = <
   const sendMessage = async ({
     customMessageData,
   }: {
-    customMessageData?: Partial<Message<StreamChatGenerics>>;
+    customMessageData?: Partial<Message<ErmisChatGenerics>>;
     // eslint-disable-next-line require-await
   } = {}) => {
     if (sending.current) {
@@ -806,7 +806,7 @@ export const MessageInputProvider = <
       inputBoxRef.current.clear();
     }
 
-    const attachments = [] as Attachment<StreamChatGenerics>[];
+    const attachments = [] as Attachment<ErmisChatGenerics>[];
     for (const image of imageUploads) {
       if (enableOfflineSupport) {
         if (image.state === FileState.NOT_SUPPORTED) {
@@ -879,7 +879,7 @@ export const MessageInputProvider = <
         quoted_message: undefined,
         text: prevText,
         ...customMessageData,
-      } as Parameters<StreamChat<StreamChatGenerics>['updateMessage']>[0];
+      } as Parameters<ErmisChat<ErmisChatGenerics>['updateMessage']>[0];
 
       // TODO: Remove this line and show an error when submit fails
       value.clearEditingState();
@@ -899,7 +899,7 @@ export const MessageInputProvider = <
         /**
          * If the message is bounced by moderation, we firstly remove the message from message list and then send a new message.
          */
-        if (message && isBouncedMessage(message as MessageType<StreamChatGenerics>)) {
+        if (message && isBouncedMessage(message as MessageType<ErmisChatGenerics>)) {
           removeMessage(message);
         }
         value.sendMessage({
@@ -912,7 +912,7 @@ export const MessageInputProvider = <
           show_in_channel: sendThreadMessageInChannel || undefined,
           text: prevText,
           ...customMessageData,
-        } as unknown as StreamMessage<StreamChatGenerics>);
+        } as unknown as StreamMessage<ErmisChatGenerics>);
 
         value.clearQuotedMessageState();
         sending.current = false;
@@ -940,7 +940,7 @@ export const MessageInputProvider = <
           image_url: image.url,
           type: 'image',
         },
-      ] as StreamMessage<StreamChatGenerics>['attachments'];
+      ] as StreamMessage<ErmisChatGenerics>['attachments'];
 
       startCooldown();
       try {
@@ -952,7 +952,7 @@ export const MessageInputProvider = <
             typeof value.quotedMessage === 'boolean' ? undefined : value.quotedMessage.id,
           show_in_channel: sendThreadMessageInChannel || undefined,
           text: '',
-        } as unknown as Partial<StreamMessage<StreamChatGenerics>>);
+        } as unknown as Partial<StreamMessage<ErmisChatGenerics>>);
 
         setAsyncIds((prevAsyncIds) => prevAsyncIds.splice(prevAsyncIds.indexOf(id), 1));
         setAsyncUploads((prevAsyncUploads) => {
@@ -975,7 +975,7 @@ export const MessageInputProvider = <
   };
 
   const getTriggerSettings = () => {
-    let triggerSettings: TriggerSettings<StreamChatGenerics> = {};
+    let triggerSettings: TriggerSettings<ErmisChatGenerics> = {};
     if (channel) {
       if (value.autoCompleteTriggerSettings) {
         triggerSettings = value.autoCompleteTriggerSettings({
@@ -985,7 +985,7 @@ export const MessageInputProvider = <
           onMentionSelectItem: onSelectItem,
         });
       } else {
-        triggerSettings = ACITriggerSettings<StreamChatGenerics>({
+        triggerSettings = ACITriggerSettings<ErmisChatGenerics>({
           channel,
           client,
           emojiSearchIndex: value.emojiSearchIndex,
@@ -1005,7 +1005,7 @@ export const MessageInputProvider = <
           ...value.editing,
           quoted_message: undefined,
           text: giphyEnabled && giphyActive ? `/giphy ${text}` : text,
-        } as Parameters<StreamChat<StreamChatGenerics>['updateMessage']>[0]);
+        } as Parameters<ErmisChat<ErmisChatGenerics>['updateMessage']>[0]);
       }
 
       value.clearEditingState();
@@ -1023,17 +1023,17 @@ export const MessageInputProvider = <
       fileState: FileStateValue,
       extraData: Partial<UploadType> = {},
     ): React.SetStateAction<UploadType[]> =>
-    (prevUploads: UploadType[]) =>
-      prevUploads.map((prevUpload) => {
-        if (prevUpload.id === id) {
-          return {
-            ...prevUpload,
-            ...extraData,
-            state: fileState,
-          };
-        }
-        return prevUpload;
-      });
+      (prevUploads: UploadType[]) =>
+        prevUploads.map((prevUpload) => {
+          if (prevUpload.id === id) {
+            return {
+              ...prevUpload,
+              ...extraData,
+              state: fileState,
+            };
+          }
+          return prevUpload;
+        });
 
   const handleFileOrImageUploadError = (error: unknown, isImageError: boolean, id: string) => {
     if (isImageError) {
@@ -1328,11 +1328,11 @@ export const MessageInputProvider = <
 };
 
 export const useMessageInputContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     MessageInputContext,
-  ) as unknown as MessageInputContextValue<StreamChatGenerics>;
+  ) as unknown as MessageInputContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -1354,14 +1354,14 @@ export const useMessageInputContext = <
  */
 export const withMessageInputContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof MessageInputContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof MessageInputContextValue<ErmisChatGenerics>>> => {
   const WithMessageInputContextComponent = (
-    props: Omit<P, keyof MessageInputContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof MessageInputContextValue<ErmisChatGenerics>>,
   ) => {
-    const messageInputContext = useMessageInputContext<StreamChatGenerics>();
+    const messageInputContext = useMessageInputContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...messageInputContext} />;
   };

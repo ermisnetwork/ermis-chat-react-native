@@ -2,16 +2,16 @@ import React, { useMemo, useRef, useState } from 'react';
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import { ChannelList, CircleClose, Search, useTheme } from 'stream-chat-react-native';
-import { Channel } from 'stream-chat';
+import { Channel } from 'ermis-chat-sdk-test';
 import { ChannelPreview } from '../components/ChannelPreview';
 import { ChatScreenHeader } from '../components/ChatScreenHeader';
 import { MessageSearchList } from '../components/MessageSearch/MessageSearchList';
 import { useAppContext } from '../context/AppContext';
 import { usePaginatedSearchedMessages } from '../hooks/usePaginatedSearchedMessages';
 
-import type { ChannelSort } from 'stream-chat';
+import type { ChannelSort } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../types';
+import type { ErmisChatGenerics } from '../types';
 
 const styles = StyleSheet.create({
   channelListContainer: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 const baseFilters = {
   type: 'messaging',
 };
-const sort: ChannelSort<StreamChatGenerics> = { last_updated: -1 };
+const sort: ChannelSort<ErmisChatGenerics> = { last_updated: -1 };
 const options = {
   presence: true,
   state: true,
@@ -67,7 +67,7 @@ export const ChannelListScreen: React.FC = () => {
   } = useTheme();
 
   const searchInputRef = useRef<TextInput | null>(null);
-  const scrollRef = useRef<FlatList<Channel<StreamChatGenerics>> | null>(null);
+  const scrollRef = useRef<FlatList<Channel<ErmisChatGenerics>> | null>(null);
 
   const [searchInputText, setSearchInputText] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -98,7 +98,7 @@ export const ChannelListScreen: React.FC = () => {
     </View>
   );
 
-  const setScrollRef = (ref: React.RefObject<FlatList<Channel<StreamChatGenerics>> | null>) => {
+  const setScrollRef = (ref: React.RefObject<FlatList<Channel<ErmisChatGenerics>> | null>) => {
     scrollRef.current = ref;
   };
 
@@ -175,7 +175,7 @@ export const ChannelListScreen: React.FC = () => {
         )}
         <View style={{ flex: searchQuery ? 0 : 1 }}>
           <View style={[styles.channelListContainer, { opacity: searchQuery ? 0 : 1 }]}>
-            <ChannelList<StreamChatGenerics>
+            <ChannelList<ErmisChatGenerics>
               additionalFlatListProps={{
                 getItemLayout: (_, index) => ({
                   index,

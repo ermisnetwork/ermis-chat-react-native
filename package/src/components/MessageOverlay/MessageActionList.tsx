@@ -11,12 +11,12 @@ import {
 import type { OverlayProviderProps } from '../../contexts/overlayContext/OverlayContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useViewport } from '../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 export type MessageActionListPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  OverlayProviderProps<StreamChatGenerics>,
+  OverlayProviderProps<ErmisChatGenerics>,
   | 'MessageActionListItem'
   | 'error'
   | 'isMyMessage'
@@ -24,14 +24,14 @@ export type MessageActionListPropsWithContext<
   | 'message'
   | 'messageReactions'
 > &
-  Pick<MessageOverlayData<StreamChatGenerics>, 'alignment' | 'messageActions'> & {
+  Pick<MessageOverlayData<ErmisChatGenerics>, 'alignment' | 'messageActions'> & {
     showScreen: Animated.SharedValue<number>;
   };
 
 const MessageActionListWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageActionListPropsWithContext<StreamChatGenerics>,
+  props: MessageActionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -104,9 +104,9 @@ const MessageActionListWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageActionListPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageActionListPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageActionListPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageActionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { alignment: prevAlignment, messageActions: prevMessageActions } = prevProps;
   const { alignment: nextAlignment, messageActions: nextMessageActions } = nextProps;
@@ -126,10 +126,10 @@ const MemoizedMessageActionList = React.memo(
 ) as typeof MessageActionListWithContext;
 
 export type MessageActionListProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<MessageActionListPropsWithContext<StreamChatGenerics>, 'showScreen'>> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<MessageActionListPropsWithContext<ErmisChatGenerics>, 'showScreen'>> &
   Pick<
-    MessageActionListPropsWithContext<StreamChatGenerics>,
+    MessageActionListPropsWithContext<ErmisChatGenerics>,
     'showScreen' | 'message' | 'isMyMessage' | 'error' | 'isThreadMessage' | 'messageReactions'
   >;
 
@@ -137,11 +137,11 @@ export type MessageActionListProps<
  * MessageActionList - A high level component which implements all the logic required for MessageActions
  */
 export const MessageActionList = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageActionListProps<StreamChatGenerics>,
+  props: MessageActionListProps<ErmisChatGenerics>,
 ) => {
-  const { data } = useMessageOverlayContext<StreamChatGenerics>();
+  const { data } = useMessageOverlayContext<ErmisChatGenerics>();
 
   const { alignment, messageActions } = data || {};
 

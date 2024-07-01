@@ -10,20 +10,20 @@ import {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { Attach } from '../../icons/Attach';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 type AttachButtonPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelContextValue<StreamChatGenerics>, 'disabled'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelContextValue<ErmisChatGenerics>, 'disabled'> & {
   /** Function that opens attachment options bottom sheet */
   handleOnPress?: ((event: GestureResponderEvent) => void) & (() => void);
   selectedPicker?: 'images';
 };
 
 const AttachButtonWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AttachButtonPropsWithContext<StreamChatGenerics>,
+  props: AttachButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { disabled, handleOnPress, selectedPicker } = props;
   const {
@@ -45,9 +45,9 @@ const AttachButtonWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AttachButtonPropsWithContext<StreamChatGenerics>,
-  nextProps: AttachButtonPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AttachButtonPropsWithContext<ErmisChatGenerics>,
+  nextProps: AttachButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     disabled: prevDisabled,
@@ -78,18 +78,18 @@ const MemoizedAttachButton = React.memo(
 ) as typeof AttachButtonWithContext;
 
 export type AttachButtonProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<AttachButtonPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<AttachButtonPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * UI Component for attach button in MessageInput component.
  */
 export const AttachButton = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AttachButtonProps<StreamChatGenerics>,
+  props: AttachButtonProps<ErmisChatGenerics>,
 ) => {
-  const { disabled = false } = useChannelContext<StreamChatGenerics>();
+  const { disabled = false } = useChannelContext<ErmisChatGenerics>();
   const { selectedPicker } = useAttachmentPickerContext();
 
   return <MemoizedAttachButton {...{ disabled, selectedPicker }} {...props} />;

@@ -13,7 +13,7 @@ import {
 } from '../../contexts/translationContext/TranslationContext';
 import { Check } from '../../icons';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   checkBox: {
@@ -89,10 +89,10 @@ export const ShowThreadMessageInChannelButtonWithContext = (
               styles.checkBox,
               sendThreadMessageInChannel
                 ? {
-                    backgroundColor: accent_blue,
-                    borderColor: accent_blue,
-                    ...checkBoxActive,
-                  }
+                  backgroundColor: accent_blue,
+                  borderColor: accent_blue,
+                  ...checkBoxActive,
+                }
                 : { borderColor: grey, ...checkBoxInactive },
             ]}
           >
@@ -152,14 +152,14 @@ export type ShowThreadMessageInChannelButtonProps =
   Partial<ShowThreadMessageInChannelButtonWithContextProps>;
 
 export const ShowThreadMessageInChannelButton = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   props: ShowThreadMessageInChannelButtonProps,
 ) => {
   const { t } = useTranslationContext();
-  const { allowThreadMessagesInChannel } = useThreadContext<StreamChatGenerics>();
+  const { allowThreadMessagesInChannel } = useThreadContext<ErmisChatGenerics>();
   const { sendThreadMessageInChannel, setSendThreadMessageInChannel } =
-    useMessageInputContext<StreamChatGenerics>();
+    useMessageInputContext<ErmisChatGenerics>();
 
   return (
     <MemoizedShowThreadMessageInChannelButton

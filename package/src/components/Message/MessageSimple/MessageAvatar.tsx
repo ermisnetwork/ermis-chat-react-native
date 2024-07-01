@@ -8,22 +8,22 @@ import {
 } from '../../../contexts/messageContext/MessageContext';
 import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { Avatar, AvatarProps } from '../../Avatar/Avatar';
 
 export type MessageAvatarPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   'alignment' | 'lastGroupMessage' | 'message' | 'showAvatar'
 > &
-  Pick<ChatContextValue<StreamChatGenerics>, 'ImageComponent'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'ImageComponent'> &
   Partial<Pick<AvatarProps, 'size'>>;
 
 const MessageAvatarWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageAvatarPropsWithContext<StreamChatGenerics>,
+  props: MessageAvatarPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { alignment, ImageComponent, lastGroupMessage, message, showAvatar, size } = props;
   const {
@@ -56,9 +56,9 @@ const MessageAvatarWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: MessageAvatarPropsWithContext<StreamChatGenerics>,
-  nextProps: MessageAvatarPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: MessageAvatarPropsWithContext<ErmisChatGenerics>,
+  nextProps: MessageAvatarPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { lastGroupMessage: prevLastGroupMessage, message: prevMessage } = prevProps;
   const { lastGroupMessage: nextLastGroupMessage, message: nextMessage } = nextProps;
@@ -81,17 +81,17 @@ const MemoizedMessageAvatar = React.memo(
 ) as typeof MessageAvatarWithContext;
 
 export type MessageAvatarProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<MessageAvatarPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<MessageAvatarPropsWithContext<ErmisChatGenerics>>;
 
 export const MessageAvatar = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageAvatarProps<StreamChatGenerics>,
+  props: MessageAvatarProps<ErmisChatGenerics>,
 ) => {
   const { alignment, lastGroupMessage, message, showAvatar } =
-    useMessageContext<StreamChatGenerics>();
-  const { ImageComponent } = useChatContext<StreamChatGenerics>();
+    useMessageContext<ErmisChatGenerics>();
+  const { ImageComponent } = useChatContext<ErmisChatGenerics>();
   return (
     <MemoizedMessageAvatar
       {...{

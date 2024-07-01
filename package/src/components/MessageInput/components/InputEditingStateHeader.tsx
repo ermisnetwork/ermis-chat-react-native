@@ -10,7 +10,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 
 import { CircleClose, Edit } from '../../../icons';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const styles = StyleSheet.create({
   editingBoxHeader: {
@@ -26,17 +26,17 @@ const styles = StyleSheet.create({
 });
 
 export type InputEditingStateHeaderPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageInputContextValue<StreamChatGenerics>, 'clearEditingState' | 'resetInput'> &
-  Pick<ChannelContextValue<StreamChatGenerics>, 'disabled'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageInputContextValue<ErmisChatGenerics>, 'clearEditingState' | 'resetInput'> &
+  Pick<ChannelContextValue<ErmisChatGenerics>, 'disabled'>;
 
 export const InputEditingStateHeaderWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   clearEditingState,
   disabled,
   resetInput,
-}: InputEditingStateHeaderPropsWithContext<StreamChatGenerics>) => {
+}: InputEditingStateHeaderPropsWithContext<ErmisChatGenerics>) => {
   const { t } = useTranslationContext();
   const {
     theme: {
@@ -67,9 +67,9 @@ export const InputEditingStateHeaderWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: InputEditingStateHeaderPropsWithContext<StreamChatGenerics>,
-  nextProps: InputEditingStateHeaderPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: InputEditingStateHeaderPropsWithContext<ErmisChatGenerics>,
+  nextProps: InputEditingStateHeaderPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { disabled: prevDisabled } = prevProps;
   const { disabled: nextDisabled } = nextProps;
@@ -86,15 +86,15 @@ const MemoizedInputEditingStateHeader = React.memo(
 ) as typeof InputEditingStateHeaderWithContext;
 
 export type InputEditingStateHeaderProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<InputEditingStateHeaderPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<InputEditingStateHeaderPropsWithContext<ErmisChatGenerics>>;
 
 export const InputEditingStateHeader = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: InputEditingStateHeaderProps<StreamChatGenerics>,
+  props: InputEditingStateHeaderProps<ErmisChatGenerics>,
 ) => {
-  const { clearEditingState, resetInput } = useMessageInputContext<StreamChatGenerics>();
+  const { clearEditingState, resetInput } = useMessageInputContext<ErmisChatGenerics>();
 
   return <MemoizedInputEditingStateHeader {...{ clearEditingState, resetInput }} {...props} />;
 };

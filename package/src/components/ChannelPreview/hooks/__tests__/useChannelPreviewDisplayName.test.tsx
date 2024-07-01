@@ -3,8 +3,8 @@ import { Text } from 'react-native';
 
 import { render, screen, waitFor } from '@testing-library/react-native';
 
-import type { DefaultStreamChatGenerics } from 'src/types/types';
-import type { Channel, ChannelMemberResponse, DefaultGenerics, StreamChat } from 'stream-chat';
+import type { DefaultErmisChatGenerics } from 'src/types/types';
+import type { Channel, ChannelMemberResponse, DefaultGenerics, ErmisChat } from 'ermis-chat-sdk-test';
 
 import {
   GROUP_CHANNEL_MEMBERS_MOCK,
@@ -20,7 +20,7 @@ import {
 
 describe('useChannelPreviewDisplayName', () => {
   const clientUser = generateUser();
-  let chatClient: StreamChat<DefaultGenerics> | StreamChat<DefaultStreamChatGenerics>;
+  let chatClient: ErmisChat<DefaultGenerics> | ErmisChat<DefaultErmisChatGenerics>;
   const CHARACTER_LENGTH = 15;
 
   beforeEach(async () => {
@@ -73,7 +73,7 @@ describe('useChannelPreviewDisplayName', () => {
         currentUserId,
         members: members as unknown as Record<
           string,
-          ChannelMemberResponse<DefaultStreamChatGenerics>
+          ChannelMemberResponse<DefaultErmisChatGenerics>
         >,
       });
 

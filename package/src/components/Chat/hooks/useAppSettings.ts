@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import type { AppSettingsAPIResponse, StreamChat } from 'stream-chat';
+import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { useIsMountedRef } from '../../../hooks/useIsMountedRef';
 import * as dbApi from '../../../store/apis';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const useAppSettings = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  client: StreamChat<StreamChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
   isOnline: boolean | null,
   enableOfflineSupport: boolean,
   initialisedDatabase: boolean,
@@ -28,22 +28,23 @@ export const useAppSettings = <
         setAppSettings(appSettings);
         return;
       }
-
-      try {
-        const appSettings = await client.getAppSettings();
-        if (isMounted.current) {
-          setAppSettings(appSettings);
-          enableOfflineSupport &&
-            dbApi.upsertAppSettings({
-              appSettings,
-              currentUserId: client.userID as string,
-            });
-        }
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          console.error(`An error occurred while getting app settings: ${error}`);
-        }
-      }
+      console.log('Fetching app settings');
+      // try {
+      //   const appSettings = await client.getAppSettings();
+      //   console.log("appSettings: ", appSettings)
+      //   if (isMounted.current) {
+      //     setAppSettings(appSettings);
+      //     enableOfflineSupport &&
+      //       dbApi.upsertAppSettings({
+      //         appSettings,
+      //         currentUserId: client.userID as string,
+      //       });
+      //   }
+      // } catch (error: unknown) {
+      //   if (error instanceof Error) {
+      //     console.error(`An error occurred while getting app settings from node module core: ${error}`);
+      //   }
+      // }
     }
 
     enforeAppSettings();

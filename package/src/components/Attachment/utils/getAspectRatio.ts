@@ -1,6 +1,6 @@
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 /**
  * Returns the aspect ratio of an image attachment.
@@ -9,8 +9,8 @@ import type { DefaultStreamChatGenerics } from '../../../types/types';
  * @returns {number}
  */
 export function getAspectRatio<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
->(attachment: Attachment<StreamChatGenerics>) {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+>(attachment: Attachment<ErmisChatGenerics>) {
   if (!(attachment.type === 'image' || attachment.type === 'video')) {
     throw new Error(
       'getAspectRatio() can only be called on an image attachment or video thumbnail',

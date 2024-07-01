@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
-import type { ChannelState } from 'stream-chat';
+import type { ChannelState } from 'ermis-chat-sdk-test';
 import type { ChannelContextValue } from 'stream-chat-react-native';
 
-import type { StackNavigatorParamList, StreamChatGenerics } from '../types';
+import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 
 type GroupChannelDetailsScreenNavigationProp = StackNavigationProp<
   StackNavigatorParamList,
@@ -12,9 +12,9 @@ type GroupChannelDetailsScreenNavigationProp = StackNavigationProp<
 >;
 
 export type UserInfoOverlayData = Partial<
-  Pick<ChannelContextValue<StreamChatGenerics>, 'channel'>
+  Pick<ChannelContextValue<ErmisChatGenerics>, 'channel'>
 > & {
-  member?: ChannelState<StreamChatGenerics>['members'][0];
+  member?: ChannelState<ErmisChatGenerics>['members'][0];
   navigation?: GroupChannelDetailsScreenNavigationProp;
 };
 

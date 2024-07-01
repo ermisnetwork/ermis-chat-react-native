@@ -13,9 +13,9 @@ import {
 } from '../context/BottomSheetOverlayContext';
 import { usePaginatedUsers } from '../hooks/usePaginatedUsers';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
-import { StreamChatGenerics } from '../types';
+import { ErmisChatGenerics } from '../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -89,7 +89,7 @@ export const AddMemberBottomSheet: React.FC = () => {
     return null;
   }
 
-  const addMember = async (user: UserResponse<StreamChatGenerics>) => {
+  const addMember = async (user: UserResponse<ErmisChatGenerics>) => {
     setAddMemberQueryInProgress(true);
 
     try {

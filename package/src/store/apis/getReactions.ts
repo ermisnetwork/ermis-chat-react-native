@@ -1,21 +1,21 @@
-import type { ReactionResponse } from 'stream-chat';
+import type { ReactionResponse } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { mapStorableToReaction } from '../mappers/mapStorableToReaction';
 import { QuickSqliteClient } from '../QuickSqliteClient';
 import { TableRowJoinedUser } from '../types';
 
 export const getReactions = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   reactions,
 }: {
   reactions: TableRowJoinedUser<'reactions'>[];
-}): ReactionResponse<StreamChatGenerics>[] => {
+}): ReactionResponse<ErmisChatGenerics>[] => {
   QuickSqliteClient.logger?.('info', 'getReactions', { reactions });
 
   // Enrich the channels with state
   return reactions.map((reaction) => ({
-    ...mapStorableToReaction<StreamChatGenerics>(reaction),
+    ...mapStorableToReaction<ErmisChatGenerics>(reaction),
   }));
 };

@@ -17,7 +17,7 @@ import { useChannelInfoOverlayContext } from '../context/ChannelInfoOverlayConte
 
 import type { StackNavigationProp } from '@react-navigation/stack';
 
-import type { StackNavigatorParamList, StreamChatGenerics } from '../types';
+import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 import { Delete } from '../icons/Delete';
 
 const styles = StyleSheet.create({
@@ -42,7 +42,7 @@ type ChannelListScreenNavigationProp = StackNavigationProp<
   'ChannelListScreen'
 >;
 
-export const ChannelPreview: React.FC<ChannelPreviewMessengerProps<StreamChatGenerics>> = (
+export const ChannelPreview: React.FC<ChannelPreviewMessengerProps<ErmisChatGenerics>> = (
   props,
 ) => {
   const { channel } = props;
@@ -53,7 +53,7 @@ export const ChannelPreview: React.FC<ChannelPreviewMessengerProps<StreamChatGen
 
   const { data, setData } = useChannelInfoOverlayContext();
 
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
 
   const navigation = useNavigation<ChannelListScreenNavigationProp>();
 
@@ -90,9 +90,8 @@ export const ChannelPreview: React.FC<ChannelPreviewMessengerProps<StreamChatGen
                   channel.delete();
                   setOverlay('none');
                 },
-                subtext: `Are you sure you want to delete this ${
-                  otherMembers.length === 1 ? 'conversation' : 'group'
-                }?`,
+                subtext: `Are you sure you want to delete this ${otherMembers.length === 1 ? 'conversation' : 'group'
+                  }?`,
                 title: `Delete ${otherMembers.length === 1 ? 'Conversation' : 'Group'}`,
               });
               setOverlay('confirmation');

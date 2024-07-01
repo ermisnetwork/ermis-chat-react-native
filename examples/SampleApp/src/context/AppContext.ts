@@ -1,11 +1,11 @@
 import React from 'react';
 
-import type { StreamChat } from 'stream-chat';
+import type { ErmisChat } from 'ermis-chat-sdk-test';
 
-import type { LoginConfig, StreamChatGenerics } from '../types';
+import type { LoginConfig, ErmisChatGenerics } from '../types';
 
 type AppContextType = {
-  chatClient: StreamChat<StreamChatGenerics> | null;
+  chatClient: ErmisChat<ErmisChatGenerics> | null;
   loginUser: (config: LoginConfig) => void;
   logout: () => void;
   switchUser: (userId?: string) => void;

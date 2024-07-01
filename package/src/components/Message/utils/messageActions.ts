@@ -1,10 +1,10 @@
 import type { MessageContextValue } from '../../../contexts/messageContext/MessageContext';
 import type { OwnCapabilitiesContextValue } from '../../../contexts/ownCapabilitiesContext/OwnCapabilitiesContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import type { MessageActionType } from '../../MessageOverlay/MessageActionListItem';
 
 export type MessageActionsParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   blockUser: MessageActionType;
   deleteMessage: MessageActionType;
@@ -22,14 +22,14 @@ export type MessageActionsParams<
   threadReply: MessageActionType;
   unpinMessage: MessageActionType;
   copyMessage?: MessageActionType;
-} & Pick<MessageContextValue<StreamChatGenerics>, 'message' | 'isMyMessage'>;
+} & Pick<MessageContextValue<ErmisChatGenerics>, 'message' | 'isMyMessage'>;
 
 export type MessageActionsProp<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = (param: MessageActionsParams<StreamChatGenerics>) => MessageActionType[];
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = (param: MessageActionsParams<ErmisChatGenerics>) => MessageActionType[];
 
 export const messageActions = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   blockUser,
   copyMessage,
@@ -47,7 +47,7 @@ export const messageActions = <
   retry,
   threadReply,
   unpinMessage,
-}: MessageActionsParams<StreamChatGenerics>) => {
+}: MessageActionsParams<ErmisChatGenerics>) => {
   if (messageReactions) {
     return undefined;
   }

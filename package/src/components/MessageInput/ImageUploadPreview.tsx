@@ -20,7 +20,7 @@ import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../contexts/translationContext/TranslationContext';
 import { Close } from '../../icons/Close';
 import { Warning } from '../../icons/Warning';
-import type { DefaultStreamChatGenerics, ImageUpload } from '../../types/types';
+import type { DefaultErmisChatGenerics, ImageUpload } from '../../types/types';
 import { getIndicatorTypeForFileState, ProgressIndicatorTypes } from '../../utils/utils';
 
 const IMAGE_PREVIEW_SIZE = 100;
@@ -74,23 +74,23 @@ const styles = StyleSheet.create({
 });
 
 type ImageUploadPreviewPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageInputContextValue<StreamChatGenerics>,
+  MessageInputContextValue<ErmisChatGenerics>,
   'imageUploads' | 'removeImage' | 'uploadImage'
 > &
-  Pick<ChatContextValue<StreamChatGenerics>, 'enableOfflineSupport'>;
+  Pick<ChatContextValue<ErmisChatGenerics>, 'enableOfflineSupport'>;
 
 export type ImageUploadPreviewProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<ImageUploadPreviewPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<ImageUploadPreviewPropsWithContext<ErmisChatGenerics>>;
 
 type ImageUploadPreviewItem = { index: number; item: ImageUpload };
 
 const ImageUploadPreviewWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ImageUploadPreviewPropsWithContext<StreamChatGenerics>,
+  props: ImageUploadPreviewPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { enableOfflineSupport, imageUploads, removeImage, uploadImage } = props;
 
@@ -197,9 +197,9 @@ const DismissUpload = ({ onPress }: DismissUploadProps) => {
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: ImageUploadPreviewPropsWithContext<StreamChatGenerics>,
-  nextProps: ImageUploadPreviewPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: ImageUploadPreviewPropsWithContext<ErmisChatGenerics>,
+  nextProps: ImageUploadPreviewPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { imageUploads: prevImageUploads } = prevProps;
   const { imageUploads: nextImageUploads } = nextProps;
@@ -221,12 +221,12 @@ const MemoizedImageUploadPreviewWithContext = React.memo(
  * UI Component to preview the images set for upload
  */
 export const ImageUploadPreview = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ImageUploadPreviewProps<StreamChatGenerics>,
+  props: ImageUploadPreviewProps<ErmisChatGenerics>,
 ) => {
-  const { enableOfflineSupport } = useChatContext<StreamChatGenerics>();
-  const { imageUploads, removeImage, uploadImage } = useMessageInputContext<StreamChatGenerics>();
+  const { enableOfflineSupport } = useChatContext<ErmisChatGenerics>();
+  const { imageUploads, removeImage, uploadImage } = useMessageInputContext<ErmisChatGenerics>();
 
   return (
     <MemoizedImageUploadPreviewWithContext

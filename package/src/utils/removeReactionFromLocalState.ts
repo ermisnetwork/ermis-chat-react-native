@@ -1,21 +1,21 @@
-import type { Channel, UserResponse } from 'stream-chat';
+import type { Channel, UserResponse } from 'ermis-chat-sdk-test';
 
 import { deleteReaction } from '../store/apis/deleteReaction';
 
-import type { DefaultStreamChatGenerics } from '../types/types';
+import type { DefaultErmisChatGenerics } from '../types/types';
 
 export const removeReactionFromLocalState = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   messageId,
   reactionType,
   user,
 }: {
-  channel: Channel<StreamChatGenerics>;
+  channel: Channel<ErmisChatGenerics>;
   messageId: string;
   reactionType: string;
-  user: UserResponse<StreamChatGenerics>;
+  user: UserResponse<ErmisChatGenerics>;
 }) => {
   const message = channel.state.messages.find(({ id }) => id === messageId);
   if (!message || !channel?.id || !user?.id) return;

@@ -1,4 +1,4 @@
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 /**
  * Extract url of image from image attachment.

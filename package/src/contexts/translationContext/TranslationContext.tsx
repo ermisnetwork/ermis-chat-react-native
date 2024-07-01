@@ -5,9 +5,9 @@ import Dayjs from 'dayjs';
 import type { TFunction } from 'i18next';
 import type { Moment } from 'moment';
 
-import type { TranslationLanguages } from 'stream-chat';
+import type { TranslationLanguages } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
@@ -71,16 +71,16 @@ export const useTranslationContext = () => {
  * wrapped component must be provided as the first generic.
  */
 export const withTranslationContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  Component: React.ComponentType<StreamChatGenerics>,
-): React.ComponentType<Omit<StreamChatGenerics, keyof TranslationContextValue>> => {
+  Component: React.ComponentType<ErmisChatGenerics>,
+): React.ComponentType<Omit<ErmisChatGenerics, keyof TranslationContextValue>> => {
   const WithTranslationContextComponent = (
-    props: Omit<StreamChatGenerics, keyof TranslationContextValue>,
+    props: Omit<ErmisChatGenerics, keyof TranslationContextValue>,
   ) => {
     const translationContext = useTranslationContext();
 
-    return <Component {...(props as StreamChatGenerics)} {...translationContext} />;
+    return <Component {...(props as ErmisChatGenerics)} {...translationContext} />;
   };
   WithTranslationContextComponent.displayName = `WithTranslationContext${getDisplayName(
     Component as React.ComponentType,

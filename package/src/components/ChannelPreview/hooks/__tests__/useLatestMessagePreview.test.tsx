@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { renderHook, waitFor } from '@testing-library/react-native';
 
-import type { DefaultGenerics, MessageResponse, StreamChat } from 'stream-chat';
+import type { DefaultGenerics, MessageResponse, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { ChatContext, ChatContextValue } from '../../../../contexts/chatContext/ChatContext';
 import {
@@ -18,14 +18,14 @@ import {
 
 import { generateUser } from '../../../../mock-builders/generator/user';
 import { getTestClientWithUser } from '../../../../mock-builders/mock';
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 
 import { useLatestMessagePreview } from '../useLatestMessagePreview';
 
 describe('useLatestMessagePreview', () => {
   const FORCE_UPDATE = 15;
   const clientUser = generateUser();
-  let chatClient: StreamChat<DefaultGenerics> | StreamChat<DefaultStreamChatGenerics>;
+  let chatClient: ErmisChat<DefaultGenerics> | ErmisChat<DefaultErmisChatGenerics>;
 
   beforeEach(async () => {
     chatClient = await getTestClientWithUser(clientUser);

@@ -1,21 +1,21 @@
 import type { ChatContextValue } from '../../../contexts/chatContext/ChatContext';
 import type { ThreadContextValue } from '../../../contexts/threadContext/ThreadContext';
 import type { TypingContextValue } from '../../../contexts/typingContext/TypingContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 type FilterTypingUsersParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<TypingContextValue<StreamChatGenerics>, 'typing'> &
-  Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'thread'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<TypingContextValue<ErmisChatGenerics>, 'typing'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'thread'>;
 
 export const filterTypingUsers = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   client,
   thread,
   typing,
-}: FilterTypingUsersParams<StreamChatGenerics>) => {
+}: FilterTypingUsersParams<ErmisChatGenerics>) => {
   const nonSelfUsers: string[] = [];
 
   if (!client || !client.user || !typing) return nonSelfUsers;

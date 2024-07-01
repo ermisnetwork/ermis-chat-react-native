@@ -1,18 +1,18 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { Channel, ChannelState } from 'stream-chat';
+import type { Channel, ChannelState } from 'ermis-chat-sdk-test';
 
 import type { EmptyStateProps } from '../../components/Indicators/EmptyStateIndicator';
 import type { LoadingProps } from '../../components/Indicators/LoadingIndicator';
 import { StickyHeaderProps } from '../../components/MessageList/StickyHeader';
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
 export type ChannelContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
    * Instance of channel object from stream-chat package.
@@ -20,10 +20,10 @@ export type ChannelContextValue<
    * Please check the docs around how to create or query channel - https://getstream.io/chat/docs/javascript/creating_channels/?language=javascript
    *
    * ```
-   * import { StreamChat, Channel } from 'stream-chat';
+   * import { ErmisChat, Channel } from 'ermis-chat-sdk-test';
    * import { Chat, Channel} from 'stream-chat-react-native';
    *
-   * const client = StreamChat.getInstance('api_key');
+   * const client = ErmisChat.getInstance('api_key');
    * await client.connectUser('user_id', 'user_token');
    * const channel = client.channel('messaging', 'channel_id');
    * await channel.watch();
@@ -36,7 +36,7 @@ export type ChannelContextValue<
    *
    * @overrideType Channel
    */
-  channel: Channel<StreamChatGenerics>;
+  channel: Channel<ErmisChatGenerics>;
   /**
    * Custom UI component to display empty state when channel has no messages.
    *
@@ -125,12 +125,12 @@ export type ChannelContextValue<
    * }
    * ```
    */
-  members: ChannelState<StreamChatGenerics>['members'];
+  members: ChannelState<ErmisChatGenerics>['members'];
   /**
    * Custom network down indicator to override the Stream default
    */
   NetworkDownIndicator: React.ComponentType;
-  read: ChannelState<StreamChatGenerics>['read'];
+  read: ChannelState<ErmisChatGenerics>['read'];
   reloadChannel: () => Promise<void>;
   /**
    * When true, messagelist will be scrolled to first unread message, when opened.
@@ -166,7 +166,7 @@ export type ChannelContextValue<
    * }
    * ```
    */
-  watchers: ChannelState<StreamChatGenerics>['watchers'];
+  watchers: ChannelState<ErmisChatGenerics>['watchers'];
   disabled?: boolean;
   enableMessageGroupingByUser?: boolean;
   isChannelActive?: boolean;
@@ -188,7 +188,7 @@ export type ChannelContextValue<
    */
   targetedMessage?: string;
   threadList?: boolean;
-  watcherCount?: ChannelState<StreamChatGenerics>['watcher_count'];
+  watcherCount?: ChannelState<ErmisChatGenerics>['watcher_count'];
 };
 
 export const ChannelContext = React.createContext(
@@ -196,12 +196,12 @@ export const ChannelContext = React.createContext(
 );
 
 export const ChannelProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value: ChannelContextValue<StreamChatGenerics>;
+  value: ChannelContextValue<ErmisChatGenerics>;
 }>) => (
   <ChannelContext.Provider value={value as unknown as ChannelContextValue}>
     {children}
@@ -209,11 +209,11 @@ export const ChannelProvider = <
 );
 
 export const useChannelContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     ChannelContext,
-  ) as unknown as ChannelContextValue<StreamChatGenerics>;
+  ) as unknown as ChannelContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -235,14 +235,14 @@ export const useChannelContext = <
  */
 export const withChannelContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof ChannelContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof ChannelContextValue<ErmisChatGenerics>>> => {
   const WithChannelContextComponent = (
-    props: Omit<P, keyof ChannelContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof ChannelContextValue<ErmisChatGenerics>>,
   ) => {
-    const channelContext = useChannelContext<StreamChatGenerics>();
+    const channelContext = useChannelContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...channelContext} />;
   };

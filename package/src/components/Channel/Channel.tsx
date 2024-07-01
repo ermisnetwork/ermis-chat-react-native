@@ -15,10 +15,10 @@ import {
   MessageResponse,
   Reaction,
   SendMessageAPIResponse,
-  StreamChat,
+  ErmisChat,
   Event as StreamEvent,
   Message as StreamMessage,
-} from 'stream-chat';
+} from 'ermis-chat-sdk-test';
 
 import { useCreateChannelContext } from './hooks/useCreateChannelContext';
 
@@ -77,7 +77,7 @@ import {
 } from '../../icons';
 import { FlatList as FlatListDefault, pickDocument } from '../../native';
 import * as dbApi from '../../store/apis';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { addReactionToLocalState } from '../../utils/addReactionToLocalState';
 import { compressedImageURI } from '../../utils/compressImage';
 import { DBSyncManager } from '../../utils/DBSyncManager';
@@ -209,11 +209,11 @@ const debounceOptions = {
 };
 
 export type ChannelPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelContextValue<StreamChatGenerics>, 'channel'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelContextValue<ErmisChatGenerics>, 'channel'> &
   Partial<
     Pick<
-      ChannelContextValue<StreamChatGenerics>,
+      ChannelContextValue<ErmisChatGenerics>,
       | 'EmptyStateIndicator'
       | 'enableMessageGroupingByUser'
       | 'enforceUniqueReaction'
@@ -226,30 +226,30 @@ export type ChannelPropsWithContext<
       | 'StickyHeader'
     >
   > &
-  Pick<ChatContextValue<StreamChatGenerics>, 'client' | 'enableOfflineSupport'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'client' | 'enableOfflineSupport'> &
   Partial<
     Omit<
-      InputMessageInputContextValue<StreamChatGenerics>,
+      InputMessageInputContextValue<ErmisChatGenerics>,
       'quotedMessage' | 'editing' | 'clearEditingState' | 'clearQuotedMessageState' | 'sendMessage'
     >
   > &
   Partial<
     Pick<
-      SuggestionsContextValue<StreamChatGenerics>,
+      SuggestionsContextValue<ErmisChatGenerics>,
       'AutoCompleteSuggestionHeader' | 'AutoCompleteSuggestionItem' | 'AutoCompleteSuggestionList'
     >
   > &
   Pick<TranslationContextValue, 't'> &
   Partial<
     Pick<
-      PaginatedMessageListContextValue<StreamChatGenerics>,
+      PaginatedMessageListContextValue<ErmisChatGenerics>,
       'messages' | 'loadingMore' | 'loadingMoreRecent'
     >
   > &
-  UseChannelStateValue<StreamChatGenerics> &
+  UseChannelStateValue<ErmisChatGenerics> &
   Partial<
     Pick<
-      MessagesContextValue<StreamChatGenerics>,
+      MessagesContextValue<ErmisChatGenerics>,
       | 'additionalTouchableProps'
       | 'Attachment'
       | 'AttachmentActions'
@@ -326,7 +326,7 @@ export type ChannelPropsWithContext<
     >
   > &
   Partial<
-    Pick<ThreadContextValue<StreamChatGenerics>, 'allowThreadMessagesInChannel' | 'thread'>
+    Pick<ThreadContextValue<ErmisChatGenerics>, 'allowThreadMessagesInChannel' | 'thread'>
   > & {
     shouldSyncChannel: boolean;
     /**
@@ -350,7 +350,7 @@ export type ChannelPropsWithContext<
      * Overrides the Stream default mark channel read request (Advanced usage only)
      * @param channel Channel object
      */
-    doMarkReadRequest?: (channel: ChannelType<StreamChatGenerics>) => void;
+    doMarkReadRequest?: (channel: ChannelType<ErmisChatGenerics>) => void;
     /**
      * Overrides the Stream default send message request (Advanced usage only)
      * @param channelId
@@ -358,8 +358,8 @@ export type ChannelPropsWithContext<
      */
     doSendMessageRequest?: (
       channelId: string,
-      messageData: StreamMessage<StreamChatGenerics>,
-    ) => Promise<SendMessageAPIResponse<StreamChatGenerics>>;
+      messageData: StreamMessage<ErmisChatGenerics>,
+    ) => Promise<SendMessageAPIResponse<ErmisChatGenerics>>;
     /**
      * Overrides the Stream default update message request (Advanced usage only)
      * @param channelId
@@ -367,8 +367,8 @@ export type ChannelPropsWithContext<
      */
     doUpdateMessageRequest?: (
       channelId: string,
-      updatedMessage: Parameters<StreamChat<StreamChatGenerics>['updateMessage']>[0],
-    ) => ReturnType<StreamChat<StreamChatGenerics>['updateMessage']>;
+      updatedMessage: Parameters<ErmisChat<ErmisChatGenerics>['updateMessage']>[0],
+    ) => ReturnType<ErmisChat<ErmisChatGenerics>['updateMessage']>;
     /**
      * When true, messageList will be scrolled at first unread message, when opened.
      */
@@ -414,9 +414,9 @@ export type ChannelPropsWithContext<
   };
 
 const ChannelWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: PropsWithChildren<ChannelPropsWithContext<StreamChatGenerics>>,
+  props: PropsWithChildren<ChannelPropsWithContext<ErmisChatGenerics>>,
 ) => {
   const {
     additionalKeyboardAvoidingViewProps,
@@ -601,18 +601,18 @@ const ChannelWithContext = <
     },
   } = useTheme();
   const [deleted, setDeleted] = useState(false);
-  const [editing, setEditing] = useState<MessageType<StreamChatGenerics> | undefined>(undefined);
+  const [editing, setEditing] = useState<MessageType<ErmisChatGenerics> | undefined>(undefined);
   const [error, setError] = useState<Error | boolean>(false);
   const [hasMore, setHasMore] = useState(true);
-  const [lastRead, setLastRead] = useState<ChannelContextValue<StreamChatGenerics>['lastRead']>();
+  const [lastRead, setLastRead] = useState<ChannelContextValue<ErmisChatGenerics>['lastRead']>();
   const [loading, setLoading] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
 
   const [loadingMoreRecent, setLoadingMoreRecent] = useState(false);
-  const [quotedMessage, setQuotedMessage] = useState<boolean | MessageType<StreamChatGenerics>>(
+  const [quotedMessage, setQuotedMessage] = useState<boolean | MessageType<ErmisChatGenerics>>(
     false,
   );
-  const [thread, setThread] = useState<ThreadContextValue<StreamChatGenerics>['thread']>(
+  const [thread, setThread] = useState<ThreadContextValue<ErmisChatGenerics>['thread']>(
     threadProps || null,
   );
   const [threadHasMore, setThreadHasMore] = useState(true);
@@ -698,7 +698,7 @@ const ChannelWithContext = <
       channel.sendEvent({
         parent_id: thread?.id,
         type: 'typing.stop',
-      } as StreamEvent<StreamChatGenerics>);
+      } as StreamEvent<ErmisChatGenerics>);
     }
   }, [thread?.id, channelId]);
 
@@ -718,7 +718,7 @@ const ChannelWithContext = <
   /**
    * CHANNEL METHODS
    */
-  const markRead: ChannelContextValue<StreamChatGenerics>['markRead'] = useRef(
+  const markRead: ChannelContextValue<ErmisChatGenerics>['markRead'] = useRef(
     throttle(
       () => {
         if (!channel || channel?.disconnected || !clientChannelConfig?.read_events) {
@@ -808,7 +808,7 @@ const ChannelWithContext = <
 
   // subscribe to the generic all channel event
   useEffect(() => {
-    const handleEvent: EventHandler<StreamChatGenerics> = (event) => {
+    const handleEvent: EventHandler<ErmisChatGenerics> = (event) => {
       const ignorableEvents = ['user.watching.start', 'user.watching.stop'];
       if (ignorableEvents.includes(event.type)) return;
       if (shouldSyncChannel) {
@@ -855,7 +855,7 @@ const ChannelWithContext = <
   }, [channelId]);
 
   useEffect(() => {
-    const handleEvent: EventHandler<StreamChatGenerics> = (event) => {
+    const handleEvent: EventHandler<ErmisChatGenerics> = (event) => {
       if (channel.cid === event.cid) copyChannelState();
     };
 
@@ -994,7 +994,7 @@ const ChannelWithContext = <
    *
    * @param messageId If undefined, channel will be loaded at most recent message.
    */
-  const loadChannelAroundMessage: ChannelContextValue<StreamChatGenerics>['loadChannelAroundMessage'] =
+  const loadChannelAroundMessage: ChannelContextValue<ErmisChatGenerics>['loadChannelAroundMessage'] =
     async ({ messageId: messageIdToLoadAround }) => {
       if (thread) {
         if (messageIdToLoadAround) {
@@ -1067,7 +1067,7 @@ const ChannelWithContext = <
    * @param before Number of message to query before messageId
    * @param after Number of message to query after messageId
    */
-  const loadChannelAtMessage: ChannelContextValue<StreamChatGenerics>['loadChannelAtMessage'] = ({
+  const loadChannelAtMessage: ChannelContextValue<ErmisChatGenerics>['loadChannelAtMessage'] = ({
     after = 2,
     before = 30,
     messageId,
@@ -1259,12 +1259,12 @@ const ChannelWithContext = <
       }
 
       const parseMessage = (message: typeof oldListTopMessage) =>
-        ({
-          ...message,
-          created_at: message.created_at.toString(),
-          pinned_at: message.pinned_at?.toString(),
-          updated_at: message.updated_at?.toString(),
-        } as unknown as MessageResponse<StreamChatGenerics>);
+      ({
+        ...message,
+        created_at: message.created_at.toString(),
+        pinned_at: message.pinned_at?.toString(),
+        updated_at: message.updated_at?.toString(),
+      } as unknown as MessageResponse<ErmisChatGenerics>);
 
       const failedMessages = messages
         .filter((message) => message.status === MessageStatusTypes.FAILED)
@@ -1272,8 +1272,8 @@ const ChannelWithContext = <
 
       const failedThreadMessages = thread
         ? threadMessages
-            .filter((message) => message.status === MessageStatusTypes.FAILED)
-            .map(parseMessage)
+          .filter((message) => message.status === MessageStatusTypes.FAILED)
+          .map(parseMessage)
         : [];
 
       const oldListTopMessageCreatedAt = oldListTopMessage.created_at;
@@ -1382,7 +1382,7 @@ const ChannelWithContext = <
     after = 10,
     before = 10,
     messageId,
-  }: Parameters<ChannelContextValue<StreamChatGenerics>['loadChannelAtMessage']>[0]) => {
+  }: Parameters<ChannelContextValue<ErmisChatGenerics>['loadChannelAtMessage']>[0]) => {
     if (!channel) return;
     channel.state.setIsUpToDate(false);
     hasOverlappingRecentMessagesRef.current = false;
@@ -1481,7 +1481,7 @@ const ChannelWithContext = <
    * MESSAGE METHODS
    */
 
-  const updateMessage: MessagesContextValue<StreamChatGenerics>['updateMessage'] = (
+  const updateMessage: MessagesContextValue<ErmisChatGenerics>['updateMessage'] = (
     updatedMessage,
     extraState = {},
   ) => {
@@ -1497,8 +1497,8 @@ const ChannelWithContext = <
   };
 
   const replaceMessage = (
-    oldMessage: MessageResponse<StreamChatGenerics>,
-    newMessage: MessageResponse<StreamChatGenerics>,
+    oldMessage: MessageResponse<ErmisChatGenerics>,
+    newMessage: MessageResponse<ErmisChatGenerics>,
   ) => {
     if (channel) {
       channel.state.removeMessage(oldMessage);
@@ -1517,7 +1517,7 @@ const ChannelWithContext = <
     parent_id,
     text,
     ...extraFields
-  }: Partial<StreamMessage<StreamChatGenerics>>) => {
+  }: Partial<StreamMessage<ErmisChatGenerics>>) => {
     // Exclude following properties from message.user within message preview,
     // since they could be long arrays and have no meaning as sender of message.
     // Storing such large value within user's table may cause sqlite queries to crash.
@@ -1545,7 +1545,7 @@ const ChannelWithContext = <
         id: client.userID,
       },
       ...extraFields,
-    } as unknown as MessageResponse<StreamChatGenerics>;
+    } as unknown as MessageResponse<ErmisChatGenerics>;
 
     /**
      * This is added to the message for local rendering prior to the message
@@ -1556,12 +1556,12 @@ const ChannelWithContext = <
       const quotedMessage = messages.find((message) => message.id === preview.quoted_message_id);
 
       preview.quoted_message =
-        quotedMessage as MessageResponse<StreamChatGenerics>['quoted_message'];
+        quotedMessage as MessageResponse<ErmisChatGenerics>['quoted_message'];
     }
     return preview;
   };
 
-  const uploadPendingAttachments = async (message: MessageResponse<StreamChatGenerics>) => {
+  const uploadPendingAttachments = async (message: MessageResponse<ErmisChatGenerics>) => {
     const updatedMessage = { ...message };
     if (updatedMessage.attachments?.length) {
       for (let i = 0; i < updatedMessage.attachments?.length; i++) {
@@ -1632,7 +1632,7 @@ const ChannelWithContext = <
   };
 
   const sendMessageRequest = async (
-    message: MessageResponse<StreamChatGenerics>,
+    message: MessageResponse<ErmisChatGenerics>,
     retrying?: boolean,
   ) => {
     try {
@@ -1670,9 +1670,9 @@ const ChannelWithContext = <
         parent_id,
         text: patchMessageTextCommand(text ?? '', mentionedUserIds),
         ...extraFields,
-      } as StreamMessage<StreamChatGenerics>;
+      } as StreamMessage<ErmisChatGenerics>;
 
-      let messageResponse = {} as SendMessageAPIResponse<StreamChatGenerics>;
+      let messageResponse = {} as SendMessageAPIResponse<ErmisChatGenerics>;
       if (doSendMessageRequest) {
         messageResponse = await doSendMessageRequest(channel?.cid || '', messageData);
       } else if (channel) {
@@ -1706,7 +1706,7 @@ const ChannelWithContext = <
     }
   };
 
-  const sendMessage: InputMessageInputContextValue<StreamChatGenerics>['sendMessage'] = async (
+  const sendMessage: InputMessageInputContextValue<ErmisChatGenerics>['sendMessage'] = async (
     message,
   ) => {
     if (channel?.state?.filterErrorMessages) {
@@ -1738,7 +1738,7 @@ const ChannelWithContext = <
     await sendMessageRequest(messagePreview);
   };
 
-  const retrySendMessage: MessagesContextValue<StreamChatGenerics>['retrySendMessage'] = async (
+  const retrySendMessage: MessagesContextValue<ErmisChatGenerics>['retrySendMessage'] = async (
     message,
   ) => {
     const statusPendingMessage = {
@@ -1750,11 +1750,11 @@ const ChannelWithContext = <
 
     // For bounced messages, we don't need to update the message, instead always send a new message.
     if (!isBouncedMessage(message)) {
-      updateMessage(messageWithoutReservedFields as MessageResponse<StreamChatGenerics>);
+      updateMessage(messageWithoutReservedFields as MessageResponse<ErmisChatGenerics>);
     }
 
     await sendMessageRequest(
-      messageWithoutReservedFields as MessageResponse<StreamChatGenerics>,
+      messageWithoutReservedFields as MessageResponse<ErmisChatGenerics>,
       true,
     );
   };
@@ -1762,7 +1762,7 @@ const ChannelWithContext = <
   // hard limit to prevent you from scrolling faster than 1 page per 2 seconds
   const loadMoreFinished = useRef(
     debounce(
-      (updatedHasMore: boolean, newMessages: ChannelState<StreamChatGenerics>['messages']) => {
+      (updatedHasMore: boolean, newMessages: ChannelState<ErmisChatGenerics>['messages']) => {
         setLoading(false);
         setLoadingMore(false);
         setError(false);
@@ -1777,7 +1777,7 @@ const ChannelWithContext = <
   /**
    * This function loads more messages before the first message in current channel state.
    */
-  const loadMore = useCallback<PaginatedMessageListContextValue<StreamChatGenerics>['loadMore']>(
+  const loadMore = useCallback<PaginatedMessageListContextValue<ErmisChatGenerics>['loadMore']>(
     async (limit = 20) => {
       if (loadingMore || hasMore === false) {
         return;
@@ -1830,7 +1830,7 @@ const ChannelWithContext = <
    * This function loads more messages after the most recent message in current channel state.
    */
   const loadMoreRecent = useCallback<
-    PaginatedMessageListContextValue<StreamChatGenerics>['loadMoreRecent']
+    PaginatedMessageListContextValue<ErmisChatGenerics>['loadMoreRecent']
   >(
     async (limit = 5) => {
       const latestMessageSet = channel.state.messageSets.find((set) => set.isLatest);
@@ -1900,7 +1900,7 @@ const ChannelWithContext = <
   // hard limit to prevent you from scrolling faster than 1 page per 2 seconds
   const loadMoreRecentFinished = useRef(
     debounce(
-      (newMessages: ChannelState<StreamChatGenerics>['messages']) => {
+      (newMessages: ChannelState<ErmisChatGenerics>['messages']) => {
         setLoadingMoreRecent(false);
         setMessages(newMessages);
         setError(false);
@@ -1910,36 +1910,36 @@ const ChannelWithContext = <
     ),
   ).current;
 
-  const editMessage: InputMessageInputContextValue<StreamChatGenerics>['editMessage'] = (
+  const editMessage: InputMessageInputContextValue<ErmisChatGenerics>['editMessage'] = (
     updatedMessage,
   ) =>
     doUpdateMessageRequest
       ? doUpdateMessageRequest(channel?.cid || '', updatedMessage)
       : client.updateMessage(updatedMessage);
 
-  const setEditingState: MessagesContextValue<StreamChatGenerics>['setEditingState'] = (
+  const setEditingState: MessagesContextValue<ErmisChatGenerics>['setEditingState'] = (
     message,
   ) => {
     clearQuotedMessageState();
     setEditing(message);
   };
 
-  const setQuotedMessageState: MessagesContextValue<StreamChatGenerics>['setQuotedMessageState'] = (
+  const setQuotedMessageState: MessagesContextValue<ErmisChatGenerics>['setQuotedMessageState'] = (
     messageOrBoolean,
   ) => {
     setQuotedMessage(messageOrBoolean);
   };
 
-  const clearEditingState: InputMessageInputContextValue<StreamChatGenerics>['clearEditingState'] =
+  const clearEditingState: InputMessageInputContextValue<ErmisChatGenerics>['clearEditingState'] =
     () => setEditing(undefined);
 
-  const clearQuotedMessageState: InputMessageInputContextValue<StreamChatGenerics>['clearQuotedMessageState'] =
+  const clearQuotedMessageState: InputMessageInputContextValue<ErmisChatGenerics>['clearQuotedMessageState'] =
     () => setQuotedMessage(false);
 
   /**
    * Removes the message from local state
    */
-  const removeMessage: MessagesContextValue<StreamChatGenerics>['removeMessage'] = (message) => {
+  const removeMessage: MessagesContextValue<ErmisChatGenerics>['removeMessage'] = (message) => {
     if (channel) {
       channel.state.removeMessage(message);
       setMessages(channel.state.messages);
@@ -1960,11 +1960,11 @@ const ChannelWithContext = <
       throw new Error('Channel has not been initialized');
     }
 
-    const payload: Parameters<ChannelClass<StreamChatGenerics>['sendReaction']> = [
+    const payload: Parameters<ChannelClass<ErmisChatGenerics>['sendReaction']> = [
       messageId,
       {
         type,
-      } as Reaction<StreamChatGenerics>,
+      } as Reaction<ErmisChatGenerics>,
       { enforce_unique: enforceUniqueReaction },
     ];
 
@@ -1973,7 +1973,7 @@ const ChannelWithContext = <
       return;
     }
 
-    addReactionToLocalState<StreamChatGenerics>({
+    addReactionToLocalState<ErmisChatGenerics>({
       channel,
       enforceUniqueReaction,
       messageId,
@@ -1983,7 +1983,7 @@ const ChannelWithContext = <
 
     setMessages(channel.state.messages);
 
-    await DBSyncManager.queueTask<StreamChatGenerics>({
+    await DBSyncManager.queueTask<ErmisChatGenerics>({
       client,
       task: {
         channelId: channel.id,
@@ -1995,7 +1995,7 @@ const ChannelWithContext = <
     });
   };
 
-  const deleteMessage: MessagesContextValue<StreamChatGenerics>['deleteMessage'] = async (
+  const deleteMessage: MessagesContextValue<ErmisChatGenerics>['deleteMessage'] = async (
     message,
   ) => {
     if (!channel.id) {
@@ -2022,7 +2022,7 @@ const ChannelWithContext = <
         type: 'deleted',
       });
 
-      const data = await DBSyncManager.queueTask<StreamChatGenerics>({
+      const data = await DBSyncManager.queueTask<ErmisChatGenerics>({
         client,
         task: {
           channelId: channel.id,
@@ -2039,7 +2039,7 @@ const ChannelWithContext = <
     }
   };
 
-  const deleteReaction: MessagesContextValue<StreamChatGenerics>['deleteReaction'] = async (
+  const deleteReaction: MessagesContextValue<ErmisChatGenerics>['deleteReaction'] = async (
     type: string,
     messageId: string,
   ) => {
@@ -2063,7 +2063,7 @@ const ChannelWithContext = <
 
     setMessages(channel.state.messages);
 
-    await DBSyncManager.queueTask<StreamChatGenerics>({
+    await DBSyncManager.queueTask<ErmisChatGenerics>({
       client,
       task: {
         channelId: channel.id,
@@ -2078,7 +2078,7 @@ const ChannelWithContext = <
   /**
    * THREAD METHODS
    */
-  const openThread: ThreadContextValue<StreamChatGenerics>['openThread'] = useCallback(
+  const openThread: ThreadContextValue<ErmisChatGenerics>['openThread'] = useCallback(
     (message) => {
       const newThreadMessages = message?.id ? channel?.state?.threads[message.id] || [] : [];
       setThread(message);
@@ -2087,7 +2087,7 @@ const ChannelWithContext = <
     [setThread, setThreadMessages],
   );
 
-  const closeThread: ThreadContextValue<StreamChatGenerics>['closeThread'] = useCallback(() => {
+  const closeThread: ThreadContextValue<ErmisChatGenerics>['closeThread'] = useCallback(() => {
     setThread(null);
     setThreadMessages([]);
   }, [setThread, setThreadMessages]);
@@ -2097,7 +2097,7 @@ const ChannelWithContext = <
     debounce(
       (
         newThreadHasMore: boolean,
-        updatedThreadMessages: ChannelState<StreamChatGenerics>['threads'][string],
+        updatedThreadMessages: ChannelState<ErmisChatGenerics>['threads'][string],
       ) => {
         setThreadHasMore(newThreadHasMore);
         setThreadLoadingMore(false);
@@ -2108,7 +2108,7 @@ const ChannelWithContext = <
     ),
   ).current;
 
-  const loadMoreThread: ThreadContextValue<StreamChatGenerics>['loadMoreThread'] = async () => {
+  const loadMoreThread: ThreadContextValue<ErmisChatGenerics>['loadMoreThread'] = async () => {
     if (threadLoadingMore || !thread?.id) {
       return;
     }
@@ -2197,7 +2197,7 @@ const ChannelWithContext = <
     watchers,
   });
 
-  const inputMessageInputContext = useCreateInputMessageInputContext<StreamChatGenerics>({
+  const inputMessageInputContext = useCreateInputMessageInputContext<ErmisChatGenerics>({
     additionalTextInputProps,
     asyncMessagesLockDistance,
     asyncMessagesMinimumPressDuration,
@@ -2402,14 +2402,14 @@ const ChannelWithContext = <
       keyboardVerticalOffset={keyboardVerticalOffset}
       {...additionalKeyboardAvoidingViewProps}
     >
-      <ChannelProvider<StreamChatGenerics> value={channelContext}>
+      <ChannelProvider<ErmisChatGenerics> value={channelContext}>
         <OwnCapabilitiesProvider value={ownCapabilitiesContext}>
-          <TypingProvider<StreamChatGenerics> value={typingContext}>
-            <PaginatedMessageListProvider<StreamChatGenerics> value={messageListContext}>
-              <MessagesProvider<StreamChatGenerics> value={messagesContext}>
-                <ThreadProvider<StreamChatGenerics> value={threadContext}>
-                  <SuggestionsProvider<StreamChatGenerics> value={suggestionsContext}>
-                    <MessageInputProvider<StreamChatGenerics> value={inputMessageInputContext}>
+          <TypingProvider<ErmisChatGenerics> value={typingContext}>
+            <PaginatedMessageListProvider<ErmisChatGenerics> value={messageListContext}>
+              <MessagesProvider<ErmisChatGenerics> value={messagesContext}>
+                <ThreadProvider<ErmisChatGenerics> value={threadContext}>
+                  <SuggestionsProvider<ErmisChatGenerics> value={suggestionsContext}>
+                    <MessageInputProvider<ErmisChatGenerics> value={inputMessageInputContext}>
                       <View style={{ height: '100%' }}>{children}</View>
                     </MessageInputProvider>
                   </SuggestionsProvider>
@@ -2424,24 +2424,24 @@ const ChannelWithContext = <
 };
 
 export type ChannelProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<ChannelPropsWithContext<StreamChatGenerics>, 'channel'>> &
-  Pick<ChannelPropsWithContext<StreamChatGenerics>, 'channel'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<ChannelPropsWithContext<ErmisChatGenerics>, 'channel'>> &
+  Pick<ChannelPropsWithContext<ErmisChatGenerics>, 'channel'>;
 
 /**
  *
  * The wrapper component for a chat channel. Channel needs to be placed inside a Chat component
- * to receive the StreamChat client instance. MessageList, Thread, and MessageInput must be
+ * to receive the ErmisChat client instance. MessageList, Thread, and MessageInput must be
  * children of the Channel component to receive the ChannelContext.
  *
  * @example ./Channel.md
  */
 export const Channel = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: PropsWithChildren<ChannelProps<StreamChatGenerics>>,
+  props: PropsWithChildren<ChannelProps<ErmisChatGenerics>>,
 ) => {
-  const { client, enableOfflineSupport } = useChatContext<StreamChatGenerics>();
+  const { client, enableOfflineSupport } = useChatContext<ErmisChatGenerics>();
   const { t } = useTranslationContext();
 
   const shouldSyncChannel = props.thread?.id ? !!props.threadList : true;
@@ -2461,13 +2461,13 @@ export const Channel = <
     typing,
     watcherCount,
     watchers,
-  } = useChannelState<StreamChatGenerics>(
+  } = useChannelState<ErmisChatGenerics>(
     props.channel,
     props.threadList ? props.thread?.id : undefined,
   );
 
   return (
-    <ChannelWithContext<StreamChatGenerics>
+    <ChannelWithContext<ErmisChatGenerics>
       {...{
         client,
         enableOfflineSupport,

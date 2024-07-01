@@ -1,4 +1,4 @@
-import type { Channel, StreamChat } from 'stream-chat';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
 
 import type { Schema } from './schema';
 
@@ -25,16 +25,16 @@ export type PendingTask = {
   messageId: string;
   id?: number;
 } & (
-  | {
+    | {
       payload: Parameters<Channel['sendReaction']>;
       type: PendingTaskTypes['sendReaction'];
     }
-  | {
-      payload: Parameters<StreamChat['deleteMessage']>;
+    | {
+      payload: Parameters<ErmisChat['deleteMessage']>;
       type: PendingTaskTypes['deleteMessage'];
     }
-  | {
+    | {
       payload: Parameters<Channel['deleteReaction']>;
       type: PendingTaskTypes['deleteReaction'];
     }
-);
+  );

@@ -1,10 +1,10 @@
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { buildThumbnailGrid } from './buildThumbnailGrid';
 
 import type { GallerySizeAndThumbnailGrid, GallerySizeConfig } from './types';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 import { getAspectRatio } from '../getAspectRatio';
 
 /** function to move item to the front of the array */
@@ -20,12 +20,12 @@ function moveToFront<T>(array: T[], item: T): T[] {
 }
 
 export function buildGalleryOfThreeImages<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   images,
   sizeConfig,
 }: {
-  images: Attachment<StreamChatGenerics>[];
+  images: Attachment<ErmisChatGenerics>[];
   sizeConfig: GallerySizeConfig;
 }): GallerySizeAndThumbnailGrid {
   // Find the most ladscape and most portrait image.
@@ -55,9 +55,9 @@ export function buildGalleryOfThreeImages<
         landscapeImageAspectRatio: 1,
         portraitImageAspectRatio: 1,
       } as {
-        landscapeImage: Attachment<StreamChatGenerics>;
+        landscapeImage: Attachment<ErmisChatGenerics>;
         landscapeImageAspectRatio: number;
-        portraitImage: Attachment<StreamChatGenerics>;
+        portraitImage: Attachment<ErmisChatGenerics>;
         portraitImageAspectRatio: number;
       },
     );

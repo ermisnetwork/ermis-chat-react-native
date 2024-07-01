@@ -2,37 +2,37 @@ import { useEffect } from 'react';
 
 import uniqBy from 'lodash/uniqBy';
 
-import type { Channel, Event } from 'stream-chat';
+import type { Channel, Event } from 'ermis-chat-sdk-test';
 
 import { useChatContext } from '../../../../contexts/chatContext/ChatContext';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 import { getChannel } from '../../utils';
 
-type Parameters<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
+type Parameters<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
   {
-    setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>;
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>;
     onChannelVisible?: (
-      setChannels: React.Dispatch<React.SetStateAction<Channel<StreamChatGenerics>[] | null>>,
-      event: Event<StreamChatGenerics>,
+      setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+      event: Event<ErmisChatGenerics>,
     ) => void;
   };
 
 export const useChannelVisible = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   onChannelVisible,
   setChannels,
-}: Parameters<StreamChatGenerics>) => {
-  const { client } = useChatContext<StreamChatGenerics>();
+}: Parameters<ErmisChatGenerics>) => {
+  const { client } = useChatContext<ErmisChatGenerics>();
 
   useEffect(() => {
-    const handleEvent = async (event: Event<StreamChatGenerics>) => {
+    const handleEvent = async (event: Event<ErmisChatGenerics>) => {
       if (typeof onChannelVisible === 'function') {
         onChannelVisible(setChannels, event);
       } else {
         if (event.channel_id && event.channel_type) {
-          const channel = await getChannel<StreamChatGenerics>({
+          const channel = await getChannel<ErmisChatGenerics>({
             client,
             id: event.channel_id,
             type: event.channel_type,

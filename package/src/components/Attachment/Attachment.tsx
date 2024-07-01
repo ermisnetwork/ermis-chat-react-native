@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { Attachment as AttachmentType } from 'stream-chat';
+import type { Attachment as AttachmentType } from 'ermis-chat-sdk-test';
 
 import { AttachmentActions as AttachmentActionsDefault } from '../../components/Attachment/AttachmentActions';
 import { Card as CardDefault } from '../../components/Attachment/Card';
@@ -13,14 +13,14 @@ import {
 } from '../../contexts/messagesContext/MessagesContext';
 import { isVideoPackageAvailable } from '../../native';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 export type ActionHandler = (name: string, value: string) => void;
 
 export type AttachmentPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessagesContextValue<StreamChatGenerics>,
+  MessagesContextValue<ErmisChatGenerics>,
   | 'AttachmentActions'
   | 'Card'
   | 'FileAttachment'
@@ -34,13 +34,13 @@ export type AttachmentPropsWithContext<
   /**
    * The attachment to render
    */
-  attachment: AttachmentType<StreamChatGenerics>;
+  attachment: AttachmentType<ErmisChatGenerics>;
 };
 
 const AttachmentWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AttachmentPropsWithContext<StreamChatGenerics>,
+  props: AttachmentPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     attachment,
@@ -107,9 +107,9 @@ const AttachmentWithContext = <
   }
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AttachmentPropsWithContext<StreamChatGenerics>,
-  nextProps: AttachmentPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AttachmentPropsWithContext<ErmisChatGenerics>,
+  nextProps: AttachmentPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     attachment: prevAttachment,
@@ -142,10 +142,10 @@ const MemoizedAttachment = React.memo(
 ) as typeof AttachmentWithContext;
 
 export type AttachmentProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Partial<
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'AttachmentActions'
     | 'Card'
     | 'FileAttachment'
@@ -157,15 +157,15 @@ export type AttachmentProps<
     | 'isAttachmentEqual'
   >
 > &
-  Pick<AttachmentPropsWithContext<StreamChatGenerics>, 'attachment'>;
+  Pick<AttachmentPropsWithContext<ErmisChatGenerics>, 'attachment'>;
 
 /**
  * Attachment - The message attachment
  */
 export const Attachment = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AttachmentProps<StreamChatGenerics>,
+  props: AttachmentProps<ErmisChatGenerics>,
 ) => {
   const {
     attachment,
@@ -189,7 +189,7 @@ export const Attachment = <
     isAttachmentEqual,
     myMessageTheme: ContextMyMessageTheme,
     UrlPreview: ContextUrlPreview,
-  } = useMessagesContext<StreamChatGenerics>();
+  } = useMessagesContext<ErmisChatGenerics>();
 
   if (!attachment) {
     return null;

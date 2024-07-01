@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { openUrlSafely } from './utils/openUrlSafely';
 
@@ -25,7 +25,7 @@ import {
 } from '../../contexts/messagesContext/MessagesContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useViewport } from '../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,17 +47,17 @@ const styles = StyleSheet.create({
 });
 
 export type FileAttachmentPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   'onLongPress' | 'onPress' | 'onPressIn' | 'preventPress'
 > &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     'additionalTouchableProps' | 'AttachmentActions' | 'FileAttachmentIcon'
   > & {
     /** The attachment to render */
-    attachment: Attachment<StreamChatGenerics>;
+    attachment: Attachment<ErmisChatGenerics>;
     attachmentSize?: number;
     styles?: Partial<{
       container: StyleProp<ViewStyle>;
@@ -68,9 +68,9 @@ export type FileAttachmentPropsWithContext<
   };
 
 const FileAttachmentWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: FileAttachmentPropsWithContext<StreamChatGenerics>,
+  props: FileAttachmentPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTouchableProps,
@@ -158,21 +158,21 @@ const FileAttachmentWithContext = <
 };
 
 export type FileAttachmentProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<FileAttachmentPropsWithContext<StreamChatGenerics>, 'attachment'>> &
-  Pick<FileAttachmentPropsWithContext<StreamChatGenerics>, 'attachment'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<FileAttachmentPropsWithContext<ErmisChatGenerics>, 'attachment'>> &
+  Pick<FileAttachmentPropsWithContext<ErmisChatGenerics>, 'attachment'>;
 
 export const FileAttachment = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: FileAttachmentProps<StreamChatGenerics>,
+  props: FileAttachmentProps<ErmisChatGenerics>,
 ) => {
-  const { onLongPress, onPress, onPressIn, preventPress } = useMessageContext<StreamChatGenerics>();
+  const { onLongPress, onPress, onPressIn, preventPress } = useMessageContext<ErmisChatGenerics>();
   const {
     additionalTouchableProps,
     AttachmentActions = AttachmentActionsDefault,
     FileAttachmentIcon = FileIconDefault,
-  } = useMessagesContext<StreamChatGenerics>();
+  } = useMessagesContext<ErmisChatGenerics>();
 
   return (
     <FileAttachmentWithContext

@@ -1,14 +1,14 @@
-import type { ChannelFilters, ChannelSort } from 'stream-chat';
+import type { ChannelFilters, ChannelSort } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const convertFilterSortToQuery = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   filters,
   sort,
 }: {
-  filters?: ChannelFilters<StreamChatGenerics>;
-  sort?: ChannelSort<StreamChatGenerics>;
+  filters?: ChannelFilters<ErmisChatGenerics>;
+  sort?: ChannelSort<ErmisChatGenerics>;
 }) =>
   JSON.stringify(`${filters ? JSON.stringify(filters) : ''}-${sort ? JSON.stringify(sort) : ''}`);

@@ -7,9 +7,9 @@ import { Avatar, Spinner, useTheme, useViewport } from 'stream-chat-react-native
 
 import { MESSAGE_SEARCH_LIMIT } from '../../hooks/usePaginatedSearchedMessages';
 
-import type { MessageResponse } from 'stream-chat';
+import type { MessageResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../../types';
+import type { ErmisChatGenerics } from '../../types';
 
 dayjs.extend(calendar);
 
@@ -52,13 +52,13 @@ export type MessageSearchListProps = {
   EmptySearchIndicator: React.ComponentType;
   loading: boolean;
   loadMore: () => void;
-  messages: MessageResponse<StreamChatGenerics>[] | undefined;
+  messages: MessageResponse<ErmisChatGenerics>[] | undefined;
   refreshing?: boolean;
   refreshList?: () => void;
   showResultCount?: boolean;
 };
 export const MessageSearchList: React.FC<MessageSearchListProps> = React.forwardRef(
-  (props, scrollRef: React.Ref<FlatList<MessageResponse<StreamChatGenerics>> | null>) => {
+  (props, scrollRef: React.Ref<FlatList<MessageResponse<ErmisChatGenerics>> | null>) => {
     const {
       EmptySearchIndicator,
       loading,
@@ -98,11 +98,9 @@ export const MessageSearchList: React.FC<MessageSearchListProps> = React.forward
             }}
           >
             <Text style={{ color: grey }}>
-              {`${
-                messages.length >= MESSAGE_SEARCH_LIMIT ? MESSAGE_SEARCH_LIMIT : messages.length
-              }${messages.length >= MESSAGE_SEARCH_LIMIT ? '+ ' : ' '} result${
-                messages.length === 1 ? '' : 's'
-              }`}
+              {`${messages.length >= MESSAGE_SEARCH_LIMIT ? MESSAGE_SEARCH_LIMIT : messages.length
+                }${messages.length >= MESSAGE_SEARCH_LIMIT ? '+ ' : ' '} result${messages.length === 1 ? '' : 's'
+                }`}
             </Text>
           </View>
         )}

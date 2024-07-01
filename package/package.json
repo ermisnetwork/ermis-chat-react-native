@@ -78,8 +78,8 @@
     "path": "0.12.7",
     "react-native-markdown-package": "1.8.2",
     "react-native-url-polyfill": "^1.3.0",
-    "stream-chat": "8.31.0",
-    "ermis-js-sdk": "^1.0.3"
+    "ermis-js-sdk": "^1.0.3",
+    "ermis-chat-sdk-test": "1.0.1"
   },
   "peerDependencies": {
     "react-native-quick-sqlite": ">=5.1.0",

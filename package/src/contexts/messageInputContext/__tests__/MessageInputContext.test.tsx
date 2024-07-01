@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from 'react';
 import type { TextInput } from 'react-native';
 
 import { act, renderHook, waitFor } from '@testing-library/react-native';
-import type { AppSettingsAPIResponse, StreamChat } from 'stream-chat';
+import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { ChatContextValue, ChatProvider } from '../../../contexts/chatContext/ChatContext';
 
@@ -16,7 +16,7 @@ import { generateMessage } from '../../../mock-builders/generator/message';
 import { generateUser } from '../../../mock-builders/generator/user';
 
 import * as NativeUtils from '../../../native';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { FileState } from '../../../utils/utils';
 import {
   InputMessageInputContextValue,
@@ -25,8 +25,8 @@ import {
   useMessageInputContext,
 } from '../MessageInputContext';
 
-type WrapperType<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
-  Partial<InputMessageInputContextValue<StreamChatGenerics>>;
+type WrapperType<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
+  Partial<InputMessageInputContextValue<ErmisChatGenerics>>;
 
 afterEach(jest.clearAllMocks);
 
@@ -34,11 +34,11 @@ const user1 = generateUser();
 const message = generateMessage({ user: user1 });
 describe('MessageInputContext', () => {
   const Wrapper = <
-    StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+    ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
   >({
     children,
     ...rest
-  }: PropsWithChildren<WrapperType<StreamChatGenerics>>) => (
+  }: PropsWithChildren<WrapperType<ErmisChatGenerics>>) => (
     <ChatProvider
       value={
         {
@@ -53,18 +53,18 @@ describe('MessageInputContext', () => {
                 blocked_mime_types: ['image/png'],
               },
             },
-          } as unknown as AppSettingsAPIResponse<StreamChatGenerics>,
+          } as unknown as AppSettingsAPIResponse<ErmisChatGenerics>,
           client: {
             updateMessage: jest.fn().mockResolvedValue({ message }),
-          } as unknown as StreamChat<StreamChatGenerics>,
-        } as ChatContextValue<StreamChatGenerics>
+          } as unknown as ErmisChat<ErmisChatGenerics>,
+        } as ChatContextValue<ErmisChatGenerics>
       }
     >
       <MessageInputProvider
         value={
           {
             ...rest,
-          } as MessageInputContextValue<StreamChatGenerics>
+          } as MessageInputContextValue<ErmisChatGenerics>
         }
       >
         {children}

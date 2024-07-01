@@ -10,7 +10,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 
 import { CircleClose, CurveLineLeftUp } from '../../../icons';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const styles = StyleSheet.create({
   replyBoxHeader: {
@@ -26,17 +26,17 @@ const styles = StyleSheet.create({
 });
 
 export type InputReplyStateHeaderPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<MessageInputContextValue<StreamChatGenerics>, 'clearQuotedMessageState' | 'resetInput'> &
-  Pick<ChannelContextValue<StreamChatGenerics>, 'disabled'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<MessageInputContextValue<ErmisChatGenerics>, 'clearQuotedMessageState' | 'resetInput'> &
+  Pick<ChannelContextValue<ErmisChatGenerics>, 'disabled'>;
 
 export const InputReplyStateHeaderWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   clearQuotedMessageState,
   disabled,
   resetInput,
-}: InputReplyStateHeaderPropsWithContext<StreamChatGenerics>) => {
+}: InputReplyStateHeaderPropsWithContext<ErmisChatGenerics>) => {
   const { t } = useTranslationContext();
   const {
     theme: {
@@ -67,9 +67,9 @@ export const InputReplyStateHeaderWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: InputReplyStateHeaderPropsWithContext<StreamChatGenerics>,
-  nextProps: InputReplyStateHeaderPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: InputReplyStateHeaderPropsWithContext<ErmisChatGenerics>,
+  nextProps: InputReplyStateHeaderPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { disabled: prevDisabled } = prevProps;
   const { disabled: nextDisabled } = nextProps;
@@ -86,15 +86,15 @@ const MemoizedInputReplyStateHeader = React.memo(
 ) as typeof InputReplyStateHeaderWithContext;
 
 export type InputReplyStateHeaderProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<InputReplyStateHeaderPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<InputReplyStateHeaderPropsWithContext<ErmisChatGenerics>>;
 
 export const InputReplyStateHeader = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: InputReplyStateHeaderProps<StreamChatGenerics>,
+  props: InputReplyStateHeaderProps<ErmisChatGenerics>,
 ) => {
-  const { clearQuotedMessageState, resetInput } = useMessageInputContext<StreamChatGenerics>();
+  const { clearQuotedMessageState, resetInput } = useMessageInputContext<ErmisChatGenerics>();
 
   return <MemoizedInputReplyStateHeader {...{ clearQuotedMessageState, resetInput }} {...props} />;
 };

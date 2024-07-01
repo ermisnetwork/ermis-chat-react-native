@@ -7,7 +7,7 @@ import { useMessageActionAnimation } from './hooks/useMessageActionAnimation';
 
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useViewport } from '../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { MessageOverlayPropsWithContext } from '../MessageOverlay/MessageOverlay';
 
 export type ActionType =
@@ -50,10 +50,10 @@ export type MessageActionType = {
 };
 
 export type MessageActionListItemProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = MessageActionType &
   Pick<
-    MessageOverlayPropsWithContext<StreamChatGenerics>,
+    MessageOverlayPropsWithContext<ErmisChatGenerics>,
     'error' | 'isMyMessage' | 'isThreadMessage' | 'message' | 'messageReactions'
   > & {
     index: number;
@@ -61,9 +61,9 @@ export type MessageActionListItemProps<
   };
 
 const MessageActionListItemWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageActionListItemProps<StreamChatGenerics>,
+  props: MessageActionListItemProps<ErmisChatGenerics>,
 ) => {
   const { action, actionType, icon, index, length, title, titleStyle } = props;
   const { vw } = useViewport();
@@ -101,10 +101,10 @@ const MessageActionListItemWithContext = <
 };
 
 const messageActionIsEqual = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  prevProps: MessageActionListItemProps<StreamChatGenerics>,
-  nextProps: MessageActionListItemProps<StreamChatGenerics>,
+  prevProps: MessageActionListItemProps<ErmisChatGenerics>,
+  nextProps: MessageActionListItemProps<ErmisChatGenerics>,
 ) => prevProps.length === nextProps.length;
 
 export const MemoizedMessageActionListItem = React.memo(
@@ -116,9 +116,9 @@ export const MemoizedMessageActionListItem = React.memo(
  * MessageActionListItem - A high-level component that implements all the logic required for a `MessageAction` in a `MessageActionList`
  */
 export const MessageActionListItem = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageActionListItemProps<StreamChatGenerics>,
+  props: MessageActionListItemProps<ErmisChatGenerics>,
 ) => <MemoizedMessageActionListItem {...props} />;
 
 const styles = StyleSheet.create({

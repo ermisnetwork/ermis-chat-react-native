@@ -15,9 +15,9 @@ import { usePaginatedAttachments } from '../hooks/usePaginatedAttachments';
 import { File } from '../icons/File';
 
 import type { RouteProp } from '@react-navigation/native';
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
-import type { StackNavigatorParamList, StreamChatGenerics } from '../types';
+import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -90,7 +90,7 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
 
   const [sections, setSections] = useState<
     Array<{
-      data: Attachment<StreamChatGenerics>[];
+      data: Attachment<ErmisChatGenerics>[];
       title: string;
     }>
   >([]);
@@ -99,7 +99,7 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
     const newSections: Record<
       string,
       {
-        data: Attachment<StreamChatGenerics>[];
+        data: Attachment<ErmisChatGenerics>[];
         title: string;
       }
     > = {};
@@ -139,7 +139,7 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
       <ScreenHeader titleText='Files' />
       <ThemeProvider>
         {(sections.length > 0 || !loading) && (
-          <SectionList<Attachment<StreamChatGenerics>>
+          <SectionList<Attachment<ErmisChatGenerics>>
             contentContainerStyle={styles.sectionContentContainer}
             ListEmptyComponent={EmptyListComponent}
             onEndReached={loadMore}

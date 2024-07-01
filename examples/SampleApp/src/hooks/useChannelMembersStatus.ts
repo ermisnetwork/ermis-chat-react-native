@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { getUserActivityStatus } from '../utils/getUserActivityStatus';
 
-import type { Channel } from 'stream-chat';
+import type { Channel } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../types';
+import type { ErmisChatGenerics } from '../types';
 
-export const useChannelMembersStatus = (channel: Channel<StreamChatGenerics>) => {
+export const useChannelMembersStatus = (channel: Channel<ErmisChatGenerics>) => {
   const watchersCount = channel.state.watcher_count;
   const memberCount = channel?.data?.member_count;
 

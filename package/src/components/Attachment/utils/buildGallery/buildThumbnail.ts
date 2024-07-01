@@ -1,16 +1,16 @@
 import type { ImageResizeMode } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import type { Thumbnail } from './types';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 
 import { getResizedImageUrl } from '../../../../utils/getResizedImageUrl';
 import { getUrlOfImageAttachment } from '../../../../utils/getUrlOfImageAttachment';
 
 export function buildThumbnail<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   height,
   image,
@@ -18,7 +18,7 @@ export function buildThumbnail<
   width,
 }: {
   height: number;
-  image: Attachment<StreamChatGenerics>;
+  image: Attachment<ErmisChatGenerics>;
   width: number;
   resizeMode?: ImageResizeMode;
 }): Thumbnail {
@@ -40,10 +40,10 @@ export function buildThumbnail<
     type: image.type,
     url: shouldResize
       ? getResizedImageUrl({
-          height,
-          url: imageUrl,
-          width,
-        })
+        height,
+        url: imageUrl,
+        width,
+      })
       : imageUrl,
     width,
   };

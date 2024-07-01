@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import type { Channel, StreamChat } from 'stream-chat';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const getChannelPreviewDisplayPresence = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
-  client: StreamChat<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
 ) => {
   const currentUserId = client.userID;
 
@@ -32,11 +32,11 @@ const getChannelPreviewDisplayPresence = <
  * @returns {boolean} e.g., true
  */
 export const useChannelPreviewDisplayPresence = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
 ) => {
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
 
   const currentUserId = client.userID;
   const members = Object.values(channel.state.members).filter(

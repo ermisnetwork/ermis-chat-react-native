@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import type { SuggestionCommand } from '../../contexts/suggestionsContext/SuggestionsContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { Flag, GiphyIcon, Imgur, Lightning, Mute, Sound, UserAdd, UserDelete } from '../../icons';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -18,11 +18,11 @@ const styles = StyleSheet.create({
 });
 
 export const AutoCompleteSuggestionCommandIcon = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   name,
 }: {
-  name: SuggestionCommand<StreamChatGenerics>['name'];
+  name: SuggestionCommand<ErmisChatGenerics>['name'];
 }) => {
   const {
     theme: {

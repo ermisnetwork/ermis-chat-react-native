@@ -16,13 +16,13 @@ import {
   State,
 } from 'simple-markdown';
 
-import type { UserResponse } from 'stream-chat';
+import type { UserResponse } from 'ermis-chat-sdk-test';
 
 import { generateMarkdownText } from './generateMarkdownText';
 
 import type { MessageContextValue } from '../../../../contexts/messageContext/MessageContext';
 import type { Colors, MarkdownStyle } from '../../../../contexts/themeContext/utils/theme';
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 import type { MessageType } from '../../../MessageList/hooks/useMessageList';
 
 const defaultMarkdownStyles: MarkdownStyle = {
@@ -68,12 +68,12 @@ const mentionsParseFunction: ParseFunction = (capture, parse, state) => ({
 export type MarkdownRules = Partial<DefaultRules>;
 
 export type RenderTextParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Partial<
-  Pick<MessageContextValue<StreamChatGenerics>, 'onLongPress' | 'onPress' | 'preventPress'>
+  Pick<MessageContextValue<ErmisChatGenerics>, 'onLongPress' | 'onPress' | 'preventPress'>
 > & {
   colors: typeof Colors;
-  message: MessageType<StreamChatGenerics>;
+  message: MessageType<ErmisChatGenerics>;
   markdownRules?: MarkdownRules;
   markdownStyles?: MarkdownStyle;
   messageOverlay?: boolean;
@@ -83,9 +83,9 @@ export type RenderTextParams<
 };
 
 export const renderText = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  params: RenderTextParams<StreamChatGenerics>,
+  params: RenderTextParams<ErmisChatGenerics>,
 ) => {
   const {
     colors,
@@ -235,7 +235,7 @@ export const renderText = <
         onPressParam({
           additionalInfo: {
             user: mentioned_users?.find(
-              (user: UserResponse<StreamChatGenerics>) => userName === user.name,
+              (user: UserResponse<ErmisChatGenerics>) => userName === user.name,
             ),
           },
           emitter: 'textMention',
@@ -284,21 +284,20 @@ export const renderText = <
     sublist: { react: listReact },
     ...(mentionedUsers
       ? {
-          mentions: {
-            match: mentionsMatchFunction,
-            order: defaultRules.text.order - 0.5,
-            parse: mentionsParseFunction,
-            react: mentionsReact,
-          },
-        }
+        mentions: {
+          match: mentionsMatchFunction,
+          order: defaultRules.text.order - 0.5,
+          parse: mentionsParseFunction,
+          react: mentionsReact,
+        },
+      }
       : {}),
   };
 
   return (
     <Markdown
-      key={`${JSON.stringify(mentioned_users)}-${onlyEmojis}-${
-        messageOverlay ? JSON.stringify(markdownStyles) : undefined
-      }-${JSON.stringify(colors)}`}
+      key={`${JSON.stringify(mentioned_users)}-${onlyEmojis}-${messageOverlay ? JSON.stringify(markdownStyles) : undefined
+        }-${JSON.stringify(colors)}`}
       onLink={onLink}
       rules={{
         ...customRules,

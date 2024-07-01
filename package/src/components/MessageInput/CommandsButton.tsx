@@ -14,20 +14,20 @@ import {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { Lightning } from '../../icons/Lightning';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 type CommandsButtonPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelContextValue<StreamChatGenerics>, 'disabled'> &
-  Pick<SuggestionsContextValue<StreamChatGenerics>, 'suggestions'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelContextValue<ErmisChatGenerics>, 'disabled'> &
+  Pick<SuggestionsContextValue<ErmisChatGenerics>, 'suggestions'> & {
     /** Function that opens commands selector */
     handleOnPress?: ((event: GestureResponderEvent) => void) & (() => void);
   };
 
 const CommandsButtonWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: CommandsButtonPropsWithContext<StreamChatGenerics>,
+  props: CommandsButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { disabled, handleOnPress, suggestions } = props;
 
@@ -56,9 +56,9 @@ const CommandsButtonWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: CommandsButtonPropsWithContext<StreamChatGenerics>,
-  nextProps: CommandsButtonPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: CommandsButtonPropsWithContext<ErmisChatGenerics>,
+  nextProps: CommandsButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { disabled: prevDisabled, suggestions: prevSuggestions } = prevProps;
   const { disabled: nextDisabled, suggestions: nextSuggestions } = nextProps;
@@ -78,19 +78,19 @@ const MemoizedCommandsButton = React.memo(
 ) as typeof CommandsButtonWithContext;
 
 export type CommandsButtonProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<CommandsButtonPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<CommandsButtonPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * UI Component for attach button in MessageInput component.
  */
 export const CommandsButton = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: CommandsButtonProps<StreamChatGenerics>,
+  props: CommandsButtonProps<ErmisChatGenerics>,
 ) => {
-  const { disabled = false } = useChannelContext<StreamChatGenerics>();
-  const { suggestions } = useSuggestionsContext<StreamChatGenerics>();
+  const { disabled = false } = useChannelContext<ErmisChatGenerics>();
+  const { suggestions } = useSuggestionsContext<ErmisChatGenerics>();
 
   return <MemoizedCommandsButton {...{ disabled, suggestions }} {...props} />;
 };

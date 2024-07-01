@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
 
 import type { PaginatedMessageListContextValue } from '../../../contexts/paginatedMessageListContext/PaginatedMessageListContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { reduceMessagesToString } from '../../../utils/utils';
 
 export const useCreatePaginatedMessageListContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channelId,
   hasMore,
@@ -17,12 +17,12 @@ export const useCreatePaginatedMessageListContext = <
   messages,
   setLoadingMore,
   setLoadingMoreRecent,
-}: PaginatedMessageListContextValue<StreamChatGenerics> & {
+}: PaginatedMessageListContextValue<ErmisChatGenerics> & {
   channelId?: string;
 }) => {
   const messagesStr = reduceMessagesToString(messages);
 
-  const paginatedMessagesContext: PaginatedMessageListContextValue<StreamChatGenerics> = useMemo(
+  const paginatedMessagesContext: PaginatedMessageListContextValue<ErmisChatGenerics> = useMemo(
     () => ({
       hasMore,
       hasNoMoreRecentMessagesToLoad,

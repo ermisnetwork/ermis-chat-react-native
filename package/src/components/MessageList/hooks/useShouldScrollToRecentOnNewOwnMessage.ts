@@ -1,12 +1,12 @@
 import { useEffect, useRef } from 'react';
 
-import type { FormatMessageResponse } from 'stream-chat';
+import type { FormatMessageResponse } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export function useShouldScrollToRecentOnNewOwnMessage<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
->(rawMessageList: FormatMessageResponse<StreamChatGenerics>[], currentUserId?: string) {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+>(rawMessageList: FormatMessageResponse<ErmisChatGenerics>[], currentUserId?: string) {
   const lastFocusedOwnMessageId = useRef('');
   const initialFocusRegistered = useRef(false);
   const messagesRef = useRef(rawMessageList);

@@ -1,12 +1,12 @@
-import type { Channel, ReactionResponse, UserResponse } from 'stream-chat';
+import type { Channel, ReactionResponse, UserResponse } from 'ermis-chat-sdk-test';
 
 import { updateReaction } from '../store/apis';
 import { insertReaction } from '../store/apis/insertReaction';
 
-import type { DefaultStreamChatGenerics } from '../types/types';
+import type { DefaultErmisChatGenerics } from '../types/types';
 
 export const addReactionToLocalState = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   enforceUniqueReaction,
@@ -14,11 +14,11 @@ export const addReactionToLocalState = <
   reactionType,
   user,
 }: {
-  channel: Channel<StreamChatGenerics>;
+  channel: Channel<ErmisChatGenerics>;
   enforceUniqueReaction: boolean;
   messageId: string;
   reactionType: string;
-  user: UserResponse<StreamChatGenerics>;
+  user: UserResponse<ErmisChatGenerics>;
 }) => {
   const message = channel.state.messages.find(({ id }) => id === messageId);
 

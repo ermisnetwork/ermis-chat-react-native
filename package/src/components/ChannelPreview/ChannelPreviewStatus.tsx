@@ -9,7 +9,7 @@ import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../contexts/translationContext/TranslationContext';
 import { Check, CheckAll } from '../../icons';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getDateString } from '../../utils/i18n/getDateString';
 
 const styles = StyleSheet.create({
@@ -24,17 +24,17 @@ const styles = StyleSheet.create({
 });
 
 export type ChannelPreviewStatusProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  ChannelPreviewMessengerPropsWithContext<StreamChatGenerics>,
+  ChannelPreviewMessengerPropsWithContext<ErmisChatGenerics>,
   'latestMessagePreview' | 'formatLatestMessageDate'
 > &
-  Pick<ChannelPreviewProps<StreamChatGenerics>, 'channel'>;
+  Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'>;
 
 export const ChannelPreviewStatus = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewStatusProps<StreamChatGenerics>,
+  props: ChannelPreviewStatusProps<ErmisChatGenerics>,
 ) => {
   const { formatLatestMessageDate, latestMessagePreview } = props;
   const { t, tDateTimeParser } = useTranslationContext();

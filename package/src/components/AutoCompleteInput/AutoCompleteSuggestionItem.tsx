@@ -12,13 +12,13 @@ import type {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import type { Emoji } from '../../emoji-data';
 import { AtMentions } from '../../icons/AtMentions';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { Avatar } from '../Avatar/Avatar';
 
 export type AutoCompleteSuggestionItemPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<SuggestionsContextValue, 'triggerType'> & {
-  itemProps: Suggestion<StreamChatGenerics>;
+  itemProps: Suggestion<ErmisChatGenerics>;
 };
 
 const styles = StyleSheet.create({
@@ -56,11 +56,11 @@ const styles = StyleSheet.create({
 });
 
 const AutoCompleteSuggestionItemWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   itemProps,
   triggerType,
-}: AutoCompleteSuggestionItemPropsWithContext<StreamChatGenerics>) => {
+}: AutoCompleteSuggestionItemPropsWithContext<ErmisChatGenerics>) => {
   const {
     theme: {
       colors: { accent_blue, black, grey },
@@ -75,7 +75,7 @@ const AutoCompleteSuggestionItemWithContext = <
   } = useTheme();
 
   if (triggerType === 'mention') {
-    const { id, image, name, online } = itemProps as SuggestionUser<StreamChatGenerics>;
+    const { id, image, name, online } = itemProps as SuggestionUser<ErmisChatGenerics>;
     return (
       <View style={[styles.container, mentionContainer]}>
         <Avatar image={image} name={name} online={online} size={avatarSize} />
@@ -100,7 +100,7 @@ const AutoCompleteSuggestionItemWithContext = <
       </View>
     );
   } else if (triggerType === 'command') {
-    const { args, name } = itemProps as SuggestionCommand<StreamChatGenerics>;
+    const { args, name } = itemProps as SuggestionCommand<ErmisChatGenerics>;
     return (
       <View style={[styles.container, commandContainer]}>
         <AutoCompleteSuggestionCommandIcon name={name} />
@@ -117,9 +117,9 @@ const AutoCompleteSuggestionItemWithContext = <
   }
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AutoCompleteSuggestionItemPropsWithContext<StreamChatGenerics>,
-  nextProps: AutoCompleteSuggestionItemPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AutoCompleteSuggestionItemPropsWithContext<ErmisChatGenerics>,
+  nextProps: AutoCompleteSuggestionItemPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { itemProps: prevItemProps, triggerType: prevType } = prevProps;
   const { itemProps: nextItemProps, triggerType: nextType } = nextProps;
@@ -136,13 +136,13 @@ const MemoizedAutoCompleteSuggestionItem = React.memo(
 ) as typeof AutoCompleteSuggestionItemWithContext;
 
 export type AutoCompleteSuggestionItemProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = AutoCompleteSuggestionItemPropsWithContext<StreamChatGenerics>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = AutoCompleteSuggestionItemPropsWithContext<ErmisChatGenerics>;
 
 export const AutoCompleteSuggestionItem = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AutoCompleteSuggestionItemProps<StreamChatGenerics>,
+  props: AutoCompleteSuggestionItemProps<ErmisChatGenerics>,
 ) => <MemoizedAutoCompleteSuggestionItem {...props} />;
 
 AutoCompleteSuggestionItem.displayName =

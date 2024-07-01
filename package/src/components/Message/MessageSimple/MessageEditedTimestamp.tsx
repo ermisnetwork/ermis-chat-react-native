@@ -8,18 +8,18 @@ import {
 import { MessagesContextValue } from '../../../contexts/messagesContext/MessagesContext';
 import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
-import { DefaultStreamChatGenerics } from '../../../types/types';
+import { DefaultErmisChatGenerics } from '../../../types/types';
 import { isEditedMessage } from '../../../utils/utils';
 
 export type MessageEditedTimestampProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Pick<MessageContextValue<StreamChatGenerics>, 'message'>> &
-  Partial<Pick<MessagesContextValue<StreamChatGenerics>, 'MessageTimestamp'>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Pick<MessageContextValue<ErmisChatGenerics>, 'message'>> &
+  Partial<Pick<MessagesContextValue<ErmisChatGenerics>, 'MessageTimestamp'>>;
 
 export const MessageEditedTimestamp = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: MessageEditedTimestampProps<StreamChatGenerics>,
+  props: MessageEditedTimestampProps<ErmisChatGenerics>,
 ) => {
   const { message: propMessage, MessageTimestamp } = props;
   const {
@@ -31,7 +31,7 @@ export const MessageEditedTimestamp = <
     },
   } = useTheme();
   const { t } = useTranslationContext();
-  const { message: contextMessage } = useMessageContext<StreamChatGenerics>();
+  const { message: contextMessage } = useMessageContext<ErmisChatGenerics>();
   const message = propMessage || contextMessage;
 
   if (!isEditedMessage(message)) {

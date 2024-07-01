@@ -1,6 +1,6 @@
 import { generateRandomId } from 'stream-chat-react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 const messageSearchByFileAttachmentType = () => {
   const attachments: Attachment[] = [

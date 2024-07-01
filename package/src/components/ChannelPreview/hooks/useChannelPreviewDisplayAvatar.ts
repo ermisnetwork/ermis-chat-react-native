@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import type { Channel, StreamChat } from 'stream-chat';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const getChannelPreviewDisplayAvatar = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
-  client: StreamChat<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
 ) => {
   const currentUserId = client?.user?.id;
   const channelId = channel?.id;
@@ -55,11 +55,11 @@ export const getChannelPreviewDisplayAvatar = <
  * @returns {object} e.g., { image: 'http://dummyurl.com/test.png', name: 'Uhtred Bebbanburg' }
  */
 export const useChannelPreviewDisplayAvatar = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
 ) => {
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
 
   const channelData = channel?.data;
   const image = channelData?.image;

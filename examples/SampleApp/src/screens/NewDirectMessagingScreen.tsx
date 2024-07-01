@@ -19,10 +19,10 @@ import { useAppContext } from '../context/AppContext';
 import { useUserSearchContext } from '../context/UserSearchContext';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
-import type { Channel as StreamChatChannel } from 'stream-chat';
+import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk-test';
 
 import { NewDirectMessagingSendButton } from '../components/NewDirectMessagingSendButton';
-import type { StackNavigatorParamList, StreamChatGenerics } from '../types';
+import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -136,7 +136,7 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
 
   const messageInputRef = useRef<TextInput | null>(null);
   const searchInputRef = useRef<TextInput>(null);
-  const currentChannel = useRef<StreamChatChannel<StreamChatGenerics>>();
+  const currentChannel = useRef<ErmisChatChannel<ErmisChatGenerics>>();
   const isDraft = useRef(true);
 
   const [focusOnMessageInput, setFocusOnMessageInput] = useState(false);
@@ -312,7 +312,7 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
         },
       ]}
     >
-      <Channel<StreamChatGenerics>
+      <Channel<ErmisChatGenerics>
         additionalTextInputProps={{
           onFocus: () => {
             setFocusOnMessageInput(true);

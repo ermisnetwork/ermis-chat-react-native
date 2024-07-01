@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 // See https://github.com/software-mansion/react-native-gesture-handler/issues/598
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 
-import type { Channel } from 'stream-chat';
+import type { Channel } from 'ermis-chat-sdk-test';
 
 import {
   ChannelsContextValue,
@@ -13,7 +13,7 @@ import { useChatContext } from '../../contexts/chatContext/ChatContext';
 import { useDebugContext } from '../../contexts/debugContext/DebugContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { ChannelPreview } from '../ChannelPreview/ChannelPreview';
 
 const styles = StyleSheet.create({
@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
 });
 
 export type ChannelListMessengerPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Omit<
-  ChannelsContextValue<StreamChatGenerics>,
+  ChannelsContextValue<ErmisChatGenerics>,
   | 'HeaderErrorIndicator'
   | 'HeaderNetworkDownIndicator'
   | 'maxUnreadCount'
@@ -40,11 +40,11 @@ export type ChannelListMessengerPropsWithContext<
 >;
 
 const StatusIndicator = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
-  const { isOnline } = useChatContext<StreamChatGenerics>();
+  const { isOnline } = useChatContext<ErmisChatGenerics>();
   const { error, HeaderErrorIndicator, HeaderNetworkDownIndicator, loadingChannels, refreshList } =
-    useChannelsContext<StreamChatGenerics>();
+    useChannelsContext<ErmisChatGenerics>();
 
   if (loadingChannels) return null;
 
@@ -65,23 +65,23 @@ const StatusIndicator = <
 };
 
 const renderItem = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   item,
 }: {
-  item: Channel<StreamChatGenerics>;
-}) => <ChannelPreview<StreamChatGenerics> channel={item} />;
+  item: Channel<ErmisChatGenerics>;
+}) => <ChannelPreview<ErmisChatGenerics> channel={item} />;
 
 const keyExtractor = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  item: Channel<StreamChatGenerics>,
+  item: Channel<ErmisChatGenerics>,
 ) => item.cid;
 
 const ChannelListMessengerWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelListMessengerPropsWithContext<StreamChatGenerics>,
+  props: ChannelListMessengerPropsWithContext<ErmisChatGenerics>,
 ) => {
   const onEndReachedCalledDuringCurrentScrollRef = useRef<boolean>(false);
   const {
@@ -192,14 +192,14 @@ const ChannelListMessengerWithContext = <
         testID='channel-list-messenger'
         {...additionalFlatListProps}
       />
-      <StatusIndicator<StreamChatGenerics> />
+      <StatusIndicator<ErmisChatGenerics> />
     </>
   );
 };
 
 export type ChannelListMessengerProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<ChannelListMessengerPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<ChannelListMessengerPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * This UI component displays the preview list of channels and handles Channel navigation. It
@@ -208,9 +208,9 @@ export type ChannelListMessengerProps<
  * @example ./ChannelListMessenger.md
  */
 export const ChannelListMessenger = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelListMessengerProps<StreamChatGenerics>,
+  props: ChannelListMessengerProps<ErmisChatGenerics>,
 ) => {
   const {
     additionalFlatListProps,
@@ -231,7 +231,7 @@ export const ChannelListMessenger = <
     refreshList,
     reloadList,
     setFlatListRef,
-  } = useChannelsContext<StreamChatGenerics>();
+  } = useChannelsContext<ErmisChatGenerics>();
 
   return (
     <ChannelListMessengerWithContext

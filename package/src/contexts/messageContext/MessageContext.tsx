@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import type { ActionHandler } from '../../components/Attachment/Attachment';
 import { ReactionSummary } from '../../components/Message/hooks/useProcessReactions';
@@ -13,7 +13,7 @@ import type { ChannelContextValue } from '../../contexts/channelContext/ChannelC
 import type { MessageContentType } from '../../contexts/messagesContext/MessagesContext';
 import type { DeepPartial } from '../../contexts/themeContext/ThemeContext';
 import type { Theme } from '../../contexts/themeContext/utils/theme';
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
@@ -21,14 +21,14 @@ import { getDisplayName } from '../utils/getDisplayName';
 export type Alignment = 'right' | 'left';
 
 export type MessageContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /** Whether or not actions can be performed on message */
   actionsEnabled: boolean;
   /** Position of the message, either 'right' or 'left' */
   alignment: Alignment;
   /** The files attached to a message */
-  files: Attachment<StreamChatGenerics>[];
+  files: Attachment<ErmisChatGenerics>[];
   /**
    * Position of message in group - top, bottom, middle, single.
    *
@@ -48,7 +48,7 @@ export type MessageContextValue<
   /** Whether or not message has reactions */
   hasReactions: boolean;
   /** The images attached to a message */
-  images: Attachment<StreamChatGenerics>[];
+  images: Attachment<ErmisChatGenerics>[];
   /** Boolean that determines if the edited message is pressed. */
   isEditedMessageOpen: boolean;
   /** Whether or not this is the active user's message */
@@ -56,7 +56,7 @@ export type MessageContextValue<
   /** Whether or not this is the last message in a group of messages */
   lastGroupMessage: boolean;
   /** Current [message object](https://getstream.io/chat/docs/#message_format) */
-  message: MessageType<StreamChatGenerics>;
+  message: MessageType<ErmisChatGenerics>;
   /** Order to render the message content */
   messageContentOrder: MessageContentType[];
   /**
@@ -87,7 +87,7 @@ export type MessageContextValue<
   onPress: (payload: MessageTouchableHandlerPayload) => void;
   onPressIn: ((payload: TouchableHandlerPayload) => void) | null;
   /** The images attached to a message */
-  otherAttachments: Attachment<StreamChatGenerics>[];
+  otherAttachments: Attachment<ErmisChatGenerics>[];
   reactions: ReactionSummary[];
   /** React set state function to set the state of `isEditedMessageOpen` */
   setIsEditedMessageOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -96,7 +96,7 @@ export type MessageContextValue<
   /** Whether or not the Message is part of a Thread */
   threadList: boolean;
   /** The videos attached to a message */
-  videos: Attachment<StreamChatGenerics>[];
+  videos: Attachment<ErmisChatGenerics>[];
   goToMessage?: (messageId: string) => void;
   /** Latest message id on current channel */
   lastReceivedId?: string;
@@ -108,19 +108,19 @@ export type MessageContextValue<
   preventPress?: boolean;
   /** Whether or not the avatar show show next to Message */
   showAvatar?: boolean;
-} & Pick<ChannelContextValue<StreamChatGenerics>, 'channel' | 'disabled' | 'members'>;
+} & Pick<ChannelContextValue<ErmisChatGenerics>, 'channel' | 'disabled' | 'members'>;
 
 export const MessageContext = React.createContext(
   DEFAULT_BASE_CONTEXT_VALUE as MessageContextValue,
 );
 
 export const MessageProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value?: MessageContextValue<StreamChatGenerics>;
+  value?: MessageContextValue<ErmisChatGenerics>;
 }>) => (
   <MessageContext.Provider value={value as unknown as MessageContextValue}>
     {children}
@@ -128,11 +128,11 @@ export const MessageProvider = <
 );
 
 export const useMessageContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     MessageContext,
-  ) as unknown as MessageContextValue<StreamChatGenerics>;
+  ) as unknown as MessageContextValue<ErmisChatGenerics>;
 
   return contextValue;
 };
@@ -148,14 +148,14 @@ export const useMessageContext = <
  */
 export const withMessageContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof MessageContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof MessageContextValue<ErmisChatGenerics>>> => {
   const WithMessageContextComponent = (
-    props: Omit<P, keyof MessageContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof MessageContextValue<ErmisChatGenerics>>,
   ) => {
-    const messageContext = useMessageContext<StreamChatGenerics>();
+    const messageContext = useMessageContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...messageContext} />;
   };

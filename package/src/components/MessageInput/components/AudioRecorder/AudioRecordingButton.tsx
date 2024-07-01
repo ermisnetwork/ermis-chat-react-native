@@ -14,12 +14,12 @@ import { useTranslationContext } from '../../../../contexts/translationContext/T
 import { Mic } from '../../../../icons/Mic';
 import { AudioRecordingReturnType, triggerHaptic } from '../../../../native';
 
-import type { DefaultStreamChatGenerics } from '../../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../../types/types';
 
 type AudioRecordingButtonPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelContextValue<StreamChatGenerics>, 'disabled'> &
-  Pick<MessageInputContextValue<StreamChatGenerics>, 'asyncMessagesMinimumPressDuration'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelContextValue<ErmisChatGenerics>, 'disabled'> &
+  Pick<MessageInputContextValue<ErmisChatGenerics>, 'asyncMessagesMinimumPressDuration'> & {
     /**
      * The current voice recording that is in progress.
      */
@@ -47,9 +47,9 @@ type AudioRecordingButtonPropsWithContext<
   };
 
 const AudioRecordingButtonWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AudioRecordingButtonPropsWithContext<StreamChatGenerics>,
+  props: AudioRecordingButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     asyncMessagesMinimumPressDuration,
@@ -126,9 +126,9 @@ const AudioRecordingButtonWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: AudioRecordingButtonPropsWithContext<StreamChatGenerics>,
-  nextProps: AudioRecordingButtonPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: AudioRecordingButtonPropsWithContext<ErmisChatGenerics>,
+  nextProps: AudioRecordingButtonPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     asyncMessagesMinimumPressDuration: prevAsyncMessagesMinimumPressDuration,
@@ -160,8 +160,8 @@ const MemoizedAudioRecordingButton = React.memo(
 ) as typeof AudioRecordingButtonWithContext;
 
 export type AudioRecordingButtonProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<AudioRecordingButtonPropsWithContext<StreamChatGenerics>> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<AudioRecordingButtonPropsWithContext<ErmisChatGenerics>> & {
   recording: AudioRecordingReturnType;
 };
 
@@ -169,12 +169,12 @@ export type AudioRecordingButtonProps<
  * Component to display the mic button on the Message Input.
  */
 export const AudioRecordingButton = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: AudioRecordingButtonProps<StreamChatGenerics>,
+  props: AudioRecordingButtonProps<ErmisChatGenerics>,
 ) => {
-  const { disabled = false } = useChannelContext<StreamChatGenerics>();
-  const { asyncMessagesMinimumPressDuration } = useMessageInputContext<StreamChatGenerics>();
+  const { disabled = false } = useChannelContext<ErmisChatGenerics>();
+  const { asyncMessagesMinimumPressDuration } = useMessageInputContext<ErmisChatGenerics>();
 
   return (
     <MemoizedAudioRecordingButton {...{ asyncMessagesMinimumPressDuration, disabled }} {...props} />

@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
-import type { Channel, MessageResponse } from 'stream-chat';
+import type { Channel, MessageResponse } from 'ermis-chat-sdk-test';
 
-import type { StreamChatGenerics } from '../types';
+import type { ErmisChatGenerics } from '../types';
 
 export const usePaginatedAttachments = (
-  channel: Channel<StreamChatGenerics>,
+  channel: Channel<ErmisChatGenerics>,
   attachmentType: string,
 ) => {
   const { chatClient } = useAppContext();
@@ -15,7 +15,7 @@ export const usePaginatedAttachments = (
   const hasMoreResults = useRef(true);
   const queryInProgress = useRef(false);
   const [loading, setLoading] = useState(true);
-  const [messages, setMessages] = useState<MessageResponse<StreamChatGenerics>[]>([]);
+  const [messages, setMessages] = useState<MessageResponse<ErmisChatGenerics>[]>([]);
 
   const fetchAttachments = async () => {
     if (queryInProgress.current) {

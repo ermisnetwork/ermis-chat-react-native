@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 
 import type { TouchableOpacityProps } from 'react-native';
 
-import type { Attachment, ChannelState, MessageResponse } from 'stream-chat';
+import type { Attachment, ChannelState, MessageResponse } from 'ermis-chat-sdk-test';
 
 import type { AttachmentProps } from '../../components/Attachment/Attachment';
 import type { AttachmentActionsProps } from '../../components/Attachment/AttachmentActions';
@@ -49,7 +49,7 @@ import type { MessageActionType } from '../../components/MessageOverlay/MessageA
 import type { OverlayReactionListProps } from '../../components/MessageOverlay/OverlayReactionList';
 import type { ReplyProps } from '../../components/Reply/Reply';
 import type { FlatList } from '../../native';
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import type { ReactionData } from '../../utils/utils';
 import type { Alignment } from '../messageContext/MessageContext';
 import type { SuggestionCommand } from '../suggestionsContext/SuggestionsContext';
@@ -64,31 +64,31 @@ export type MessageContentType = 'attachments' | 'files' | 'gallery' | 'quoted_r
 export type DeletedMessagesVisibilityType = 'always' | 'never' | 'receiver' | 'sender';
 
 export type MessagesContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
    * UI component for Attachment.
    * Defaults to: [Attachment](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Attachment.tsx)
    */
-  Attachment: React.ComponentType<AttachmentProps<StreamChatGenerics>>;
+  Attachment: React.ComponentType<AttachmentProps<ErmisChatGenerics>>;
   /**
    * UI component to display AttachmentActions. e.g., send, shuffle, cancel in case of giphy
    * Defaults to: [AttachmentActions](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/AttachmentActions.tsx)
    */
-  AttachmentActions: React.ComponentType<AttachmentActionsProps<StreamChatGenerics>>;
+  AttachmentActions: React.ComponentType<AttachmentActionsProps<ErmisChatGenerics>>;
   /** Custom UI component for AudioAttachment. */
   AudioAttachment: React.ComponentType<AudioAttachmentProps>;
   /**
    * UI component to display generic media type e.g. giphy, url preview etc
    * Defaults to: [Card](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Card.tsx)
    */
-  Card: React.ComponentType<CardProps<StreamChatGenerics>>;
+  Card: React.ComponentType<CardProps<ErmisChatGenerics>>;
   /**
    * UI component for DateHeader
    * Defaults to: [DateHeader](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageList/DateHeader.tsx)
    **/
   DateHeader: React.ComponentType<DateHeaderProps>;
-  deleteMessage: (message: MessageResponse<StreamChatGenerics>) => Promise<void>;
+  deleteMessage: (message: MessageResponse<ErmisChatGenerics>) => Promise<void>;
   deleteReaction: (type: string, messageId: string) => Promise<void>;
 
   /** Should keyboard be dismissed when messaged is touched */
@@ -100,12 +100,12 @@ export type MessagesContextValue<
    * UI component to display File type attachment.
    * Defaults to: [FileAttachment](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/FileAttachment.tsx)
    */
-  FileAttachment: React.ComponentType<FileAttachmentProps<StreamChatGenerics>>;
+  FileAttachment: React.ComponentType<FileAttachmentProps<ErmisChatGenerics>>;
   /**
    * UI component to display group of File type attachments or multiple file attachments (in single message).
    * Defaults to: [FileAttachmentGroup](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/FileAttachmentGroup.tsx)
    */
-  FileAttachmentGroup: React.ComponentType<FileAttachmentGroupProps<StreamChatGenerics>>;
+  FileAttachmentGroup: React.ComponentType<FileAttachmentGroupProps<ErmisChatGenerics>>;
   /**
    * UI component for attachment icon for type 'file' attachment.
    * Defaults to: https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/FileIcon.tsx
@@ -116,12 +116,12 @@ export type MessagesContextValue<
    * UI component to display image attachments
    * Defaults to: [Gallery](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Gallery.tsx)
    */
-  Gallery: React.ComponentType<GalleryProps<StreamChatGenerics>>;
+  Gallery: React.ComponentType<GalleryProps<ErmisChatGenerics>>;
   /**
    * UI component for Giphy
    * Defaults to: [Giphy](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Giphy.tsx)
    */
-  Giphy: React.ComponentType<GiphyProps<StreamChatGenerics>>;
+  Giphy: React.ComponentType<GiphyProps<ErmisChatGenerics>>;
   /**
    * The giphy version to render - check the keys of the [Image Object](https://developers.giphy.com/docs/api/schema#image-object) for possible values. Uses 'fixed_height' by default
    * */
@@ -152,28 +152,28 @@ export type MessagesContextValue<
    **/
   InlineUnreadIndicator: React.ComponentType;
 
-  Message: React.ComponentType<MessageProps<StreamChatGenerics>>;
+  Message: React.ComponentType<MessageProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageAvatar
    * Defaults to: [MessageAvatar](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageAvatar.tsx)
    **/
-  MessageAvatar: React.ComponentType<MessageAvatarProps<StreamChatGenerics>>;
+  MessageAvatar: React.ComponentType<MessageAvatarProps<ErmisChatGenerics>>;
   /**
    * UI Component for MessageBounce
    */
-  MessageBounce: React.ComponentType<MessageBounceProps<StreamChatGenerics>>;
+  MessageBounce: React.ComponentType<MessageBounceProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageContent
    * Defaults to: [MessageContent](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageContent.tsx)
    */
-  MessageContent: React.ComponentType<MessageContentProps<StreamChatGenerics>>;
+  MessageContent: React.ComponentType<MessageContentProps<ErmisChatGenerics>>;
   /** Order to render the message content */
   messageContentOrder: MessageContentType[];
   /**
    * UI component for MessageDeleted
    * Defaults to: [MessageDeleted](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageDeleted.tsx)
    */
-  MessageDeleted: React.ComponentType<MessageDeletedProps<StreamChatGenerics>>;
+  MessageDeleted: React.ComponentType<MessageDeletedProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageEditedTimestamp
    * Defaults to: [MessageEditedTimestamp](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageEditedTimestamp.tsx)
@@ -186,38 +186,38 @@ export type MessagesContextValue<
   /**
    * Custom message footer component
    */
-  MessageFooter: React.ComponentType<MessageFooterProps<StreamChatGenerics>>;
-  MessageList: React.ComponentType<MessageListProps<StreamChatGenerics>>;
+  MessageFooter: React.ComponentType<MessageFooterProps<ErmisChatGenerics>>;
+  MessageList: React.ComponentType<MessageListProps<ErmisChatGenerics>>;
   /**
    * Custom message pinned component
    */
-  MessagePinnedHeader: React.ComponentType<MessagePinnedHeaderProps<StreamChatGenerics>>;
+  MessagePinnedHeader: React.ComponentType<MessagePinnedHeaderProps<ErmisChatGenerics>>;
 
   /**
    * UI component for MessageReplies
    * Defaults to: [MessageReplies](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageReplies.tsx)
    */
-  MessageReplies: React.ComponentType<MessageRepliesProps<StreamChatGenerics>>;
+  MessageReplies: React.ComponentType<MessageRepliesProps<ErmisChatGenerics>>;
   /**
    * UI Component for MessageRepliesAvatars
    * Defaults to: [MessageRepliesAvatars](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageRepliesAvatars.tsx)
    */
-  MessageRepliesAvatars: React.ComponentType<MessageRepliesAvatarsProps<StreamChatGenerics>>;
+  MessageRepliesAvatars: React.ComponentType<MessageRepliesAvatarsProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageSimple
    * Defaults to: [MessageSimple](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageSimple.tsx)
    */
-  MessageSimple: React.ComponentType<MessageSimpleProps<StreamChatGenerics>>;
+  MessageSimple: React.ComponentType<MessageSimpleProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageStatus (delivered/read)
    * Defaults to: [MessageStatus](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageStatus.tsx)
    */
-  MessageStatus: React.ComponentType<MessageStatusProps<StreamChatGenerics>>;
+  MessageStatus: React.ComponentType<MessageStatusProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageSystem
    * Defaults to: [MessageSystem](https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-system/)
    */
-  MessageSystem: React.ComponentType<MessageSystemProps<StreamChatGenerics>>;
+  MessageSystem: React.ComponentType<MessageSystemProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageTimestamp
    * Defaults to: [MessageTimestamp](https://github.com/GetStream/stream-chat-react-native/blob/develop/package/src/components/Message/MessageSimple/MessageTimestamp.tsx)
@@ -226,30 +226,30 @@ export type MessagesContextValue<
   /**
    * UI component for OverlayReactionList
    */
-  OverlayReactionList: React.ComponentType<OverlayReactionListProps<StreamChatGenerics>>;
+  OverlayReactionList: React.ComponentType<OverlayReactionListProps<ErmisChatGenerics>>;
   /**
    * UI component for ReactionList
    * Defaults to: [ReactionList](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Reaction/ReactionList.tsx)
    */
-  ReactionList: React.ComponentType<ReactionListProps<StreamChatGenerics>>;
+  ReactionList: React.ComponentType<ReactionListProps<ErmisChatGenerics>>;
   removeMessage: (message: { id: string; parent_id?: string }) => void;
   /**
    * UI component for Reply
    * Defaults to: [Reply](https://getstream.io/chat/docs/sdk/reactnative/ui-components/reply/)
    */
-  Reply: React.ComponentType<ReplyProps<StreamChatGenerics>>;
+  Reply: React.ComponentType<ReplyProps<ErmisChatGenerics>>;
   /**
    * Override the api request for retry message functionality.
    */
-  retrySendMessage: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  retrySendMessage: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /**
    * UI component for ScrollToBottomButton
    * Defaults to: [ScrollToBottomButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/scroll-to-bottom-button/)
    */
   ScrollToBottomButton: React.ComponentType<ScrollToBottomButtonProps>;
   sendReaction: (type: string, messageId: string) => Promise<void>;
-  setEditingState: (message?: MessageType<StreamChatGenerics>) => void;
-  setQuotedMessageState: (message: MessageType<StreamChatGenerics> | boolean) => void;
+  setEditingState: (message?: MessageType<ErmisChatGenerics>) => void;
+  setQuotedMessageState: (message: MessageType<ErmisChatGenerics> | boolean) => void;
   supportedReactions: ReactionData[];
   /**
    * UI component for TypingIndicator
@@ -262,18 +262,18 @@ export type MessagesContextValue<
    */
   TypingIndicatorContainer: React.ComponentType<TypingIndicatorContainerProps>;
   updateMessage: (
-    updatedMessage: MessageResponse<StreamChatGenerics>,
+    updatedMessage: MessageResponse<ErmisChatGenerics>,
     extraState?: {
-      commands?: SuggestionCommand<StreamChatGenerics>[];
+      commands?: SuggestionCommand<ErmisChatGenerics>[];
       messageInput?: string;
-      threadMessages?: ChannelState<StreamChatGenerics>['threads'][string];
+      threadMessages?: ChannelState<ErmisChatGenerics>['threads'][string];
     },
   ) => void;
   /**
    * Custom UI component to display enriched url preview.
    * Defaults to https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Card.tsx
    */
-  UrlPreview: React.ComponentType<CardProps<StreamChatGenerics>>;
+  UrlPreview: React.ComponentType<CardProps<ErmisChatGenerics>>;
   VideoThumbnail: React.ComponentType<VideoThumbnailProps>;
   /**
    * Provide any additional props for `TouchableOpacity` which wraps inner MessageContent component here.
@@ -286,17 +286,17 @@ export type MessagesContextValue<
    * Custom UI component to override default cover (between Header and Footer) of Card component.
    * Accepts the same props as Card component.
    */
-  CardCover?: React.ComponentType<CardProps<StreamChatGenerics>>;
+  CardCover?: React.ComponentType<CardProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to override default Footer of Card component.
    * Accepts the same props as Card component.
    */
-  CardFooter?: React.ComponentType<CardProps<StreamChatGenerics>>;
+  CardFooter?: React.ComponentType<CardProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to override default header of Card component.
    * Accepts the same props as Card component.
    */
-  CardHeader?: React.ComponentType<CardProps<StreamChatGenerics>>;
+  CardHeader?: React.ComponentType<CardProps<ErmisChatGenerics>>;
 
   /**
    * Full override of the delete message button in the Message Actions
@@ -316,34 +316,34 @@ export type MessagesContextValue<
    */
   forceAlignMessages?: Alignment | boolean;
   getMessagesGroupStyles?: typeof getGroupStyles;
-  handleBlock?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleBlock?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to access when a copy message action is invoked */
-  handleCopy?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleCopy?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to access when a delete message action is invoked */
-  handleDelete?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleDelete?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to access when an edit message action is invoked */
-  handleEdit?: (message: MessageType<StreamChatGenerics>) => void;
+  handleEdit?: (message: MessageType<ErmisChatGenerics>) => void;
   /** Handler to access when a flag message action is invoked */
-  handleFlag?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleFlag?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to access when a mute user action is invoked */
-  handleMute?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleMute?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to access when a pin/unpin user action is invoked*/
-  handlePinMessage?: ((message: MessageType<StreamChatGenerics>) => MessageActionType) | null;
+  handlePinMessage?: ((message: MessageType<ErmisChatGenerics>) => MessageActionType) | null;
   /** Handler to access when a quoted reply action is invoked */
-  handleQuotedReply?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleQuotedReply?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to process a reaction */
   handleReaction?: (
-    message: MessageType<StreamChatGenerics>,
+    message: MessageType<ErmisChatGenerics>,
     reactionType: string,
   ) => Promise<void>;
   /** Handler to access when a retry action is invoked */
-  handleRetry?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleRetry?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to access when a thread reply action is invoked */
-  handleThreadReply?: (message: MessageType<StreamChatGenerics>) => Promise<void>;
+  handleThreadReply?: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /** Handler to deal with custom memoization logic of Attachment */
   isAttachmentEqual?: (
-    prevAttachment: Attachment<StreamChatGenerics>,
-    nextAttachment: Attachment<StreamChatGenerics>,
+    prevAttachment: Attachment<ErmisChatGenerics>,
+    nextAttachment: Attachment<ErmisChatGenerics>,
   ) => boolean;
   legacyImageViewerSwipeBehaviour?: boolean;
   /** Object specifying rules defined within simple-markdown https://github.com/Khan/simple-markdown#adding-a-simple-extension */
@@ -398,13 +398,13 @@ export type MessagesContextValue<
    *
    * @overrideType Function | Array<Objects>
    */
-  messageActions?: (param: MessageActionsParams<StreamChatGenerics>) => MessageActionType[];
+  messageActions?: (param: MessageActionsParams<ErmisChatGenerics>) => MessageActionType[];
   /**
    * Custom message header component
    */
-  MessageHeader?: React.ComponentType<MessageFooterProps<StreamChatGenerics>>;
+  MessageHeader?: React.ComponentType<MessageFooterProps<ErmisChatGenerics>>;
   /** Custom UI component for message text */
-  MessageText?: React.ComponentType<MessageTextProps<StreamChatGenerics>>;
+  MessageText?: React.ComponentType<MessageTextProps<ErmisChatGenerics>>;
 
   /**
    * Theme provided only to messages that are the current users
@@ -436,7 +436,7 @@ export type MessagesContextValue<
    * />
    * ```
    */
-  onLongPressMessage?: (payload: MessageTouchableHandlerPayload<StreamChatGenerics>) => void;
+  onLongPressMessage?: (payload: MessageTouchableHandlerPayload<ErmisChatGenerics>) => void;
   /**
    * Add onPressIn handler for attachments. You have access to payload of that handler as param:
    *
@@ -463,7 +463,7 @@ export type MessagesContextValue<
    * />
    * ```
    */
-  onPressInMessage?: (payload: MessageTouchableHandlerPayload<StreamChatGenerics>) => void;
+  onPressInMessage?: (payload: MessageTouchableHandlerPayload<ErmisChatGenerics>) => void;
   /**
    * Override onPress handler for message. You have access to payload of that handler as param:
    *
@@ -490,7 +490,7 @@ export type MessagesContextValue<
    * />
    * ```
    */
-  onPressMessage?: (payload: MessageTouchableHandlerPayload<StreamChatGenerics>) => void;
+  onPressMessage?: (payload: MessageTouchableHandlerPayload<ErmisChatGenerics>) => void;
 
   /**
    * Full override of the reaction function on Message and Message Overlay
@@ -498,7 +498,7 @@ export type MessagesContextValue<
    * Please check [cookbook](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#override-or-intercept-message-actions-edit-delete-reaction-reply-etc) for details.
    * */
   selectReaction?: (
-    message: MessageType<StreamChatGenerics>,
+    message: MessageType<ErmisChatGenerics>,
   ) => (reactionType: string) => Promise<void>;
 
   targetedMessage?: string;
@@ -509,12 +509,12 @@ export const MessagesContext = React.createContext(
 );
 
 export const MessagesProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value?: MessagesContextValue<StreamChatGenerics>;
+  value?: MessagesContextValue<ErmisChatGenerics>;
 }>) => (
   <MessagesContext.Provider value={value as unknown as MessagesContextValue}>
     {children}
@@ -522,11 +522,11 @@ export const MessagesProvider = <
 );
 
 export const useMessagesContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     MessagesContext,
-  ) as unknown as MessagesContextValue<StreamChatGenerics>;
+  ) as unknown as MessagesContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -548,14 +548,14 @@ export const useMessagesContext = <
  */
 export const withMessagesContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof MessagesContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof MessagesContextValue<ErmisChatGenerics>>> => {
   const WithMessagesContextComponent = (
-    props: Omit<P, keyof MessagesContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof MessagesContextValue<ErmisChatGenerics>>,
   ) => {
-    const messagesContext = useMessagesContext<StreamChatGenerics>();
+    const messagesContext = useMessagesContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...messagesContext} />;
   };

@@ -7,7 +7,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';
 import { Close } from '../../../icons';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { getDateString } from '../../../utils/i18n/getDateString';
 import type { Photo } from '../ImageGallery';
 
@@ -47,36 +47,36 @@ const styles = StyleSheet.create({
 });
 
 export type ImageGalleryHeaderCustomComponent<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = ({
   hideOverlay,
   photo,
 }: {
   hideOverlay: () => void;
-  photo?: Photo<StreamChatGenerics>;
+  photo?: Photo<ErmisChatGenerics>;
 }) => React.ReactElement | null;
 
 export type ImageGalleryHeaderCustomComponentProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  centerElement?: ImageGalleryHeaderCustomComponent<StreamChatGenerics>;
+  centerElement?: ImageGalleryHeaderCustomComponent<ErmisChatGenerics>;
   CloseIcon?: React.ReactElement;
-  leftElement?: ImageGalleryHeaderCustomComponent<StreamChatGenerics>;
-  rightElement?: ImageGalleryHeaderCustomComponent<StreamChatGenerics>;
+  leftElement?: ImageGalleryHeaderCustomComponent<ErmisChatGenerics>;
+  rightElement?: ImageGalleryHeaderCustomComponent<ErmisChatGenerics>;
 };
 
-type Props<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
-  ImageGalleryHeaderCustomComponentProps<StreamChatGenerics> & {
+type Props<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
+  ImageGalleryHeaderCustomComponentProps<ErmisChatGenerics> & {
     opacity: Animated.SharedValue<number>;
     visible: Animated.SharedValue<number>;
-    photo?: Photo<StreamChatGenerics>;
+    photo?: Photo<ErmisChatGenerics>;
     /* Lookup key in the language corresponding translations sheet to perform date formatting */
   };
 
 export const ImageGalleryHeader = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: Props<StreamChatGenerics>,
+  props: Props<ErmisChatGenerics>,
 ) => {
   const { centerElement, CloseIcon, leftElement, opacity, photo, rightElement, visible } = props;
   const [height, setHeight] = useState(200);

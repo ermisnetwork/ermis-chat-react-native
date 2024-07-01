@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 
-import type { Event, Mute, StreamChat } from 'stream-chat';
+import type { Event, Mute, ErmisChat } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const useMutedUsers = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  client: StreamChat<StreamChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
 ) => {
-  const [mutedUsers, setMutedUsers] = useState<Mute<StreamChatGenerics>[]>(
+  const [mutedUsers, setMutedUsers] = useState<Mute<ErmisChatGenerics>[]>(
     client?.mutedUsers || [],
   );
 
   useEffect(() => {
-    const handleEvent = (event: Event<StreamChatGenerics>) => {
+    const handleEvent = (event: Event<ErmisChatGenerics>) => {
       setMutedUsers((mutes) => event.me?.mutes || mutes || []);
     };
 

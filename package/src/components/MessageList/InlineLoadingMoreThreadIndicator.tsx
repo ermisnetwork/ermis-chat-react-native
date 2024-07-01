@@ -4,7 +4,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useThreadContext } from '../../contexts/threadContext/ThreadContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   activityIndicatorContainer: {
@@ -56,9 +56,9 @@ const MemoizedInlineLoadingMoreThreadIndicator = React.memo(
 ) as typeof InlineLoadingMoreThreadIndicatorWithContext;
 
 export const InlineLoadingMoreThreadIndicator = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
-  const { threadLoadingMore } = useThreadContext<StreamChatGenerics>();
+  const { threadLoadingMore } = useThreadContext<ErmisChatGenerics>();
 
   return <MemoizedInlineLoadingMoreThreadIndicator threadLoadingMore={threadLoadingMore} />;
 };

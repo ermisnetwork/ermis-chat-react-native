@@ -25,7 +25,7 @@ import {
   UserDelete,
 } from '../../../icons';
 import { setClipboardString } from '../../../native';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { removeReservedFields } from '../../../utils/removeReservedFields';
 import { MessageStatusTypes } from '../../../utils/utils';
 
@@ -33,7 +33,7 @@ import type { MessageType } from '../../MessageList/hooks/useMessageList';
 import type { MessageActionType } from '../../MessageOverlay/MessageActionListItem';
 
 export const useMessageActions = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   channel,
   client,
@@ -63,7 +63,7 @@ export const useMessageActions = <
   supportedReactions,
   t,
 }: Pick<
-  MessagesContextValue<StreamChatGenerics>,
+  MessagesContextValue<ErmisChatGenerics>,
   | 'deleteMessage'
   | 'sendReaction'
   | 'handleBlock'
@@ -86,13 +86,13 @@ export const useMessageActions = <
   | 'supportedReactions'
   | 'updateMessage'
 > &
-  Pick<ChannelContextValue<StreamChatGenerics>, 'channel' | 'enforceUniqueReaction'> &
-  Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
+  Pick<ChannelContextValue<ErmisChatGenerics>, 'channel' | 'enforceUniqueReaction'> &
+  Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
   Pick<OverlayContextValue, 'setOverlay'> &
-  Pick<ThreadContextValue<StreamChatGenerics>, 'openThread'> &
-  Pick<MessageContextValue<StreamChatGenerics>, 'message'> &
+  Pick<ThreadContextValue<ErmisChatGenerics>, 'openThread'> &
+  Pick<MessageContextValue<ErmisChatGenerics>, 'message'> &
   Pick<TranslationContextValue, 't'> & {
-    onThreadSelect?: (message: MessageType<StreamChatGenerics>) => void;
+    onThreadSelect?: (message: MessageType<ErmisChatGenerics>) => void;
   }) => {
   const {
     theme: {
@@ -156,17 +156,17 @@ export const useMessageActions = <
   const copyMessage: MessageActionType | undefined =
     setClipboardString !== null
       ? {
-          action: () => {
-            setOverlay('none');
-            if (handleCopy) {
-              handleCopy(message);
-            }
-            setClipboardString(message.text || '');
-          },
-          actionType: 'copyMessage',
-          icon: <Copy pathFill={grey} />,
-          title: t('Copy Message'),
-        }
+        action: () => {
+          setOverlay('none');
+          if (handleCopy) {
+            handleCopy(message);
+          }
+          setClipboardString(message.text || '');
+        },
+        actionType: 'copyMessage',
+        icon: <Copy pathFill={grey} />,
+        title: t('Copy Message'),
+      }
       : undefined;
 
   const deleteMessage: MessageActionType = {
@@ -297,12 +297,12 @@ export const useMessageActions = <
     ? selectReaction
       ? selectReaction(message)
       : async (reactionType: string) => {
-          if (handleReactionProp) {
-            handleReactionProp(message, reactionType);
-          }
-
-          await handleToggleReaction(reactionType);
+        if (handleReactionProp) {
+          handleReactionProp(message, reactionType);
         }
+
+        await handleToggleReaction(reactionType);
+      }
     : undefined;
 
   const muteUser: MessageActionType = {
@@ -339,7 +339,7 @@ export const useMessageActions = <
       setOverlay('none');
       const messageWithoutReservedFields = removeReservedFields(message);
       if (handleRetry) {
-        handleRetry(messageWithoutReservedFields as MessageType<StreamChatGenerics>);
+        handleRetry(messageWithoutReservedFields as MessageType<ErmisChatGenerics>);
       }
 
       await handleResendMessage();

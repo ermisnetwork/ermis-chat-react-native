@@ -1,13 +1,13 @@
-import type { MessageResponse } from 'stream-chat';
+import type { MessageResponse } from 'ermis-chat-sdk-test';
 
 import type { MessageType } from '../components/MessageList/hooks/useMessageList';
-import type { DefaultStreamChatGenerics } from '../types/types';
+import type { DefaultErmisChatGenerics } from '../types/types';
 
 export const removeReservedFields = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  message: MessageType<StreamChatGenerics> | MessageResponse<StreamChatGenerics>,
-): MessageType<StreamChatGenerics> | MessageResponse<StreamChatGenerics> => {
+  message: MessageType<ErmisChatGenerics> | MessageResponse<ErmisChatGenerics>,
+): MessageType<ErmisChatGenerics> | MessageResponse<ErmisChatGenerics> => {
   const retryMessage = { ...message };
   const reserved = [
     'cid',

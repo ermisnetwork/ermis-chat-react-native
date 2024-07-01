@@ -6,7 +6,7 @@ import { renderHook, waitFor } from '@testing-library/react-native';
 import { generateMessage } from '../../../mock-builders/generator/message';
 import { generateUser } from '../../../mock-builders/generator/user';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { FileState } from '../../../utils/utils';
 import {
   InputMessageInputContextValue,
@@ -15,18 +15,18 @@ import {
   useMessageInputContext,
 } from '../MessageInputContext';
 
-type WrapperType<StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics> =
-  Partial<InputMessageInputContextValue<StreamChatGenerics>>;
+type WrapperType<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics> =
+  Partial<InputMessageInputContextValue<ErmisChatGenerics>>;
 
-const Wrapper = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>({
+const Wrapper = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>({
   children,
   ...rest
-}: PropsWithChildren<WrapperType<StreamChatGenerics>>) => (
+}: PropsWithChildren<WrapperType<ErmisChatGenerics>>) => (
   <MessageInputProvider
     value={
       {
         ...rest,
-      } as MessageInputContextValue<StreamChatGenerics>
+      } as MessageInputContextValue<ErmisChatGenerics>
     }
   >
     {children}

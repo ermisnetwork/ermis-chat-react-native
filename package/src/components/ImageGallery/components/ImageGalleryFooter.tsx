@@ -9,7 +9,7 @@ import { useTranslationContext } from '../../../contexts/translationContext/Tran
 import { Grid as GridIconDefault, Share as ShareIconDefault } from '../../../icons';
 import { deleteFile, saveFile, shareImage, VideoType } from '../../../native';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import type { Photo } from '../ImageGallery';
 
 const ReanimatedSafeAreaView = Animated.createAnimatedComponent
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 });
 
 export type ImageGalleryFooterCustomComponent<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = ({
   openGridView,
   photo,
@@ -59,7 +59,7 @@ export type ImageGalleryFooterCustomComponent<
   openGridView: () => void;
   share: () => Promise<void>;
   shareMenuOpen: boolean;
-  photo?: Photo<StreamChatGenerics>;
+  photo?: Photo<ErmisChatGenerics>;
 }) => React.ReactElement | null;
 
 export type ImageGalleryFooterVideoControlProps = {
@@ -78,26 +78,26 @@ export type ImageGalleryFooterVideoControlComponent = ({
 }: ImageGalleryFooterVideoControlProps) => React.ReactElement | null;
 
 export type ImageGalleryFooterCustomComponentProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  centerElement?: ImageGalleryFooterCustomComponent<StreamChatGenerics>;
+  centerElement?: ImageGalleryFooterCustomComponent<ErmisChatGenerics>;
   GridIcon?: React.ReactElement;
-  leftElement?: ImageGalleryFooterCustomComponent<StreamChatGenerics>;
-  rightElement?: ImageGalleryFooterCustomComponent<StreamChatGenerics>;
+  leftElement?: ImageGalleryFooterCustomComponent<ErmisChatGenerics>;
+  rightElement?: ImageGalleryFooterCustomComponent<ErmisChatGenerics>;
   ShareIcon?: React.ReactElement;
   videoControlElement?: ImageGalleryFooterVideoControlComponent;
 };
 
 type ImageGalleryFooterPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = ImageGalleryFooterCustomComponentProps<StreamChatGenerics> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = ImageGalleryFooterCustomComponentProps<ErmisChatGenerics> & {
   accessibilityLabel: string;
   duration: number;
   onPlayPause: () => void;
   opacity: Animated.SharedValue<number>;
   openGridView: () => void;
   paused: boolean;
-  photo: Photo<StreamChatGenerics>;
+  photo: Photo<ErmisChatGenerics>;
   photoLength: number;
   progress: number;
   selectedIndex: number;
@@ -106,9 +106,9 @@ type ImageGalleryFooterPropsWithContext<
 };
 
 export const ImageGalleryFooterWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ImageGalleryFooterPropsWithContext<StreamChatGenerics>,
+  props: ImageGalleryFooterPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     accessibilityLabel,
@@ -160,9 +160,8 @@ export const ImageGalleryFooterWithContext = <
     try {
       const extension = photo.mime_type?.split('/')[1] || 'jpg';
       const localFile = await saveFile({
-        fileName: `${photo.user?.id || 'ChatPhoto'}-${
-          photo.messageId
-        }-${selectedIndex}.${extension}`,
+        fileName: `${photo.user?.id || 'ChatPhoto'}-${photo.messageId
+          }-${selectedIndex}.${extension}`,
         fromUrl: photo.uri,
       });
       // `image/jpeg` is added for the case where the mime_type isn't available for a file/image
@@ -257,9 +256,9 @@ const ShareButton = ({ share, ShareIcon, shareMenuOpen }: ShareButtonProps) => {
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: ImageGalleryFooterPropsWithContext<StreamChatGenerics>,
-  nextProps: ImageGalleryFooterPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: ImageGalleryFooterPropsWithContext<ErmisChatGenerics>,
+  nextProps: ImageGalleryFooterPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     duration: prevDuration,
@@ -295,13 +294,13 @@ const MemoizedImageGalleryFooter = React.memo(
 ) as typeof ImageGalleryFooterWithContext;
 
 export type ImageGalleryFooterProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = ImageGalleryFooterPropsWithContext<StreamChatGenerics>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = ImageGalleryFooterPropsWithContext<ErmisChatGenerics>;
 
 export const ImageGalleryFooter = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ImageGalleryFooterProps<StreamChatGenerics>,
+  props: ImageGalleryFooterProps<ErmisChatGenerics>,
 ) => <MemoizedImageGalleryFooter {...props} />;
 
 ImageGalleryFooter.displayName = 'ImageGalleryFooter{imageGallery{footer}}';

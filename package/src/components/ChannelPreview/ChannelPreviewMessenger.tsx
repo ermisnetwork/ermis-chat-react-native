@@ -20,7 +20,7 @@ import {
 import { useChatContext } from '../../contexts/chatContext/ChatContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useViewport } from '../../hooks/useViewport';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,10 +46,10 @@ const styles = StyleSheet.create({
 });
 
 export type ChannelPreviewMessengerPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelPreviewProps<StreamChatGenerics>, 'channel'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'> &
   Pick<
-    ChannelsContextValue<StreamChatGenerics>,
+    ChannelsContextValue<ErmisChatGenerics>,
     | 'maxUnreadCount'
     | 'onSelect'
     | 'PreviewAvatar'
@@ -84,7 +84,7 @@ export type ChannelPreviewMessengerPropsWithContext<
      *
      * @overrideType object
      */
-    latestMessagePreview: LatestMessagePreview<StreamChatGenerics>;
+    latestMessagePreview: LatestMessagePreview<ErmisChatGenerics>;
     /**
      * Formatter function for date of latest message.
      * @param date Message date
@@ -100,9 +100,9 @@ export type ChannelPreviewMessengerPropsWithContext<
   };
 
 const ChannelPreviewMessengerWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewMessengerPropsWithContext<StreamChatGenerics>,
+  props: ChannelPreviewMessengerPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     channel,
@@ -129,7 +129,7 @@ const ChannelPreviewMessengerWithContext = <
     },
   } = useTheme();
 
-  const { client } = useChatContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
 
   const displayName = useChannelPreviewDisplayName(
     channel,
@@ -185,15 +185,15 @@ const ChannelPreviewMessengerWithContext = <
 };
 
 export type ChannelPreviewMessengerProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Partial<
   Omit<
-    ChannelPreviewMessengerPropsWithContext<StreamChatGenerics>,
+    ChannelPreviewMessengerPropsWithContext<ErmisChatGenerics>,
     'channel' | 'latestMessagePreview'
   >
 > &
   Pick<
-    ChannelPreviewMessengerPropsWithContext<StreamChatGenerics>,
+    ChannelPreviewMessengerPropsWithContext<ErmisChatGenerics>,
     'channel' | 'latestMessagePreview'
   >;
 
@@ -206,9 +206,9 @@ const MemoizedChannelPreviewMessengerWithContext = React.memo(
  * from the ChannelPreview component.
  */
 export const ChannelPreviewMessenger = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewMessengerProps<StreamChatGenerics>,
+  props: ChannelPreviewMessengerProps<ErmisChatGenerics>,
 ) => {
   const {
     maxUnreadCount,
@@ -219,7 +219,7 @@ export const ChannelPreviewMessenger = <
     PreviewStatus,
     PreviewTitle,
     PreviewUnreadCount,
-  } = useChannelsContext<StreamChatGenerics>();
+  } = useChannelsContext<ErmisChatGenerics>();
   return (
     <MemoizedChannelPreviewMessengerWithContext
       {...{

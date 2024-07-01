@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import type { Channel, ChannelState, Event, MessageResponse } from 'stream-chat';
+import type { Channel, ChannelState, Event, MessageResponse } from 'ermis-chat-sdk-test';
 
 import { useLatestMessagePreview } from './hooks/useLatestMessagePreview';
 
@@ -10,16 +10,16 @@ import {
 } from '../../contexts/channelsContext/ChannelsContext';
 import { ChatContextValue, useChatContext } from '../../contexts/chatContext/ChatContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 export type ChannelPreviewPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChatContextValue<StreamChatGenerics>, 'client'> &
-  Pick<ChannelsContextValue<StreamChatGenerics>, 'Preview' | 'forceUpdate'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
+  Pick<ChannelsContextValue<ErmisChatGenerics>, 'Preview' | 'forceUpdate'> & {
     /**
      * Instance of Channel from stream-chat package.
      */
-    channel: Channel<StreamChatGenerics>;
+    channel: Channel<ErmisChatGenerics>;
   };
 
 /**
@@ -27,15 +27,15 @@ export type ChannelPreviewPropsWithContext<
  * all props from the ChannelListMessenger component.
  */
 const ChannelPreviewWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewPropsWithContext<StreamChatGenerics>,
+  props: ChannelPreviewPropsWithContext<ErmisChatGenerics>,
 ) => {
   const { channel, client, forceUpdate: channelListForceUpdate, Preview } = props;
 
   const [lastMessage, setLastMessage] = useState<
-    | ReturnType<ChannelState<StreamChatGenerics>['formatMessage']>
-    | MessageResponse<StreamChatGenerics>
+    | ReturnType<ChannelState<ErmisChatGenerics>['formatMessage']>
+    | MessageResponse<ErmisChatGenerics>
     | undefined
   >(channel.state.messages[channel.state.messages.length - 1]);
 
@@ -68,7 +68,7 @@ const ChannelPreviewWithContext = <
   }, [channelLastMessageString, channelListForceUpdate]);
 
   useEffect(() => {
-    const handleNewMessageEvent = (event: Event<StreamChatGenerics>) => {
+    const handleNewMessageEvent = (event: Event<ErmisChatGenerics>) => {
       const message = event.message;
       if (message && (!message.parent_id || message.show_in_channel)) {
         setLastMessage(event.message);
@@ -76,7 +76,7 @@ const ChannelPreviewWithContext = <
       }
     };
 
-    const handleUpdatedOrDeletedMessage = (event: Event<StreamChatGenerics>) => {
+    const handleUpdatedOrDeletedMessage = (event: Event<ErmisChatGenerics>) => {
       setLastMessage((prevLastMessage) => {
         if (prevLastMessage?.id === event.message?.id) {
           return event.message;
@@ -95,7 +95,7 @@ const ChannelPreviewWithContext = <
   }, []);
 
   useEffect(() => {
-    const handleReadEvent = (event: Event<StreamChatGenerics>) => {
+    const handleReadEvent = (event: Event<ErmisChatGenerics>) => {
       if (event.user?.id === client.userID) {
         setUnread(0);
       } else if (event.user?.id) {
@@ -111,17 +111,17 @@ const ChannelPreviewWithContext = <
 };
 
 export type ChannelPreviewProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<Omit<ChannelPreviewPropsWithContext<StreamChatGenerics>, 'channel'>> &
-  Pick<ChannelPreviewPropsWithContext<StreamChatGenerics>, 'channel'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<Omit<ChannelPreviewPropsWithContext<ErmisChatGenerics>, 'channel'>> &
+  Pick<ChannelPreviewPropsWithContext<ErmisChatGenerics>, 'channel'>;
 
 export const ChannelPreview = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewProps<StreamChatGenerics>,
+  props: ChannelPreviewProps<ErmisChatGenerics>,
 ) => {
-  const { client } = useChatContext<StreamChatGenerics>();
-  const { forceUpdate, Preview } = useChannelsContext<StreamChatGenerics>();
+  const { client } = useChatContext<ErmisChatGenerics>();
+  const { forceUpdate, Preview } = useChannelsContext<ErmisChatGenerics>();
 
   return <ChannelPreviewWithContext {...{ client, forceUpdate, Preview }} {...props} />;
 };

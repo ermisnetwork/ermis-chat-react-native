@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'r
 
 import Svg, { Circle } from 'react-native-svg';
 
-import { ReactionGroupResponse, ReactionResponse } from 'stream-chat';
+import { ReactionGroupResponse, ReactionResponse } from 'ermis-chat-sdk-test';
 
 import {
   MessageContextValue,
@@ -18,7 +18,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 import { Unknown } from '../../../icons/Unknown';
 
 import type { IconProps } from '../../../icons/utils/base';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import type { ReactionData } from '../../../utils/utils';
 import { ReactionSummary } from '../hooks/useProcessReactions';
 
@@ -45,9 +45,9 @@ const Icon = ({ pathFill, size, style, supportedReactions, type }: Props) => {
 };
 
 export type ReactionListPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
-  MessageContextValue<StreamChatGenerics>,
+  MessageContextValue<ErmisChatGenerics>,
   | 'alignment'
   | 'message'
   | 'onLongPress'
@@ -57,14 +57,14 @@ export type ReactionListPropsWithContext<
   | 'reactions'
   | 'showMessageOverlay'
 > &
-  Pick<MessagesContextValue<StreamChatGenerics>, 'targetedMessage'> & {
+  Pick<MessagesContextValue<ErmisChatGenerics>, 'targetedMessage'> & {
     messageContentWidth: number;
     supportedReactions: ReactionData[];
     fill?: string;
     /** An array of the reaction objects to display in the list */
-    latest_reactions?: ReactionResponse<StreamChatGenerics>[];
+    latest_reactions?: ReactionResponse<ErmisChatGenerics>[];
     /** An array of the own reaction objects to distinguish own reactions visually */
-    own_reactions?: ReactionResponse<StreamChatGenerics>[] | null;
+    own_reactions?: ReactionResponse<ErmisChatGenerics>[] | null;
     radius?: number; // not recommended to change this
     /** An object containing summary for each reaction type on a message */
     reaction_groups?: Record<string, ReactionGroupResponse> | null;
@@ -74,9 +74,9 @@ export type ReactionListPropsWithContext<
   };
 
 const ReactionListWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ReactionListPropsWithContext<StreamChatGenerics>,
+  props: ReactionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -150,9 +150,9 @@ const ReactionListWithContext = <
 
   const x1 = alignmentLeft
     ? messageContentWidth +
-      (Number(leftAlign.marginRight) || 0) +
-      (Number(spacer.width) || 0) -
-      radius * 0.5
+    (Number(leftAlign.marginRight) || 0) +
+    (Number(spacer.width) || 0) -
+    radius * 0.5
     : width - screenPadding * 2 - messageContentWidth;
   const x2 = x1 + radius * 2 * (alignmentLeft ? 1 : -1);
   const y1 = reactionSize + radius * 2;
@@ -165,10 +165,10 @@ const ReactionListWithContext = <
     reactions.length === 1
       ? x1 + (alignmentLeft ? -radius : radius - reactionSize)
       : !insideLeftBound
-      ? screenPadding
-      : !insideRightBound
-      ? width - screenPadding * 2 - reactionSize * reactions.length - strokeSize
-      : x2 - (reactionSize * reactions.length) / 2 - strokeSize;
+        ? screenPadding
+        : !insideRightBound
+          ? width - screenPadding * 2 - reactionSize * reactions.length - strokeSize
+          : x2 - (reactionSize * reactions.length) / 2 - strokeSize;
 
   return (
     <View
@@ -271,9 +271,9 @@ const ReactionListWithContext = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: ReactionListPropsWithContext<StreamChatGenerics>,
-  nextProps: ReactionListPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: ReactionListPropsWithContext<ErmisChatGenerics>,
+  nextProps: ReactionListPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     message: prevMessage,
@@ -302,18 +302,18 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
   const latestReactionsEqual =
     Array.isArray(prevMessage.latest_reactions) && Array.isArray(nextMessage.latest_reactions)
       ? prevMessage.latest_reactions.length === nextMessage.latest_reactions.length &&
-        prevMessage.latest_reactions.every(
-          ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
-        )
+      prevMessage.latest_reactions.every(
+        ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
+      )
       : prevMessage.latest_reactions === nextMessage.latest_reactions;
   if (!latestReactionsEqual) return false;
 
   const reactionsEqual =
     Array.isArray(prevReactions) && Array.isArray(nextReactions)
       ? prevReactions.length === nextReactions.length &&
-        prevReactions.every(
-          ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
-        )
+      prevReactions.every(
+        ({ type }, index) => type === nextMessage.latest_reactions?.[index].type,
+      )
       : prevReactions === nextReactions;
 
   if (!reactionsEqual) return false;
@@ -327,17 +327,17 @@ const MemoizedReactionList = React.memo(
 ) as typeof ReactionListWithContext;
 
 export type ReactionListProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<ReactionListPropsWithContext<StreamChatGenerics>> &
-  Pick<ReactionListPropsWithContext<StreamChatGenerics>, 'messageContentWidth'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<ReactionListPropsWithContext<ErmisChatGenerics>> &
+  Pick<ReactionListPropsWithContext<ErmisChatGenerics>, 'messageContentWidth'>;
 
 /**
  * ReactionList - A high level component which implements all the logic required for a message reaction list
  */
 export const ReactionList = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ReactionListProps<StreamChatGenerics>,
+  props: ReactionListProps<ErmisChatGenerics>,
 ) => {
   const {
     alignment,
@@ -348,8 +348,8 @@ export const ReactionList = <
     preventPress,
     reactions,
     showMessageOverlay,
-  } = useMessageContext<StreamChatGenerics>();
-  const { supportedReactions, targetedMessage } = useMessagesContext<StreamChatGenerics>();
+  } = useMessageContext<ErmisChatGenerics>();
+  const { supportedReactions, targetedMessage } = useMessagesContext<ErmisChatGenerics>();
 
   return (
     <MemoizedReactionList

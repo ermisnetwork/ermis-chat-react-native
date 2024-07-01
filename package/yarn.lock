@@ -5354,6 +5354,21 @@ eol@^0.9.1:
   resolved "https://registry.yarnpkg.com/eol/-/eol-0.9.1.tgz#f701912f504074be35c6117a5c4ade49cd547acd"
   integrity sha512-Ds/TEoZjwggRoz/Q2O7SE3i4Jm66mqTDfmdHdq/7DKVk3bro9Q8h6WdXKdPqFLMoqxrDK5SVRzHVPOS6uuGtrg==
 
+ermis-chat-sdk-test@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk-test/-/ermis-chat-sdk-test-1.0.1.tgz#15bbe5f61b5d12e7e4cf9d602f2d64f490048487"
+  integrity sha512-tK3m980cZaF9xKMbK/iOQOwzIxTkOLwzGAdIwf7PLC6z2KSH/NVDt+1pSSkf05PApSxttrqb+yw8CQTObBek5g==
+  dependencies:
+    "@babel/runtime" "^7.16.3"
+    "@types/jsonwebtoken" "~9.0.0"
+    "@types/ws" "^7.4.0"
+    axios "^1.6.0"
+    base64-js "^1.5.1"
+    form-data "^4.0.0"
+    isomorphic-ws "^4.0.1"
+    jsonwebtoken "~9.0.0"
+    ws "^7.4.4"
+
 ermis-js-sdk@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/ermis-js-sdk/-/ermis-js-sdk-1.0.3.tgz#810609c17db791f3b82c9185de8b5c06c32368ec"
@@ -10671,21 +10686,6 @@ stream-browserify@^2.0.1:
   dependencies:
     inherits "~2.0.1"
     readable-stream "^2.0.2"
-
-stream-chat@8.31.0:
-  version "8.31.0"
-  resolved "https://registry.yarnpkg.com/stream-chat/-/stream-chat-8.31.0.tgz#387ed3109ac930e222bf260d98afc37dd1fcb1ac"
-  integrity sha512-lORUtfDYljoAgRv7QHUADH1QTGydSWo+U8KmUKwv7BZyUZ2JGwh6VZbu9WL4Nmo7PDU7N/Ug0Q5PE59S6WE+OA==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@types/jsonwebtoken" "~9.0.0"
-    "@types/ws" "^7.4.0"
-    axios "^1.6.0"
-    base64-js "^1.5.1"
-    form-data "^4.0.0"
-    isomorphic-ws "^4.0.1"
-    jsonwebtoken "~9.0.0"
-    ws "^7.4.4"
 
 stream-composer@^1.0.2:
   version "1.0.2"

@@ -1,6 +1,6 @@
 import type { AxiosError } from 'axios';
 import dayjs from 'dayjs';
-import type { APIErrorResponse, StreamChat } from 'stream-chat';
+import type { APIErrorResponse, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { handleEventToSyncDB } from '../components/Chat/hooks/handleEventToSyncDB';
 import { getAllChannelIds, getLastSyncedAt, upsertUserSyncStatus } from '../store/apis';
@@ -11,7 +11,7 @@ import { deletePendingTask } from '../store/apis/deletePendingTask';
 import { getPendingTasks } from '../store/apis/getPendingTasks';
 import { QuickSqliteClient } from '../store/QuickSqliteClient';
 import type { PendingTask, PreparedQueries } from '../store/types';
-import type { DefaultStreamChatGenerics } from '../types/types';
+import type { DefaultErmisChatGenerics } from '../types/types';
 
 /**
  * DBSyncManager has the responsibility to sync the channel states
@@ -37,7 +37,7 @@ const restBeforeNextTask = () => new Promise((resolve) => setTimeout(resolve, 50
 export class DBSyncManager {
   static syncStatus = false;
   static listeners: Array<(status: boolean) => void> = [];
-  static client: StreamChat | null = null;
+  static client: ErmisChat | null = null;
 
   /**
    * Returns weather channel states in local DB are synced with backend or not.
@@ -51,7 +51,7 @@ export class DBSyncManager {
    *
    * @param client
    */
-  static init = async (client: StreamChat) => {
+  static init = async (client: ErmisChat) => {
     this.client = client;
     // If the websocket connection is already active, then straightaway
     // call the sync api and also execute pending api calls.
@@ -91,9 +91,9 @@ export class DBSyncManager {
   };
 
   static sync = async <
-    StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+    ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
   >(
-    client: StreamChat<StreamChatGenerics>,
+    client: ErmisChat<ErmisChatGenerics>,
   ) => {
     if (!this.client?.user) return;
     const cids = getAllChannelIds();
@@ -145,19 +145,19 @@ export class DBSyncManager {
   };
 
   static queueTask = async <
-    StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+    ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
   >({
     client,
     task,
   }: {
-    client: StreamChat<StreamChatGenerics>;
+    client: ErmisChat<ErmisChatGenerics>;
     task: PendingTask;
   }) => {
     const removeFromApi = addPendingTask(task);
 
     let response;
     try {
-      response = await this.executeTask<StreamChatGenerics>({ client, task });
+      response = await this.executeTask<ErmisChatGenerics>({ client, task });
     } catch (e) {
       if ((e as AxiosError<APIErrorResponse>)?.response?.data?.code === 4) {
         // Error code 16 - message already exists
@@ -173,12 +173,12 @@ export class DBSyncManager {
   };
 
   static executeTask = async <
-    StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+    ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
   >({
     client,
     task,
   }: {
-    client: StreamChat<StreamChatGenerics>;
+    client: ErmisChat<ErmisChatGenerics>;
     task: PendingTask;
   }) => {
     const channel = client.channel(task.channelType, task.channelId);
@@ -199,16 +199,16 @@ export class DBSyncManager {
   };
 
   static executePendingTasks = async <
-    StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+    ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
   >(
-    client: StreamChat<StreamChatGenerics>,
+    client: ErmisChat<ErmisChatGenerics>,
   ) => {
     const queue = getPendingTasks();
     for (const task of queue) {
       if (!task.id) continue;
 
       try {
-        await this.executeTask<StreamChatGenerics>({
+        await this.executeTask<ErmisChatGenerics>({
           client,
           task,
         });

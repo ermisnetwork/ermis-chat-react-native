@@ -14,7 +14,7 @@ import { ScreenHeader } from '../components/ScreenHeader';
 
 import type { RouteProp } from '@react-navigation/native';
 
-import type { StackNavigatorParamList, StreamChatGenerics } from '../types';
+import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +29,7 @@ type ThreadScreenProps = {
 };
 
 export type ThreadHeaderProps = {
-  thread: ThreadContextValue<StreamChatGenerics>['thread'];
+  thread: ThreadContextValue<ErmisChatGenerics>['thread'];
 };
 
 const ThreadHeader: React.FC<ThreadHeaderProps> = ({ thread }) => {
@@ -64,7 +64,7 @@ export const ThreadScreen: React.FC<ThreadScreenProps> = ({
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: white }]}>
-      <Channel<StreamChatGenerics>
+      <Channel<ErmisChatGenerics>
         audioRecordingEnabled={true}
         channel={channel}
         enforceUniqueReaction
@@ -74,7 +74,7 @@ export const ThreadScreen: React.FC<ThreadScreenProps> = ({
       >
         <View style={styles.container}>
           <ThreadHeader thread={thread} />
-          <Thread<StreamChatGenerics> />
+          <Thread<ErmisChatGenerics> />
         </View>
       </Channel>
     </SafeAreaView>

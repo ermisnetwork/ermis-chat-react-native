@@ -2,13 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 
 import type { NetInfoSubscription } from '@react-native-community/netinfo';
 
-import type { StreamChat, Event as StreamEvent } from 'stream-chat';
+import type { ErmisChat, Event as StreamEvent } from 'ermis-chat-sdk-test';
 
 import { useAppStateListener } from '../../../hooks/useAppStateListener';
 import { useIsMountedRef } from '../../../hooks/useIsMountedRef';
 import { NetInfo } from '../../../native';
 
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 /**
  * Disconnect the websocket connection when app goes to background,
@@ -17,9 +17,9 @@ import type { DefaultStreamChatGenerics } from '../../../types/types';
  * You can't receive push notification until you have active websocket connection.
  */
 export const useIsOnline = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  client: StreamChat<StreamChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
   closeConnectionOnBackground = true,
 ) => {
   const [isOnline, setIsOnline] = useState<boolean | null>(null);
@@ -49,7 +49,7 @@ export const useIsOnline = <
   useAppStateListener(onForeground, onBackground);
 
   useEffect(() => {
-    const handleChangedEvent = (event: StreamEvent<StreamChatGenerics>) => {
+    const handleChangedEvent = (event: StreamEvent<ErmisChatGenerics>) => {
       setConnectionRecovering(!event.online);
       setIsOnline(event.online || false);
     };
@@ -90,7 +90,7 @@ export const useIsOnline = <
     };
 
     setInitialOnlineState();
-    const chatListeners: Array<ReturnType<StreamChat['on']>> = [];
+    const chatListeners: Array<ReturnType<ErmisChat['on']>> = [];
 
     if (client) {
       chatListeners.push(client.on('connection.changed', handleChangedEvent));

@@ -23,7 +23,7 @@ import {
 } from '../../../mock-builders/generator/attachment';
 import { generateMessage } from '../../../mock-builders/generator/message';
 import { getTestClientWithUser } from '../../../mock-builders/mock';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import type { MessageType } from '../../MessageList/hooks/useMessageList';
 import { ImageGallery, ImageGalleryCustomComponents } from '../ImageGallery';
 
@@ -70,7 +70,7 @@ describe('ImageGalleryHeader', () => {
                 generateMessage({
                   attachments: [generateImageAttachment()],
                 }),
-              ] as unknown as MessageType<DefaultStreamChatGenerics>[],
+              ] as unknown as MessageType<DefaultErmisChatGenerics>[],
             } as unknown as ImageGalleryContextValue
           }
         >
@@ -117,7 +117,7 @@ describe('ImageGalleryHeader', () => {
                 generateMessage({
                   attachments: [generateVideoAttachment({ type: 'video' })],
                 }),
-              ] as unknown as MessageType<DefaultStreamChatGenerics>[],
+              ] as unknown as MessageType<DefaultErmisChatGenerics>[],
             } as unknown as ImageGalleryContextValue
           }
         >
@@ -157,7 +157,7 @@ describe('ImageGalleryHeader', () => {
                 generateMessage({
                   attachments: [generateImageAttachment()],
                 }),
-              ] as unknown as MessageType<DefaultStreamChatGenerics>[],
+              ] as unknown as MessageType<DefaultErmisChatGenerics>[],
             } as unknown as ImageGalleryContextValue
           }
         >

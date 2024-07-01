@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 
 import type { InputMessageInputContextValue } from '../../../contexts/messageInputContext/MessageInputContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const useCreateInputMessageInputContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   additionalTextInputProps,
   asyncMessagesLockDistance,
@@ -61,7 +61,7 @@ export const useCreateInputMessageInputContext = <
   ShowThreadMessageInChannelButton,
   StartAudioRecordingButton,
   UploadProgressIndicator,
-}: InputMessageInputContextValue<StreamChatGenerics> & {
+}: InputMessageInputContextValue<ErmisChatGenerics> & {
   /**
    * To ensure we allow re-render, when channel is changed
    */
@@ -74,7 +74,7 @@ export const useCreateInputMessageInputContext = <
       : quotedMessage.id
     : '';
 
-  const inputMessageInputContext: InputMessageInputContextValue<StreamChatGenerics> = useMemo(
+  const inputMessageInputContext: InputMessageInputContextValue<ErmisChatGenerics> = useMemo(
     () => ({
       additionalTextInputProps,
       asyncMessagesLockDistance,

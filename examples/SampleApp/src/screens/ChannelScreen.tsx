@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import type { Channel as StreamChatChannel } from 'stream-chat';
+import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk-test';
 import { RouteProp, useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   Channel,
@@ -22,7 +22,7 @@ import { ScreenHeader } from '../components/ScreenHeader';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useChannelMembersStatus } from '../hooks/useChannelMembersStatus';
 
-import type { StackNavigatorParamList, StreamChatGenerics } from '../types';
+import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 import { NetworkDownIndicator } from '../components/NetworkDownIndicator';
 
 const styles = StyleSheet.create({
@@ -40,7 +40,7 @@ export type ChannelScreenProps = {
 };
 
 export type ChannelHeaderProps = {
-  channel: StreamChatChannel<StreamChatGenerics>;
+  channel: ErmisChatChannel<ErmisChatGenerics>;
 };
 
 const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
@@ -114,12 +114,12 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
     },
   } = useTheme();
 
-  const [channel, setChannel] = useState<StreamChatChannel<StreamChatGenerics> | undefined>(
+  const [channel, setChannel] = useState<ErmisChatChannel<ErmisChatGenerics> | undefined>(
     channelFromProp,
   );
 
   const [selectedThread, setSelectedThread] =
-    useState<ThreadContextValue<StreamChatGenerics>['thread']>();
+    useState<ThreadContextValue<ErmisChatGenerics>['thread']>();
 
   useEffect(() => {
     const initChannel = async () => {
@@ -159,7 +159,7 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
         thread={selectedThread}
       >
         <ChannelHeader channel={channel} />
-        <MessageList<StreamChatGenerics>
+        <MessageList<ErmisChatGenerics>
           onThreadSelect={(thread) => {
             setSelectedThread(thread);
             navigation.navigate('ThreadScreen', {

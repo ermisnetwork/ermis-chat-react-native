@@ -1,14 +1,14 @@
 import type { DeletedMessagesVisibilityType } from '../../../contexts/messagesContext/MessagesContext';
 import type { PaginatedMessageListContextValue } from '../../../contexts/paginatedMessageListContext/PaginatedMessageListContext';
 import type { ThreadContextValue } from '../../../contexts/threadContext/ThreadContext';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 export type GetDateSeparatorsParams<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   messages:
-    | PaginatedMessageListContextValue<StreamChatGenerics>['messages']
-    | ThreadContextValue<StreamChatGenerics>['threadMessages'];
+  | PaginatedMessageListContextValue<ErmisChatGenerics>['messages']
+  | ThreadContextValue<ErmisChatGenerics>['threadMessages'];
   deletedMessagesVisibilityType?: DeletedMessagesVisibilityType;
   hideDateSeparators?: boolean;
   userId?: string;
@@ -19,9 +19,9 @@ export type DateSeparators = {
 };
 
 export const getDateSeparators = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  params: GetDateSeparatorsParams<StreamChatGenerics>,
+  params: GetDateSeparatorsParams<ErmisChatGenerics>,
 ) => {
   const { deletedMessagesVisibilityType, hideDateSeparators, messages, userId } = params;
   const dateSeparators: DateSeparators = {};

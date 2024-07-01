@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 
 import { act, cleanup, render, waitFor } from '@testing-library/react-native';
-import { StreamChat } from 'stream-chat';
+import { ErmisChat } from 'ermis-chat-sdk-test';
 
 import { ChannelContext, ChannelProvider } from '../../../contexts/channelContext/ChannelContext';
 import { ChannelsStateProvider } from '../../../contexts/channelsStateContext/ChannelsStateContext';
@@ -48,7 +48,7 @@ let channel;
 const user = generateUser({ id: 'id', name: 'name' });
 const messages = [generateMessage({ user })];
 
-const renderComponent = (props = {}, callback = () => {}, context = ChannelContext) =>
+const renderComponent = (props = {}, callback = () => { }, context = ChannelContext) =>
   render(
     <ChannelsStateProvider>
       <Chat client={chatClient}>
@@ -82,11 +82,11 @@ describe('Channel', () => {
     const nullChannel = {
       ...channel,
       cid: null,
-      off: () => {},
+      off: () => { },
       on: () => ({
         unsubscribe: () => null,
       }),
-      watch: () => {},
+      watch: () => { },
     };
     const { getByTestId } = renderComponent({ channel: nullChannel });
 
@@ -231,7 +231,7 @@ describe('Channel', () => {
       const mockContext = {
         channel,
         client: chatClient,
-        markRead: () => {},
+        markRead: () => { },
         watcherCount: 5,
       };
 
@@ -249,7 +249,7 @@ describe('Channel', () => {
       await waitFor(() => {
         expect(context).toBeInstanceOf(Object);
         expect(context.channel).toBeInstanceOf(Object);
-        expect(context.client).toBeInstanceOf(StreamChat);
+        expect(context.client).toBeInstanceOf(ErmisChat);
         expect(context.markRead).toBeInstanceOf(Function);
         expect(context.watcherCount).toBe(5);
       });
@@ -274,7 +274,7 @@ describe('Channel', () => {
         Attachment,
         editing: false,
         messages,
-        sendMessage: () => {},
+        sendMessage: () => { },
       };
 
       render(
@@ -313,7 +313,7 @@ describe('Channel', () => {
       let context;
 
       const mockContext = {
-        openThread: () => {},
+        openThread: () => { },
         thread: {},
         threadHasMore: true,
         threadLoadingMore: false,

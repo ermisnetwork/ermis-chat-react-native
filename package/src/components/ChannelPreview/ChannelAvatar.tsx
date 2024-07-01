@@ -5,21 +5,21 @@ import { useChannelPreviewDisplayAvatar } from './hooks/useChannelPreviewDisplay
 import { useChannelPreviewDisplayPresence } from './hooks/useChannelPreviewDisplayPresence';
 
 import { ChatContextValue, useChatContext } from '../../contexts/chatContext/ChatContext';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { Avatar } from '../Avatar/Avatar';
 import { GroupAvatar } from '../Avatar/GroupAvatar';
 
 export type ChannelAvatarProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelPreviewProps<StreamChatGenerics>, 'channel'>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'>;
 
 /**
  * This UI component displays an avatar for a particular channel.
  */
 export const ChannelAvatarWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelAvatarProps<StreamChatGenerics> & Pick<ChatContextValue, 'ImageComponent'>,
+  props: ChannelAvatarProps<ErmisChatGenerics> & Pick<ChatContextValue, 'ImageComponent'>,
 ) => {
   const { channel, ImageComponent } = props;
 
@@ -49,11 +49,11 @@ export const ChannelAvatarWithContext = <
 };
 
 export const ChannelAvatar = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelAvatarProps<StreamChatGenerics>,
+  props: ChannelAvatarProps<ErmisChatGenerics>,
 ) => {
-  const { ImageComponent } = useChatContext<StreamChatGenerics>();
+  const { ImageComponent } = useChatContext<ErmisChatGenerics>();
 
   return <ChannelAvatarWithContext {...props} ImageComponent={ImageComponent} />;
 };

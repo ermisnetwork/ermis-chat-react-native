@@ -9,7 +9,7 @@ import {
 import { generateMessage } from '../../../mock-builders/generator/message';
 
 import { generateUser } from '../../../mock-builders/generator/user';
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { useMessageDetailsForState } from '../hooks/useMessageDetailsForState';
 
 describe('useMessageDetailsForState', () => {
@@ -42,7 +42,7 @@ describe('useMessageDetailsForState', () => {
     const { result } = renderHook(
       ({ initialValue, message }) =>
         useMessageDetailsForState(
-          message as unknown as MessageType<DefaultStreamChatGenerics> | boolean,
+          message as unknown as MessageType<DefaultErmisChatGenerics> | boolean,
           initialValue,
         ),
       {

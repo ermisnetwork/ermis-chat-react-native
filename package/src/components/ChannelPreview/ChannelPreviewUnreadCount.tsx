@@ -6,12 +6,12 @@ import { ChannelPreviewProps } from './ChannelPreview';
 import type { ChannelsContextValue } from '../../contexts/channelsContext/ChannelsContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 
 export type ChannelPreviewUnreadCountProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ChannelsContextValue<StreamChatGenerics>, 'maxUnreadCount'> &
-  Pick<ChannelPreviewProps<StreamChatGenerics>, 'channel'> & {
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ChannelsContextValue<ErmisChatGenerics>, 'maxUnreadCount'> &
+  Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'> & {
     /**
      * Number of unread messages on the channel
      */
@@ -19,9 +19,9 @@ export type ChannelPreviewUnreadCountProps<
   };
 
 export const ChannelPreviewUnreadCount = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewUnreadCountProps<StreamChatGenerics>,
+  props: ChannelPreviewUnreadCountProps<ErmisChatGenerics>,
 ) => {
   const { maxUnreadCount, unread } = props;
   const {

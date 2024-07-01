@@ -1,28 +1,28 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { ChannelState } from 'stream-chat';
+import type { ChannelState } from 'ermis-chat-sdk-test';
 
-import type { DefaultStreamChatGenerics, UnknownType } from '../../types/types';
+import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
 
 export type TypingContextValue<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  typing: ChannelState<StreamChatGenerics>['typing'];
+  typing: ChannelState<ErmisChatGenerics>['typing'];
 };
 
 export const TypingContext = React.createContext(DEFAULT_BASE_CONTEXT_VALUE as TypingContextValue);
 
 export const TypingProvider = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   children,
   value,
 }: PropsWithChildren<{
-  value: TypingContextValue<StreamChatGenerics>;
+  value: TypingContextValue<ErmisChatGenerics>;
 }>) => (
   <TypingContext.Provider value={value as unknown as TypingContextValue}>
     {children}
@@ -30,11 +30,11 @@ export const TypingProvider = <
 );
 
 export const useTypingContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >() => {
   const contextValue = useContext(
     TypingContext,
-  ) as unknown as TypingContextValue<StreamChatGenerics>;
+  ) as unknown as TypingContextValue<ErmisChatGenerics>;
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
@@ -56,14 +56,14 @@ export const useTypingContext = <
  */
 export const withTypingContext = <
   P extends UnknownType,
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   Component: React.ComponentType<P>,
-): React.ComponentType<Omit<P, keyof TypingContextValue<StreamChatGenerics>>> => {
+): React.ComponentType<Omit<P, keyof TypingContextValue<ErmisChatGenerics>>> => {
   const WithTypingContextComponent = (
-    props: Omit<P, keyof TypingContextValue<StreamChatGenerics>>,
+    props: Omit<P, keyof TypingContextValue<ErmisChatGenerics>>,
   ) => {
-    const typingContext = useTypingContext<StreamChatGenerics>();
+    const typingContext = useTypingContext<ErmisChatGenerics>();
 
     return <Component {...(props as P)} {...typingContext} />;
   };

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import type { Attachment } from 'stream-chat';
+import type { Attachment } from 'ermis-chat-sdk-test';
 
 import { GalleryImage } from './GalleryImage';
 import { ImageReloadIndicator } from './ImageReloadIndicator';
@@ -32,14 +32,14 @@ import {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useLoadingImage } from '../../hooks/useLoadingImage';
 import { isVideoPackageAvailable } from '../../native';
-import type { DefaultStreamChatGenerics } from '../../types/types';
+import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getUrlWithoutParams } from '../../utils/utils';
 
 export type GalleryPropsWithContext<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Pick<ImageGalleryContextValue<StreamChatGenerics>, 'setSelectedMessage' | 'setMessages'> &
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Pick<ImageGalleryContextValue<ErmisChatGenerics>, 'setSelectedMessage' | 'setMessages'> &
   Pick<
-    MessageContextValue<StreamChatGenerics>,
+    MessageContextValue<ErmisChatGenerics>,
     | 'alignment'
     | 'groupStyles'
     | 'images'
@@ -51,7 +51,7 @@ export type GalleryPropsWithContext<
     | 'threadList'
   > &
   Pick<
-    MessagesContextValue<StreamChatGenerics>,
+    MessagesContextValue<ErmisChatGenerics>,
     | 'additionalTouchableProps'
     | 'legacyImageViewerSwipeBehaviour'
     | 'VideoThumbnail'
@@ -74,13 +74,13 @@ export type GalleryPropsWithContext<
      *
      * TODO: Fix circular dependencies of imports
      */
-    message?: MessageType<StreamChatGenerics>;
+    message?: MessageType<ErmisChatGenerics>;
   };
 
 const GalleryWithContext = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: GalleryPropsWithContext<StreamChatGenerics>,
+  props: GalleryPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     additionalTouchableProps,
@@ -229,7 +229,7 @@ const GalleryWithContext = <
 };
 
 type GalleryThumbnailProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   borderRadius: {
     borderBottomLeftRadius: number;
@@ -238,30 +238,30 @@ type GalleryThumbnailProps<
     borderTopRightRadius: number;
   };
   colIndex: number;
-  imagesAndVideos: Attachment<StreamChatGenerics>[];
+  imagesAndVideos: Attachment<ErmisChatGenerics>[];
   invertedDirections: boolean;
-  message: MessageType<StreamChatGenerics>;
+  message: MessageType<ErmisChatGenerics>;
   numOfColumns: number;
   numOfRows: number;
   rowIndex: number;
   thumbnail: Thumbnail;
 } & Pick<
-  MessagesContextValue<StreamChatGenerics>,
+  MessagesContextValue<ErmisChatGenerics>,
   | 'additionalTouchableProps'
   | 'legacyImageViewerSwipeBehaviour'
   | 'VideoThumbnail'
   | 'ImageLoadingIndicator'
   | 'ImageLoadingFailedIndicator'
 > &
-  Pick<ImageGalleryContextValue<StreamChatGenerics>, 'setSelectedMessage' | 'setMessages'> &
+  Pick<ImageGalleryContextValue<ErmisChatGenerics>, 'setSelectedMessage' | 'setMessages'> &
   Pick<
-    MessageContextValue<StreamChatGenerics>,
+    MessageContextValue<ErmisChatGenerics>,
     'onLongPress' | 'onPress' | 'onPressIn' | 'preventPress'
   > &
   Pick<OverlayContextValue, 'setOverlay'>;
 
 const GalleryThumbnail = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   additionalTouchableProps,
   borderRadius,
@@ -284,7 +284,7 @@ const GalleryThumbnail = <
   setSelectedMessage,
   thumbnail,
   VideoThumbnail,
-}: GalleryThumbnailProps<StreamChatGenerics>) => {
+}: GalleryThumbnailProps<ErmisChatGenerics>) => {
   const {
     theme: {
       colors: { overlay },
@@ -404,14 +404,14 @@ const GalleryThumbnail = <
 };
 
 const GalleryImageThumbnail = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >({
   borderRadius,
   ImageLoadingFailedIndicator,
   ImageLoadingIndicator,
   thumbnail,
 }: Pick<
-  GalleryThumbnailProps<StreamChatGenerics>,
+  GalleryThumbnailProps<ErmisChatGenerics>,
   'ImageLoadingFailedIndicator' | 'ImageLoadingIndicator' | 'thumbnail' | 'borderRadius'
 >) => {
   const {
@@ -478,9 +478,9 @@ const GalleryImageThumbnail = <
   );
 };
 
-const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics>(
-  prevProps: GalleryPropsWithContext<StreamChatGenerics>,
-  nextProps: GalleryPropsWithContext<StreamChatGenerics>,
+const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics>(
+  prevProps: GalleryPropsWithContext<ErmisChatGenerics>,
+  nextProps: GalleryPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     groupStyles: prevGroupStyles,
@@ -539,16 +539,16 @@ const areEqual = <StreamChatGenerics extends DefaultStreamChatGenerics = Default
 const MemoizedGallery = React.memo(GalleryWithContext, areEqual) as typeof GalleryWithContext;
 
 export type GalleryProps<
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
-> = Partial<GalleryPropsWithContext<StreamChatGenerics>>;
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+> = Partial<GalleryPropsWithContext<ErmisChatGenerics>>;
 
 /**
  * UI component for card in attachments.
  */
 export const Gallery = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: GalleryProps<StreamChatGenerics>,
+  props: GalleryProps<ErmisChatGenerics>,
 ) => {
   const {
     additionalTouchableProps: propAdditionalTouchableProps,
@@ -572,7 +572,7 @@ export const Gallery = <
   } = props;
 
   const { setMessages, setSelectedMessage: contextSetSelectedMessage } =
-    useImageGalleryContext<StreamChatGenerics>();
+    useImageGalleryContext<ErmisChatGenerics>();
   const {
     alignment: contextAlignment,
     groupStyles: contextGroupStyles,
@@ -584,7 +584,7 @@ export const Gallery = <
     preventPress: contextPreventPress,
     threadList: contextThreadList,
     videos: contextVideos,
-  } = useMessageContext<StreamChatGenerics>();
+  } = useMessageContext<ErmisChatGenerics>();
   const {
     additionalTouchableProps: contextAdditionalTouchableProps,
     ImageLoadingFailedIndicator: ContextImageLoadingFailedIndicator,
@@ -592,7 +592,7 @@ export const Gallery = <
     legacyImageViewerSwipeBehaviour,
     myMessageTheme: contextMyMessageTheme,
     VideoThumbnail: ContextVideoThumnbnail,
-  } = useMessagesContext<StreamChatGenerics>();
+  } = useMessagesContext<ErmisChatGenerics>();
   const { setOverlay: contextSetOverlay } = useOverlayContext();
 
   const images = propImages || contextImages;

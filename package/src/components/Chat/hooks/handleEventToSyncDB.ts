@@ -1,4 +1,4 @@
-import type { Event, StreamChat } from 'stream-chat';
+import type { Event, ErmisChat } from 'ermis-chat-sdk-test';
 
 import { deleteChannel } from '../../../store/apis/deleteChannel';
 import { deleteMember } from '../../../store/apis/deleteMember';
@@ -13,13 +13,13 @@ import { upsertReads } from '../../../store/apis/upsertReads';
 import { QuickSqliteClient } from '../../../store/QuickSqliteClient';
 import { createSelectQuery } from '../../../store/sqlite-utils/createSelectQuery';
 import { PreparedQueries } from '../../../store/types';
-import { DefaultStreamChatGenerics } from '../../../types/types';
+import { DefaultErmisChatGenerics } from '../../../types/types';
 
 export const handleEventToSyncDB = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   event: Event,
-  client: StreamChat<StreamChatGenerics>,
+  client: ErmisChat<ErmisChatGenerics>,
   flush?: boolean,
 ) => {
   const { type } = event;

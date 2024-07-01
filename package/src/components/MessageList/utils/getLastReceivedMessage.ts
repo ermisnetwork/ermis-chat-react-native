@@ -1,12 +1,12 @@
-import type { DefaultStreamChatGenerics } from '../../../types/types';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { MessageStatusTypes } from '../../../utils/utils';
 
 import type { MessageType } from '../hooks/useMessageList';
 
 export const getLastReceivedMessage = <
-  StreamChatGenerics extends DefaultStreamChatGenerics = DefaultStreamChatGenerics,
+  ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  messages: MessageType<StreamChatGenerics>[],
+  messages: MessageType<ErmisChatGenerics>[],
 ) => {
   /**
    * There are no status on dates so they will be skipped
