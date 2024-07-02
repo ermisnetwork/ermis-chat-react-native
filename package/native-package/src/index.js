@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-import { FlatList } from '@ermis-io/flat-list-mvcp';
+import { FlatList } from '@stream-io/flat-list-mvcp';
 import { registerNativeHandlers } from 'ermis-chat-react-native-core';
 
 import {

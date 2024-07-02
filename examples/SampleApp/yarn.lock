@@ -3327,25 +3327,10 @@ envinfo@^7.10.0:
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.11.1.tgz#2ffef77591057081b0129a8fd8cf6118da1b94e1"
   integrity sha512-8PiZgZNIB4q/Lw4AhOvAfB/ityHAd2bli3lESSWmWSzSsl5dKpy5N1d1Rfkd2teq/g9xN90lc6o98DOjMeYHpg==
 
-ermis-chat-sdk@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.0.1.tgz#7b50f304689e0f2bc5a2037bfece9406cb94f40f"
-  integrity sha512-fKaptu2X5leGpeU02c21cAlvRTtdHqVpiq0reGyIh2/osxznkpX4I9jSShqmVCSeAMWiXbG/h9VugsOa1lCN+w==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@types/jsonwebtoken" "~9.0.0"
-    "@types/ws" "^7.4.0"
-    axios "^1.6.0"
-    base64-js "^1.5.1"
-    form-data "^4.0.0"
-    isomorphic-ws "^4.0.1"
-    jsonwebtoken "~9.0.0"
-    ws "^7.4.4"
-
 ermis-chat-react-native-core@1.0.3:
   version "1.0.3"
-  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.0.3.tgz#ab592e0c188cc5c7fa5cf4a6f5250b59f14c3b8a"
-  integrity sha512-8INc5s83+S6LUgApi/3koUKJAbJ7TeultVThYnTxzW+cy++ZV9xuTwcbMGaF+qAHsMWYaxePO4FzBpsCzfifhw==
+  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.0.3.tgz#29f989e1894782086a75bce81f64112dd3787a74"
+  integrity sha512-IkA9zQtJfdABOUDDWsPplBoibCYPATARb28b3zh08M9spksl3nGJ8jWQLuXMEP8Gsh8/73HnZeVLb/YDcNNEYQ==
   dependencies:
     "@gorhom/bottom-sheet" "4.4.8"
     dayjs "1.10.5"
@@ -3367,6 +3352,21 @@ ermis-chat-react-native-core@1.0.3:
 "ermis-chat-react-native@link:../../package/native-package":
   version "0.0.0"
   uid ""
+
+ermis-chat-sdk@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.0.1.tgz#7b50f304689e0f2bc5a2037bfece9406cb94f40f"
+  integrity sha512-fKaptu2X5leGpeU02c21cAlvRTtdHqVpiq0reGyIh2/osxznkpX4I9jSShqmVCSeAMWiXbG/h9VugsOa1lCN+w==
+  dependencies:
+    "@babel/runtime" "^7.16.3"
+    "@types/jsonwebtoken" "~9.0.0"
+    "@types/ws" "^7.4.0"
+    axios "^1.6.0"
+    base64-js "^1.5.1"
+    form-data "^4.0.0"
+    isomorphic-ws "^4.0.1"
+    jsonwebtoken "~9.0.0"
+    ws "^7.4.4"
 
 error-ex@^1.3.1:
   version "1.3.2"
