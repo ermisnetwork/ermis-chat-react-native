@@ -1,4 +1,4 @@
-import type { MessageResponse } from 'ermis-chat-sdk-test';
+import type { MessageResponse } from 'ermis-chat-sdk';
 
 import type { MessageType } from '../components/MessageList/hooks/useMessageList';
 import type { DefaultErmisChatGenerics } from '../types/types';

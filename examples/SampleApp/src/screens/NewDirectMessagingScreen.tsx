@@ -9,7 +9,7 @@ import {
   User,
   UserAdd,
   useTheme,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { RoundButton } from '../components/RoundButton';
 import { ScreenHeader } from '../components/ScreenHeader';
@@ -19,7 +19,7 @@ import { useAppContext } from '../context/AppContext';
 import { useUserSearchContext } from '../context/UserSearchContext';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
-import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk-test';
+import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk';
 
 import { NewDirectMessagingSendButton } from '../components/NewDirectMessagingSendButton';
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { Channel, ChannelMemberResponse } from 'ermis-chat-sdk-test';
+import type { Channel, ChannelMemberResponse } from 'ermis-chat-sdk';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { useViewport } from '../../../hooks/useViewport';

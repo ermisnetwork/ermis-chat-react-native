@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { act, render, waitFor } from '@testing-library/react-native';
 
-import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk';
 
 import {
   getOrCreateChannelApi,

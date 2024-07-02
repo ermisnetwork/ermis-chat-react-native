@@ -8,7 +8,7 @@ import {
   useAttachmentPickerContext,
   useTheme,
   useTypingString,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { ScreenHeader } from '../components/ScreenHeader';
 

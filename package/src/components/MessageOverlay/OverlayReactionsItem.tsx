@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 
-import { ReactionResponse } from 'ermis-chat-sdk-test';
+import { ReactionResponse } from 'ermis-chat-sdk';
 
 import { Reaction } from './OverlayReactions';
 

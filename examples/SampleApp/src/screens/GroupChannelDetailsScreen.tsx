@@ -15,7 +15,7 @@ import {
   useChannelPreviewDisplayName,
   useOverlayContext,
   useTheme,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { RoundButton } from '../components/RoundButton';
 import { ScreenHeader } from '../components/ScreenHeader';
@@ -36,7 +36,7 @@ import { RemoveUser } from '../icons/RemoveUser';
 import { getUserActivityStatus } from '../utils/getUserActivityStatus';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
-import type { Channel, UserResponse } from 'ermis-chat-sdk-test';
+import type { Channel, UserResponse } from 'ermis-chat-sdk';
 
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 import { Pin } from '../icons/Pin';

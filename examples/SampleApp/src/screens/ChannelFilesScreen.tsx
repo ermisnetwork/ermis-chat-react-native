@@ -8,14 +8,14 @@ import {
   goToURL,
   ThemeProvider,
   useTheme,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { ScreenHeader } from '../components/ScreenHeader';
 import { usePaginatedAttachments } from '../hooks/usePaginatedAttachments';
 import { File } from '../icons/File';
 
 import type { RouteProp } from '@react-navigation/native';
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 

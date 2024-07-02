@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import uniqBy from 'lodash/uniqBy';
 
-import type { Channel, Event } from 'ermis-chat-sdk-test';
+import type { Channel, Event } from 'ermis-chat-sdk';
 
 import { useChatContext } from '../../../../contexts/chatContext/ChatContext';
 

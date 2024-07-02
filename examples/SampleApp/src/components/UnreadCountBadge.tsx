@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useTheme } from 'stream-chat-react-native';
+import { useTheme } from 'ermis-chat-react-native';
 
 import { useAppContext } from '../context/AppContext';
 

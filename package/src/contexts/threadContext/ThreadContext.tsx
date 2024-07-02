@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { ChannelState } from 'ermis-chat-sdk-test';
+import type { ChannelState } from 'ermis-chat-sdk';
 
 import type { MessageType } from '../../components/MessageList/hooks/useMessageList';
 import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
@@ -48,7 +48,7 @@ export const useThreadContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useThreadContext hook was called outside of the ThreadContext provider. Make sure you have configured Channel component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#channel`,
+      `The useThreadContext hook was called outside of the ThreadContext provider. Make sure you have configured Channel component correctly`,
     );
   }
 

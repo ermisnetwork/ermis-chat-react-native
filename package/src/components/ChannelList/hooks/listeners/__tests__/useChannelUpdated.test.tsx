@@ -4,7 +4,7 @@ import { Image, Text } from 'react-native';
 import { act } from 'react-test-renderer';
 
 import { render, waitFor } from '@testing-library/react-native';
-import type { Channel, ChannelResponse, Event, ErmisChat } from 'ermis-chat-sdk-test';
+import type { Channel, ChannelResponse, Event, ErmisChat } from 'ermis-chat-sdk';
 
 import { ChatContext, useChannelUpdated } from '../../../../../index';
 

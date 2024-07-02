@@ -1,9 +1,8 @@
-import { Streami18n } from 'stream-chat-react-native';
+import { Ermisi18n } from 'ermis-chat-react-native';
 
 /**
- * Start playing with streami18n instance here:
- * Please refer to description of this PR for details: https://github.com/GetStream/stream-chat-react-native/pull/150
+ * Start playing with ermisi18n instance here:
  */
-export const streami18n = new Streami18n({
+export const ermisi18n = new Ermisi18n({
   language: 'en',
 });

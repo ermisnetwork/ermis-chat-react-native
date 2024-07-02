@@ -11,12 +11,12 @@ import {
   Message,
   SendFileAPIResponse,
   ErmisChat,
-  Message as StreamMessage,
+  Message as ErmisMessage,
   UserFilters,
   UserOptions,
   UserResponse,
   UserSort,
-} from 'ermis-chat-sdk-test';
+} from 'ermis-chat-sdk';
 
 import { useCreateMessageInputContext } from './hooks/useCreateMessageInputContext';
 import { useMessageDetailsForState } from './hooks/useMessageDetailsForState';
@@ -239,19 +239,19 @@ export type InputMessageInputContextValue<
   /**
    * Custom UI component for attach button.
    *
-   * Defaults to and accepts same props as: [AttachButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/attach-button/)
+   * Defaults to and accepts same props as: [AttachButton]
    */
   AttachButton: React.ComponentType<AttachButtonProps<ErmisChatGenerics>>;
   /**
    * Custom UI component for audio attachment upload preview.
    *
-   * Defaults to and accepts same props as: [AudioAttachmentUploadPreview](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/AudioAttachment.tsx)
+   * Defaults to and accepts same props as: [AudioAttachmentUploadPreview]
    */
   AudioAttachmentUploadPreview: React.ComponentType<AudioAttachmentProps>;
   /**
    * Custom UI component for audio recorder UI.
    *
-   * Defaults to and accepts same props as: [AudioRecorder](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/AudioRecorder.tsx)
+   * Defaults to and accepts same props as: [AudioRecorder]
    */
   AudioRecorder: React.ComponentType<AudioRecorderProps<ErmisChatGenerics>>;
   /**
@@ -261,25 +261,25 @@ export type InputMessageInputContextValue<
   /**
    * Custom UI component to render audio recording in progress.
    *
-   * **Default** [AudioRecordingInProgress](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/components/AudioRecorder/AudioRecordingInProgress.tsx)
+   * **Default** [AudioRecordingInProgress]
    */
   AudioRecordingInProgress: React.ComponentType<AudioRecordingInProgressProps>;
   /**
    * Custom UI component for audio recording lock indicator.
    *
-   * Defaults to and accepts same props as: [AudioRecordingLockIndicator](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/components/AudioRecorder/AudioRecordingLockIndicator.tsx)
+   * Defaults to and accepts same props as: [AudioRecordingLockIndicator]
    */
   AudioRecordingLockIndicator: React.ComponentType<AudioRecordingLockIndicatorProps>;
   /**
    * Custom UI component to render audio recording preview.
    *
-   * **Default** [AudioRecordingPreview](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/components/AudioRecorder/AudioRecordingPreview.tsx)
+   * **Default** [AudioRecordingPreview]
    */
   AudioRecordingPreview: React.ComponentType<AudioRecordingPreviewProps>;
   /**
    * Custom UI component to render audio recording waveform.
    *
-   * **Default** [AudioRecordingWaveform](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/components/AudioRecorder/AudioRecordingWaveform.tsx)
+   * **Default** [AudioRecordingWaveform]
    */
   AudioRecordingWaveform: React.ComponentType<AudioRecordingWaveformProps>;
 
@@ -288,7 +288,7 @@ export type InputMessageInputContextValue<
   /**
    * Custom UI component for commands button.
    *
-   * Defaults to and accepts same props as: [CommandsButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/commands-button/)
+   * Defaults to and accepts same props as: [CommandsButton]
    */
   CommandsButton: React.ComponentType<CommandsButtonProps<ErmisChatGenerics>>;
   /**
@@ -296,14 +296,13 @@ export type InputMessageInputContextValue<
    * being allowed to send another message. This component is displayed in place of the
    * send button for the MessageInput component.
    *
-   * **default** [CooldownTimer](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/CooldownTimer.tsx)
+   * **default** [CooldownTimer]
    */
   CooldownTimer: React.ComponentType<CooldownTimerProps>;
   editMessage: ErmisChat<ErmisChatGenerics>['updateMessage'];
 
   /**
    * Custom UI component for FileUploadPreview.
-   * Defaults to and accepts same props as: https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/FileUploadPreview.tsx
    */
   FileUploadPreview: React.ComponentType<FileUploadPreviewProps<ErmisChatGenerics>>;
 
@@ -315,7 +314,6 @@ export type InputMessageInputContextValue<
   hasImagePicker: boolean;
   /**
    * Custom UI component for ImageUploadPreview.
-   * Defaults to and accepts same props as: https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/ImageUploadPreview.tsx
    */
   ImageUploadPreview: React.ComponentType<ImageUploadPreviewProps<ErmisChatGenerics>>;
   InputEditingStateHeader: React.ComponentType<InputEditingStateHeaderProps<ErmisChatGenerics>>;
@@ -327,7 +325,7 @@ export type InputMessageInputContextValue<
   /**
    * Custom UI component for more options button.
    *
-   * Defaults to and accepts same props as: [MoreOptionsButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/more-options-button/)
+   * Defaults to and accepts same props as: [MoreOptionsButton]
    */
   MoreOptionsButton: React.ComponentType<MoreOptionsButtonProps<ErmisChatGenerics>>;
   /** Limit on the number of lines in the text input before scrolling */
@@ -336,11 +334,11 @@ export type InputMessageInputContextValue<
   /**
    * Custom UI component for send button.
    *
-   * Defaults to and accepts same props as: [SendButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/send-button/)
+   * Defaults to and accepts same props as: [SendButton]
    */
   SendButton: React.ComponentType<SendButtonProps<ErmisChatGenerics>>;
   sendImageAsync: boolean;
-  sendMessage: (message: Partial<StreamMessage<ErmisChatGenerics>>) => Promise<void>;
+  sendMessage: (message: Partial<ErmisMessage<ErmisChatGenerics>>) => Promise<void>;
   setQuotedMessageState: (message: MessageType<ErmisChatGenerics>) => void;
   /**
    * Custom UI component to render checkbox with text ("Also send to channel") in Thread's input box.
@@ -352,13 +350,13 @@ export type InputMessageInputContextValue<
   /**
    * Custom UI component for audio recording mic button.
    *
-   * Defaults to and accepts same props as: [AudioRecordingButton](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/components/AudioRecorder/AudioRecordingButton.tsx)
+   * Defaults to and accepts same props as: [AudioRecordingButton]
    */
   StartAudioRecordingButton: React.ComponentType<AudioRecordingButtonProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to render upload progress indicator on attachment preview.
    *
-   * **Default** [UploadProgressIndicator](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/UploadProgressIndicator.tsx)
+   * **Default** [UploadProgressIndicator]
    */
   UploadProgressIndicator: React.ComponentType<UploadProgressIndicatorProps>;
 
@@ -426,7 +424,7 @@ export type InputMessageInputContextValue<
   initialValue?: string;
   /**
    * Custom UI component for AutoCompleteInput.
-   * Has access to all of [MessageInputContext](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/contexts/messageInputContext/MessageInputContext.tsx)
+   * Has access to all of [MessageInputContext]
    */
   Input?: React.ComponentType<
     Omit<MessageInputProps<ErmisChatGenerics>, 'Input'> &
@@ -436,7 +434,7 @@ export type InputMessageInputContextValue<
   >;
   /**
    * Custom UI component to override buttons on left side of input box
-   * Defaults to [InputButtons](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageInput/InputButtons.tsx),
+   * Defaults to [InputButtons]
    * which contain following components/buttons:
    *
    *  - AttachButton
@@ -912,7 +910,7 @@ export const MessageInputProvider = <
           show_in_channel: sendThreadMessageInChannel || undefined,
           text: prevText,
           ...customMessageData,
-        } as unknown as StreamMessage<ErmisChatGenerics>);
+        } as unknown as ErmisMessage<ErmisChatGenerics>);
 
         value.clearQuotedMessageState();
         sending.current = false;
@@ -940,7 +938,7 @@ export const MessageInputProvider = <
           image_url: image.url,
           type: 'image',
         },
-      ] as StreamMessage<ErmisChatGenerics>['attachments'];
+      ] as ErmisMessage<ErmisChatGenerics>['attachments'];
 
       startCooldown();
       try {
@@ -952,7 +950,7 @@ export const MessageInputProvider = <
             typeof value.quotedMessage === 'boolean' ? undefined : value.quotedMessage.id,
           show_in_channel: sendThreadMessageInChannel || undefined,
           text: '',
-        } as unknown as Partial<StreamMessage<ErmisChatGenerics>>);
+        } as unknown as Partial<ErmisMessage<ErmisChatGenerics>>);
 
         setAsyncIds((prevAsyncIds) => prevAsyncIds.splice(prevAsyncIds.indexOf(id), 1));
         setAsyncUploads((prevAsyncUploads) => {
@@ -1336,7 +1334,7 @@ export const useMessageInputContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useMessageInputContext hook was called outside of the MessageInputContext provider. Make sure you have configured Channel component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#channel`,
+      `The useMessageInputContext hook was called outside of the MessageInputContext provider. Make sure you have configured Channel component correctly`,
     );
   }
 

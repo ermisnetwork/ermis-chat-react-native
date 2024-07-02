@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { useTheme } from 'stream-chat-react-native';
+import { useTheme } from 'ermis-chat-react-native';
 
 import { useAppContext } from '../context/AppContext';
 import { useAppOverlayContext } from '../context/AppOverlayContext';
@@ -157,13 +157,13 @@ export const OneOnOneChannelDetailScreen: React.FC<Props> = ({
   const user = member?.user;
   const [muted, setMuted] = useState(
     chatClient?.mutedUsers &&
-      chatClient?.mutedUsers?.findIndex((mutedUser) => mutedUser.target.id === user?.id) > -1,
+    chatClient?.mutedUsers?.findIndex((mutedUser) => mutedUser.target.id === user?.id) > -1,
   );
   const [notificationsEnabled, setNotificationsEnabled] = useState(
     chatClient?.mutedChannels &&
-      chatClient.mutedChannels.findIndex(
-        (mutedChannel) => mutedChannel.channel?.id === channel.id,
-      ) > -1,
+    chatClient.mutedChannels.findIndex(
+      (mutedChannel) => mutedChannel.channel?.id === channel.id,
+    ) > -1,
   );
 
   /**

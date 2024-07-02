@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { TFunction } from 'i18next';
-import type { Channel, ChannelState, MessageResponse, ErmisChat, UserResponse } from 'ermis-chat-sdk-test';
+import type { Channel, ChannelState, MessageResponse, ErmisChat, UserResponse } from 'ermis-chat-sdk';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { useTranslationContext } from '../../../contexts/translationContext/TranslationContext';

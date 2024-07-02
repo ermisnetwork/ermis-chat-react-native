@@ -1,4 +1,4 @@
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import { buildThumbnail } from './buildThumbnail';
 import type { GallerySizeAndThumbnailGrid, GallerySizeConfig, ThumbnailGrid } from './types';

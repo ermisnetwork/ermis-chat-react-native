@@ -12,7 +12,7 @@ import {
   useChannelPreviewDisplayName,
   useChannelsContext,
   useTheme,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { ScreenHeader } from '../components/ScreenHeader';
 import { useAppContext } from '../context/AppContext';

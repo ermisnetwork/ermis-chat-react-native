@@ -7,7 +7,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import { OverlayBackdrop } from 'stream-chat-react-native';
+import { OverlayBackdrop } from 'ermis-chat-react-native';
 
 import { AppOverlayContext, AppOverlayContextValue } from './AppOverlayContext';
 

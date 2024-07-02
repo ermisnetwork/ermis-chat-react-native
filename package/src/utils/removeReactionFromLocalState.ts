@@ -1,4 +1,4 @@
-import type { Channel, UserResponse } from 'ermis-chat-sdk-test';
+import type { Channel, UserResponse } from 'ermis-chat-sdk';
 
 import { deleteReaction } from '../store/apis/deleteReaction';
 

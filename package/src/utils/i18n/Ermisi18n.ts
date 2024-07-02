@@ -151,7 +151,7 @@ const en_locale = {
 const isDayJs = (dateTimeParser: typeof Dayjs | typeof moment): dateTimeParser is typeof Dayjs =>
   (dateTimeParser as typeof Dayjs).extend !== undefined;
 
-type Streami18nOptions = {
+type Ermisi18nOptions = {
   DateTimeParser?: typeof Dayjs | typeof moment;
   dayjsLocaleConfigForLanguage?: Partial<ILocale>;
   debug?: boolean;
@@ -173,9 +173,9 @@ type I18NextConfig = {
 };
 
 /**
- * Wrapper around [i18next](https://www.i18next.com/) class for Stream related translations.
+ * Wrapper around [i18next](https://www.i18next.com/) class for Ermis related translations.
  * Instance of this class should be provided to Chat component to handle translations.
- * Stream provides following list of in-built translations:
+ * Ermis provides following list of in-built translations:
  * 1. English (en)
  * 2. Spanish (es)
  * 3. French (fr)
@@ -191,7 +191,7 @@ type I18NextConfig = {
  * Simplest way to start using chat components in one of the in-built languages would be following:
  *
  * ```
- * const i18n = new Streami18n({ language 'nl' });
+ * const i18n = new Ermisi18n({ language 'nl' });
  * <Chat client={chatClient} i18nInstance={i18n}>
  *  ...
  * </Chat>
@@ -201,7 +201,7 @@ type I18NextConfig = {
  * UI will be automatically updated in this case.
  *
  * ```
- * const i18n = new Streami18n({
+ * const i18n = new Ermisi18n({
  *  language: 'nl',
  *  translationsForLanguage: {
  *    'Nothing yet...': 'Nog Niet ...',
@@ -224,7 +224,7 @@ type I18NextConfig = {
  * You can use the same function to add whole new language as well.
  *
  * ```
- * const i18n = new Streami18n();
+ * const i18n = new Ermisi18n();
  *
  * i18n.registerTranslation('mr', {
  *  'Nothing yet...': 'काहीही नाही  ...',
@@ -240,7 +240,7 @@ type I18NextConfig = {
  *
  * ## Datetime translations
  *
- * Stream react chat components uses [dayjs](https://day.js.org/en/) internally by default to format datetime stamp.
+ * Ermis react chat components uses [dayjs](https://day.js.org/en/) internally by default to format datetime stamp.
  * e.g., in ChannelPreview, MessageContent components.
  * Dayjs has locale support as well - https://day.js.org/docs/en/i18n/i18n
  * Dayjs is a lightweight alternative to Momentjs with the same modern API.
@@ -249,14 +249,14 @@ type I18NextConfig = {
  * https://github.com/iamkun/dayjs/tree/dev/src/locale
  *
  * You can either provide the dayjs locale config while registering
- * language with Streami18n (either via constructor or registerTranslation()) or you can provide your own Dayjs or Moment instance
- * to Streami18n constructor, which will be then used internally (using the language locale) in components.
+ * language with Ermisi18n (either via constructor or registerTranslation()) or you can provide your own Dayjs or Moment instance
+ * to Ermisi18n constructor, which will be then used internally (using the language locale) in components.
  *
  * 1. Via language registration
  *
  * e.g.,
  * ```
- * const i18n = new Streami18n({
+ * const i18n = new Ermisi18n({
  *  language: 'nl',
  *  dayjsLocaleConfigForLanguage: {
  *    months: [...],
@@ -272,7 +272,7 @@ type I18NextConfig = {
  *
  * e.g.,
  * ```
- * const i18n = new Streami18n();
+ * const i18n = new Ermisi18n();
  *
  * i18n.registerTranslation(
  *  'mr',
@@ -299,7 +299,7 @@ type I18NextConfig = {
  *
  * import Moment from moment
  *
- * const i18n = new Streami18n({
+ * const i18n = new Ermisi18n({
  *  language: 'nl',
  *  DateTimeParser: Moment
  * })
@@ -315,15 +315,15 @@ type I18NextConfig = {
  * // or if you want to include all locales
  * import 'dayjs/min/locales';
  *
- * const i18n = new Streami18n({
+ * const i18n = new Ermisi18n({
  *  language: 'nl',
  *  DateTimeParser: Dayjs
  * })
  * ```
- * If you would like to stick with english language for date-times in Stream components, you can set `disableDateTimeTranslations` to true.
+ * If you would like to stick with english language for date-times in Ermis components, you can set `disableDateTimeTranslations` to true.
  *
  */
-const defaultStreami18nOptions = {
+const defaultErmisi18nOptions = {
   DateTimeParser: Dayjs,
   dayjsLocaleConfigForLanguage: null,
   debug: false,
@@ -332,7 +332,7 @@ const defaultStreami18nOptions = {
   logger: (msg?: string) => console.warn(msg),
 };
 
-export class Streami18n {
+export class Ermisi18n {
   i18nInstance = i18n.createInstance();
   Dayjs = null;
   initialized = false;
@@ -342,7 +342,7 @@ export class Streami18n {
   private onLanguageChangeListeners: ((t: TFunction) => void)[] = [];
   /* This is the callback to be fired when the tFunc is overridden
    * This is useful when a different i18n library needs to be used
-   * The SDK uses this in useStreami18n hook to set the tFunc in the context
+   * The SDK uses this in useErmisi18n hook to set the tFunc in the context
    */
   private onTFunctionOverrideListeners: ((t: TFunction) => void)[] = [];
   /* We need to queue the overridden tFunction
@@ -412,13 +412,13 @@ export class Streami18n {
    *    corresponding to language (param)
    *
    *  - DateTimeParser (function) Moment or Dayjs instance/function.
-   *    Make sure to load all the required locales in this Moment or Dayjs instance that you will be provide to Streami18n
+   *    Make sure to load all the required locales in this Moment or Dayjs instance that you will be provide to Ermisi18n
    *
    * @param {*} options
    */
-  constructor(options: Streami18nOptions = {}, i18nextConfig: Partial<I18NextConfig> = {}) {
+  constructor(options: Ermisi18nOptions = {}, i18nextConfig: Partial<I18NextConfig> = {}) {
     const finalOptions = {
-      ...defaultStreami18nOptions,
+      ...defaultErmisi18nOptions,
       ...options,
     };
 
@@ -442,7 +442,7 @@ export class Streami18n {
       }
     } catch (error) {
       throw new Error(
-        `Streami18n: Looks like you wanted to provide a Dayjs instance but something went wrong while adding plugins ${JSON.stringify(
+        `Ermisi18n: Looks like you wanted to provide a Dayjs instance but something went wrong while adding plugins ${JSON.stringify(
           error,
         )}`,
       );
@@ -480,7 +480,7 @@ export class Streami18n {
       nsSeparator: false,
 
       parseMissingKeyHandler: (key: string) => {
-        this.logger(`Streami18n: Missing translation for key: ${key}`);
+        this.logger(`Ermisi18n: Missing translation for key: ${key}`);
 
         return key;
       },
@@ -497,9 +497,9 @@ export class Streami18n {
       });
     } else if (!this.localeExists(this.currentLanguage)) {
       this.logger(
-        `Streami18n: Streami18n(...) - Locale config for ${this.currentLanguage} does not exist in momentjs.` +
+        `Ermisi18n: Ermisi18n(...) - Locale config for ${this.currentLanguage} does not exist in momentjs.` +
         `Please import the locale file using "import 'moment/locale/${this.currentLanguage}';" in your app or ` +
-        `register the locale config with Streami18n using registerTranslation(language, translation, customDayjsLocale)`,
+        `register the locale config with Ermisi18n using registerTranslation(language, translation, customDayjsLocale)`,
       );
     }
 
@@ -561,8 +561,8 @@ export class Streami18n {
     const availableLanguages = Object.keys(this.translations);
     if (availableLanguages.indexOf(this.currentLanguage) === -1) {
       this.logger(
-        `Streami18n: '${this.currentLanguage}' language is not registered.` +
-        ` Please make sure to call streami18n.registerTranslation('${this.currentLanguage}', {...}) or ` +
+        `Ermisi18n: '${this.currentLanguage}' language is not registered.` +
+        ` Please make sure to call ermisi18n.registerTranslation('${this.currentLanguage}', {...}) or ` +
         `use one the built-in supported languages - ${this.getAvailableLanguages()}`,
       );
 
@@ -611,7 +611,7 @@ export class Streami18n {
   ) {
     if (!translation) {
       this.logger(
-        `Streami18n: registerTranslation(language, translation, customDayjsLocale) called without translation`,
+        `Ermisi18n: registerTranslation(language, translation, customDayjsLocale) called without translation`,
       );
       return;
     }
@@ -626,10 +626,10 @@ export class Streami18n {
       this.dayjsLocales[language] = { ...customDayjsLocale };
     } else if (!this.localeExists(language)) {
       this.logger(
-        `Streami18n: registerTranslation(language, translation, customDayjsLocale) - ` +
+        `Ermisi18n: registerTranslation(language, translation, customDayjsLocale) - ` +
         `Locale config for ${language} does not exist in Dayjs.` +
         `Please import the locale file using "import 'dayjs/locale/${language}';" in your app or ` +
-        `register the locale config with Streami18n using registerTranslation(language, translation, customDayjsLocale)`,
+        `register the locale config with Ermisi18n using registerTranslation(language, translation, customDayjsLocale)`,
       );
     }
 

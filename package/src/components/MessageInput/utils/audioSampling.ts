@@ -7,7 +7,6 @@ export const resampleWaveformData = (waveformData: number[], amplitudesCount: nu
 
 /**
  * The downSample function uses the Largest-Triangle-Three-Buckets (LTTB) algorithm.
- * See the thesis Downsampling Time Series for Visual Representation by Sveinn Steinarsson for more (https://skemman.is/bitstream/1946/15343/3/SS_MSthesis.pdf)
  * @param data
  * @param targetOutputSize
  */

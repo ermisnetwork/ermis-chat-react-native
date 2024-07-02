@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-import type { FormatMessageResponse } from 'ermis-chat-sdk-test';
+import type { FormatMessageResponse } from 'ermis-chat-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../../types/types';
 

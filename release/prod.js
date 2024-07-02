@@ -3,7 +3,7 @@ const configPromise = require('./release.config.js');
 
 configPromise.then((config) => {
   const currentPackage = require(`${process.cwd()}/package.json`);
-  const isSDK = currentPackage.name === 'stream-chat-react-native-core';
+  const isSDK = currentPackage.name === 'ermis-chat-react-native-core';
 
   const newConfig = {
     ...config,

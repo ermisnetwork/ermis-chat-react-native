@@ -4,14 +4,14 @@ import { cleanup, fireEvent, render, waitFor } from '@testing-library/react-nati
 
 import { ThemeProvider } from '../../../contexts/themeContext/ThemeContext';
 import { TranslationProvider } from '../../../contexts/translationContext/TranslationContext';
-import { Streami18n } from '../../../utils/i18n/Streami18n';
+import { Ermisi18n } from '../../../utils/i18n/Ermisi18n';
 import { ScrollToBottomButton } from '../ScrollToBottomButton';
 
 afterEach(cleanup);
 
 describe('ScrollToBottomButton', () => {
   it('should render nothing if showNotification is false', async () => {
-    const i18nInstance = new Streami18n();
+    const i18nInstance = new Ermisi18n();
     const translators = await i18nInstance.getTranslators();
     const { queryByTestId } = render(
       <ThemeProvider>
@@ -27,7 +27,7 @@ describe('ScrollToBottomButton', () => {
   });
 
   it('should render if showNotification is true', async () => {
-    const i18nInstance = new Streami18n();
+    const i18nInstance = new Ermisi18n();
     const translators = await i18nInstance.getTranslators();
     const { queryByTestId } = render(
       <ThemeProvider>
@@ -43,7 +43,7 @@ describe('ScrollToBottomButton', () => {
   });
 
   it('should trigger onPress when pressed', async () => {
-    const i18nInstance = new Streami18n();
+    const i18nInstance = new Ermisi18n();
     const translators = await i18nInstance.getTranslators();
     const onPress = jest.fn();
     const { getByTestId } = render(
@@ -59,7 +59,7 @@ describe('ScrollToBottomButton', () => {
 
   it('should display the unread count', async () => {
     const t = jest.fn((key) => key);
-    const i18nInstance = new Streami18n();
+    const i18nInstance = new Ermisi18n();
     const translators = await i18nInstance.getTranslators();
     const { getByTestId, getByText } = render(
       <ThemeProvider>
@@ -80,7 +80,7 @@ describe('ScrollToBottomButton', () => {
   });
 
   it('should render the message notification and match snapshot', async () => {
-    const i18nInstance = new Streami18n();
+    const i18nInstance = new Ermisi18n();
     const translators = await i18nInstance.getTranslators();
     const { toJSON } = render(
       <ThemeProvider>

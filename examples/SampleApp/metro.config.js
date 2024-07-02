@@ -14,8 +14,8 @@ const packageDirPath = PATH.resolve(__dirname, '../../package');
 const nativePackageDirPath = PATH.resolve(__dirname, '../../package/native-package');
 
 const symlinked = {
-  'stream-chat-react-native': nativePackageDirPath,
-  'stream-chat-react-native-core': packageDirPath,
+  'ermis-chat-react-native': nativePackageDirPath,
+  'ermis-chat-react-native-core': packageDirPath,
 };
 
 // find what all modules need to be unique for the app (mainly react and react-native)
@@ -29,7 +29,7 @@ const uniqueModules = dependencyPackageNames.map((packageName) => {
     const escapedPackageName = PATH.normalize(packageName).replace(/\\/g, '\\\\');
 
     // exclude the symlinked package from being resolved from node_modules
-    // example: .*\/node_modules\/stream-chat-react-native-core\/.*
+    // example: .*\/node_modules\/ermis-chat-react-native-core\/.*
     // the above would avoid native-package to resolve core from its own node_modules
     const exclusionRE = new RegExp(
       `.*${PATH.sep}node_modules\\${PATH.sep}${escapedPackageName}\\${PATH.sep}.*`,

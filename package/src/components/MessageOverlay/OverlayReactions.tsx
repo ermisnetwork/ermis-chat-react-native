@@ -3,7 +3,7 @@ import { StyleSheet, Text, useWindowDimensions, View, ViewStyle } from 'react-na
 import { FlatList } from 'react-native-gesture-handler';
 import Animated, { interpolate, useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 
-import { ReactionSortBase } from 'ermis-chat-sdk-test';
+import { ReactionSortBase } from 'ermis-chat-sdk';
 
 import { useFetchReactions } from './hooks/useFetchReactions';
 

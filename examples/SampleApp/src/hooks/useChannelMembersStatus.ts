@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { getUserActivityStatus } from '../utils/getUserActivityStatus';
 
-import type { Channel } from 'ermis-chat-sdk-test';
+import type { Channel } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../types';
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
-import type { Channel, MessageResponse } from 'ermis-chat-sdk-test';
+import type { Channel, MessageResponse } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../types';
 import { DEFAULT_PAGINATION_LIMIT } from '../utils/constants';

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { renderHook, waitFor } from '@testing-library/react-native';
 
-import type { DefaultGenerics, MessageResponse, ErmisChat } from 'ermis-chat-sdk-test';
+import type { DefaultGenerics, MessageResponse, ErmisChat } from 'ermis-chat-sdk';
 
 import { ChatContext, ChatContextValue } from '../../../../contexts/chatContext/ChatContext';
 import {

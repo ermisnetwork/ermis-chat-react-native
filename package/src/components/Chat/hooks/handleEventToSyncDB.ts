@@ -1,4 +1,4 @@
-import type { Event, ErmisChat } from 'ermis-chat-sdk-test';
+import type { Event, ErmisChat } from 'ermis-chat-sdk';
 
 import { deleteChannel } from '../../../store/apis/deleteChannel';
 import { deleteMember } from '../../../store/apis/deleteMember';

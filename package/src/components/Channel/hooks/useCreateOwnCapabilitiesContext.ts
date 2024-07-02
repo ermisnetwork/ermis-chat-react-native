@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import type { Channel } from 'ermis-chat-sdk-test';
+import type { Channel } from 'ermis-chat-sdk';
 
 import {
   allOwnCapabilities,

@@ -20,11 +20,11 @@ export const generateMessage = (options = {}) => {
   };
 };
 
-const StreamReactNativeNamespace = '9b244ee4-7d69-4d7b-ae23-cf89e9f7b035';
+const ErmisReactNativeNamespace = '9b244ee4-7d69-4d7b-ae23-cf89e9f7b035';
 export const generateStaticMessage = (seed, options, date) =>
   generateMessage({
     created_at: date || '2020-04-27T13:39:49.331742Z',
-    id: uuidv5(seed, StreamReactNativeNamespace),
+    id: uuidv5(seed, ErmisReactNativeNamespace),
     message_text_updated_at: date || '2020-04-27T13:39:49.331742Z',
     text: seed,
     updated_at: date || '2020-04-27T13:39:49.331742Z',

@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext } from 'react';
 import type { ImageProps } from 'react-native';
 
-import type { AppSettingsAPIResponse, Channel, Mute, ErmisChat } from 'ermis-chat-sdk-test';
+import type { AppSettingsAPIResponse, Channel, Mute, ErmisChat } from 'ermis-chat-sdk';
 
 import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
@@ -13,15 +13,15 @@ export type ChatContextValue<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
-   * Object of application settings returned from Stream.
+   * Object of application settings returned from Ermis.
    * */
   appSettings: AppSettingsAPIResponse<ErmisChatGenerics> | null;
   /**
    * The ErmisChat client object
    *
    * ```
-   * import { ErmisChat } from 'ermis-chat-sdk-test';
-   * import { Chat } from 'stream-chat-react-native';
+   * import { ErmisChat } from 'ermis-chat-sdk';
+   * import { Chat } from 'ermis-chat-react-native';
    *
    * const client = ErmisChat.getInstance('api_key);
    * await client.connectUser('user_id', 'userToken');
@@ -48,13 +48,13 @@ export type ChatContextValue<
    */
   setActiveChannel: (newChannel?: Channel<ErmisChatGenerics>) => void;
   /**
-   * Instance of channel object from stream-chat package.
+   * Instance of channel object from ermis-chat-sdk package.
    *
-   * Please check the docs around how to create or query channel - https://getstream.io/chat/docs/javascript/creating_channels/?language=javascript
+   * Please check the docs around how to create or query channel
    *
    * ```
-   * import { ErmisChat, Channel } from 'ermis-chat-sdk-test';
-   * import { Chat, Channel} from 'stream-chat-react-native';
+   * import { ErmisChat, Channel } from 'ermis-chat-sdk';
+   * import { Chat, Channel} from 'ermis-chat-react-native';
    *
    * const client = ErmisChat.getInstance('api_key');
    * await client.connectUser('user_id', 'user_token');
@@ -93,7 +93,7 @@ export const useChatContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useChatContext hook was called outside the ChatContext Provider. Make sure you have configured Chat component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#chat`,
+      `The useChatContext hook was called outside the ChatContext Provider. Make sure you have configured Chat component correctly`,
     );
   }
 

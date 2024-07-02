@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import { GalleryImage } from './GalleryImage';
 import { ImageReloadIndicator } from './ImageReloadIndicator';
@@ -64,7 +64,6 @@ export type GalleryPropsWithContext<
     hasThreadReplies?: boolean;
     /**
      * `message` prop has been introduced here as part of `legacyImageViewerSwipeBehaviour` prop.
-     * https://github.com/GetStream/stream-chat-react-native/commit/d5eac6193047916f140efe8e396a671675c9a63f
      * messageId and messageText may seem redundant now, but to avoid breaking change as part
      * of minor release, we are keeping those props.
      *

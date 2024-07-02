@@ -15,9 +15,9 @@ export type AttachmentPickerIconProps = {
 
 export type AttachmentPickerContextValue = {
   /**
-   * Custom UI component to render [draggable handle](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/1.png) of attachment picker.
+   * Custom UI component to render [draggable handle]
    *
-   * **Default** [AttachmentPickerBottomSheetHandle](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/AttachmentPicker/components/AttachmentPickerBottomSheetHandle.tsx)
+   * **Default** [AttachmentPickerBottomSheetHandle]
    */
   AttachmentPickerBottomSheetHandle: React.FC<BottomSheetHandleProps>;
   /**
@@ -35,7 +35,7 @@ export type AttachmentPickerContextValue = {
   /**
    * Custom UI component for AttachmentPickerSelectionBar
    *
-   * **Default: ** [AttachmentPickerSelectionBar](https://github.com/GetStream/stream-chat-react-native/blob/develop/package/src/components/AttachmentPicker/components/AttachmentPickerSelectionBar.tsx)
+   * **Default: ** [AttachmentPickerSelectionBar]
    */
   AttachmentPickerSelectionBar: React.ComponentType;
   /**
@@ -48,27 +48,27 @@ export type AttachmentPickerContextValue = {
    * `bottomInset` determine the height of the `AttachmentPicker` and the underlying shift to the `MessageList` when it is opened.
    * This can also be set via the `setBottomInset` function provided by the `useAttachmentPickerContext` hook.
    *
-   * Please check [OverlayProvider](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#overlayprovider) section in Cookbook
+   * Please check [OverlayProvider]
    * for more details.
    */
   bottomInset: number;
   /**
-   * Custom UI component for [camera selector icon](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/1.png)
+   * Custom UI component for [camera selector icon]
    *
-   * **Default: ** [CameraSelectorIcon](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/AttachmentPicker/components/CameraSelectorIcon.tsx)
+   * **Default: ** [CameraSelectorIcon]
    */
   CameraSelectorIcon: React.ComponentType<AttachmentPickerIconProps>;
   closePicker: () => void;
   /**
-   * Custom UI component for [file selector icon](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/1.png)
+   * Custom UI component for [file selector icon]
    *
-   * **Default: ** [FileSelectorIcon](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/AttachmentPicker/components/FileSelectorIcon.tsx)
+   * **Default: ** [FileSelectorIcon]
    */
   FileSelectorIcon: React.ComponentType<AttachmentPickerIconProps>;
   /**
-   * Custom UI component for [image selector icon](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/1.png)
+   * Custom UI component for [image selector icon]
    *
-   * **Default: ** [ImageSelectorIcon](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/AttachmentPicker/components/ImageSelectorIcon.tsx)
+   * **Default: ** [ImageSelectorIcon]
    */
   ImageSelectorIcon: React.ComponentType<AttachmentPickerIconProps>;
   /**
@@ -152,7 +152,7 @@ export const useAttachmentPickerContext = () => {
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useAttachmentPickerContext hook was called outside the AttachmentPickerContext provider. Make sure you have configured OverlayProvider component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#overlay-provider`,
+      `The useAttachmentPickerContext hook was called outside the AttachmentPickerContext provider. Make sure you have configured OverlayProvider component correctly`,
     );
   }
 

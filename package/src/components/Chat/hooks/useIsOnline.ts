@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import type { NetInfoSubscription } from '@react-native-community/netinfo';
 
-import type { ErmisChat, Event as StreamEvent } from 'ermis-chat-sdk-test';
+import type { ErmisChat, Event as ErmisEvent } from 'ermis-chat-sdk';
 
 import { useAppStateListener } from '../../../hooks/useAppStateListener';
 import { useIsMountedRef } from '../../../hooks/useIsMountedRef';
@@ -49,7 +49,7 @@ export const useIsOnline = <
   useAppStateListener(onForeground, onBackground);
 
   useEffect(() => {
-    const handleChangedEvent = (event: StreamEvent<ErmisChatGenerics>) => {
+    const handleChangedEvent = (event: ErmisEvent<ErmisChatGenerics>) => {
       setConnectionRecovering(!event.online);
       setIsOnline(event.online || false);
     };

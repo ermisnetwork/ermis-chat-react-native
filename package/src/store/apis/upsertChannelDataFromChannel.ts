@@ -1,4 +1,4 @@
-import type { Channel } from 'ermis-chat-sdk-test';
+import type { Channel } from 'ermis-chat-sdk';
 
 import { DefaultErmisChatGenerics } from '../../types/types';
 import { mapChannelToStorable } from '../mappers/mapChannelToStorable';

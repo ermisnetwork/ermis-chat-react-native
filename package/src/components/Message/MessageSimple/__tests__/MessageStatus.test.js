@@ -5,7 +5,7 @@ import { cleanup, render, waitFor } from '@testing-library/react-native';
 import { generateMessage } from '../../../../mock-builders/generator/message';
 import { generateStaticUser, generateUser } from '../../../../mock-builders/generator/user';
 import { getTestClientWithUser } from '../../../../mock-builders/mock';
-import { Streami18n } from '../../../../utils/i18n/Streami18n';
+import { Ermisi18n } from '../../../../utils/i18n/Ermisi18n';
 import { Chat } from '../../../Chat/Chat';
 import { MessageStatus } from '../MessageStatus';
 
@@ -17,7 +17,7 @@ describe('MessageStatus', () => {
   beforeAll(async () => {
     id = 'testID';
     chatClient = await getTestClientWithUser({ id });
-    i18nInstance = new Streami18n();
+    i18nInstance = new Ermisi18n();
   });
   afterEach(cleanup);
 

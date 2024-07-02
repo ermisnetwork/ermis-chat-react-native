@@ -1,6 +1,6 @@
 /* global require */
 const Dayjs = require('dayjs');
-const ErmisChat = require('ermis-chat-sdk-test').ErmisChat;
+const ErmisChat = require('ermis-chat-sdk').ErmisChat;
 export const client = new ErmisChat('qk4nn7rpcn75');
 
 client.connectUser(
@@ -114,7 +114,7 @@ export const message = {
   ],
   reply_count: 0,
   status: 'received',
-  text: 'Hey this is getstream message',
+  text: 'Hey this is ermis message',
   type: 'regular',
   updated_at: '2019-01-25T16:24:00.181Z',
   user: {

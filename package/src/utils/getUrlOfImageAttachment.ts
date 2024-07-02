@@ -1,4 +1,4 @@
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 /**
  * Extract url of image from image attachment.

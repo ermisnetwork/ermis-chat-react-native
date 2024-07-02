@@ -1,4 +1,4 @@
-import type { ExtendableGenerics, LiteralStringForUnion } from 'ermis-chat-sdk-test';
+import type { ExtendableGenerics, LiteralStringForUnion } from 'ermis-chat-sdk';
 
 import type { FileStateValue } from '../utils/utils';
 
@@ -21,7 +21,7 @@ export type File = {
   mimeType?: string;
   size?: number;
   type?: 'file' | 'image' | 'video' | 'audio' | 'voiceRecording';
-  // The uri should be of type `string`. But is `string|undefined` because the same type is used for the response from Stream's Attachment. This shall be fixed.
+  // The uri should be of type `string`. But is `string|undefined` because the same type is used for the response from Ermis's Attachment. This shall be fixed.
   uri?: string;
   waveform_data?: number[];
 };

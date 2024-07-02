@@ -27,7 +27,7 @@ import {
   UserMinus,
   useTheme,
   useViewport,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { useAppOverlayContext } from '../context/AppOverlayContext';
 import { useBottomSheetOverlayContext } from '../context/BottomSheetOverlayContext';
@@ -131,19 +131,19 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
     }
     showScreen.value = show
       ? withTiming(1, {
-          duration: 150,
-          easing: Easing.in(Easing.ease),
-        })
+        duration: 150,
+        easing: Easing.in(Easing.ease),
+      })
       : withTiming(
-          0,
-          {
-            duration: 150,
-            easing: Easing.out(Easing.ease),
-          },
-          () => {
-            runOnJS(reset)();
-          },
-        );
+        0,
+        {
+          duration: 150,
+          easing: Easing.out(Easing.ease),
+        },
+        () => {
+          runOnJS(reset)();
+        },
+      );
   };
 
   useEffect(() => {
@@ -182,12 +182,12 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
         translateY.value =
           evt.velocityY > 1000
             ? withDecay({
-                velocity: evt.velocityY,
-              })
+              velocity: evt.velocityY,
+            })
             : withTiming(screenHeight, {
-                duration: 200,
-                easing: Easing.out(Easing.ease),
-              });
+              duration: 200,
+              easing: Easing.out(Easing.ease),
+            });
       } else {
         translateY.value = withTiming(0);
         overlayOpacity.value = withTiming(1);
@@ -221,26 +221,26 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
     : 0;
   const channelName = channel
     ? channel.data?.name ||
-      Object.values(channel.state.members)
-        .slice(0)
-        .reduce((returnString, currentMember, index, originalArray) => {
-          const returnStringLength = returnString.length;
-          const currentMemberName =
-            currentMember.user?.name || currentMember.user?.id || 'Unknown User';
-          // a rough approximation of when the +Number shows up
-          if (returnStringLength + (currentMemberName.length + 2) < maxWidth) {
-            if (returnStringLength) {
-              returnString += `, ${currentMemberName}`;
-            } else {
-              returnString = currentMemberName;
-            }
+    Object.values(channel.state.members)
+      .slice(0)
+      .reduce((returnString, currentMember, index, originalArray) => {
+        const returnStringLength = returnString.length;
+        const currentMemberName =
+          currentMember.user?.name || currentMember.user?.id || 'Unknown User';
+        // a rough approximation of when the +Number shows up
+        if (returnStringLength + (currentMemberName.length + 2) < maxWidth) {
+          if (returnStringLength) {
+            returnString += `, ${currentMemberName}`;
           } else {
-            const remainingMembers = originalArray.length - index;
-            returnString += `, +${remainingMembers}`;
-            originalArray.splice(1); // exit early
+            returnString = currentMemberName;
           }
-          return returnString;
-        }, '')
+        } else {
+          const remainingMembers = originalArray.length - index;
+          returnString += `, +${remainingMembers}`;
+          originalArray.splice(1); // exit early
+        }
+        return returnString;
+      }, '')
     : '';
   const otherMembers = channel
     ? Object.values(channel.state.members).filter((member) => member.user?.id !== clientId)
@@ -288,11 +288,10 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                             ? otherMembers[0].user?.online
                               ? 'Online'
                               : `Last Seen ${dayjs(otherMembers[0].user?.last_active).fromNow()}`
-                            : `${Object.keys(channel.state.members).length} Members, ${
-                                Object.values(channel.state.members).filter(
-                                  (member) => !!member.user?.online,
-                                ).length
-                              } Online`}
+                            : `${Object.keys(channel.state.members).length} Members, ${Object.values(channel.state.members).filter(
+                              (member) => !!member.user?.online,
+                            ).length
+                            } Online`}
                         </Text>
                         <FlatList
                           contentContainerStyle={styles.flatListContent}
@@ -302,10 +301,10 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                               !!a?.online && !b?.online
                                 ? -1
                                 : a?.id === clientId && b?.id !== clientId
-                                ? -1
-                                : !!a?.online && !!b?.online
-                                ? 0
-                                : 1,
+                                  ? -1
+                                  : !!a?.online && !!b?.online
+                                    ? 0
+                                    : 1,
                             )}
                           horizontal
                           keyExtractor={(item, index) => `${item?.id}_${index}`}
@@ -388,12 +387,10 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                                 channel.delete();
                                 setOverlay('none');
                               },
-                              subtext: `Are you sure you want to delete this ${
-                                otherMembers.length === 1 ? 'conversation' : 'group'
-                              }?`,
-                              title: `Delete ${
-                                otherMembers.length === 1 ? 'Conversation' : 'Group'
-                              }`,
+                              subtext: `Are you sure you want to delete this ${otherMembers.length === 1 ? 'conversation' : 'group'
+                                }?`,
+                              title: `Delete ${otherMembers.length === 1 ? 'Conversation' : 'Group'
+                                }`,
                             });
                             setOverlay('confirmation');
                           }

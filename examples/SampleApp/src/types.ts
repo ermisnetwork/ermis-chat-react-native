@@ -1,6 +1,6 @@
 import type { Immutable } from 'seamless-immutable';
-import type { Channel, UserResponse } from 'ermis-chat-sdk-test';
-import type { ThreadContextValue } from 'stream-chat-react-native';
+import type { Channel, UserResponse } from 'ermis-chat-sdk';
+import type { ThreadContextValue } from 'ermis-chat-react-native';
 import type { Theme } from '@react-navigation/native';
 
 export type LocalAttachmentType = {

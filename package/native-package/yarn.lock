@@ -1937,10 +1937,10 @@ envinfo@^7.7.2:
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.8.1.tgz#06377e3e5f4d379fea7ac592d5ad8927e0c4d475"
   integrity sha512-/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==
 
-ermis-chat-sdk-test@1.0.1:
+ermis-chat-sdk@1.0.1:
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk-test/-/ermis-chat-sdk-test-1.0.1.tgz#15bbe5f61b5d12e7e4cf9d602f2d64f490048487"
-  integrity sha512-tK3m980cZaF9xKMbK/iOQOwzIxTkOLwzGAdIwf7PLC6z2KSH/NVDt+1pSSkf05PApSxttrqb+yw8CQTObBek5g==
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.0.1.tgz#7b50f304689e0f2bc5a2037bfece9406cb94f40f"
+  integrity sha512-fKaptu2X5leGpeU02c21cAlvRTtdHqVpiq0reGyIh2/osxznkpX4I9jSShqmVCSeAMWiXbG/h9VugsOa1lCN+w==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/jsonwebtoken" "~9.0.0"
@@ -1951,6 +1951,24 @@ ermis-chat-sdk-test@1.0.1:
     isomorphic-ws "^4.0.1"
     jsonwebtoken "~9.0.0"
     ws "^7.4.4"
+
+ermis-chat-react-native-core@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.0.3.tgz#ab592e0c188cc5c7fa5cf4a6f5250b59f14c3b8a"
+  integrity sha512-8INc5s83+S6LUgApi/3koUKJAbJ7TeultVThYnTxzW+cy++ZV9xuTwcbMGaF+qAHsMWYaxePO4FzBpsCzfifhw==
+  dependencies:
+    "@gorhom/bottom-sheet" "4.4.8"
+    dayjs "1.10.5"
+    emoji-regex "^10.3.0"
+    ermis-chat-sdk "1.0.1"
+    i18next "^21.6.14"
+    intl-pluralrules "^2.0.1"
+    linkifyjs "^4.1.1"
+    lodash-es "4.17.21"
+    mime-types "^2.1.34"
+    path "0.12.7"
+    react-native-markdown-package "1.8.2"
+    react-native-url-polyfill "^1.3.0"
 
 error-ex@^1.3.1:
   version "1.3.2"
@@ -4268,24 +4286,6 @@ statuses@~1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==
-
-stream-chat-react-native-core@5.32.1:
-  version "5.32.1"
-  resolved "https://registry.yarnpkg.com/stream-chat-react-native-core/-/stream-chat-react-native-core-5.32.1.tgz#bfc61cb37eb66ffe748984be38e1041b27a55d98"
-  integrity sha512-3HK9sqXv4I0XTiyMxee0HkvLyKgraE4SkiRYO4ReI0B+D465trl3Uch1OWHKYRcaji97Ne322BMP+rMIm2b4OA==
-  dependencies:
-    "@gorhom/bottom-sheet" "4.4.8"
-    dayjs "1.10.5"
-    emoji-regex "^10.3.0"
-    i18next "^21.6.14"
-    intl-pluralrules "^2.0.1"
-    linkifyjs "^4.1.1"
-    lodash-es "4.17.21"
-    mime-types "^2.1.34"
-    path "0.12.7"
-    react-native-markdown-package "1.8.2"
-    react-native-url-polyfill "^1.3.0"
-    stream-chat "8.31.0"
 
 string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"

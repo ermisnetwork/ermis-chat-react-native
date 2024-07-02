@@ -16,7 +16,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import type { UserResponse } from 'ermis-chat-sdk-test';
+import type { UserResponse } from 'ermis-chat-sdk';
 
 import { useAudioController } from './hooks/useAudioController';
 import { useCountdown } from './hooks/useCountdown';
@@ -987,12 +987,6 @@ export type MessageInputProps<
 
 /**
  * UI Component for message input
- * It's a consumer of
- * [Channel Context](https://getstream.io/chat/docs/sdk/reactnative/contexts/channel-context/),
- * [Chat Context](https://getstream.io/chat/docs/sdk/reactnative/contexts/chat-context/),
- * [MessageInput Context](https://getstream.io/chat/docs/sdk/reactnative/contexts/message-input-context/),
- * [Suggestions Context](https://getstream.io/chat/docs/sdk/reactnative/contexts/suggestions-context/), and
- * [Translation Context](https://getstream.io/chat/docs/sdk/reactnative/contexts/translation-context/)
  */
 export const MessageInput = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,

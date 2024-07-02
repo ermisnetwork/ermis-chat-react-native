@@ -1,4 +1,4 @@
 export * from './useAppStateListener';
-export * from './useStreami18n';
+export * from './useErmisi18n';
 export * from './useViewport';
 export * from './useScreenDimensions';

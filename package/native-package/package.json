@@ -1,17 +1,17 @@
 {
-  "name": "stream-chat-react-native",
-  "description": "The official React Native SDK for Stream Chat, a service for building chat applications",
-  "version": "5.32.1",
+  "name": "ermis-chat-react-native",
+  "description": "The official React Native SDK for Ermis Chat, a service for building chat applications",
+  "version": "1.0.3",
   "author": {
-    "company": "Stream.io Inc",
-    "name": "Stream.io Inc"
+    "company": "Ermis.network Inc",
+    "name": "Ermis.network Inc"
   },
   "license": "SEE LICENSE IN LICENSE",
   "main": "src/index.js",
   "types": "types/index.d.ts",
   "dependencies": {
     "es6-symbol": "^3.1.3",
-    "stream-chat-react-native-core": "5.32.1"
+    "ermis-chat-react-native-core": "1.0.3"
   },
   "peerDependencies": {
     "@react-native-camera-roll/camera-roll": ">=5.0.0",

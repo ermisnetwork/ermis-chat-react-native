@@ -19,7 +19,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import { KeyboardCompatibleView, useTheme, useViewport } from 'stream-chat-react-native';
+import { KeyboardCompatibleView, useTheme, useViewport } from 'ermis-chat-react-native';
 
 import { AddMemberBottomSheet } from './AddMemberBottomSheet';
 import { ConfirmationBottomSheet } from './ConfirmationBottomSheet';
@@ -72,25 +72,25 @@ export const BottomSheetOverlay = (props: BottomSheetOverlayProps) => {
     }
     showScreen.value = show
       ? withSpring(1, {
-          damping: 600,
-          mass: 0.5,
-          restDisplacementThreshold: 0.01,
-          restSpeedThreshold: 0.01,
-          stiffness: 200,
-          velocity: 32,
-        })
+        damping: 600,
+        mass: 0.5,
+        restDisplacementThreshold: 0.01,
+        restSpeedThreshold: 0.01,
+        stiffness: 200,
+        velocity: 32,
+      })
       : withTiming(
-          0,
-          {
-            duration: 150,
-            easing: Easing.out(Easing.ease),
-          },
-          () => {
-            if (!show) {
-              runOnJS(reset)();
-            }
-          },
-        );
+        0,
+        {
+          duration: 150,
+          easing: Easing.out(Easing.ease),
+        },
+        () => {
+          if (!show) {
+            runOnJS(reset)();
+          }
+        },
+      );
   };
 
   useEffect(() => {
@@ -129,12 +129,12 @@ export const BottomSheetOverlay = (props: BottomSheetOverlayProps) => {
         translateY.value =
           evt.velocityY > 1000
             ? withDecay({
-                velocity: evt.velocityY,
-              })
+              velocity: evt.velocityY,
+            })
             : withTiming(screenHeight, {
-                duration: 200,
-                easing: Easing.out(Easing.ease),
-              });
+              duration: 200,
+              easing: Easing.out(Easing.ease),
+            });
       } else {
         translateY.value = withTiming(0);
         overlayOpacity.value = withTiming(1);

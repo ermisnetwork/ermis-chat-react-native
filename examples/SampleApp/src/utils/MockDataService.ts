@@ -1,11 +1,11 @@
-import { generateRandomId } from 'stream-chat-react-native';
+import { generateRandomId } from 'ermis-chat-react-native';
 
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 const messageSearchByFileAttachmentType = () => {
   const attachments: Attachment[] = [
     {
-      asset_url: 'https://getstream.io',
+      asset_url: 'https://ermis.network',
       file_size: Math.random() * 10000,
       id: generateRandomId(),
       mime_type: 'application/pdf',
@@ -13,7 +13,7 @@ const messageSearchByFileAttachmentType = () => {
       type: 'file',
     },
     {
-      asset_url: 'https://getstream.io',
+      asset_url: 'https://ermis.network',
       file_size: Math.random() * 10000,
       id: generateRandomId(),
       mime_type: 'application/vnd.ms-powerpoint',
@@ -21,7 +21,7 @@ const messageSearchByFileAttachmentType = () => {
       type: 'file',
     },
     {
-      asset_url: 'https://getstream.io',
+      asset_url: 'https://ermis.network',
       file_size: Math.random() * 10000,
       id: generateRandomId(),
       mime_type: 'application/vnd.ms-excel',
@@ -29,7 +29,7 @@ const messageSearchByFileAttachmentType = () => {
       type: 'file',
     },
     {
-      asset_url: 'https://getstream.io',
+      asset_url: 'https://ermis.network',
       file_size: Math.random() * 10000,
       id: generateRandomId(),
       mime_type: 'application/x-7z-compressed',

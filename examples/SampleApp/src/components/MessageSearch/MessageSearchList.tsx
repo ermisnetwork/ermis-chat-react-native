@@ -3,11 +3,11 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import { useNavigation } from '@react-navigation/native';
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
-import { Avatar, Spinner, useTheme, useViewport } from 'stream-chat-react-native';
+import { Avatar, Spinner, useTheme, useViewport } from 'ermis-chat-react-native';
 
 import { MESSAGE_SEARCH_LIMIT } from '../../hooks/usePaginatedSearchedMessages';
 
-import type { MessageResponse } from 'ermis-chat-sdk-test';
+import type { MessageResponse } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../../types';
 

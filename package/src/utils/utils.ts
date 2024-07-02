@@ -11,7 +11,7 @@ import type {
   FormatMessageResponse,
   ErmisChat,
   UserResponse,
-} from 'ermis-chat-sdk-test';
+} from 'ermis-chat-sdk';
 
 import { IconProps } from '../../src/icons/utils/base';
 import { MessageType } from '../components/MessageList/hooks/useMessageList';

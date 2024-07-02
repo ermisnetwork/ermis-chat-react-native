@@ -12,14 +12,8 @@ PACKAGE_TAG=$(sed 's/.*-\(.*\)\..*/\1/' <<< "$PACKAGE_VERSION")
 if [[ "${PACKAGE_TAG}" != "${PACKAGE_VERSION}" ]]; then
     cd native-package
     npm publish --tag="$PACKAGE_TAG"
-
-    cd ../expo-package
-    npm publish --tag="$PACKAGE_TAG"
 else
     cd native-package
-    npm publish
-
-    cd ../expo-package
     npm publish
 fi
 

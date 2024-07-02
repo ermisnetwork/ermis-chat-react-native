@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { Event, Mute, ErmisChat } from 'ermis-chat-sdk-test';
+import type { Event, Mute, ErmisChat } from 'ermis-chat-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../../types/types';
 

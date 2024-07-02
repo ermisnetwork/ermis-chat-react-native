@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { ErmisChat } from 'ermis-chat-sdk-test';
+import { ErmisChat } from 'ermis-chat-sdk';
 import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
-import { QuickSqliteClient } from 'stream-chat-react-native';
+import { QuickSqliteClient } from 'ermis-chat-react-native';
 import { USER_TOKENS, USERS } from '../ChatUsers';
 import AsyncStore from '../utils/AsyncStore';
 
@@ -85,6 +85,7 @@ export const useChatClient = () => {
       timeout: 6000,
       logger: (type, msg) => console.log(type, msg),
       // baseURL: 'https://api-staging.ermis.network',
+      baseURL: 'http://210.79.176.52:8668',
     });
     setChatClient(client);
     const user = {
@@ -106,11 +107,11 @@ export const useChatClient = () => {
       permissionAuthStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
     if (isEnabled) {
-      // Register FCM token with stream chat server.
+      // Register FCM token with ermis chat server.
       const token = await messaging().getToken();
       await client.addDevice(token, 'firebase');
 
-      // Listen to new FCM tokens and register them with stream chat server.
+      // Listen to new FCM tokens and register them with ermis chat server.
       const unsubscribeTokenRefresh = messaging().onTokenRefresh(async (newToken) => {
         await client.addDevice(newToken, 'firebase');
       });
@@ -166,11 +167,11 @@ export const useChatClient = () => {
           // userImage: USERS[userId].image,
           // userName: USERS[userId].name,
           // userToken: USER_TOKENS[userId],
-          apiKey: 'KzubBBcsO3KT1747826418734',
-          userId: '0xc019189ba7222ffe0e23d3b6474d104266f0ffb2',
+          apiKey: 'foidC9VUSTo21751366109407',
+          userId: 'cheeky_monkey',
           userImage: 'https://randomuser.me/api/portraits/thumb/women/12.jpg',
-          userName: '0xc019189ba7222ffe0e23d3b6474d104266f0ffb2',
-          userToken: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMHhjMDE5MTg5YmE3MjIyZmZlMGUyM2QzYjY0NzRkMTA0MjY2ZjBmZmIyIiwiZXhwIjoxNzE5ODQzMTQzODgxfQ.VmTi2Y0m1VaaRhgLXiW0uoBTrFCMjjNPvzUqbZO8JXQ',
+          userName: 'cheeky_monkey',
+          userToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2hlZWt5X21vbmtleSIsImV4cCI6MTc1MTM2NjEwOTQwOH0.SZ5l6bvQ1kVqjWtestVHhDzJCZHXksn6mZh8kNI9jyY',
         });
         console.log('Switched to user', userId);
       } else {

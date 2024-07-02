@@ -5,7 +5,7 @@ import Dayjs from 'dayjs';
 import type { TFunction } from 'i18next';
 import type { Moment } from 'moment';
 
-import type { TranslationLanguages } from 'ermis-chat-sdk-test';
+import type { TranslationLanguages } from 'ermis-chat-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getDisplayName } from '../utils/getDisplayName';
@@ -54,7 +54,7 @@ export const useTranslationContext = () => {
 
   if (contextValue === defaultTranslationContextValue && !isTestEnvironment()) {
     throw new Error(
-      `The useTranslationContext hook was called outside the TranslationContext Provider. Make sure you have configured OverlayProvider component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#overlay-provider)(https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#overlay-provider`,
+      `The useTranslationContext hook was called outside the TranslationContext Provider. Make sure you have configured OverlayProvider component correctly`,
     );
   }
 

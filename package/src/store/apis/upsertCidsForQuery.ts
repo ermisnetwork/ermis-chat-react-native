@@ -1,4 +1,4 @@
-import type { ChannelFilters, ChannelSort } from 'ermis-chat-sdk-test';
+import type { ChannelFilters, ChannelSort } from 'ermis-chat-sdk';
 
 import { convertFilterSortToQuery } from './utils/convertFilterSortToQuery';
 

@@ -9,7 +9,7 @@ import {
   MenuPointHorizontal,
   useChatContext,
   useTheme,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { useAppOverlayContext } from '../context/AppOverlayContext';
 import { useBottomSheetOverlayContext } from '../context/BottomSheetOverlayContext';

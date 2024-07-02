@@ -10,7 +10,7 @@ import { useTranslationContext } from '../../../contexts/translationContext/Tran
 import dispatchConnectionChangedEvent from '../../../mock-builders/event/connectionChanged';
 import dispatchConnectionRecoveredEvent from '../../../mock-builders/event/connectionRecovered';
 import { getTestClient } from '../../../mock-builders/mock';
-import { Streami18n } from '../../../utils/i18n/Streami18n';
+import { Ermisi18n } from '../../../utils/i18n/Ermisi18n';
 import { Chat } from '../Chat';
 
 const ChatContextConsumer = ({ fn }) => {
@@ -148,7 +148,7 @@ describe('Chat', () => {
 
     it('uses the i18nInstance provided in props', async () => {
       let context;
-      const i18nInstance = new Streami18n();
+      const i18nInstance = new Ermisi18n();
       const { t, tDateTimeParser } = await i18nInstance.getTranslators();
 
       i18nInstance.t = () => 't';
@@ -174,7 +174,7 @@ describe('Chat', () => {
 
     it('updates the context when props change', async () => {
       let context;
-      const i18nInstance = new Streami18n();
+      const i18nInstance = new Ermisi18n();
 
       i18nInstance.t = () => 't';
       i18nInstance.tDateTimeParser = () => 'tDateTimeParser';
@@ -194,7 +194,7 @@ describe('Chat', () => {
         expect(context.tDateTimeParser).toBe(i18nInstance.tDateTimeParser);
       });
 
-      const newI18nInstance = new Streami18n();
+      const newI18nInstance = new Ermisi18n();
 
       newI18nInstance.t = () => 'newT';
       newI18nInstance.tDateTimeParser = () => 'newtDateTimeParser';

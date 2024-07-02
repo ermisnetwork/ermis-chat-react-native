@@ -1,6 +1,6 @@
 import type { ImageResizeMode } from 'react-native';
 
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import type { Thumbnail } from './types';
 

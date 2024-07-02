@@ -337,7 +337,7 @@ describe('Own capabilities', () => {
       await generateChannelWithCapabilities([allOwnCapabilities.sendMessage]);
       const { queryByTestId } = render(
         getComponent({
-          initialValue: 'Awesome repository https://github.com/GetStream/stream-chat-react-native',
+          initialValue: 'Awesome repository https://gitlab.com/pk7795/ermis-react-native',
         }),
       );
 
@@ -363,7 +363,7 @@ describe('Own capabilities', () => {
           mockFn();
           return sendMessageApi();
         },
-        initialValue: 'Awesome repository https://github.com/GetStream/stream-chat-react-native',
+        initialValue: 'Awesome repository https://gitlab.com/pk7795/ermis-react-native',
       }),
     );
 

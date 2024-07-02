@@ -9,7 +9,7 @@ import {
   ViewToken,
 } from 'react-native';
 
-import type { FormatMessageResponse } from 'ermis-chat-sdk-test';
+import type { FormatMessageResponse } from 'ermis-chat-sdk';
 
 import {
   isMessageWithStylesReadByAndDateSeparator,
@@ -211,15 +211,6 @@ type MessageListPropsWithContext<
     setFlatListRef?: (ref: FlatListType<MessageType<ErmisChatGenerics>> | null) => void;
   };
 
-/**
- * The message list component renders a list of messages. It consumes the following contexts:
- *
- * [ChannelContext](https://getstream.io/chat/docs/sdk/reactnative/contexts/channel-context/)
- * [ChatContext](https://getstream.io/chat/docs/sdk/reactnative/contexts/chat-context/)
- * [MessagesContext](https://getstream.io/chat/docs/sdk/reactnative/contexts/messages-context/)
- * [ThreadContext](https://getstream.io/chat/docs/sdk/reactnative/contexts/thread-context/)
- * [TranslationContext](https://getstream.io/chat/docs/sdk/reactnative/contexts/translation-context/)
- */
 const MessageListWithContext = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(

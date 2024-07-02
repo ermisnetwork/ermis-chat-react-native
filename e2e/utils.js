@@ -1,7 +1,7 @@
 const { promisify } = require('util');
 const { exec: execSync } = require('child_process');
 const config = require('./env.config');
-const { addMessages } = require('stream-chat-test-data-cli/bin/utils/add-messages');
+const { addMessages } = require('ermis-chat-test-data-cli/bin/utils/add-messages');
 
 const exec = promisify(execSync);
 

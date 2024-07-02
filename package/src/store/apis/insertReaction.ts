@@ -1,4 +1,4 @@
-import type { FormatMessageResponse, MessageResponse, ReactionResponse } from 'ermis-chat-sdk-test';
+import type { FormatMessageResponse, MessageResponse, ReactionResponse } from 'ermis-chat-sdk';
 
 import { mapReactionToStorable } from '../mappers/mapReactionToStorable';
 import { QuickSqliteClient } from '../QuickSqliteClient';

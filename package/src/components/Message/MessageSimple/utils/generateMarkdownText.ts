@@ -22,7 +22,7 @@ export const generateMarkdownText = (text?: string) => {
       omission: '...',
     });
     // Convert raw links/emails in the text to respective markdown syntax.
-    // Eg: Hi @getstream.io -> Hi @[getstream.io](getstream.io).
+    // Eg: Hi @ermis.network -> Hi @[ermis.network](ermis.network).
     const normalRegEx = new RegExp(escapeRegExp(linkInfo.raw), 'g');
     const markdown = `[${displayLink}](${linkInfo.url})`;
     resultText = text.replace(normalRegEx, markdown);

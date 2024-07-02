@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 
 import type { ImageProps } from 'react-native';
 
-import type { Attachment, TranslationLanguages } from 'ermis-chat-sdk-test';
+import type { Attachment, TranslationLanguages } from 'ermis-chat-sdk';
 
 import { useResettableState } from './hooks/useResettableState';
 
@@ -56,22 +56,22 @@ export type MessageOverlayContextValue<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
-   * Custom UI component for rendering [message actions](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/2.png) in overlay.
+   * Custom UI component for rendering [message actions]
    *
-   * **Default** [MessageActionList](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageOverlay/MessageActions.tsx)
+   * **Default** [MessageActionList]
    */
   MessageActionList: React.ComponentType<MessageActionListProps<ErmisChatGenerics>>;
   MessageActionListItem: React.ComponentType<MessageActionListItemProps<ErmisChatGenerics>>;
   /**
-   * Custom UI component for rendering [reaction selector](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/2.png) in overlay (which shows up on long press on message).
+   * Custom UI component for rendering [reaction selector]
    *
-   * **Default** [OverlayReactionList](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageOverlay/OverlayReactionList.tsx)
+   * **Default** [OverlayReactionList]
    */
   OverlayReactionList: React.ComponentType<OverlayReactionListProps<ErmisChatGenerics>>;
   /**
-   * Custom UI component for rendering [reactions list](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/2.png), in overlay (which shows up on long press on message).
+   * Custom UI component for rendering [reactions list]
    *
-   * **Default** [OverlayReactions](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageOverlay/OverlayReactions.tsx)
+   * **Default** [OverlayReactions]
    */
   OverlayReactions: React.ComponentType<OverlayReactionsProps<ErmisChatGenerics>>;
   OverlayReactionsAvatar: React.ComponentType<OverlayReactionsAvatarProps>;
@@ -111,7 +111,7 @@ export const useMessageOverlayContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useMessageOverlayContext hook was called outside the MessageOverlayContext Provider. Make sure you have configured OverlayProvider component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#overlay-provider`,
+      `The useMessageOverlayContext hook was called outside the MessageOverlayContext Provider. Make sure you have configured OverlayProvider component correctly`,
     );
   }
 

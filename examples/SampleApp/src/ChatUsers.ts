@@ -1,4 +1,4 @@
-import { UserResponse } from 'ermis-chat-sdk-test';
+import { UserResponse } from 'ermis-chat-sdk';
 import { ErmisChatGenerics } from './types';
 
 export const USER_TOKENS: Record<string, string> = {

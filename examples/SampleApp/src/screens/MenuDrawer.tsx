@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Edit, Group, User, useTheme } from 'stream-chat-react-native';
+import { Edit, Group, User, useTheme } from 'ermis-chat-react-native';
 
 import { useAppContext } from '../context/AppContext';
 

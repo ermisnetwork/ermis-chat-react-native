@@ -27,7 +27,7 @@ import { ImageSelectorIcon as DefaultImageSelectorIcon } from '../../components/
 import { ImageGallery } from '../../components/ImageGallery/ImageGallery';
 import { MessageOverlay } from '../../components/MessageOverlay/MessageOverlay';
 import { OverlayBackdrop } from '../../components/MessageOverlay/OverlayBackdrop';
-import { useStreami18n } from '../../hooks/useStreami18n';
+import { useErmisi18n } from '../../hooks/useErmisi18n';
 
 import { useViewport } from '../../hooks/useViewport';
 import type { DefaultErmisChatGenerics } from '../../types/types';
@@ -54,9 +54,7 @@ import {
  *    </NavigationContainer>
  *    ```
  *
- * - Don't forget to check our cookbook section of [OverlayProvider](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#overlayprovider)
  *
- * - Also check the [visual component guide](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#custom-components), to learn about component customizations.
  *
  * @example ./OverlayProvider.md
  */
@@ -152,7 +150,7 @@ export const OverlayProvider = <
   const { height, width } = Dimensions.get('screen');
 
   // Setup translators
-  const translators = useStreami18n(i18nInstance);
+  const translators = useErmisi18n(i18nInstance);
 
   useEffect(() => {
     const backAction = () => {

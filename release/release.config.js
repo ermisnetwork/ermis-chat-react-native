@@ -2,7 +2,7 @@ const mergeRegex = /^Merge pull request #(.+) from (.*)/;
 
 module.exports = Promise.resolve().then(() => {
   const currentPackage = require(`${process.cwd()}/package.json`);
-  const isSDK = currentPackage.name === 'stream-chat-react-native-core';
+  const isSDK = currentPackage.name === 'ermis-chat-react-native-core';
 
   const plugins = [
     [
@@ -58,9 +58,9 @@ module.exports = Promise.resolve().then(() => {
     filterPath: process.env.FILTER_PATH,
     tagFormat: process.env.TAG_FORMAT,
     parseLinkedPackages: (item) => {
-      if (item.name === 'stream-chat-react-native-core') {
+      if (item.name === 'ermis-chat-react-native-core') {
         return {
-          name: 'stream-chat-react-native',
+          name: 'ermis-chat-react-native',
           path: item.path,
         };
       }

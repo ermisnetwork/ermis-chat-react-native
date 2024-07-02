@@ -23,7 +23,7 @@ import { generateMember } from '../../../mock-builders/generator/member';
 import { generateMessage } from '../../../mock-builders/generator/message';
 import { generateUser } from '../../../mock-builders/generator/user';
 import { getTestClientWithUser } from '../../../mock-builders/mock';
-import { Streami18n } from '../../../utils/i18n/Streami18n';
+import { Ermisi18n } from '../../../utils/i18n/Ermisi18n';
 import { ImageLoadingFailedIndicator } from '../../Attachment/ImageLoadingFailedIndicator';
 import { ImageLoadingIndicator } from '../../Attachment/ImageLoadingIndicator';
 import { Channel } from '../../Channel/Channel';
@@ -31,7 +31,7 @@ import { Chat } from '../../Chat/Chat';
 import { MessageList } from '../../MessageList/MessageList';
 import { Giphy } from '../Giphy';
 
-const streami18n = new Streami18n({
+const ermisi18n = new Ermisi18n({
   language: 'en',
 });
 
@@ -256,8 +256,8 @@ describe('Giphy', () => {
     await channel.watch();
 
     render(
-      <OverlayProvider i18nInstance={streami18n}>
-        <Chat client={chatClient} i18nInstance={streami18n}>
+      <OverlayProvider i18nInstance={ermisi18n}>
+        <Chat client={chatClient} i18nInstance={ermisi18n}>
           <Channel channel={channel}>
             <MessageList />
           </Channel>
@@ -275,8 +275,8 @@ describe('Giphy', () => {
 
   it('giphy attachment UI should render within the message list', async () => {
     render(
-      <OverlayProvider i18nInstance={streami18n}>
-        <Chat client={chatClient} i18nInstance={streami18n}>
+      <OverlayProvider i18nInstance={ermisi18n}>
+        <Chat client={chatClient} i18nInstance={ermisi18n}>
           <Channel channel={channel}>
             <MessageList />
           </Channel>
@@ -291,8 +291,8 @@ describe('Giphy', () => {
 
   it('should render a error indicator in giphy image', async () => {
     render(
-      <OverlayProvider i18nInstance={streami18n}>
-        <Chat client={chatClient} i18nInstance={streami18n}>
+      <OverlayProvider i18nInstance={ermisi18n}>
+        <Chat client={chatClient} i18nInstance={ermisi18n}>
           <Channel channel={channel}>
             <MessageList />
           </Channel>
@@ -309,8 +309,8 @@ describe('Giphy', () => {
 
   it('should render a loading indicator in giphy image and when successful render the image', async () => {
     render(
-      <OverlayProvider i18nInstance={streami18n}>
-        <Chat client={chatClient} i18nInstance={streami18n}>
+      <OverlayProvider i18nInstance={ermisi18n}>
+        <Chat client={chatClient} i18nInstance={ermisi18n}>
           <Channel channel={channel}>
             <MessageList />
           </Channel>

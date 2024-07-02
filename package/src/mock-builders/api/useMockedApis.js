@@ -4,7 +4,7 @@
  * You should use api functions from current directory to build these responses.
  * e.g., queryChannelsApi, sendMessageApi
  *
- * @param {StreamClient} client
+ * @param {ErmisClient} client
  * @param {*} apiResponses
  */
 export const useMockedApis = (client, apiResponses) => {

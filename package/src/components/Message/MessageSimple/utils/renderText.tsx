@@ -16,7 +16,7 @@ import {
   State,
 } from 'simple-markdown';
 
-import type { UserResponse } from 'ermis-chat-sdk-test';
+import type { UserResponse } from 'ermis-chat-sdk';
 
 import { generateMarkdownText } from './generateMarkdownText';
 

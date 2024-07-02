@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 import { render, screen, waitFor } from '@testing-library/react-native';
 
 import type { DefaultErmisChatGenerics } from 'src/types/types';
-import type { Channel, ChannelMemberResponse, DefaultGenerics, ErmisChat } from 'ermis-chat-sdk-test';
+import type { Channel, ChannelMemberResponse, DefaultGenerics, ErmisChat } from 'ermis-chat-sdk';
 
 import {
   GROUP_CHANNEL_MEMBERS_MOCK,

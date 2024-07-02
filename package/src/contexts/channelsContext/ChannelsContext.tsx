@@ -3,7 +3,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 import type { FlatListProps } from 'react-native';
 import type { FlatList } from 'react-native-gesture-handler';
 
-import type { Channel } from 'ermis-chat-sdk-test';
+import type { Channel } from 'ermis-chat-sdk';
 
 import type { HeaderErrorProps } from '../../components/ChannelList/ChannelListHeaderErrorIndicator';
 import type { QueryChannels } from '../../components/ChannelList/hooks/usePaginatedChannels';
@@ -50,13 +50,13 @@ export type ChannelsContextValue<
   /**
    * Custom indicator to use when channel list is empty
    *
-   * Default: [EmptyStateIndicator](https://getstream.io/chat/docs/sdk/reactnative/core-components/channel/#emptystateindicator)
+   * Default: [EmptyStateIndicator]
    * */
   EmptyStateIndicator: React.ComponentType<EmptyStateProps>;
   /**
    * Custom loading indicator to display at bottom of the list, while loading further pages
    *
-   * Default: [ChannelListFooterLoadingIndicator](https://getstream.io/chat/docs/sdk/reactnative/contexts/channels-context/#footerloadingindicator)
+   * Default: [ChannelListFooterLoadingIndicator]
    */
   FooterLoadingIndicator: React.ComponentType;
   /**
@@ -70,13 +70,13 @@ export type ChannelsContextValue<
   /**
    * Custom indicator to display error at top of list, if loading/pagination error occurs
    *
-   * Default: [ChannelListHeaderErrorIndicator](https://getstream.io/chat/docs/sdk/reactnative/contexts/channels-context/#headererrorindicator)
+   * Default: [ChannelListHeaderErrorIndicator]
    */
   HeaderErrorIndicator: React.ComponentType<HeaderErrorProps>;
   /**
    * Custom indicator to display network-down error at top of list, if there is connectivity issue
    *
-   * Default: [ChannelListHeaderNetworkDownIndicator](https://getstream.io/chat/docs/sdk/reactnative/contexts/channels-context/#headernetworkdownindicator)
+   * Default: [ChannelListHeaderNetworkDownIndicator]
    */
   HeaderNetworkDownIndicator: React.ComponentType;
   /**
@@ -86,7 +86,7 @@ export type ChannelsContextValue<
   /**
    * Custom indicator to use when there is error in fetching channels
    *
-   * Default: [LoadingErrorIndicator](https://getstream.io/chat/docs/sdk/reactnative/contexts/channels-context/#loadingerrorindicator)
+   * Default: [LoadingErrorIndicator]
    * */
   LoadingErrorIndicator: React.ComponentType<LoadingErrorProps>;
   /**
@@ -118,7 +118,7 @@ export type ChannelsContextValue<
   /**
    * Custom UI component to display individual channel list items
    *
-   * Default: [ChannelPreviewMessenger](https://getstream.io/chat/docs/sdk/reactnative/ui-components/channel-preview-messenger/)
+   * Default: [ChannelPreviewMessenger]
    */
   Preview: React.ComponentType<ChannelPreviewMessengerProps<ErmisChatGenerics>>;
   /**
@@ -156,7 +156,7 @@ export type ChannelsContextValue<
   /**
    * Custom UI component to display loading channel skeletons
    *
-   * Default: [Skeleton](https://getstream.io/chat/docs/sdk/reactnative/contexts/channels-context/#skeleton)
+   * Default: [Skeleton]
    */
   Skeleton: React.ComponentType;
   /**
@@ -173,37 +173,37 @@ export type ChannelsContextValue<
   /**
    * Custom UI component to render preview avatar.
    *
-   * **Default** [ChannelAvatar](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/ChannelPreview/ChannelAvatar.tsx)
+   * **Default** [ChannelAvatar]
    */
   PreviewAvatar?: React.ComponentType<ChannelAvatarProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to render preview of latest message on channel.
    *
-   * **Default** [ChannelPreviewMessage](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/ChannelPreview/ChannelPreviewMessage.tsx)
+   * **Default** [ChannelPreviewMessage]
    */
   PreviewMessage?: React.ComponentType<ChannelPreviewMessageProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to render muted status.
    *
-   * **Default** [ChannelMutedStatus](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/ChannelPreview/ChannelPreviewMutedStatus.tsx)
+   * **Default** [ChannelMutedStatus]
    */
   PreviewMutedStatus?: React.ComponentType;
   /**
    * Custom UI component to render preview avatar.
    *
-   * **Default** [ChannelPreviewStatus](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/ChannelPreview/ChannelPreviewStatus.tsx)
+   * **Default** [ChannelPreviewStatus]
    */
   PreviewStatus?: React.ComponentType<ChannelPreviewStatusProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to render preview avatar.
    *
-   * **Default** [ChannelPreviewTitle](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/ChannelPreview/ChannelPreviewTitle.tsx)
+   * **Default** [ChannelPreviewTitle]
    */
   PreviewTitle?: React.ComponentType<ChannelPreviewTitleProps<ErmisChatGenerics>>;
   /**
    * Custom UI component to render preview avatar.
    *
-   * **Default** [ChannelPreviewUnreadCount](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/ChannelPreview/ChannelPreviewUnreadCount.tsx)
+   * **Default** [ChannelPreviewUnreadCount]
    */
   PreviewUnreadCount?: React.ComponentType<ChannelPreviewUnreadCountProps<ErmisChatGenerics>>;
 };
@@ -234,7 +234,7 @@ export const useChannelsContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useChannelsContext hook was called outside of the ChannelsContext provider. Make sure you have configured ChannelList component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#channel-list`,
+      `The useChannelsContext hook was called outside of the ChannelsContext provider. Make sure you have configured ChannelList component correctly`,
     );
   }
 

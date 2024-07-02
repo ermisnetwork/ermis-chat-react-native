@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { ReactionResponse, ReactionSort } from 'ermis-chat-sdk-test';
+import { ReactionResponse, ReactionSort } from 'ermis-chat-sdk';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { getReactionsForFilterSort } from '../../../store/apis/getReactionsforFilterSort';

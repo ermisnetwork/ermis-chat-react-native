@@ -1,1 +1,1 @@
-export * from 'stream-chat-react-native-core';
+export * from 'ermis-chat-react-native-core';

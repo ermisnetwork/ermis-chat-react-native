@@ -7,7 +7,7 @@ import { registerNativeHandlers } from './src/native';
 
 // eslint-disable-next-line no-underscore-dangle
 
-console.warn = () => {};
+console.warn = () => { };
 
 export let netInfoFetch = jest.fn();
 
@@ -33,11 +33,11 @@ registerNativeHandlers({
       }),
   },
   oniOS14GalleryLibrarySelectionChange: () => ({
-    unsubscribe: () => {},
+    unsubscribe: () => { },
   }),
   pickDocument: () => null,
   saveFile: () => null,
-  SDK: 'stream-chat-react-native',
+  SDK: 'ermis-chat-react-native',
   shareImage: () => null,
   Sound: { initializeSound: () => null, Player: View },
   takePhoto: () => null,

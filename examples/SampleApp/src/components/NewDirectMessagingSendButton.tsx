@@ -19,7 +19,7 @@ import {
   useChannelContext,
   useMessageInputContext,
   useTheme,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { NewDirectMessagingScreenNavigationProp } from '../screens/NewDirectMessagingScreen';
 

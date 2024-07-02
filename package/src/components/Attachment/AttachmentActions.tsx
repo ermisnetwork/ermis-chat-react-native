@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import {
   MessageContextValue,
@@ -140,7 +140,6 @@ export type AttachmentActionsProps<
 
 /**
  * AttachmentActions - The actions you can take on an attachment.
- * Actions in combination with attachments can be used to build [commands](https://getstream.io/chat/docs/#channel_commands).
  */
 export const AttachmentActions = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,

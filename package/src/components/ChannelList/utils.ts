@@ -1,5 +1,5 @@
 import uniqBy from 'lodash/uniqBy';
-import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../types/types';
 

@@ -12,11 +12,11 @@ module.exports = function extractLinkedPackages(repoDir) {
   // Map containing linked packages and their real paths
   const linkedPackages = findLinkedPackages(repoDir);
 
-  const sdkRootPackage = linkedPackages['stream-chat-react-native-core'];
-  const sdkNativePackage = linkedPackages['stream-chat-react-native'];
+  const sdkRootPackage = linkedPackages['ermis-chat-react-native-core'];
+  const sdkNativePackage = linkedPackages['ermis-chat-react-native'];
 
   if (!sdkRootPackage) {
-    throw new Error('stream-chat-react-native-core is not linked!');
+    throw new Error('ermis-chat-react-native-core is not linked!');
   }
 
   const alternateRoots = [sdkRootPackage];
@@ -27,7 +27,7 @@ module.exports = function extractLinkedPackages(repoDir) {
 
   if (!sdkNativePackage) {
     throw new Error(
-      'stream-chat-react-native is not linked! You need to link at least one.',
+      'ermis-chat-react-native is not linked! You need to link at least one.',
     );
   }
 

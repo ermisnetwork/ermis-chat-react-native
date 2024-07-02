@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
 
 import { act, cleanup, render, waitFor } from '@testing-library/react-native';
-import { ErmisChat } from 'ermis-chat-sdk-test';
+import { ErmisChat } from 'ermis-chat-sdk';
 
 import { ChannelContext, ChannelProvider } from '../../../contexts/channelContext/ChannelContext';
 import { ChannelsStateProvider } from '../../../contexts/channelsStateContext/ChannelsStateContext';

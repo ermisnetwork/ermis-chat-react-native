@@ -29,7 +29,7 @@ import {
   UserMinus,
   useTheme,
   useViewport,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 
 import { useAppOverlayContext } from '../context/AppOverlayContext';
 import { useBottomSheetOverlayContext } from '../context/BottomSheetOverlayContext';
@@ -37,7 +37,7 @@ import { useUserInfoOverlayContext } from '../context/UserInfoOverlayContext';
 
 import type { ErmisChatGenerics } from '../types';
 import { useAppContext } from '../context/AppContext';
-import { UserResponse } from 'ermis-chat-sdk-test';
+import { UserResponse } from 'ermis-chat-sdk';
 
 dayjs.extend(relativeTime);
 

@@ -1,6 +1,6 @@
 import { ComponentType, useMemo } from 'react';
 
-import { ReactionResponse } from 'ermis-chat-sdk-test';
+import { ReactionResponse } from 'ermis-chat-sdk';
 
 import {
   MessagesContextValue,

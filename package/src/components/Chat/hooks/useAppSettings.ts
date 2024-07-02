@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-sdk-test';
+import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-sdk';
 
 import { useIsMountedRef } from '../../../hooks/useIsMountedRef';
 import * as dbApi from '../../../store/apis';
@@ -29,22 +29,22 @@ export const useAppSettings = <
         return;
       }
       console.log('Fetching app settings');
-      // try {
-      //   const appSettings = await client.getAppSettings();
-      //   console.log("appSettings: ", appSettings)
-      //   if (isMounted.current) {
-      //     setAppSettings(appSettings);
-      //     enableOfflineSupport &&
-      //       dbApi.upsertAppSettings({
-      //         appSettings,
-      //         currentUserId: client.userID as string,
-      //       });
-      //   }
-      // } catch (error: unknown) {
-      //   if (error instanceof Error) {
-      //     console.error(`An error occurred while getting app settings from node module core: ${error}`);
-      //   }
-      // }
+      try {
+        const appSettings = await client.getAppSettings();
+        console.log("appSettings: ", appSettings)
+        if (isMounted.current) {
+          setAppSettings(appSettings);
+          enableOfflineSupport &&
+            dbApi.upsertAppSettings({
+              appSettings,
+              currentUserId: client.userID as string,
+            });
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error(`An error occurred while getting app settings from node module core: ${error}`);
+        }
+      }
     }
 
     enforeAppSettings();

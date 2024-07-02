@@ -1,4 +1,4 @@
-import type { ChannelAPIResponse, ChannelFilters, ChannelSort } from 'ermis-chat-sdk-test';
+import type { ChannelAPIResponse, ChannelFilters, ChannelSort } from 'ermis-chat-sdk';
 
 import { getChannels } from './getChannels';
 import { selectChannelIdsForFilterSort } from './queries/selectChannelIdsForFilterSort';
@@ -12,8 +12,8 @@ import { QuickSqliteClient } from '../QuickSqliteClient';
  *
  * @param {Object} param
  * @param {string} param.currentUserId Id of current logged in user
- * @param {Object} param.filters Filters for channels https://getstream.io/chat/docs/javascript/query_channels/?language=javascript&q=su#query-parameters
- * @param {Object} param.sort Sort for channels https://getstream.io/chat/docs/javascript/query_channels/?language=javascript&q=su#query-parameters
+ * @param {Object} param.filters Filters for channels 
+ * @param {Object} param.sort Sort for channels 
  *
  * @returns Array of channels corresponding to filters & sort. Returns null if filters + sort query doesn't exist in "channelQueries" table.
  */

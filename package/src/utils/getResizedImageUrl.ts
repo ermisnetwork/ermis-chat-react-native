@@ -10,7 +10,7 @@ export type GetResizedImageUrlParams = {
 };
 
 /**
- * Any file or image upload done through stream's chat SDK or components get uploaded
+ * Any file or image upload done through ermis's chat SDK or components get uploaded
  * to CloudFront CDN. Following function returns a url of resized image (to given width and height).
  * It can be used to avoid rendering heavy images on UI, for the sake of performance.
  *
@@ -33,7 +33,7 @@ export function getResizedImageUrl({
     const originalHeight = parsedUrl.searchParams.get('oh');
     const originalWidth = parsedUrl.searchParams.get('ow');
 
-    // If url is not within Stream's cloudfront CDN or any other configured resizableCDNHosts (which offers fast image resizing), then return the url as it is.
+    // If url is not within Ermis's cloudfront CDN or any other configured resizableCDNHosts (which offers fast image resizing), then return the url as it is.
     // Check for oh and ow parameters in the url, is just to differentiate between old and new CDN.
     // In case of old CDN we don't want to do any kind of resizing.
 

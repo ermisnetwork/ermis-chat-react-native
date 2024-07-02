@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
 
 import type { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import type { AttachmentPickerProps } from '../../components/AttachmentPicker/AttachmentPicker';
 import type { ImageGalleryCustomComponents } from '../../components/ImageGallery/ImageGallery';
 
 import type { MessageType } from '../../components/MessageList/hooks/useMessageList';
 import type { DefaultErmisChatGenerics } from '../../types/types';
-import type { Streami18n } from '../../utils/i18n/Streami18n';
+import type { Ermisi18n } from '../../utils/i18n/Ermisi18n';
 import type { AttachmentPickerContextValue } from '../attachmentPickerContext/AttachmentPickerContext';
 import type { MessageOverlayContextValue } from '../messageOverlayContext/MessageOverlayContext';
 import type { DeepPartial } from '../themeContext/ThemeContext';
@@ -66,8 +66,7 @@ export type OverlayProviderProps<
     closePicker?: (ref: React.RefObject<BottomSheetMethods>) => void;
     error?: boolean | Error;
     giphyVersion?: keyof NonNullable<Attachment['giphy']>;
-    /** https://github.com/GetStream/stream-chat-react-native/wiki/Internationalization-(i18n) */
-    i18nInstance?: Streami18n;
+    i18nInstance?: Ermisi18n;
     imageGalleryGridHandleHeight?: number;
     imageGalleryGridSnapPoints?: [string | number, string | number];
     isMyMessage?: boolean;
@@ -85,7 +84,7 @@ export const useOverlayContext = () => {
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useOverlayContext hook was called outside the OverlayContext Provider. Make sure you have configured OverlayProvider component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#overlay-provider`,
+      `The useOverlayContext hook was called outside the OverlayContext Provider. Make sure you have configured OverlayProvider component correctly`,
     );
   }
 

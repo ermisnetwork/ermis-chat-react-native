@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
-import { Avatar, Close, useTheme } from 'stream-chat-react-native';
+import { Avatar, Close, useTheme } from 'ermis-chat-react-native';
 
-import type { UserResponse } from 'ermis-chat-sdk-test';
+import type { UserResponse } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../../types';
 

@@ -17,7 +17,7 @@ try {
   // 2. Offline support is disabled, in which case this library is not installed.
 }
 
-import { Logger } from 'ermis-chat-sdk-test';
+import { Logger } from 'ermis-chat-sdk';
 
 import { DB_LOCATION, DB_NAME } from './constants';
 import { tables } from './schema';

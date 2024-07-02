@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { GestureResponderEvent, Keyboard, StyleProp, View, ViewStyle } from 'react-native';
 
-import type { Attachment, UserResponse } from 'ermis-chat-sdk-test';
+import type { Attachment, UserResponse } from 'ermis-chat-sdk';
 
 import { useCreateMessageContext } from './hooks/useCreateMessageContext';
 import { useMessageActionHandlers } from './hooks/useMessageActionHandlers';
@@ -188,7 +188,7 @@ export type MessagePropsWithContext<
      * You can call methods available on the Message
      * component such as handleEdit, handleDelete, handleAction etc.
      *
-     * Source - [Message](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/Message.tsx)
+     * Source - [Message]
      *
      * By default, we show the overlay with all the message actions on long press.
      *
@@ -201,7 +201,7 @@ export type MessagePropsWithContext<
      * You can call methods available on the Message
      * component such as handleEdit, handleDelete, handleAction etc.
      *
-     * Source - [Message](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/Message.tsx)
+     * Source - [Message]
      *
      * By default, we will dismiss the keyboard on press.
      *

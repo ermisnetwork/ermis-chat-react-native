@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { Channel, ChannelState } from 'ermis-chat-sdk-test';
+import type { Channel, ChannelState } from 'ermis-chat-sdk';
 
 import type { EmptyStateProps } from '../../components/Indicators/EmptyStateIndicator';
 import type { LoadingProps } from '../../components/Indicators/LoadingIndicator';
@@ -15,13 +15,13 @@ export type ChannelContextValue<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
-   * Instance of channel object from stream-chat package.
+   * Instance of channel object from ermis-chat-sdk package.
    *
-   * Please check the docs around how to create or query channel - https://getstream.io/chat/docs/javascript/creating_channels/?language=javascript
+   * Please check the docs around how to create or query channel 
    *
    * ```
-   * import { ErmisChat, Channel } from 'ermis-chat-sdk-test';
-   * import { Chat, Channel} from 'stream-chat-react-native';
+   * import { ErmisChat, Channel } from 'ermis-chat-sdk';
+   * import { Chat, Channel} from 'ermis-chat-react-native';
    *
    * const client = ErmisChat.getInstance('api_key');
    * await client.connectUser('user_id', 'user_token');
@@ -40,7 +40,7 @@ export type ChannelContextValue<
   /**
    * Custom UI component to display empty state when channel has no messages.
    *
-   * **Default** [EmptyStateIndicator](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Indicators/EmptyStateIndicator.tsx)
+   * **Default** [EmptyStateIndicator]
    */
   EmptyStateIndicator: React.ComponentType<EmptyStateProps>;
   /**
@@ -98,7 +98,7 @@ export type ChannelContextValue<
   }) => Promise<void>;
   loading: boolean;
   /**
-   * Custom loading indicator to override the Stream default
+   * Custom loading indicator to override the Ermis default
    */
   LoadingIndicator: React.ComponentType<LoadingProps>;
   markRead: () => void;
@@ -127,7 +127,7 @@ export type ChannelContextValue<
    */
   members: ChannelState<ErmisChatGenerics>['members'];
   /**
-   * Custom network down indicator to override the Stream default
+   * Custom network down indicator to override the Ermis default
    */
   NetworkDownIndicator: React.ComponentType;
   read: ChannelState<ErmisChatGenerics>['read'];
@@ -179,7 +179,7 @@ export type ChannelContextValue<
   /**
    * Custom UI component for sticky header of channel.
    *
-   * **Default** [DateHeader](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageList/DateHeader.tsx)
+   * **Default** [DateHeader]
    */
   StickyHeader?: React.ComponentType<StickyHeaderProps>;
   /**
@@ -217,7 +217,7 @@ export const useChannelContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useChannelContext hook was called outside of the ChannelContext provider. Make sure you have configured Channel component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#channel`,
+      `The useChannelContext hook was called outside of the ChannelContext provider. Make sure you have configured Channel component correctly`,
     );
   }
 

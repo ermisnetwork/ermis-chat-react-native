@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TextInput, View } from 'react-native';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { CircleClose, Search, useTheme } from 'stream-chat-react-native';
+import { CircleClose, Search, useTheme } from 'ermis-chat-react-native';
 
 import { UserSearchResultsGrid } from './UserSearch/UserSearchResultsGrid';
 
@@ -13,7 +13,7 @@ import {
 } from '../context/BottomSheetOverlayContext';
 import { usePaginatedUsers } from '../hooks/usePaginatedUsers';
 
-import type { UserResponse } from 'ermis-chat-sdk-test';
+import type { UserResponse } from 'ermis-chat-sdk';
 
 import { ErmisChatGenerics } from '../types';
 

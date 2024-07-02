@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { ErmisChat } from 'ermis-chat-sdk-test';
+import type { ErmisChat } from 'ermis-chat-sdk';
 
 import type { LoginConfig, ErmisChatGenerics } from '../types';
 

@@ -14,9 +14,9 @@ import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useLoadingImage } from '../../hooks/useLoadingImage';
 import { getResizedImageUrl } from '../../utils/getResizedImageUrl';
 
-const randomImageBaseUrl = 'https://getstream.io/random_png/';
-const randomSvgBaseUrl = 'https://getstream.io/random_svg/';
-const streamCDN = 'stream-io-cdn.com';
+const randomImageBaseUrl = '';
+const randomSvgBaseUrl = '';
+const ermisCDN = '';
 
 const styles = StyleSheet.create({
   container: {
@@ -111,28 +111,27 @@ export const Avatar = (props: AvatarProps) => {
             source={{
               uri:
                 !imageProp ||
-                imageProp.includes(randomImageBaseUrl) ||
-                imageProp.includes(randomSvgBaseUrl)
-                  ? imageProp?.includes(streamCDN)
+                  imageProp.includes(randomImageBaseUrl) ||
+                  imageProp.includes(randomSvgBaseUrl)
+                  ? imageProp?.includes(ermisCDN)
                     ? imageProp
-                    : `${randomImageBaseUrl}${
-                        name ? `?name=${getInitials(name)}&size=${size}` : ''
-                      }`
+                    : `${randomImageBaseUrl}${name ? `?name=${getInitials(name)}&size=${size}` : ''
+                    }`
                   : getResizedImageUrl({
-                      height: size,
-                      url: imageProp,
-                      width: size,
-                    }),
+                    height: size,
+                    url: imageProp,
+                    width: size,
+                  }),
             }}
             style={[
               image,
               size
                 ? {
-                    backgroundColor: '#ececec',
-                    borderRadius: size / 2,
-                    height: size,
-                    width: size,
-                  }
+                  backgroundColor: '#ececec',
+                  borderRadius: size / 2,
+                  height: size,
+                  width: size,
+                }
                 : {},
               imageStyle,
             ]}

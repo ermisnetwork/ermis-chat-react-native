@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext, useState } from 'react';
 
-import type { CommandResponse, UserResponse } from 'ermis-chat-sdk-test';
+import type { CommandResponse, UserResponse } from 'ermis-chat-sdk';
 
 import type { AutoCompleteSuggestionHeaderProps } from '../../components/AutoCompleteInput/AutoCompleteSuggestionHeader';
 import type { AutoCompleteSuggestionItemProps } from '../../components/AutoCompleteInput/AutoCompleteSuggestionItem';
@@ -142,7 +142,7 @@ export const useSuggestionsContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useSuggestionsContext hook was called outside of the SuggestionsContext provider. Make sure you have configured Channel component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#channel`,
+      `The useSuggestionsContext hook was called outside of the SuggestionsContext provider. Make sure you have configured Channel component correctly`,
     );
   }
 

@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
-import { AtMentions, useTheme } from 'stream-chat-react-native';
-import { MessageResponse } from 'ermis-chat-sdk-test';
+import { AtMentions, useTheme } from 'ermis-chat-react-native';
+import { MessageResponse } from 'ermis-chat-sdk';
 
 import { ChatScreenHeader } from '../components/ChatScreenHeader';
 import { MessageSearchList } from '../components/MessageSearch/MessageSearchList';
@@ -80,7 +80,7 @@ export const MentionsScreen: React.FC<MentionsScreenProps> = () => {
         },
       ]}
     >
-      <ChatScreenHeader />
+      {/* <ChatScreenHeader />
       <MessageSearchList
         EmptySearchIndicator={EmptyMentionsSearchIndicator}
         loading={loading}
@@ -89,7 +89,7 @@ export const MentionsScreen: React.FC<MentionsScreenProps> = () => {
         ref={scrollRef}
         refreshing={refreshing}
         refreshList={refreshList}
-      />
+      /> */}
     </View>
   );
 };

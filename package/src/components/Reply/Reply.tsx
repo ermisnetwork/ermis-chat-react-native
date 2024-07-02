@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 
 import merge from 'lodash/merge';
 
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import { useMessageContext } from '../../contexts/messageContext/MessageContext';
 import {

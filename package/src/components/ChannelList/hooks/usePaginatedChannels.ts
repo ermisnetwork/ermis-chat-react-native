@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
-import type { Channel, ChannelFilters, ChannelOptions, ChannelSort } from 'ermis-chat-sdk-test';
+import type { Channel, ChannelFilters, ChannelOptions, ChannelSort } from 'ermis-chat-sdk';
 
 import { useActiveChannelsRefContext } from '../../../contexts/activeChannelsRefContext/ActiveChannelsRefContext';
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';

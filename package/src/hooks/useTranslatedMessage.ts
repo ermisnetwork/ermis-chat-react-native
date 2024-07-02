@@ -1,4 +1,4 @@
-import type { FormatMessageResponse, MessageResponse, TranslationLanguages } from 'ermis-chat-sdk-test';
+import type { FormatMessageResponse, MessageResponse, TranslationLanguages } from 'ermis-chat-sdk';
 
 import { useMessageOverlayContext } from '../contexts/messageOverlayContext/MessageOverlayContext';
 import { useTranslationContext } from '../contexts/translationContext/TranslationContext';

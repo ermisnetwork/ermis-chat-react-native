@@ -7,7 +7,7 @@ import { TypingProvider } from '../../../contexts/typingContext/TypingContext';
 
 import { generateStaticUser, generateUser } from '../../../mock-builders/generator/user';
 import { getTestClientWithUser } from '../../../mock-builders/mock';
-import { Streami18n } from '../../../utils/i18n/Streami18n';
+import { Ermisi18n } from '../../../utils/i18n/Ermisi18n';
 import { Chat } from '../../Chat/Chat';
 import { TypingIndicator } from '../TypingIndicator';
 
@@ -71,7 +71,7 @@ describe('TypingIndicator', () => {
   });
 
   it('should match typing indicator snapshot', async () => {
-    const i18nInstance = new Streami18n();
+    const i18nInstance = new Ermisi18n();
     const { t } = await i18nInstance.getTranslators();
     const user0 = generateStaticUser(0);
     const user1 = generateStaticUser(1);

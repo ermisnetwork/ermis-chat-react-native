@@ -1,7 +1,7 @@
 import { PermissionsAndroid, Platform } from 'react-native';
 
 import { CameraRoll, GetPhotosParams } from '@react-native-camera-roll/camera-roll';
-import type { Asset } from 'stream-chat-react-native-core';
+import type { Asset } from 'ermis-chat-react-native-core';
 
 type ReturnType = {
   assets: Array<Omit<Asset, 'source'> & { source: 'picker' }>;
@@ -37,9 +37,9 @@ const verifyAndroidPermissions = async () => {
         ]).then(
           (statuses) =>
             statuses[PermissionsAndroid.PERMISSIONS.READ_MEDIA_IMAGES] ===
-              PermissionsAndroid.RESULTS.GRANTED &&
+            PermissionsAndroid.RESULTS.GRANTED &&
             statuses[PermissionsAndroid.PERMISSIONS.READ_MEDIA_VIDEO] ===
-              PermissionsAndroid.RESULTS.GRANTED,
+            PermissionsAndroid.RESULTS.GRANTED,
         );
       } else {
         return PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE, {

@@ -5,9 +5,9 @@ import Dayjs from 'dayjs';
 import { useIsMountedRef } from './useIsMountedRef';
 
 import type { TranslatorFunctions } from '../contexts/translationContext/TranslationContext';
-import { Streami18n } from '../utils/i18n/Streami18n';
+import { Ermisi18n } from '../utils/i18n/Ermisi18n';
 
-export const useStreami18n = (i18nInstance?: Streami18n) => {
+export const useErmisi18n = (i18nInstance?: Ermisi18n) => {
   const [translators, setTranslators] = useState<TranslatorFunctions>({
     t: (key: string) => key,
     tDateTimeParser: (input?: string | number | Date) => Dayjs(input),
@@ -15,12 +15,12 @@ export const useStreami18n = (i18nInstance?: Streami18n) => {
   const isMounted = useIsMountedRef();
 
   useEffect(() => {
-    let streami18n: Streami18n;
+    let ermisi18n: Ermisi18n;
 
-    if (i18nInstance instanceof Streami18n) {
-      streami18n = i18nInstance;
+    if (i18nInstance instanceof Ermisi18n) {
+      ermisi18n = i18nInstance;
     } else {
-      streami18n = new Streami18n({ language: 'en' });
+      ermisi18n = new Ermisi18n({ language: 'en' });
     }
 
     const updateTFunction = (t: TranslatorFunctions['t']) => {
@@ -28,16 +28,16 @@ export const useStreami18n = (i18nInstance?: Streami18n) => {
     };
 
     const { unsubscribe: unsubscribeOnLanguageChangeListener } =
-      streami18n.addOnLanguageChangeListener((t) => {
+      ermisi18n.addOnLanguageChangeListener((t) => {
         updateTFunction(t);
       });
 
     const { unsubscribe: unsubscribeOnTFuncOverrideListener } =
-      streami18n.addOnTFunctionOverrideListener((t) => {
+      ermisi18n.addOnTFunctionOverrideListener((t) => {
         updateTFunction(t);
       });
 
-    streami18n.getTranslators().then((translator) => {
+    ermisi18n.getTranslators().then((translator) => {
       if (translator && isMounted.current) setTranslators(translator);
     });
 

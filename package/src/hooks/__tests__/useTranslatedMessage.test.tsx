@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { render, screen, waitFor } from '@testing-library/react-native';
 
-import type { MessageResponse } from 'ermis-chat-sdk-test';
+import type { MessageResponse } from 'ermis-chat-sdk';
 
 import {
   MessageOverlayContextValue,

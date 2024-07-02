@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleProp, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useAttachmentPickerContext, useTheme } from 'stream-chat-react-native';
+import { useAttachmentPickerContext, useTheme } from 'ermis-chat-react-native';
 
 import { UnreadCountBadge } from './UnreadCountBadge';
 
@@ -107,7 +107,7 @@ export const ScreenHeader: React.FC<ScreenHeaderProps> = (props) => {
     Subtitle,
     subtitleText,
     Title,
-    titleText = 'Stream Chat',
+    titleText = 'Ermis Chat',
   } = props;
 
   const {

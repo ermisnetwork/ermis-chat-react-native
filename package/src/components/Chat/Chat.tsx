@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { Image, Platform } from 'react-native';
 
-import type { Channel, ErmisChat } from 'ermis-chat-sdk-test';
+import type { Channel, ErmisChat } from 'ermis-chat-sdk';
 
 import { useAppSettings } from './hooks/useAppSettings';
 import { useCreateChatContext } from './hooks/useCreateChatContext';
@@ -20,14 +20,14 @@ import {
   DEFAULT_USER_LANGUAGE,
   TranslationProvider,
 } from '../../contexts/translationContext/TranslationContext';
-import { useStreami18n } from '../../hooks/useStreami18n';
+import { useErmisi18n } from '../../hooks/useErmisi18n';
 import init from '../../init';
 
 import { SDK } from '../../native';
 import { QuickSqliteClient } from '../../store/QuickSqliteClient';
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import { DBSyncManager } from '../../utils/DBSyncManager';
-import type { Streami18n } from '../../utils/i18n/Streami18n';
+import type { Ermisi18n } from '../../utils/i18n/Ermisi18n';
 import { ErmisChatRN } from '../../utils/ErmisChatRN';
 import { version } from '../../version.json';
 
@@ -49,9 +49,9 @@ export type ChatProps<
      */
     enableOfflineSupport?: boolean;
     /**
-     * Instance of Streami18n class should be provided to Chat component to enable internationalization.
+     * Instance of Ermisi18n class should be provided to Chat component to enable internationalization.
      *
-     * Stream provides following list of in-built translations:
+     * Ermis provides following list of in-built translations:
      * 1. English (en)
      * 2. Dutch (nl)
      * 3. ...
@@ -60,7 +60,7 @@ export type ChatProps<
      * Simplest way to start using chat components in one of the in-built languages would be following:
      *
      * ```
-     * const i18n = new Streami18n('nl');
+     * const i18n = new Ermisi18n('nl');
      * <Chat client={chatClient} i18nInstance={i18n}>
      *  ...
      * </Chat>
@@ -70,7 +70,7 @@ export type ChatProps<
      * UI will be automatically updated in this case.
      *
      * ```
-     * const i18n = new Streami18n('nl');
+     * const i18n = new Ermisi18n('nl');
      *
      * i18n.registerTranslation('nl', {
      *  'Nothing yet...': 'Nog Niet ...',
@@ -85,7 +85,7 @@ export type ChatProps<
      * You can use the same function to add whole new language.
      *
      * ```
-     * const i18n = new Streami18n('it');
+     * const i18n = new Ermisi18n('it');
      *
      * i18n.registerTranslation('it', {
      *  'Nothing yet...': 'Non ancora ...',
@@ -99,14 +99,14 @@ export type ChatProps<
      * </Chat>
      * ```
      */
-    i18nInstance?: Streami18n;
+    i18nInstance?: Ermisi18n;
     /**
-     * You can pass the theme object to customize the styles of Chat components. You can check the default theme in [theme.ts](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/contexts/themeContext/utils/theme.ts)
+     * You can pass the theme object to customize the styles of Chat components. You can check the default theme in [theme.ts]
      *
-     * Please check section about [themes in cookbook](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#theme) for details.
+     * Please check section about [themes in cookbook]
      *
      * ```
-     * import type { DeepPartial, Theme } from 'stream-chat-react-native';
+     * import type { DeepPartial, Theme } from 'ermis-chat-react-native';
      *
      * const theme: DeepPartial<Theme> = {
      *   messageSimple: {
@@ -143,14 +143,14 @@ const ChatWithContext = <
     enableOfflineSupport = false,
     i18nInstance,
     ImageComponent = Image,
-    resizableCDNHosts = ['.stream-io-cdn.com'],
+    resizableCDNHosts = [''],
     style,
   } = props;
 
   const [channel, setChannel] = useState<Channel<ErmisChatGenerics>>();
 
   // Setup translators
-  const translators = useStreami18n(i18nInstance);
+  const translators = useErmisi18n(i18nInstance);
 
   /**
    * Setup connection event listeners

@@ -1,4 +1,4 @@
-import type { MessageLabel, Role } from 'ermis-chat-sdk-test';
+import type { MessageLabel, Role } from 'ermis-chat-sdk';
 
 import type { PendingTaskTypes } from './types';
 

@@ -10,7 +10,7 @@ import {
   QuickSqliteClient,
   ThemeProvider,
   useOverlayContext,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 import messaging from '@react-native-firebase/messaging';
 import notifee, { EventType } from '@notifee/react-native';
 import { AppContext } from './src/context/AppContext';
@@ -35,7 +35,7 @@ import { SharedGroupsScreen } from './src/screens/SharedGroupsScreen';
 import { ThreadScreen } from './src/screens/ThreadScreen';
 import { UserSelectorScreen } from './src/screens/UserSelectorScreen';
 
-import type { ErmisChat } from 'ermis-chat-sdk-test';
+import type { ErmisChat } from 'ermis-chat-sdk';
 
 if (__DEV__) {
   DevSettings.addMenuItem('Reset local DB (offline storage)', () => {

@@ -4,7 +4,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import { ErmisChatGenerics } from '../types';
 
 import type { Immutable } from 'seamless-immutable';
-import type { UserResponse } from 'ermis-chat-sdk-test';
+import type { UserResponse } from 'ermis-chat-sdk';
 
 Dayjs.extend(relativeTime);
 

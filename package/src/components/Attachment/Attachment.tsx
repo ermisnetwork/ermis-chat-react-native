@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { Attachment as AttachmentType } from 'ermis-chat-sdk-test';
+import type { Attachment as AttachmentType } from 'ermis-chat-sdk';
 
 import { AttachmentActions as AttachmentActionsDefault } from '../../components/Attachment/AttachmentActions';
 import { Card as CardDefault } from '../../components/Attachment/Card';

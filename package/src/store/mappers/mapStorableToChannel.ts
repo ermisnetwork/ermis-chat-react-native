@@ -1,4 +1,4 @@
-import type { ChannelAPIResponse } from 'ermis-chat-sdk-test';
+import type { ChannelAPIResponse } from 'ermis-chat-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import type { TableRow } from '../types';

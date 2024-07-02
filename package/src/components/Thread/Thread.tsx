@@ -27,12 +27,10 @@ type ThreadPropsWithContext<
   > & {
     /**
      * Additional props for underlying MessageInput component.
-     * Available props - https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-input/#props
      * */
     additionalMessageInputProps?: Partial<MessageInputProps<ErmisChatGenerics>>;
     /**
      * Additional props for underlying MessageList component.
-     * Available props - https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-list/#props
      * */
     additionalMessageListProps?: Partial<MessageListProps<ErmisChatGenerics>>;
     /** Make input focus on mounting thread */
@@ -43,7 +41,6 @@ type ThreadPropsWithContext<
     disabled?: boolean;
     /**
      * **Customized MessageInput component to used within Thread instead of default MessageInput
-     * **Available from [MessageInput](https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-input)**
      */
     MessageInput?: React.ComponentType<MessageInputProps<ErmisChatGenerics>>;
     /**
@@ -119,7 +116,6 @@ export type ThreadProps<
  * Thread - The Thread renders a parent message with a list of replies. Use the standard message list of the main channel's messages.
  * The thread is only used for the list of replies to a message.
  *
- * Thread is a consumer of [channel context](https://getstream.io/chat/docs/sdk/reactnative/contexts/channel-context/)
  * Underlying MessageList, MessageInput and Message components can be customized using props:
  * - additionalMessageListProps
  * - additionalMessageInputProps
@@ -137,7 +133,7 @@ export const Thread = <
 
   if (thread?.id && !threadList) {
     throw new Error(
-      'Please add a threadList prop to your Channel component when rendering a thread list. Check our Channel documentation for more info: https://getstream.io/chat/docs/sdk/reactnative/core-components/channel/#threadlist',
+      'Please add a threadList prop to your Channel component when rendering a thread list.',
     );
   }
 

@@ -1,4 +1,4 @@
-import type { ChannelState, MessageResponse } from 'ermis-chat-sdk-test';
+import type { ChannelState, MessageResponse } from 'ermis-chat-sdk';
 
 import {
   ChannelContextValue,

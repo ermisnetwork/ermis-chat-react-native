@@ -1,6 +1,6 @@
 import type { AxiosError } from 'axios';
 import dayjs from 'dayjs';
-import type { APIErrorResponse, ErmisChat } from 'ermis-chat-sdk-test';
+import type { APIErrorResponse, ErmisChat } from 'ermis-chat-sdk';
 
 import { handleEventToSyncDB } from '../components/Chat/hooks/handleEventToSyncDB';
 import { getAllChannelIds, getLastSyncedAt, upsertUserSyncStatus } from '../store/apis';
@@ -110,7 +110,7 @@ export class DBSyncManager {
       const nowDayJs = dayjs();
       const diff = nowDayJs.diff(lastSyncedAtDayJs, 'days');
       if (diff > 30) {
-        // stream backend will send an error if we try to sync after 30 days.
+        // ermis backend will send an error if we try to sync after 30 days.
         // In that case reset the entire DB and start fresh.
         QuickSqliteClient.resetDB();
       } else {

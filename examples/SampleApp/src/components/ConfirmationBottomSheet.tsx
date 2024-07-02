@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from '@gorhom/bottom-sheet';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { UserMinus, useTheme } from 'stream-chat-react-native';
+import { UserMinus, useTheme } from 'ermis-chat-react-native';
 
 import { useAppOverlayContext } from '../context/AppOverlayContext';
 import {

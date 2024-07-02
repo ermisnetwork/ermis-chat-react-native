@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 
-import { FlatList } from '@stream-io/flat-list-mvcp';
-import { registerNativeHandlers } from 'stream-chat-react-native-core';
+import { FlatList } from '@ermis-io/flat-list-mvcp';
+import { registerNativeHandlers } from 'ermis-chat-react-native-core';
 
 import {
   compressImage,
@@ -37,7 +37,7 @@ registerNativeHandlers({
   oniOS14GalleryLibrarySelectionChange,
   pickDocument,
   saveFile,
-  SDK: 'stream-chat-react-native',
+  SDK: 'ermis-chat-react-native',
   setClipboardString,
   shareImage,
   Sound,
@@ -64,4 +64,4 @@ if (Platform.OS === 'android') {
   }
 }
 
-export * from 'stream-chat-react-native-core';
+export * from 'ermis-chat-react-native-core';

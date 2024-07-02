@@ -7,7 +7,7 @@ import type { Asset, File } from './types/types';
 
 const fail = () => {
   throw Error(
-    'Native handler was not registered, you should import stream-chat-react-native',
+    'Native handler was not registered, you should import ermis-chat-react-native',
   );
 };
 
@@ -38,11 +38,11 @@ export let iOS14RefreshGallerySelection: iOS14RefreshGallerySelection = fail;
 
 type GetPhotos = ({ after, first }: { first: number; after?: string }) =>
   | Promise<{
-      assets: Array<Omit<Asset, 'source'> & { source: 'picker' }>;
-      endCursor: string;
-      hasNextPage: boolean;
-      iOSLimited: boolean;
-    }>
+    assets: Array<Omit<Asset, 'source'> & { source: 'picker' }>;
+    endCursor: string;
+    hasNextPage: boolean;
+    iOSLimited: boolean;
+  }>
   | never;
 export let getPhotos: GetPhotos = fail;
 
@@ -60,9 +60,9 @@ export let NetInfo: NetInfo = {
 
 type PickDocument = ({ maxNumberOfFiles }: { maxNumberOfFiles?: number }) =>
   | Promise<{
-      cancelled: boolean;
-      assets?: File[];
-    }>
+    cancelled: boolean;
+    assets?: File[];
+  }>
   | never;
 export let pickDocument: PickDocument = fail;
 
@@ -85,14 +85,14 @@ export let shareImage: ShareImage = fail;
 
 type Photo =
   | (Omit<Asset, 'source'> & {
-      cancelled: false;
-      source: 'camera';
-      askToOpenSettings?: boolean;
-    })
+    cancelled: false;
+    source: 'camera';
+    askToOpenSettings?: boolean;
+  })
   | {
-      cancelled: true;
-      askToOpenSettings?: boolean;
-    };
+    cancelled: true;
+    askToOpenSettings?: boolean;
+  };
 type TakePhoto = (options: { compressImageQuality?: number }) => Promise<Photo> | never;
 export let takePhoto: TakePhoto = fail;
 
@@ -199,13 +199,13 @@ export type RecordingStatus = {
 export type AudioRecordingReturnType =
   | string
   | {
-      getStatusAsync: () => Promise<RecordingStatus>;
-      getURI: () => string | null;
-      pauseAsync: () => Promise<RecordingStatus>;
-      recording: string;
-      setProgressUpdateInterval: (progressUpdateIntervalMillis: number) => void;
-      stopAndUnloadAsync: () => Promise<RecordingStatus>;
-    }
+    getStatusAsync: () => Promise<RecordingStatus>;
+    getURI: () => string | null;
+    pauseAsync: () => Promise<RecordingStatus>;
+    recording: string;
+    setProgressUpdateInterval: (progressUpdateIntervalMillis: number) => void;
+    stopAndUnloadAsync: () => Promise<RecordingStatus>;
+  }
   | undefined;
 
 export type AudioReturnType = {

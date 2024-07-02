@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 
 import type { TouchableOpacityProps } from 'react-native';
 
-import type { Attachment, ChannelState, MessageResponse } from 'ermis-chat-sdk-test';
+import type { Attachment, ChannelState, MessageResponse } from 'ermis-chat-sdk';
 
 import type { AttachmentProps } from '../../components/Attachment/Attachment';
 import type { AttachmentActionsProps } from '../../components/Attachment/AttachmentActions';
@@ -68,24 +68,24 @@ export type MessagesContextValue<
 > = {
   /**
    * UI component for Attachment.
-   * Defaults to: [Attachment](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Attachment.tsx)
+   * Defaults to: [Attachment]
    */
   Attachment: React.ComponentType<AttachmentProps<ErmisChatGenerics>>;
   /**
    * UI component to display AttachmentActions. e.g., send, shuffle, cancel in case of giphy
-   * Defaults to: [AttachmentActions](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/AttachmentActions.tsx)
+   * Defaults to: [AttachmentActions]
    */
   AttachmentActions: React.ComponentType<AttachmentActionsProps<ErmisChatGenerics>>;
   /** Custom UI component for AudioAttachment. */
   AudioAttachment: React.ComponentType<AudioAttachmentProps>;
   /**
    * UI component to display generic media type e.g. giphy, url preview etc
-   * Defaults to: [Card](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Card.tsx)
+   * Defaults to: [Card]
    */
   Card: React.ComponentType<CardProps<ErmisChatGenerics>>;
   /**
    * UI component for DateHeader
-   * Defaults to: [DateHeader](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageList/DateHeader.tsx)
+   * Defaults to: [DateHeader]
    **/
   DateHeader: React.ComponentType<DateHeaderProps>;
   deleteMessage: (message: MessageResponse<ErmisChatGenerics>) => Promise<void>;
@@ -98,28 +98,28 @@ export type MessagesContextValue<
 
   /**
    * UI component to display File type attachment.
-   * Defaults to: [FileAttachment](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/FileAttachment.tsx)
+   * Defaults to: [FileAttachment]
    */
   FileAttachment: React.ComponentType<FileAttachmentProps<ErmisChatGenerics>>;
   /**
    * UI component to display group of File type attachments or multiple file attachments (in single message).
-   * Defaults to: [FileAttachmentGroup](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/FileAttachmentGroup.tsx)
+   * Defaults to: [FileAttachmentGroup]
    */
   FileAttachmentGroup: React.ComponentType<FileAttachmentGroupProps<ErmisChatGenerics>>;
   /**
    * UI component for attachment icon for type 'file' attachment.
-   * Defaults to: https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/FileIcon.tsx
+   * Defaults to: https://github.com/
    */
   FileAttachmentIcon: React.ComponentType<FileIconProps>;
   FlatList: typeof FlatList;
   /**
    * UI component to display image attachments
-   * Defaults to: [Gallery](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Gallery.tsx)
+   * Defaults to: [Gallery]
    */
   Gallery: React.ComponentType<GalleryProps<ErmisChatGenerics>>;
   /**
    * UI component for Giphy
-   * Defaults to: [Giphy](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Giphy.tsx)
+   * Defaults to: [Giphy]
    */
   Giphy: React.ComponentType<GiphyProps<ErmisChatGenerics>>;
   /**
@@ -143,19 +143,19 @@ export type MessagesContextValue<
   initialScrollToFirstUnreadMessage: boolean;
   /**
    * UI component for Message Date Separator Component
-   * Defaults to: [InlineDateSeparator](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageList/InlineDateSeparator.tsx)
+   * Defaults to: [InlineDateSeparator]
    */
   InlineDateSeparator: React.ComponentType<InlineDateSeparatorProps>;
   /**
    * UI component for InlineUnreadIndicator
-   * Defaults to: [InlineUnreadIndicator](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/InlineUnreadIndicator.tsx)
+   * Defaults to: [InlineUnreadIndicator]
    **/
   InlineUnreadIndicator: React.ComponentType;
 
   Message: React.ComponentType<MessageProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageAvatar
-   * Defaults to: [MessageAvatar](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageAvatar.tsx)
+   * Defaults to: [MessageAvatar]
    **/
   MessageAvatar: React.ComponentType<MessageAvatarProps<ErmisChatGenerics>>;
   /**
@@ -164,19 +164,19 @@ export type MessagesContextValue<
   MessageBounce: React.ComponentType<MessageBounceProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageContent
-   * Defaults to: [MessageContent](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageContent.tsx)
+   * Defaults to: [MessageContent]
    */
   MessageContent: React.ComponentType<MessageContentProps<ErmisChatGenerics>>;
   /** Order to render the message content */
   messageContentOrder: MessageContentType[];
   /**
    * UI component for MessageDeleted
-   * Defaults to: [MessageDeleted](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageDeleted.tsx)
+   * Defaults to: [MessageDeleted]
    */
   MessageDeleted: React.ComponentType<MessageDeletedProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageEditedTimestamp
-   * Defaults to: [MessageEditedTimestamp](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageEditedTimestamp.tsx)
+   * Defaults to: [MessageEditedTimestamp]
    */
   MessageEditedTimestamp: React.ComponentType<MessageEditedTimestampProps>;
   /**
@@ -195,32 +195,32 @@ export type MessagesContextValue<
 
   /**
    * UI component for MessageReplies
-   * Defaults to: [MessageReplies](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageReplies.tsx)
+   * Defaults to: [MessageReplies]
    */
   MessageReplies: React.ComponentType<MessageRepliesProps<ErmisChatGenerics>>;
   /**
    * UI Component for MessageRepliesAvatars
-   * Defaults to: [MessageRepliesAvatars](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/MessageSimple/MessageRepliesAvatars.tsx)
+   * Defaults to: [MessageRepliesAvatars]
    */
   MessageRepliesAvatars: React.ComponentType<MessageRepliesAvatarsProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageSimple
-   * Defaults to: [MessageSimple](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageSimple.tsx)
+   * Defaults to: [MessageSimple]
    */
   MessageSimple: React.ComponentType<MessageSimpleProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageStatus (delivered/read)
-   * Defaults to: [MessageStatus](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/MessageSimple/MessageStatus.tsx)
+   * Defaults to: [MessageStatus]
    */
   MessageStatus: React.ComponentType<MessageStatusProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageSystem
-   * Defaults to: [MessageSystem](https://getstream.io/chat/docs/sdk/reactnative/ui-components/message-system/)
+   * Defaults to: [MessageSystem](https://
    */
   MessageSystem: React.ComponentType<MessageSystemProps<ErmisChatGenerics>>;
   /**
    * UI component for MessageTimestamp
-   * Defaults to: [MessageTimestamp](https://github.com/GetStream/stream-chat-react-native/blob/develop/package/src/components/Message/MessageSimple/MessageTimestamp.tsx)
+   * Defaults to: [MessageTimestamp]
    */
   MessageTimestamp: React.ComponentType<MessageTimestampProps>;
   /**
@@ -229,13 +229,13 @@ export type MessagesContextValue<
   OverlayReactionList: React.ComponentType<OverlayReactionListProps<ErmisChatGenerics>>;
   /**
    * UI component for ReactionList
-   * Defaults to: [ReactionList](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Reaction/ReactionList.tsx)
+   * Defaults to: [ReactionList]
    */
   ReactionList: React.ComponentType<ReactionListProps<ErmisChatGenerics>>;
   removeMessage: (message: { id: string; parent_id?: string }) => void;
   /**
    * UI component for Reply
-   * Defaults to: [Reply](https://getstream.io/chat/docs/sdk/reactnative/ui-components/reply/)
+   * Defaults to: [Reply](https://
    */
   Reply: React.ComponentType<ReplyProps<ErmisChatGenerics>>;
   /**
@@ -244,7 +244,7 @@ export type MessagesContextValue<
   retrySendMessage: (message: MessageType<ErmisChatGenerics>) => Promise<void>;
   /**
    * UI component for ScrollToBottomButton
-   * Defaults to: [ScrollToBottomButton](https://getstream.io/chat/docs/sdk/reactnative/ui-components/scroll-to-bottom-button/)
+   * Defaults to: [ScrollToBottomButton](https://
    */
   ScrollToBottomButton: React.ComponentType<ScrollToBottomButtonProps>;
   sendReaction: (type: string, messageId: string) => Promise<void>;
@@ -253,12 +253,12 @@ export type MessagesContextValue<
   supportedReactions: ReactionData[];
   /**
    * UI component for TypingIndicator
-   * Defaults to: [TypingIndicator](https://getstream.io/chat/docs/sdk/reactnative/ui-components/typing-indicator/)
+   * Defaults to: [TypingIndicator](https://
    */
   TypingIndicator: React.ComponentType;
   /**
    * UI component for TypingIndicatorContainer
-   * Defaults to: [TypingIndicatorContainer](https://getstream.io/chat/docs/sdk/reactnative/contexts/messages-context/#typingindicatorcontainer)
+   * Defaults to: [TypingIndicatorContainer](https://
    */
   TypingIndicatorContainer: React.ComponentType<TypingIndicatorContainerProps>;
   updateMessage: (
@@ -271,7 +271,7 @@ export type MessagesContextValue<
   ) => void;
   /**
    * Custom UI component to display enriched url preview.
-   * Defaults to https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Attachment/Card.tsx
+   * Defaults to https://github.com/
    */
   UrlPreview: React.ComponentType<CardProps<ErmisChatGenerics>>;
   VideoThumbnail: React.ComponentType<VideoThumbnailProps>;
@@ -301,7 +301,7 @@ export type MessagesContextValue<
   /**
    * Full override of the delete message button in the Message Actions
    *
-   * Please check [cookbook](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#override-or-intercept-message-actions-edit-delete-reaction-reply-etc) for details.
+   * Please check [cookbook]
    */
 
   /** Control if the deleted message is visible to both the send and reciever, either of them or none  */
@@ -495,7 +495,7 @@ export type MessagesContextValue<
   /**
    * Full override of the reaction function on Message and Message Overlay
    *
-   * Please check [cookbook](https://github.com/GetStream/stream-chat-react-native/wiki/Cookbook-v3.0#override-or-intercept-message-actions-edit-delete-reaction-reply-etc) for details.
+   * Please check [cookbook]
    * */
   selectReaction?: (
     message: MessageType<ErmisChatGenerics>,
@@ -530,7 +530,7 @@ export const useMessagesContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useMessagesContext hook was called outside of the MessagesContext provider. Make sure you have configured MessageList component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#message-list`,
+      `The useMessagesContext hook was called outside of the MessagesContext provider. Make sure you have configured MessageList component correctly`
     );
   }
 

@@ -3,7 +3,7 @@ import { act } from 'react-test-renderer';
 
 import { renderHook } from '@testing-library/react-native';
 
-import type { ErmisChat } from 'ermis-chat-sdk-test';
+import type { ErmisChat } from 'ermis-chat-sdk';
 
 import type { MessageType } from '../../../components/MessageList/hooks/useMessageList';
 

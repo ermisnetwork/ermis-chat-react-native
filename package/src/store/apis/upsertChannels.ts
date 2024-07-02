@@ -1,4 +1,4 @@
-import type { ChannelAPIResponse, ChannelFilters, ChannelSort } from 'ermis-chat-sdk-test';
+import type { ChannelAPIResponse, ChannelFilters, ChannelSort } from 'ermis-chat-sdk';
 
 import { upsertCidsForQuery } from './upsertCidsForQuery';
 import { upsertMembers } from './upsertMembers';

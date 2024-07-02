@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { ChannelState } from 'ermis-chat-sdk-test';
+import type { ChannelState } from 'ermis-chat-sdk';
 
 import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
@@ -38,7 +38,7 @@ export const useTypingContext = <
 
   if (contextValue === DEFAULT_BASE_CONTEXT_VALUE && !isTestEnvironment()) {
     throw new Error(
-      `The useTypingContext hook was called outside of the TypingContext provider. Make sure you have configured Channel component correctly - https://getstream.io/chat/docs/sdk/reactnative/basics/hello_stream_chat/#channel`,
+      `The useTypingContext hook was called outside of the TypingContext provider. Make sure you have configured Channel component correctly`,
     );
   }
 

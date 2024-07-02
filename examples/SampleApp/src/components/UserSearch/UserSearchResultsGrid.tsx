@@ -1,12 +1,12 @@
 import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
-import { useViewport } from 'stream-chat-react-native';
+import { useViewport } from 'ermis-chat-react-native';
 
 import { UserGridItem } from './UserGridItem';
 
 import { EmptySearchState } from '../../icons/EmptySearchState';
 
-import type { UserResponse } from 'ermis-chat-sdk-test';
+import type { UserResponse } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../../types';
 

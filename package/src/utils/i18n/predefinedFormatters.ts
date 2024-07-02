@@ -1,5 +1,5 @@
 import { getDateString } from './getDateString';
-import { Streami18n } from './Streami18n';
+import { Ermisi18n } from './Ermisi18n';
 
 export type TimestampFormatterOptions = {
   /* If true, call the `Day.js` calendar function to get the date string to display (e.g. "Yesterday at 3:58 PM"). */
@@ -11,7 +11,7 @@ export type TimestampFormatterOptions = {
 };
 
 export type FormatterFactory<V> = (
-  streamI18n: Streami18n,
+  ermisI18n: Ermisi18n,
 ) => (value: V, lng: string | undefined, options: Record<string, unknown>) => string;
 
 // Here is any used, because we do not want to enforce any specific rules and
@@ -25,39 +25,39 @@ export type PredefinedFormatters = {
 
 export const predefinedFormatters: PredefinedFormatters = {
   timestampFormatter:
-    (streamI18n) =>
-    (
-      value,
-      _,
-      {
-        calendarFormats,
-        ...options
-      }: Pick<TimestampFormatterOptions, 'calendar' | 'format'> & {
-        calendarFormats?: Record<string, string> | string;
-      },
-    ) => {
-      let parsedCalendarFormats;
-      try {
-        if (!options.calendar) {
-          parsedCalendarFormats = {};
-        } else if (typeof calendarFormats === 'string') {
-          parsedCalendarFormats = JSON.parse(calendarFormats);
-        } else if (typeof calendarFormats === 'object') {
-          parsedCalendarFormats = calendarFormats;
+    (ermisI18n) =>
+      (
+        value,
+        _,
+        {
+          calendarFormats,
+          ...options
+        }: Pick<TimestampFormatterOptions, 'calendar' | 'format'> & {
+          calendarFormats?: Record<string, string> | string;
+        },
+      ) => {
+        let parsedCalendarFormats;
+        try {
+          if (!options.calendar) {
+            parsedCalendarFormats = {};
+          } else if (typeof calendarFormats === 'string') {
+            parsedCalendarFormats = JSON.parse(calendarFormats);
+          } else if (typeof calendarFormats === 'object') {
+            parsedCalendarFormats = calendarFormats;
+          }
+        } catch (e) {
+          console.error('[TIMESTAMP FORMATTER]', e);
         }
-      } catch (e) {
-        console.error('[TIMESTAMP FORMATTER]', e);
-      }
 
-      const result = getDateString({
-        ...options,
-        calendarFormats: parsedCalendarFormats,
-        date: value,
-        tDateTimeParser: streamI18n.tDateTimeParser,
-      });
-      if (!result || typeof result === 'number') {
-        return JSON.stringify(value);
-      }
-      return result;
-    },
+        const result = getDateString({
+          ...options,
+          calendarFormats: parsedCalendarFormats,
+          date: value,
+          tDateTimeParser: ermisI18n.tDateTimeParser,
+        });
+        if (!result || typeof result === 'number') {
+          return JSON.stringify(value);
+        }
+        return result;
+      },
 };

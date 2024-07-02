@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import type { ActionHandler } from '../../components/Attachment/Attachment';
 import { ReactionSummary } from '../../components/Message/hooks/useProcessReactions';
@@ -36,7 +36,7 @@ export type MessageContextValue<
    * e.g., user avatar (to which message belongs to) is only showed for last (bottom) message in group.
    */
   groupStyles: GroupType[];
-  /** Handler for actions. Actions in combination with attachments can be used to build [commands](https://getstream.io/chat/docs/#channel_commands). */
+  /** Handler for actions. Actions in combination with attachments can be used to build. */
   handleAction: ActionHandler;
   handleDeleteMessage: () => Promise<void>;
   handleEditMessage: () => void;
@@ -55,7 +55,7 @@ export type MessageContextValue<
   isMyMessage: boolean;
   /** Whether or not this is the last message in a group of messages */
   lastGroupMessage: boolean;
-  /** Current [message object](https://getstream.io/chat/docs/#message_format) */
+  /** Current [message object] */
   message: MessageType<ErmisChatGenerics>;
   /** Order to render the message content */
   messageContentOrder: MessageContentType[];
@@ -63,7 +63,7 @@ export type MessageContextValue<
    * You can call methods available on the Message
    * component such as handleEdit, handleDelete, handleAction etc.
    *
-   * Source - [Message](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/Message.tsx)
+   * Source - [Message]
    *
    * By default, we show the overlay with all the message actions on long press.
    *
@@ -78,7 +78,7 @@ export type MessageContextValue<
    * You can call methods available on the Message
    * component such as handleEdit, handleDelete, handleAction etc.
    *
-   * Source - [Message](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/Message/Message.tsx)
+   * Source - [Message]
    *
    * By default, we will dismiss the keyboard on press.
    *

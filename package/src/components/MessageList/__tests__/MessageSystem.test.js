@@ -8,7 +8,7 @@ import { TranslationProvider } from '../../../contexts/translationContext/Transl
 
 import { generateMessage, generateStaticMessage } from '../../../mock-builders/generator/message';
 import { generateStaticUser } from '../../../mock-builders/generator/user';
-import { Streami18n } from '../../../utils/i18n/Streami18n';
+import { Ermisi18n } from '../../../utils/i18n/Ermisi18n';
 import { MessageSystem } from '../MessageSystem';
 
 afterEach(cleanup);
@@ -17,7 +17,7 @@ let i18nInstance;
 
 describe('MessageSystem', () => {
   beforeAll(() => {
-    i18nInstance = new Streami18n();
+    i18nInstance = new Ermisi18n();
   });
   afterEach(cleanup);
 

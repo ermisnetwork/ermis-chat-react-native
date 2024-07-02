@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import type { Attachment } from 'ermis-chat-sdk-test';
+import type { Attachment } from 'ermis-chat-sdk';
 
 import { openUrlSafely } from './utils/openUrlSafely';
 

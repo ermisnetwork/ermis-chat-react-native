@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { BuiltinRoles, ChannelResponse, Role } from 'ermis-chat-sdk-test';
+import { BuiltinRoles, ChannelResponse, Role } from 'ermis-chat-sdk';
 
 import { useChannelContext } from '../../../contexts/channelContext/ChannelContext';
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Spinner, useTheme } from 'stream-chat-react-native';
+import { Spinner, useTheme } from 'ermis-chat-react-native';
 
 const styles = StyleSheet.create({
   networkDownContainer: {

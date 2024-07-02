@@ -3,7 +3,7 @@ import React, { PropsWithChildren } from 'react';
 import type { TextInput } from 'react-native';
 
 import { act, renderHook, waitFor } from '@testing-library/react-native';
-import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-sdk-test';
+import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-sdk';
 
 import { ChatContextValue, ChatProvider } from '../../../contexts/chatContext/ChatContext';
 

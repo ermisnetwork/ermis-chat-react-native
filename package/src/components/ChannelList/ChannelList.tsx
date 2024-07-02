@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import type { FlatList } from 'react-native-gesture-handler';
 
-import type { Channel, ChannelFilters, ChannelOptions, ChannelSort, Event } from 'ermis-chat-sdk-test';
+import type { Channel, ChannelFilters, ChannelOptions, ChannelSort, Event } from 'ermis-chat-sdk';
 
 import { ChannelListFooterLoadingIndicator } from './ChannelListFooterLoadingIndicator';
 import { ChannelListHeaderErrorIndicator } from './ChannelListHeaderErrorIndicator';
@@ -69,7 +69,6 @@ export type ChannelListProps<
   /**
    * Object containing channel query filters
    *
-   * @see See [Channel query documentation](https://getstream.io/chat/docs/query_channels) for a list of available filter fields
    *
    * @overrideType object
    * */
@@ -77,7 +76,7 @@ export type ChannelListProps<
   /**
    * Custom UI component to display the list of channels
    *
-   * Default: [ChannelListMessenger](https://getstream.io/chat/docs/sdk/reactnative/ui-components/channel-list-messenger/)
+   * Default: [ChannelListMessenger]
    */
   List?: React.ComponentType<ChannelListMessengerProps<ErmisChatGenerics>>;
   /**
@@ -88,7 +87,7 @@ export type ChannelListProps<
    * Function that overrides default behavior when a user gets added to a channel
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event Object](https://getstream.io/chat/docs/event_object) corresponding to `notification.added_to_channel` event
+   * @param event corresponding to `notification.added_to_channel` event
    *
    * @overrideType Function
    * */
@@ -100,7 +99,7 @@ export type ChannelListProps<
    * Function that overrides default behavior when a channel gets deleted. In absence of this prop, the channel will be removed from the list.
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `channel.deleted` event
+   * @param event corresponding to `channel.deleted` event
    *
    * @overrideType Function
    * */
@@ -112,7 +111,7 @@ export type ChannelListProps<
    * Function that overrides default behavior when a channel gets hidden. In absence of this prop, the channel will be removed from the list.
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `channel.hidden` event
+   * @param event corresponding to `channel.hidden` event
    *
    * @overrideType Function
    * */
@@ -124,7 +123,7 @@ export type ChannelListProps<
    * Function to customize behavior when a channel gets truncated
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event [Event object](https://getstream.io/chat/docs/event_object) corresponding to `channel.truncated` event
+   * @param event corresponding to `channel.truncated` event
    *
    * @overrideType Function
    * */
@@ -136,7 +135,7 @@ export type ChannelListProps<
    * Function that overrides default behavior when a channel gets updated
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `channel.updated` event
+   * @param event corresponding to `channel.updated` event
    *
    * @overrideType Function
    * */
@@ -148,7 +147,7 @@ export type ChannelListProps<
    * Function that overrides default behavior when a channel gets visible. In absence of this prop, the channel will be added to the list.
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `channel.visible` event
+   * @param event corresponding to `channel.visible` event
    *
    * @overrideType Function
    * */
@@ -163,7 +162,7 @@ export type ChannelListProps<
    * This event is received on channel, which is not being watched.
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `notification.message_new` event
+   * @param event corresponding to `notification.message_new` event
    *
    * @overrideType Function
    * */
@@ -177,7 +176,7 @@ export type ChannelListProps<
    *
    * @param lockChannelOrder If set to true, channels won't dynamically sort by most recent message, defaults to false
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `message.new` event
+   * @param event corresponding to `message.new` event
    *
    * @overrideType Function
    * */
@@ -191,7 +190,7 @@ export type ChannelListProps<
    * This event is received on channel, which is not being watched.
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `notification.message_new` event
+   * @param event corresponding to `notification.message_new` event
    *
    * @overrideType Function
    * */
@@ -203,7 +202,7 @@ export type ChannelListProps<
    * Function that overrides default behavior when a user gets removed from a channel
    *
    * @param setChannels Setter for internal state property - `channels`. It's created from useState() hook.
-   * @param event An [Event object](https://getstream.io/chat/docs/event_object) corresponding to `notification.removed_from_channel` event
+   * @param event corresponding to `notification.removed_from_channel` event
    *
    * @overrideType Function
    * */
@@ -213,12 +212,10 @@ export type ChannelListProps<
   ) => void;
   /**
    * Object containing channel query options
-   * @see See [Channel query documentation](https://getstream.io/chat/docs/query_channels) for a list of available option fields
    * */
   options?: ChannelOptions;
   /**
    * Object containing channel sort parameters
-   * @see See [Channel query documentation](https://getstream.io/chat/docs/query_channels) for a list of available sorting fields
    * */
   sort?: ChannelSort<ErmisChatGenerics>;
 };

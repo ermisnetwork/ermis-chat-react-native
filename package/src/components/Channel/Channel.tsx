@@ -16,9 +16,9 @@ import {
   Reaction,
   SendMessageAPIResponse,
   ErmisChat,
-  Event as StreamEvent,
-  Message as StreamMessage,
-} from 'ermis-chat-sdk-test';
+  Event as ErmisEvent,
+  Message as ErmisMessage,
+} from 'ermis-chat-sdk';
 
 import { useCreateChannelContext } from './hooks/useCreateChannelContext';
 
@@ -340,28 +340,28 @@ export type ChannelPropsWithContext<
     /**
      * When true, disables the KeyboardCompatibleView wrapper
      *
-     * Channel internally uses the [KeyboardCompatibleView](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/KeyboardCompatibleView/KeyboardCompatibleView.tsx)
+     * Channel internally uses the [KeyboardCompatibleView]
      * component to adjust the height of Channel when the keyboard is opened or dismissed. This prop provides the ability to disable this functionality in case you
      * want to use [KeyboardAvoidingView](https://facebook.github.io/react-native/docs/keyboardavoidingview) or handle dismissal yourself.
      * KeyboardAvoidingView works well when your component occupies 100% of screen height, otherwise it may raise some issues.
      */
     disableKeyboardCompatibleView?: boolean;
     /**
-     * Overrides the Stream default mark channel read request (Advanced usage only)
+     * Overrides the Ermis default mark channel read request (Advanced usage only)
      * @param channel Channel object
      */
     doMarkReadRequest?: (channel: ChannelType<ErmisChatGenerics>) => void;
     /**
-     * Overrides the Stream default send message request (Advanced usage only)
+     * Overrides the Ermis default send message request (Advanced usage only)
      * @param channelId
      * @param messageData Message object
      */
     doSendMessageRequest?: (
       channelId: string,
-      messageData: StreamMessage<ErmisChatGenerics>,
+      messageData: ErmisMessage<ErmisChatGenerics>,
     ) => Promise<SendMessageAPIResponse<ErmisChatGenerics>>;
     /**
-     * Overrides the Stream default update message request (Advanced usage only)
+     * Overrides the Ermis default update message request (Advanced usage only)
      * @param channelId
      * @param updatedMessage UpdatedMessage object
      */
@@ -376,7 +376,7 @@ export type ChannelPropsWithContext<
     keyboardBehavior?: KeyboardAvoidingViewProps['behavior'];
     /**
      * Custom wrapper component that handles height adjustment of Channel component when keyboard is opened or dismissed
-     * Default component (accepts the same props): [KeyboardCompatibleView](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/KeyboardCompatibleView/KeyboardCompatibleView.tsx)
+     * Default component (accepts the same props): [KeyboardCompatibleView]
      *
      * **Example:**
      *
@@ -396,7 +396,7 @@ export type ChannelPropsWithContext<
     KeyboardCompatibleView?: React.ComponentType<KeyboardAvoidingViewProps>;
     keyboardVerticalOffset?: number;
     /**
-     * Custom loading error indicator to override the Stream default
+     * Custom loading error indicator to override the Ermis default
      */
     LoadingErrorIndicator?: React.ComponentType<LoadingErrorProps>;
     maxMessageLength?: number;
@@ -698,7 +698,7 @@ const ChannelWithContext = <
       channel.sendEvent({
         parent_id: thread?.id,
         type: 'typing.stop',
-      } as StreamEvent<ErmisChatGenerics>);
+      } as ErmisEvent<ErmisChatGenerics>);
     }
   }, [thread?.id, channelId]);
 
@@ -959,7 +959,6 @@ const ChannelWithContext = <
         if (lastReadDate) {
           setLoading(true);
           // get totally 30 messages... max 15 before last read date and max 15 after last read date
-          // ref: https://github.com/GetStream/chat/pull/2588
           const res = await channel.query(
             {
               messages: {
@@ -1517,7 +1516,7 @@ const ChannelWithContext = <
     parent_id,
     text,
     ...extraFields
-  }: Partial<StreamMessage<ErmisChatGenerics>>) => {
+  }: Partial<ErmisMessage<ErmisChatGenerics>>) => {
     // Exclude following properties from message.user within message preview,
     // since they could be long arrays and have no meaning as sender of message.
     // Storing such large value within user's table may cause sqlite queries to crash.
@@ -1670,7 +1669,7 @@ const ChannelWithContext = <
         parent_id,
         text: patchMessageTextCommand(text ?? '', mentionedUserIds),
         ...extraFields,
-      } as StreamMessage<ErmisChatGenerics>;
+      } as ErmisMessage<ErmisChatGenerics>;
 
       let messageResponse = {} as SendMessageAPIResponse<ErmisChatGenerics>;
       if (doSendMessageRequest) {

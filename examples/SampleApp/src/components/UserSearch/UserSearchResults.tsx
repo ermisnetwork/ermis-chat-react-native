@@ -9,11 +9,11 @@ import {
 } from 'react-native';
 import dayjs from 'dayjs';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { Avatar, CheckSend, Close, useTheme, useViewport } from 'stream-chat-react-native';
+import { Avatar, CheckSend, Close, useTheme, useViewport } from 'ermis-chat-react-native';
 
 import { useUserSearchContext } from '../../context/UserSearchContext';
 
-import type { UserResponse } from 'ermis-chat-sdk-test';
+import type { UserResponse } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../../types';
 import { Search } from '../../icons/Search';

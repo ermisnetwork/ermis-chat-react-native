@@ -1,6 +1,5 @@
-import type { DeepPartial, Theme } from 'stream-chat-react-native';
+import type { DeepPartial, Theme } from 'ermis-chat-react-native';
 
-// Read more about style customizations at - https://getstream.io/chat/react-native-chat/tutorial/#custom-styles
-const streamTheme: DeepPartial<Theme> = {};
+const ermisTheme: DeepPartial<Theme> = {};
 
-export { streamTheme };
+export { ermisTheme };

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme } from 'stream-chat-react-native';
+import { useTheme } from 'ermis-chat-react-native';
 
 const styles = StyleSheet.create({
   container: {

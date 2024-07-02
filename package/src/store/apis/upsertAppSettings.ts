@@ -1,4 +1,4 @@
-import type { AppSettingsAPIResponse } from 'ermis-chat-sdk-test';
+import type { AppSettingsAPIResponse } from 'ermis-chat-sdk';
 
 import { QuickSqliteClient } from '../QuickSqliteClient';
 import { createUpsertQuery } from '../sqlite-utils/createUpsertQuery';

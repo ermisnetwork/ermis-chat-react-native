@@ -12,7 +12,6 @@ import { getDateString } from '../../utils/i18n/getDateString';
 export type MessageSystemProps<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
-  /** Current [message object](https://getstream.io/chat/docs/#message_format) */
   message: MessageType<ErmisChatGenerics>;
   /**
    * Additional styles for the system message container.

@@ -36,13 +36,13 @@ export type AttachmentPickerProps = Pick<
   /**
    * Custom UI component to render error component while opening attachment picker.
    *
-   * **Default** [AttachmentPickerError](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/AttachmentPicker/components/AttachmentPickerError.tsx)
+   * **Default** [AttachmentPickerError]
    */
   AttachmentPickerError: React.ComponentType<AttachmentPickerErrorProps>;
   /**
    * Custom UI component to render error image for attachment picker
    *
-   * **Default** [AttachmentPickerErrorImage](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/AttachmentPicker/components/AttachmentPickerErrorImage.tsx)
+   * **Default** [AttachmentPickerErrorImage]
    */
   AttachmentPickerErrorImage: React.ComponentType;
   /**
@@ -50,9 +50,9 @@ export type AttachmentPickerProps = Pick<
    */
   AttachmentPickerIOSSelectMorePhotos: React.ComponentType;
   /**
-   * Custom UI component to render overlay component, that shows up on top of [selected image](https://github.com/GetStream/stream-chat-react-native/blob/main/screenshots/docs/1.png) (with tick mark)
+   * Custom UI component to render overlay component, that shows up on top of [selected image]
    *
-   * **Default** [ImageOverlaySelectedComponent](https://github.com/GetStream/stream-chat-react-native/blob/main/package/src/components/AttachmentPicker/components/ImageOverlaySelectedComponent.tsx)
+   * **Default** [ImageOverlaySelectedComponent]
    */
   ImageOverlaySelectedComponent: React.ComponentType;
   attachmentPickerErrorButtonText?: string;

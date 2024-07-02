@@ -4,9 +4,9 @@ import { Image, ImageProps, StyleProp, StyleSheet, View, ViewStyle } from 'react
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useLoadingImage } from '../../hooks/useLoadingImage';
 import { getResizedImageUrl } from '../../utils/getResizedImageUrl';
-const randomImageBaseUrl = 'https://getstream.io/random_png/';
-const randomSvgBaseUrl = 'https://getstream.io/random_svg/';
-const streamCDN = 'stream-io-cdn.com';
+const randomImageBaseUrl = '';
+const randomSvgBaseUrl = '';
+const ermisCDN = '';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,13 +62,11 @@ export const GroupAvatar = (props: GroupAvatarProps) => {
   const avatarImages = imagesOrNames.slice(0, 4).reduce((returnArray, currentImage, index) => {
     const url = currentImage.startsWith('http')
       ? currentImage
-      : `${randomImageBaseUrl}${
-          names
-            ? `?name=${getInitials(names[index])}&size=${
-                imagesOrNames.length <= 2 ? size : size / 2
-              }`
-            : ''
-        }`;
+      : `${randomImageBaseUrl}${names
+        ? `?name=${getInitials(names[index])}&size=${imagesOrNames.length <= 2 ? size : size / 2
+        }`
+        : ''
+      }`;
     if (imagesOrNames.length <= 2) {
       returnArray[0] = [
         ...(returnArray[0] || []),
@@ -142,25 +140,24 @@ export const GroupAvatar = (props: GroupAvatarProps) => {
                 onError={() => setLoadingImageError(true)}
                 source={{
                   uri: url.includes(randomSvgBaseUrl)
-                    ? url.includes(streamCDN)
+                    ? url.includes(ermisCDN)
                       ? url
-                      : `${randomImageBaseUrl}${
-                          name ? `?name=${getInitials(name)}&size=${height}` : ''
-                        }`
+                      : `${randomImageBaseUrl}${name ? `?name=${getInitials(name)}&size=${height}` : ''
+                      }`
                     : getResizedImageUrl({
-                        height,
-                        url,
-                        width,
-                      }),
+                      height,
+                      url,
+                      width,
+                    }),
                 }}
                 style={[
                   image,
                   size
                     ? {
-                        backgroundColor: '#ececec',
-                        height,
-                        width,
-                      }
+                      backgroundColor: '#ececec',
+                      height,
+                      width,
+                    }
                     : {},
                 ]}
                 testID={`group-avatar-image-${colIndex}-${rowIndex}`}

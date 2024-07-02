@@ -15,12 +15,12 @@ import { generateMember } from '../../../mock-builders/generator/member';
 import { generateMessage, generateStaticMessage } from '../../../mock-builders/generator/message';
 import { generateStaticUser } from '../../../mock-builders/generator/user';
 import { getTestClientWithUser } from '../../../mock-builders/mock';
-import { Streami18n } from '../../../utils/i18n/Streami18n';
+import { Ermisi18n } from '../../../utils/i18n/Ermisi18n';
 import { Channel } from '../../Channel/Channel';
 import { Chat } from '../../Chat/Chat';
 import { Thread } from '../Thread';
 
-const StreamReactNativeNamespace = '9b244ee4-7d69-4d7b-ae23-cf89e9f7b035';
+const ErmisReactNativeNamespace = '9b244ee4-7d69-4d7b-ae23-cf89e9f7b035';
 
 afterEach(cleanup);
 
@@ -63,7 +63,7 @@ describe('Thread', () => {
   }, 10000);
 
   it('should match thread snapshot', async () => {
-    const i18nInstance = new Streami18n();
+    const i18nInstance = new Ermisi18n();
     const user1 = generateStaticUser(1);
     const user2 = generateStaticUser(3);
     const thread = generateStaticMessage('Message3', { user: user2 }, '2020-05-05T14:50:00.000Z');
@@ -77,7 +77,7 @@ describe('Thread', () => {
 
     const mockedChannel = generateChannelResponse({
       channel: {
-        id: uuidv5('Channel', StreamReactNativeNamespace),
+        id: uuidv5('Channel', ErmisReactNativeNamespace),
       },
       members: [generateMember({ user: user1 }), generateMember({ user: user1 })],
       messages: [

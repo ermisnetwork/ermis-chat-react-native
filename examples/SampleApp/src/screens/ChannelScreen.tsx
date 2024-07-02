@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk-test';
+import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk';
 import { RouteProp, useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   Channel,
@@ -12,7 +12,7 @@ import {
   useChatContext,
   useTheme,
   useTypingString,
-} from 'stream-chat-react-native';
+} from 'ermis-chat-react-native';
 import { Platform, StyleSheet, View } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';

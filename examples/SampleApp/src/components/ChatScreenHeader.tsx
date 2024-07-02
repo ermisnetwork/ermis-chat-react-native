@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
-import { useChatContext, useTheme } from 'stream-chat-react-native';
+import { useChatContext, useTheme } from 'ermis-chat-react-native';
 
 import { RoundButton } from './RoundButton';
 import { ScreenHeader } from './ScreenHeader';
@@ -28,7 +28,7 @@ type ChatScreenHeaderNavigationProp = CompositeNavigationProp<
   StackNavigationProp<StackNavigatorParamList>
 >;
 
-export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Stream Chat' }) => {
+export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis Chat' }) => {
   const {
     theme: {
       colors: { accent_blue },
