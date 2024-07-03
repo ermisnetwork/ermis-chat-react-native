@@ -94,9 +94,7 @@ export const useChatClient = () => {
       name: config.userName,
       api_key: config.apiKey,
     };
-    console.log('User:k__________ ');
     const connectedUser = await client.connectUser(user, config.userToken);
-    console.log('User:k__________ 222222');
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
     await AsyncStore.setItem('@stream-rn-sampleapp-login-config', config);
@@ -108,13 +106,13 @@ export const useChatClient = () => {
 
     if (isEnabled) {
       // Register FCM token with ermis chat server.
-      const token = await messaging().getToken();
-      await client.addDevice(token, 'firebase');
+      // const token = await messaging().getToken();
+      // await client.addDevice(token, 'firebase');
 
       // Listen to new FCM tokens and register them with ermis chat server.
-      const unsubscribeTokenRefresh = messaging().onTokenRefresh(async (newToken) => {
-        await client.addDevice(newToken, 'firebase');
-      });
+      // const unsubscribeTokenRefresh = messaging().onTokenRefresh(async (newToken) => {
+      //   await client.addDevice(newToken, 'firebase');
+      // });
       // show notifications when on foreground
       const unsubscribeForegroundMessageReceive = messaging().onMessage(async (remoteMessage) => {
         const messageId = remoteMessage.data?.id;
@@ -149,7 +147,7 @@ export const useChatClient = () => {
       });
 
       unsubscribePushListenersRef.current = () => {
-        unsubscribeTokenRefresh();
+        // unsubscribeTokenRefresh();
         unsubscribeForegroundMessageReceive();
       };
     }
@@ -172,6 +170,12 @@ export const useChatClient = () => {
           userImage: 'https://randomuser.me/api/portraits/thumb/women/12.jpg',
           userName: 'cheeky_monkey',
           userToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiY2hlZWt5X21vbmtleSIsImV4cCI6MTc1MTM2NjEwOTQwOH0.SZ5l6bvQ1kVqjWtestVHhDzJCZHXksn6mZh8kNI9jyY',
+          // apiKey: 'KzubBBcsO3KT1747826418734',
+          // userId: '0xc019189ba7222ffe0e23d3b6474d104266f0ffb2',
+          // userImage: 'https://randomuser.me/api/portraits/thumb/women/12.jpg',
+          // userName: '0xc019189ba7222ffe0e23d3b6474d104266f0ffb2',
+          // userToken: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMHhjMDE5MTg5YmE3MjIyZmZlMGUyM2QzYjY0NzRkMTA0MjY2ZjBmZmIyIiwiZXhwIjoxNzE5OTU2MTU5MzczfQ.2AV1zWflEqDf0iyWZT4JrgTigdvG0dqstSNWCPw2HYI',
+
         });
         console.log('Switched to user', userId);
       } else {

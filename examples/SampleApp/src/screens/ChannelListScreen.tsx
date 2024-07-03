@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
 });
 
 const baseFilters = {
-  type: 'messaging',
+  type: '',
 };
-const sort: ChannelSort<ErmisChatGenerics> = { last_updated: -1 };
+const sort: ChannelSort<ErmisChatGenerics> = { };
 const options = {
   presence: true,
   state: true,
@@ -79,9 +79,6 @@ export const ChannelListScreen: React.FC = () => {
   const filters = useMemo(
     () => ({
       ...baseFilters,
-      members: {
-        $in: [chatClientUserId],
-      },
     }),
     [chatClientUserId],
   );

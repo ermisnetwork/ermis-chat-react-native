@@ -52,6 +52,7 @@ import type {
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { navigateToChannel, RootNavigationRef } from './src/utils/RootNavigation';
 import FastImage from 'react-native-fast-image';
+import { ChannelListScreen } from './src/screens/ChannelListScreen';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 console.assert = () => null;
@@ -217,7 +218,7 @@ const HomeScreen = () => {
       initialRouteName={initialChannelIdGlobalRef.current ? 'ChannelScreen' : 'MessagingScreen'}
     >
       <Stack.Screen
-        component={ChatScreen}
+        component={ChannelListScreen}
         name='MessagingScreen'
         options={{ headerShown: false }}
       />

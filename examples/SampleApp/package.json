@@ -53,8 +53,7 @@
     "react-native-svg": "^14.1.0",
     "react-native-video": "6.0.0-beta.8",
     "ermis-chat-react-native": "link:../../package/native-package",
-    "ermis-chat-react-native-core": "link:../../package",
-    "ermis-chat-sdk": "1.0.1"
+    "ermis-chat-react-native-core": "link:../../package"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

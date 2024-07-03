@@ -163,7 +163,6 @@ import { TypingIndicator as TypingIndicatorDefault } from '../MessageList/Typing
 import { TypingIndicatorContainer as TypingIndicatorContainerDefault } from '../MessageList/TypingIndicatorContainer';
 import { OverlayReactionList as OverlayReactionListDefault } from '../MessageOverlay/OverlayReactionList';
 import { Reply as ReplyDefault } from '../Reply/Reply';
-
 const styles = StyleSheet.create({
   selectChannel: { fontWeight: 'bold', padding: 16 },
 });
@@ -1634,6 +1633,7 @@ const ChannelWithContext = <
     message: MessageResponse<ErmisChatGenerics>,
     retrying?: boolean,
   ) => {
+
     try {
       const updatedMessage = await uploadPendingAttachments(message);
       const extraFields = omit(updatedMessage, [
@@ -1711,9 +1711,10 @@ const ChannelWithContext = <
     if (channel?.state?.filterErrorMessages) {
       channel.state.filterErrorMessages();
     }
-
+    const message_id = generateRandomId();
     const messagePreview = createMessagePreview({
       ...message,
+      id: message_id,
       attachments: message.attachments || [],
     });
 
