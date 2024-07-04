@@ -1,12 +1,14 @@
+## Fully featured messaging application
+
 ## How to run the app
 
-- Please make sure you have installed necessary dependencies depending on your development OS and target OS. Follow the guidelines given on official React Native documentation for installing dependencies: <https://facebook.github.io/react-native/docs/getting-started>
+- Please make sure you have installed necessary dependencies depending on your development OS and target OS. 
 - Make sure node version is >= v10.13.0
 
 ### Clone the project
 
 ```bash
-git clone https://gitlab.com/pk7795/ermis-chat-react-native.git
+git clone https://gitlab.com/pk7795/ermis-react-native.git
 ```
 ### Install the dependencies
 
@@ -64,7 +66,7 @@ If you run into following error on android:
 
 ```bash
 Execution failed for task ':app:validateSigningDebug'.
-> Keystore file '/path_to_project/ermit-chat-react-native/examples/ErmitChat/android/app/debug.keystore' not found for signing config 'debug'.
+> Keystore file '/path_to_project/ermis-chat-react-native/examples/NativeMessaging/android/app/debug.keystore' not found for signing config 'debug'.
 ```
 
 You can generate the debug Keystore by running this command in the `android/app/` directory: `keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000` - [Reference](https://github.com/facebook/react-native/issues/25629#issuecomment-511209583)

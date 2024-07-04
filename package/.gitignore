@@ -13,12 +13,12 @@ lib/
 # lib/ ignores metro-dev-helpers/lib so:
 !metro-dev-helpers/lib
 .env*
-examples/SampleApp/ios/vendor/
+examples/ErmisChat/ios/vendor/
 vendor
 pods
 .gradle
 .idea
-examples/SampleApp/build
+examples/ErmisChat/build
 local.properties
 xcuserdata
 .tern-port

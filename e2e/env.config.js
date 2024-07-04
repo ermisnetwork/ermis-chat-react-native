@@ -108,7 +108,6 @@ module.exports = {
     'https://shorturl.at/hmyKM',
     'https://www.youtube.com/watch?v=3oGLuM_--Uo&t=13s',
     'https://shorturl.at/mBUY7',
-    'https://github.com/GetStream/slack-clone-react-native/',
     'https://www.youtube.com/watch?v=tQ7T530Q7aU',
   ],
 
