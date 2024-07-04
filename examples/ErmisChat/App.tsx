@@ -75,7 +75,7 @@ notifee.onBackgroundEvent(async ({ detail, type }) => {
     await Promise.resolve();
   }
 });
-const projectId = Config.REACT_APP_PROJECT_ID || '';
+const projectId = Config.REACT_APP_PROJECT_ID || 'b7269aa7b1593b2f400e38a23a53b42b';
 const chains = [mainnet, polygon, avalanche, arbitrum, bsc, optimism, gnosis, fantom];
 
 const wagmiConfig = defaultWagmiConfig({
