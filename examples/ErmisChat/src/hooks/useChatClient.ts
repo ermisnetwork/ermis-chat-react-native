@@ -29,7 +29,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   if (!config) {
     return;
   }
-  let api_key = Config.REACT_APP_API_KEY || "KzubBBcsO3KT1747826418734";
+  let api_key = Config.REACT_APP_API_KEY || "IxtqdBgFA6KK1732952602719";
 
   const client = ErmisChat.getInstance(api_key);
 
@@ -80,14 +80,13 @@ export const useChatClient = () => {
    * @returns function to unsubscribe from listeners
    */
   const loginUser = async (config: LoginConfig) => {
-    let api_key = Config.REACT_APP_API_KEY || "KzubBBcsO3KT1747826418734";
+    let api_key = Config.REACT_APP_API_KEY || "IxtqdBgFA6KK1732952602719";
     // unsubscribe from previous push listeners
     unsubscribePushListenersRef.current?.();
     const client = ErmisChat.getInstance<ErmisChatGenerics>(api_key, {
       timeout: 6000,
       logger: (type, msg) => console.log(type, msg),
-      // baseURL: 'https://api-staging.ermis.network',
-      baseURL: Config.REACT_APP_API_URL,
+      baseURL: Config.REACT_APP_API_URL || 'https://api.ermis.network',
     });
 
     setChatClient(client);

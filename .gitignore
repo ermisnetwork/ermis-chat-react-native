@@ -3,7 +3,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
-!.yarn/versions
+!.yarn/1rsions
 
 node_modules
 NEXT_RELEASE_CHANGELOG.md
@@ -13,3 +13,4 @@ e2e/.env
 .DS_STORE
 *.db
 .idea
+examples/ErmisChat/.env

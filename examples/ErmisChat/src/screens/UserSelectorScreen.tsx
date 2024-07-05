@@ -158,7 +158,7 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
                 console.log('token: ', token);
                 let config: LoginConfig = {
                   userId: address.toLowerCase(),
-                  userImage: 'https://randomuser.me/api/portraits/thumb/women/11.jpg',
+                  userImage: 'https://randomuser.me/api/portraits/thumb/women/11.jpg',// this is mock profile, real profile will be added from user sevices.
                   userName: address.toLowerCase(),
                   userToken: token
                 };

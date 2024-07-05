@@ -24,7 +24,7 @@
     "android.sample.release": {
       "name": "Android ErmisChat Release",
       "type": "android.apk",
-      "binaryPath": "examples/ErmisChat/android/app/build/outputs/apk/release/app-release.apk",
+      "binaryPath": "examples/ErmisChat/android/app/build/outputs/apk/release/ermis-chat-release.apk",
       "build": "cd examples/ErmisChat/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release"
     }
   },
