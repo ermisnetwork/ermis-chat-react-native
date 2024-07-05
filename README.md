@@ -6,7 +6,7 @@
 ### Clone the project
 
 ```bash
-git clone https://gitlab.com/pk7795/ermis-chat-react-native.git
+git clone https://github.com/ermisnetwork/ermis-chat-react-native.git
 ```
 ### Install the dependencies
 

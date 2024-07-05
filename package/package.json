@@ -5,7 +5,7 @@
   "author": "Ermis.network Inc",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/pk7795/ermis-react-native.git"
+    "url": "git@github.com:ermisnetwork/ermis-chat-react-native.git"
   },
   "license": "SEE LICENSE IN LICENSE",
   "main": "lib/commonjs/index.js",

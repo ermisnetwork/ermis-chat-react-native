@@ -3,7 +3,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/pk7795/ermis-chat-react-native.git"
+    "url": "https://github.com/ermisnetwork/ermis-chat-react-native.git"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
