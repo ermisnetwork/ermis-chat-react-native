@@ -124,7 +124,6 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
   const onLoginWallet = useCallback(async () => {
     try {
       if (address && connector) {
-        console.log('address', address, "type of address", typeof address);
 
         if ((severity && severity === 'error') || isResetWallet === 'true') {
           //  fix issue reconecting wallet
@@ -141,7 +140,6 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
             const nonce = createNonce(20);
 
             const signature = await signTypedDataAsync(challenge);
-            console.log('signature', signature);
 
 
             if (signature) {
@@ -155,7 +153,6 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
               if (responseToken.status === 200) {
                 setIsLoading(false);
                 const { token } = responseToken.data;
-                console.log('token: ', token);
                 let config: LoginConfig = {
                   userId: address.toLowerCase(),
                   userImage: 'https://randomuser.me/api/portraits/thumb/women/11.jpg',// this is mock profile, real profile will be added from user sevices.

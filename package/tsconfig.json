@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "api-staging.ermis.network",
+    "baseUrl": "api.ermis.network",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "esModuleInterop": true,
