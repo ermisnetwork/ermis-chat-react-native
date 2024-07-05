@@ -204,7 +204,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
                 },
               ]}
             >
-              <Avatar id={item?.id} image={item.image} name={item.name} size={40} />
+              <Avatar id={item?.id} image={item.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg'} name={item.name} size={40} />
               <View style={styles.searchResultUserDetails}>
                 <Text
                   style={[

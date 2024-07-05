@@ -61,7 +61,7 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
       <View style={styles.userRow}>
         <Image
           source={{
-            uri: chatClient.user?.image,
+            uri: chatClient.user?.avatar,
           }}
           style={styles.avatar}
         />

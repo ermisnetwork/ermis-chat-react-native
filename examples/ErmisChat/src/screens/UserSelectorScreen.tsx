@@ -153,6 +153,8 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
               if (responseToken.status === 200) {
                 setIsLoading(false);
                 const { token } = responseToken.data;
+                console.log('--------------------token: ', token);
+
                 let config: LoginConfig = {
                   userId: address.toLowerCase(),
                   userImage: 'https://randomuser.me/api/portraits/thumb/women/11.jpg',// this is mock profile, real profile will be added from user sevices.

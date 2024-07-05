@@ -312,7 +312,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                             item ? (
                               <View style={styles.userItemContainer}>
                                 <Avatar
-                                  image={item.image}
+                                  image={item.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg'}
                                   name={item.name || item.id}
                                   online={item.online}
                                   presenceIndicatorContainerStyle={styles.avatarPresenceIndicator}

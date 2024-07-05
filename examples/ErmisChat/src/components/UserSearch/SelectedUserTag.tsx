@@ -54,7 +54,7 @@ export const SelectedUserTag: React.FC<SelectedUserTagProps> = ({
     >
       <Image
         source={{
-          uri: tag.image,
+          uri: tag.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg',
         }}
         style={styles.tagImage}
       />

@@ -4547,10 +4547,10 @@ envinfo@^7.10.0:
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.11.1.tgz#2ffef77591057081b0129a8fd8cf6118da1b94e1"
   integrity sha512-8PiZgZNIB4q/Lw4AhOvAfB/ityHAd2bli3lESSWmWSzSsl5dKpy5N1d1Rfkd2teq/g9xN90lc6o98DOjMeYHpg==
 
-ermis-chat-react-native-core@1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.0.13.tgz#e9cf6356c3b4f709c84c080d00746aa27e26e0ae"
-  integrity sha512-9mGprBkCrWdwC0F4rxaPuOJt8wemhkSc5QZrTU+QdNb9J9lhsKQA4cvOcJkZaiTpduqDDCN1SGGBcrlyqM4eyg==
+ermis-chat-react-native-core@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.1.0.tgz#a5e8a0d3054d2ceb4458607df850c24c90fd0f4f"
+  integrity sha512-El/To3CfSu5ZJ76eHx8IrGoB8ryxElwhaHadFuSpQMu2T6/g/53qRcDkeFPCtIrg1iRaPhVvxvgCZiI8dTDjAA==
   dependencies:
     "@gorhom/bottom-sheet" "4.4.8"
     "@react-native-async-storage/async-storage" "^1.23.1"
@@ -4558,7 +4558,7 @@ ermis-chat-react-native-core@1.0.13:
     "@web3modal/wagmi-react-native" "^1.4.1"
     dayjs "1.10.5"
     emoji-regex "^10.3.0"
-    ermis-chat-sdk "1.0.5"
+    ermis-chat-sdk "1.1.0"
     i18next "^21.6.14"
     intl-pluralrules "^2.0.1"
     linkifyjs "^4.1.1"
@@ -4580,25 +4580,10 @@ ermis-chat-react-native-core@1.0.13:
   version "0.0.0"
   uid ""
 
-ermis-chat-sdk@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.0.5.tgz#79c2092a997d689f2fe8628260a5adfb83c03772"
-  integrity sha512-qAohlNduVrqzkbF8tmraPy93eX8mutK2GnomJbANZYueQsjxaZCgxsDghyDAoeFMfQ0mmeUaK13ZLNXystx6GA==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@types/jsonwebtoken" "~9.0.0"
-    "@types/ws" "^7.4.0"
-    axios "^1.6.0"
-    base64-js "^1.5.1"
-    form-data "^4.0.0"
-    isomorphic-ws "^4.0.1"
-    jsonwebtoken "~9.0.0"
-    ws "^7.4.4"
-
-ermis-chat-sdk@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.0.6.tgz#93ad3d1dbd427fc947291e20ff49a1392ca39980"
-  integrity sha512-BSTAvDPaDaLjQXPa9wO5skr5uLHKykHaBhI0vAZVCywUYaXgcPG8qN7zvM4aChzmqyhy5ZgAeLXwkiltyIfLGQ==
+ermis-chat-sdk@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.1.0.tgz#a9d1d0b9107a1a26c52a1fcd812bc77b7e1d3a6b"
+  integrity sha512-RVTlf9OP3Gr0p3b1JBbs3Q5ZUCK8vl+5PYRYXLDFCOWupzJqqZfGXyENa/nVzbkj11gx9jfIhleXzsps4txX1Q==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/jsonwebtoken" "~9.0.0"

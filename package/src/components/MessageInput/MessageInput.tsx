@@ -149,6 +149,7 @@ type MessageInputPropsWithContext<
     | 'text'
     | 'uploadNewFile'
     | 'uploadNewImage'
+    | 'sendMessage'
   > &
   Pick<MessagesContextValue<ErmisChatGenerics>, 'Reply'> &
   Pick<
@@ -695,7 +696,7 @@ const MessageInputWithContext = <
               ))}
           </>
         )}
-
+        {/* Sẽ xử lý Send Button sau */}
         <View style={[styles.composerContainer, composerContainer]}>
           {Input ? (
             <Input
@@ -778,6 +779,20 @@ const MessageInputWithContext = <
                         (giphyActive && !isOnline)
                       }
                     />
+                    {/* <Pressable
+                      disabled={disabled}
+                      onPress={disabled ? () => null : () => sendMessage()}
+                      style={[sendButton]}
+                      testID='send-button'
+                    >
+                      {giphyActive ? (
+                        <Search pathFill={disabled ? grey_gainsboro : accent_blue} {...searchIcon} />
+                      ) : disabled ? (
+                        <SendRight fill={grey_gainsboro} size={32} {...sendRightIcon} />
+                      ) : (
+                        <SendUp fill={accent_blue} size={32} {...sendUpIcon} />
+                      )}
+                    </Pressable> */}
                   </View>
                 ))}
               {audioRecordingEnabled && !micLocked && (
@@ -1049,6 +1064,7 @@ export const MessageInput = <
     text,
     uploadNewFile,
     uploadNewImage,
+    sendMessage
   } = useMessageInputContext<ErmisChatGenerics>();
 
   const { Reply } = useMessagesContext<ErmisChatGenerics>();
@@ -1135,6 +1151,7 @@ export const MessageInput = <
         uploadNewFile,
         uploadNewImage,
         watchers,
+        sendMessage
       }}
       {...props}
     />

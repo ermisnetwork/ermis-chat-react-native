@@ -19,7 +19,7 @@ type SendButtonPropsWithContext<
   /** Disables the button */ disabled: boolean;
 };
 
-const SendButtonWithContext = <
+export const SendButtonWithContext = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   props: SendButtonPropsWithContext<ErmisChatGenerics>,
@@ -32,6 +32,7 @@ const SendButtonWithContext = <
     },
   } = useTheme();
 
+  //TODO here
   return (
     <Pressable
       disabled={disabled}

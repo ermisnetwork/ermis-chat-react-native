@@ -77,7 +77,7 @@ export const MessageRepliesAvatarsWithContext = <
               },
               avatar,
             ]}
-            image={user.image}
+            image={user.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg'}
             ImageComponent={ImageComponent}
             name={user.name}
             size={avatarSize ? avatarSize : i === 1 ? 18 : 16}

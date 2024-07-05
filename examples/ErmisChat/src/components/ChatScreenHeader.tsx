@@ -46,7 +46,7 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
         <TouchableOpacity onPress={navigation.openDrawer}>
           <Image
             source={{
-              uri: chatClient?.user?.image || 'https://randomuser.me/api/portraits/thumb/women/11.jpg',
+              uri: chatClient?.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg',
             }}
             style={styles.avatar}
           />

@@ -227,34 +227,15 @@ const queryUsers = async <
   client: ErmisChat<ErmisChatGenerics>,
   query: SuggestionUser<ErmisChatGenerics>['name'],
   onReady?: (users: SuggestionUser<ErmisChatGenerics>[]) => void,
-  options: {
-    limit?: number;
-    mentionAllAppUsersQuery?: MentionAllAppUsersQuery<ErmisChatGenerics>;
-  } = {},
 ): Promise<void> => {
   if (typeof query === 'string') {
-    const {
-      limit = defaultAutoCompleteSuggestionsLimit,
-      mentionAllAppUsersQuery = defaultMentionAllAppUsersQuery,
-    } = options;
-    const filters = {
-      id: { $ne: client.userID },
-      ...mentionAllAppUsersQuery?.filters,
-    };
-
-    if (query) {
-      // @ts-ignore
-      filters.$or = [{ id: { $autocomplete: query } }, { name: { $autocomplete: query } }];
-    }
+    const limit = 30;
 
     const response = await client.queryUsers(
-      // @ts-ignore
-      filters,
-      { id: 1, ...mentionAllAppUsersQuery?.sort },
-      { limit, ...mentionAllAppUsersQuery?.options },
+      limit
     );
     const users: SuggestionUser<ErmisChatGenerics>[] = [];
-    response.users.forEach((user) => isUserResponse(user) && users.push(user));
+    response.results.forEach((user) => isUserResponse(user) && users.push(user));
     if (onReady && users) {
       onReady(users);
     }

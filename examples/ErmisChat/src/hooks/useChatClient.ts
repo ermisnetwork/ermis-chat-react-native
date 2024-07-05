@@ -88,7 +88,7 @@ export const useChatClient = () => {
       logger: (type, msg) => console.log(type, msg),
       baseURL: Config.REACT_APP_API_URL || 'https://api.ermis.network',
     });
-
+    console.log('api url: ', Config.REACT_APP_API_URL, "   api key: ", Config.REACT_APP_API_KEY)
     setChatClient(client);
     const user = {
       id: config.userId,
@@ -100,7 +100,9 @@ export const useChatClient = () => {
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
     await AsyncStore.setItem('@stream-rn-ErmisChat-login-config', config);
-
+    let profile = await client.queryUser(config.userId);
+    client.user = { ...client.user, ...profile }
+    client._user = { ...client._user, ...profile }
     const permissionAuthStatus = await messaging().hasPermission();
     const isEnabled =
       permissionAuthStatus === messaging.AuthorizationStatus.AUTHORIZED ||
@@ -174,6 +176,7 @@ export const useChatClient = () => {
     } catch (e) {
       console.warn("error : ", e);
     }
+
     setIsConnecting(false);
   };
 

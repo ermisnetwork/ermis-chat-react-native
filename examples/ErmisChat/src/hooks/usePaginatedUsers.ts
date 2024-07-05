@@ -119,64 +119,36 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     setLoading(true);
 
     try {
-      queryInProgress.current = true;
-      const filter: UserFilters = {
-        id: {
-          $nin: [chatClient?.userID],
-        },
-        role: 'user',
-      };
-
-      if (query) {
-        filter.name = { $autocomplete: query };
-      }
-
-      if (query !== searchText) {
-        offset.current = 0;
-        hasMoreResults.current = true;
-      } else {
-        offset.current = offset.current + results.length;
-      }
-
-      if (!hasMoreResults.current) {
-        queryInProgress.current = false;
-        return;
-      }
+      const limit = 100;
 
       const res = await chatClient?.queryUsers(
-        filter,
-        { name: 1 },
-        {
-          limit: 10,
-          offset: offset.current,
-          presence: true,
-        },
+        limit
       );
 
-      if (!res?.users) {
+      if (!res?.results) {
         queryInProgress.current = false;
         return;
       }
 
       // Dumb check to avoid duplicates
-      if (query === searchText && results.findIndex((r) => res?.users[0].id === r.id) > -1) {
+      if (query === searchText && results.findIndex((r) => res?.results[0].id === r.id) > -1) {
         queryInProgress.current = false;
         return;
       }
 
       setResults((r) => {
         if (query !== searchText) {
-          return res?.users;
+          return res?.results;
         }
-        return r.concat(res?.users || []);
+        return r.concat(res?.results || []);
       });
 
-      if (res?.users.length < 10 && (offset.current === 0 || query === searchText)) {
+      if (res?.results.length < 10 && (offset.current === 0 || query === searchText)) {
         hasMoreResults.current = false;
       }
 
       if (!query && offset.current === 0) {
-        setInitialResults(res?.users || []);
+        setInitialResults(res?.results || []);
       }
     } catch (e) {
       // do nothing;

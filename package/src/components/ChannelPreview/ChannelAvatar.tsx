@@ -30,7 +30,7 @@ export const ChannelAvatarWithContext = <
     return (
       <GroupAvatar
         ImageComponent={ImageComponent}
-        images={displayAvatar.images}
+        images={displayAvatar.images || 'https://randomuser.me/api/portraits/thumb/women/10.jpg'}
         names={displayAvatar.names}
         size={40}
       />
@@ -39,7 +39,7 @@ export const ChannelAvatarWithContext = <
 
   return (
     <Avatar
-      image={displayAvatar.image}
+      image={displayAvatar.image || 'https://randomuser.me/api/portraits/thumb/women/10.jpg'}
       ImageComponent={ImageComponent}
       name={displayAvatar.name}
       online={displayPresence}

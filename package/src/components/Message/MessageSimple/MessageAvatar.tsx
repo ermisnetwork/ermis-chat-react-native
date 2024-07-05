@@ -44,7 +44,7 @@ const MessageAvatarWithContext = <
     >
       {visible ? (
         <Avatar
-          image={message.user?.image}
+          image={message.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg'}
           ImageComponent={ImageComponent}
           name={message.user?.name || message.user?.id}
           size={size || BASE_AVATAR_SIZE}
@@ -67,7 +67,7 @@ const areEqual = <ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultEr
   if (!lastGroupMessageEqual) return false;
 
   const userEqual =
-    prevMessage.user?.image === nextMessage.user?.image &&
+    prevMessage.user?.avatar === nextMessage.user?.avatar &&
     prevMessage.user?.name === nextMessage.user?.name &&
     prevMessage.user?.id === nextMessage.user?.id;
   if (!userEqual) return false;

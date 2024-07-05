@@ -11,6 +11,7 @@ import {
   DefaultMessageType,
   DefaultReactionType,
   DefaultUserType,
+  generateRandomId,
   MessageInputContextValue,
   Search,
   SendRight,
@@ -134,7 +135,7 @@ export const NewDirectMessagingSendButton = (props: SendButtonProps<ErmisChatGen
   const { channel } = useChannelContext<ErmisChatGenerics>();
 
   const { giphyActive, text } = useMessageInputContext<ErmisChatGenerics>();
-
+  const message_id = generateRandomId();
   const sendMessage = async () => {
     if (!channel) {
       return;
@@ -142,7 +143,7 @@ export const NewDirectMessagingSendButton = (props: SendButtonProps<ErmisChatGen
     channel.initialized = false;
     await channel.query({});
     try {
-      await channel.sendMessage({ text });
+      await channel.sendMessage({ text, id: message_id });
       navigation.replace('ChannelScreen', {
         channelId: channel.id,
       });
