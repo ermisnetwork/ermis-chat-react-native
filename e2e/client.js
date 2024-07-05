@@ -1,5 +1,5 @@
 const { ErmisChat } = require('ermis-chat-sdk');
 
-const client = ErmisChat.getInstance('IxtqdBgFA6KK1732952602719');
+const client = ErmisChat.getInstance('VskVZNX0ouKF1751699014812');
 
 module.exports = client;

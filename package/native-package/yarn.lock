@@ -3173,10 +3173,10 @@ envinfo@^7.7.2:
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.8.1.tgz#06377e3e5f4d379fea7ac592d5ad8927e0c4d475"
   integrity sha512-/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==
 
-ermis-chat-react-native-core@1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.0.13.tgz#e9cf6356c3b4f709c84c080d00746aa27e26e0ae"
-  integrity sha512-9mGprBkCrWdwC0F4rxaPuOJt8wemhkSc5QZrTU+QdNb9J9lhsKQA4cvOcJkZaiTpduqDDCN1SGGBcrlyqM4eyg==
+ermis-chat-react-native-core@1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.0.14.tgz#1cf70ee588b15a4b2cce3abefb24c9749e9dbe55"
+  integrity sha512-SYa/Wl1G/t/ffeSfLTb2uflr0Dw1XA375puDwpkrBRdEs0Oz6A6btC3PVCN5bWCT4YJoTZkya/MHoqr3qmG3kQ==
   dependencies:
     "@gorhom/bottom-sheet" "4.4.8"
     "@react-native-async-storage/async-storage" "^1.23.1"
@@ -3184,7 +3184,7 @@ ermis-chat-react-native-core@1.0.13:
     "@web3modal/wagmi-react-native" "^1.4.1"
     dayjs "1.10.5"
     emoji-regex "^10.3.0"
-    ermis-chat-sdk "1.0.5"
+    ermis-chat-sdk "1.0.6"
     i18next "^21.6.14"
     intl-pluralrules "^2.0.1"
     linkifyjs "^4.1.1"
@@ -3198,10 +3198,10 @@ ermis-chat-react-native-core@1.0.13:
     viem "1.21.4"
     wagmi "1.4.13"
 
-ermis-chat-sdk@1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.0.5.tgz#79c2092a997d689f2fe8628260a5adfb83c03772"
-  integrity sha512-qAohlNduVrqzkbF8tmraPy93eX8mutK2GnomJbANZYueQsjxaZCgxsDghyDAoeFMfQ0mmeUaK13ZLNXystx6GA==
+ermis-chat-sdk@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.0.6.tgz#93ad3d1dbd427fc947291e20ff49a1392ca39980"
+  integrity sha512-BSTAvDPaDaLjQXPa9wO5skr5uLHKykHaBhI0vAZVCywUYaXgcPG8qN7zvM4aChzmqyhy5ZgAeLXwkiltyIfLGQ==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/jsonwebtoken" "~9.0.0"
