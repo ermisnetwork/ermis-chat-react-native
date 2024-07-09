@@ -4580,10 +4580,10 @@ ermis-chat-react-native-core@1.1.0:
   version "0.0.0"
   uid ""
 
-ermis-chat-sdk@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.1.0.tgz#a9d1d0b9107a1a26c52a1fcd812bc77b7e1d3a6b"
-  integrity sha512-RVTlf9OP3Gr0p3b1JBbs3Q5ZUCK8vl+5PYRYXLDFCOWupzJqqZfGXyENa/nVzbkj11gx9jfIhleXzsps4txX1Q==
+ermis-chat-sdk@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.1.7.tgz#c8fee8f775fc33d45a415e0aa1068da107bf3624"
+  integrity sha512-AiaPCzGDUC9Qj0jix8iu73O7icPnrffVsSKM/Ya0MobtIkQwrr49imD5RhYMVuGqlZl408aKBu+nRF9zaF0o7A==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/jsonwebtoken" "~9.0.0"

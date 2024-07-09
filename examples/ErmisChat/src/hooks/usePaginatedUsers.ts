@@ -119,11 +119,13 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     setLoading(true);
 
     try {
-      const limit = 100;
+      const page = 1;
 
-      const res = await chatClient?.queryUsers(
-        limit
+      const res = await chatClient?.searchUsers(
+        query,
+        page
       );
+      console.log('search users result: ', res.results);
 
       if (!res?.results) {
         queryInProgress.current = false;
@@ -152,6 +154,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
       }
     } catch (e) {
       // do nothing;
+      console.error('search users error : ', e);
     }
     queryInProgress.current = false;
     setLoading(false);
