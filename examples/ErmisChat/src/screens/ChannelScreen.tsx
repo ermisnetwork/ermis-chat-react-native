@@ -126,8 +126,8 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
       if (!chatClient || !channelId) {
         return;
       }
-
-      const newChannel = chatClient?.channel('messaging', channelId);
+      // TODO: Init team channel one more time after creating a new channel.
+      const newChannel = chatClient?.channel('team', channelId);
       if (!newChannel?.initialized) {
         await newChannel?.watch();
       }

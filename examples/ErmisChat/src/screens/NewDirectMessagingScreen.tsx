@@ -174,8 +174,8 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
       } else {
         // Channel doesn't exist.
         isDraft.current = true;
-
-        const channel = chatClient.channel('messaging', {
+        // TODO: init channel with members first
+        const channel = chatClient.channel('team', {
           members,
         });
 

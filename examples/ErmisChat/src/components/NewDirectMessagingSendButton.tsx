@@ -130,6 +130,7 @@ export type SendButtonProps<
 /**
  * UI Component for send button in MessageInput component.
  */
+//TODO: Send message function here
 export const NewDirectMessagingSendButton = (props: SendButtonProps<ErmisChatGenerics>) => {
   const navigation = useNavigation<NewDirectMessagingScreenNavigationProp>();
   const { channel } = useChannelContext<ErmisChatGenerics>();
@@ -137,19 +138,24 @@ export const NewDirectMessagingSendButton = (props: SendButtonProps<ErmisChatGen
   const { giphyActive, text } = useMessageInputContext<ErmisChatGenerics>();
   const message_id = generateRandomId();
   const sendMessage = async () => {
+
     if (!channel) {
       return;
     }
     channel.initialized = false;
-    await channel.query({});
-    try {
-      await channel.sendMessage({ text, id: message_id });
-      navigation.replace('ChannelScreen', {
-        channelId: channel.id,
-      });
-    } catch (e) {
-      Alert.alert('Error sending a message');
-    }
+    await channel.query({}).then((res) => {
+      try {
+        channel.sendMessage({ text, id: message_id });
+        navigation.replace('ChannelScreen', {
+          channelId: channel.id,
+        });
+      } catch (e) {
+        Alert.alert(e.message);
+      }
+    }).catch((err) => {
+      Alert.alert(err.message);
+    });
+
   };
 
   return (

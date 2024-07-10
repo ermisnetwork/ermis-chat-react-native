@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useRef } from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
@@ -66,11 +66,18 @@ export const ChannelPreview: React.FC<ChannelPreviewMessengerProps<ErmisChatGene
   const otherMembers = channel
     ? Object.values(channel.state.members).filter((member) => member.user?.id !== data?.clientId)
     : [];
+  const swipeableRef = useRef(null);
 
+  const handleClose = () => {
+    if (swipeableRef.current) {
+      swipeableRef.current.close();
+    }
+  };
   return (
     <Swipeable
       overshootLeft={false}
       overshootRight={false}
+      ref={swipeableRef}
       renderRightActions={() => (
         <View style={[styles.swipeableContainer, { backgroundColor: white_smoke }]}>
           <RectButton
@@ -87,7 +94,13 @@ export const ChannelPreview: React.FC<ChannelPreviewMessengerProps<ErmisChatGene
               setDataBottomSheet({
                 confirmText: 'DELETE',
                 onConfirm: () => {
-                  channel.delete();
+                  channel.delete().then((res) => {
+                    Alert.alert('Success', 'Channel deleted successfully');
+                    handleClose();
+                  }).catch((err) => {
+                    handleClose();
+                    Alert.alert(err.message);
+                  });
                   setOverlay('none');
                 },
                 subtext: `Are you sure you want to delete this ${otherMembers.length === 1 ? 'conversation' : 'group'
