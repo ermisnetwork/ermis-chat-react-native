@@ -175,15 +175,15 @@ export const GroupChannelDetailsScreen: React.FC<GroupChannelDetailsProps> = ({
   );
   const [groupName, setGroupName] = useState(channel.data?.name);
   const allMembers = Object.values(channel.state.members);
-  const [members, setMembers] = useState(allMembers.slice(0, 3));
+  const [members, setMembers] = useState(allMembers);
   const [textInputFocused, setTextInputFocused] = useState(false);
 
   const membersStatus = useChannelMembersStatus(channel);
-  const displayName = useChannelPreviewDisplayName<ErmisChatGenerics>(channel, 30);
-
+  const displayName = useChannelPreviewDisplayName<ErmisChatGenerics>(channel, 20);
+  
   const allMembersLength = allMembers.length;
   useEffect(() => {
-    setMembers(allMembers.slice(0, 3));
+    setMembers(allMembers);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allMembersLength]);
 
@@ -258,6 +258,8 @@ export const GroupChannelDetailsScreen: React.FC<GroupChannelDetailsProps> = ({
       />
       <ScrollView keyboardShouldPersistTaps='always' style={{ backgroundColor: white }}>
         {members.map((member) => {
+          console.log('member', member);
+
           if (!member.user?.id) {
             return null;
           }
@@ -286,7 +288,7 @@ export const GroupChannelDetailsScreen: React.FC<GroupChannelDetailsProps> = ({
                 <Avatar
                   channelId={channel.id}
                   id={member.user?.id}
-                  image={member.user?.image}
+                  image={member.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/10.jpg'}
                   name={member.user?.name}
                   online={member.user?.online}
                   size={40}

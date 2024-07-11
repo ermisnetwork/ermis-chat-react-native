@@ -101,7 +101,7 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
     if (!chatClient.user || !selectedUsers || !groupName) {
       return;
     }
-    //TODO: Check if the channel already exists.
+    //TODO: KhoaKheu Check if the channel already exists.
     const channel = chatClient.channel('team', generateRandomId(), {
       members: [...selectedUserIds, chatClient.user?.id],
       name: groupName,

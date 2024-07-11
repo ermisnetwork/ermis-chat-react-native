@@ -143,7 +143,9 @@ export const NewDirectMessagingSendButton = (props: SendButtonProps<ErmisChatGen
       return;
     }
     channel.initialized = false;
-    await channel.query({}).then((res) => {
+    channel.type = 'messaging';
+
+    await channel.watch({}).then((res) => {
       try {
         channel.sendMessage({ text, id: message_id });
         navigation.replace('ChannelScreen', {

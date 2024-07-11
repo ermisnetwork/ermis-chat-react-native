@@ -46,11 +46,12 @@ export type ChannelHeaderProps = {
 const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
   const { closePicker } = useAttachmentPickerContext();
   const membersStatus = useChannelMembersStatus(channel);
-  const displayName = useChannelPreviewDisplayName(channel, 30);
+  const displayName = useChannelPreviewDisplayName(channel, 20);
   const { isOnline } = useChatContext();
   const { chatClient } = useAppContext();
   const navigation = useNavigation<ChannelScreenNavigationProp>();
   const typing = useTypingString();
+  console.log('channel header', channel.data);
 
   if (!channel || !chatClient) {
     return null;
@@ -126,8 +127,9 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
       if (!chatClient || !channelId) {
         return;
       }
-      // TODO: Init team channel one more time after creating a new channel.
+      // TODO: KhoaKheu Init team channel one more time after creating a new channel.
       const newChannel = chatClient?.channel('team', channelId);
+      console.log('channels on the second init', newChannel);
       if (!newChannel?.initialized) {
         await newChannel?.watch();
       }

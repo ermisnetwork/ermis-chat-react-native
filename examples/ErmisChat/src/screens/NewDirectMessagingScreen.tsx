@@ -161,28 +161,16 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
 
       const members = [chatClient.user.id, ...selectedUserIds];
 
-      // Check if the channel already exists.
-      const channels = await chatClient.queryChannels({
-        distinct: true,
+      isDraft.current = true;
+      // TODO: KhoaKheu init channel with members first, set type on here
+      const channel = chatClient.channel('messaging', {
         members,
       });
+      console.log('channel on first', channel.type);
 
-      if (channels.length === 1) {
-        // Channel already exist
-        currentChannel.current = channels[0];
-        isDraft.current = false;
-      } else {
-        // Channel doesn't exist.
-        isDraft.current = true;
-        // TODO: init channel with members first
-        const channel = chatClient.channel('team', {
-          members,
-        });
-
-        // Hack to trick channel component into accepting channel without watching it.
-        channel.initialized = true;
-        currentChannel.current = channel;
-      }
+      // Hack to trick channel component into accepting channel without watching it.
+      channel.initialized = true;
+      currentChannel.current = channel;
 
       if (messageInputRef.current) {
         messageInputRef.current.focus();
