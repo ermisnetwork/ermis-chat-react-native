@@ -24,6 +24,7 @@ import { useChannelMembersStatus } from '../hooks/useChannelMembersStatus';
 
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 import { NetworkDownIndicator } from '../components/NetworkDownIndicator';
+import { useUserSearchContext } from '../context/UserSearchContext';
 
 const styles = StyleSheet.create({
   flex: { flex: 1 },
@@ -51,7 +52,6 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
   const { chatClient } = useAppContext();
   const navigation = useNavigation<ChannelScreenNavigationProp>();
   const typing = useTypingString();
-  console.log('channel header', channel.data);
 
   if (!channel || !chatClient) {
     return null;
@@ -118,7 +118,7 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   const [channel, setChannel] = useState<ErmisChatChannel<ErmisChatGenerics> | undefined>(
     channelFromProp,
   );
-
+  const { channelType, reset } = useUserSearchContext();
   const [selectedThread, setSelectedThread] =
     useState<ThreadContextValue<ErmisChatGenerics>['thread']>();
 
@@ -127,13 +127,14 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
       if (!chatClient || !channelId) {
         return;
       }
-      // TODO: KhoaKheu Init team channel one more time after creating a new channel.
-      const newChannel = chatClient?.channel('team', channelId);
-      console.log('channels on the second init', newChannel);
+      // TODO: KhoaKheu Init (2) team channel one more time after creating a new channel.
+      const newChannel = chatClient?.channel(channelType, channelId);
+      console.log('channels on the second init: type: ', channelType, newChannel);
       if (!newChannel?.initialized) {
         await newChannel?.watch();
       }
       setChannel(newChannel);
+      reset();
     };
 
     initChannel();

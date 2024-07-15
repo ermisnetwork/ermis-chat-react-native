@@ -26,6 +26,8 @@ export type PaginatedUsers = {
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
   setSelectedUsers: React.Dispatch<React.SetStateAction<UserResponse<ErmisChatGenerics>[]>>;
   toggleUser: (user: UserResponse<ErmisChatGenerics>) => void;
+  channelType: string;
+  setChannelType: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const usePaginatedUsers = (): PaginatedUsers => {
@@ -39,7 +41,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
   const [searchText, setSearchText] = useState('');
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<UserResponse<ErmisChatGenerics>[]>([]);
-
+  const [channelType, setChannelType] = useState<string>('messaging'); // ['messaging', 'team'
   const hasMoreResults = useRef(true);
   const offset = useRef(0);
   const queryInProgress = useRef(false);
@@ -49,6 +51,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     fetchUsers('');
     setSelectedUserIds([]);
     setSelectedUsers([]);
+    setChannelType('messaging');
   };
 
   const addUser = (user: UserResponse<ErmisChatGenerics>) => {
@@ -111,7 +114,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
       fetchUsers(newText);
     }
   };
-
+  // TODO: KhoaKheu need to store in local storage, just update new user when select user or load channel when start app
   const fetchUsers = async (query = '') => {
     if (queryInProgress.current || !chatClient?.userID) {
       return;
@@ -125,8 +128,8 @@ export const usePaginatedUsers = (): PaginatedUsers => {
         query,
         page
       );
-      console.log('search users result: ', res.results);
-
+      console.log('-------------------search users------------------');
+      
       if (!res?.results) {
         queryInProgress.current = false;
         return;
@@ -153,7 +156,6 @@ export const usePaginatedUsers = (): PaginatedUsers => {
         setInitialResults(res?.results || []);
       }
     } catch (e) {
-      // do nothing;
       console.error('search users error : ', e);
     }
     queryInProgress.current = false;
@@ -190,5 +192,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     setSearchText,
     setSelectedUsers,
     toggleUser,
+    channelType,
+    setChannelType
   };
 };

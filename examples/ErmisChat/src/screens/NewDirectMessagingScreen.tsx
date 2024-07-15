@@ -132,6 +132,8 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
     selectedUserIds,
     selectedUsers,
     toggleUser,
+    channelType,
+    setChannelType
   } = useUserSearchContext();
 
   const messageInputRef = useRef<TextInput | null>(null);
@@ -162,11 +164,11 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
       const members = [chatClient.user.id, ...selectedUserIds];
 
       isDraft.current = true;
-      // TODO: KhoaKheu init channel with members first, set type on here
-      const channel = chatClient.channel('messaging', {
+      // TODO: KhoaKheu init (1) channel with members first, set type on here
+      const channel = chatClient.channel(channelType, {
         members,
       });
-      console.log('channel on first', channel.type);
+      console.log('channel on first', channelType);
 
       // Hack to trick channel component into accepting channel without watching it.
       channel.initialized = true;
@@ -253,6 +255,7 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
       {focusOnSearchInput && !searchText && selectedUsers.length === 0 && (
         <TouchableOpacity
           onPress={() => {
+            setChannelType('team');
             navigation.push('NewGroupChannelAddMemberScreen');
           }}
           style={styles.createGroupButtonContainer}

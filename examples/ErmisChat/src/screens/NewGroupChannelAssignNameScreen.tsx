@@ -82,7 +82,7 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
   navigation,
 }) => {
   const { chatClient } = useAppContext();
-  const { selectedUserIds, selectedUsers } = useUserSearchContext();
+  const { selectedUserIds, selectedUsers, channelType } = useUserSearchContext();
 
   const {
     theme: {
@@ -102,7 +102,7 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
       return;
     }
     //TODO: KhoaKheu Check if the channel already exists.
-    const channel = chatClient.channel('team', generateRandomId(), {
+    const channel = chatClient.channel(channelType, generateRandomId(), {
       members: [...selectedUserIds, chatClient.user?.id],
       name: groupName,
     });

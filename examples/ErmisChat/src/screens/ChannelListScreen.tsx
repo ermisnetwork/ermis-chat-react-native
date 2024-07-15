@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
 const baseFilters = {
   type: '',
 };
-const sort: ChannelSort<ErmisChatGenerics> = { };
+const sort: ChannelSort<ErmisChatGenerics> = {};
 const options = {
   presence: true,
   state: true,

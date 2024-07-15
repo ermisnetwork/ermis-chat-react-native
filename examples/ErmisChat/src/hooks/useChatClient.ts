@@ -100,6 +100,8 @@ export const useChatClient = () => {
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
     await AsyncStore.setItem('@stream-rn-ErmisChat-login-config', config);
+
+    // get profile user
     let profile = await client.queryUser(config.userId);
     client.user = { ...client.user, ...profile }
     client._user = { ...client._user, ...profile }

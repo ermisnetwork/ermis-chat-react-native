@@ -225,11 +225,11 @@ const DrawerNavigatorWrapper: React.FC<{
 
 const UserSelector = () => (
   <UserSelectorStack.Navigator initialRouteName='UserSelectorScreen'>
-    <UserSelectorStack.Screen
+    {/* <UserSelectorStack.Screen
       component={AdvancedUserSelectorScreen}
       name='AdvancedUserSelectorScreen'
       options={{ gestureEnabled: false }}
-    />
+    /> */}
     <UserSelectorStack.Screen
       component={UserSelectorScreen}
       name='UserSelectorScreen'
