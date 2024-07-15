@@ -65,6 +65,7 @@ export type AvatarProps = {
   presenceIndicatorContainerStyle?: StyleProp<ViewStyle>;
   testID?: string;
   upload?: boolean;
+  onPress?: () => void;
 };
 
 /**
@@ -83,6 +84,7 @@ export const Avatar = (props: AvatarProps) => {
     size,
     testID,
     upload = false,
+    onPress
   } = props;
   const {
     theme: {
@@ -94,7 +96,7 @@ export const Avatar = (props: AvatarProps) => {
   const { isLoadingImageError, setLoadingImageError } = useLoadingImage();
 
   return (
-    <TouchableOpacity disabled={!upload} activeOpacity={0.8}>
+    <TouchableOpacity disabled={!upload} activeOpacity={0.8} onPress={onPress}>
       <View
         style={[
           styles.container,
