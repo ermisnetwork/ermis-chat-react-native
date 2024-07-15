@@ -79,6 +79,22 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
       <View style={styles.menuContainer}>
         <View>
           <TouchableOpacity
+            onPress={() => navigation.navigate('ProfileScreen')}
+            style={styles.menuItem}
+          >
+            <Edit height={24} pathFill={grey} width={24} />
+            <Text
+              style={[
+                styles.menuTitle,
+                {
+                  color: black,
+                },
+              ]}
+            >
+              Profile
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             onPress={() => navigation.navigate('NewDirectMessagingScreen')}
             style={styles.menuItem}
           >

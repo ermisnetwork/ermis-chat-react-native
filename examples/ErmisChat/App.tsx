@@ -58,6 +58,7 @@ import { navigateToChannel, RootNavigationRef } from './src/utils/RootNavigation
 import FastImage from 'react-native-fast-image';
 import { ChannelListScreen } from './src/screens/ChannelListScreen';
 import Config from 'react-native-config';
+import ProfileScreen from './src/screens/ProfileScreen';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 console.assert = () => null;
@@ -318,6 +319,11 @@ const HomeScreen = () => {
           gestureEnabled: Platform.OS === 'ios' && overlay === 'none',
           headerShown: false,
         }}
+      />
+      <Stack.Screen
+        component={ProfileScreen}
+        name='ProfileScreen'
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );

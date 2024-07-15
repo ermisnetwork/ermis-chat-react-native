@@ -206,7 +206,7 @@ export const OneOnOneChannelDetailScreen: React.FC<Props> = ({
     <SafeAreaView style={[{ backgroundColor: white }, styles.container]}>
       <ScrollView contentContainerStyle={styles.contentContainer} style={styles.container}>
         <View style={styles.userInfoContainer}>
-          <Image source={{ uri: user.image }} style={styles.avatar} />
+          <Image source={{ uri: user.avatar }} style={styles.avatar} />
           <Text
             style={[
               styles.displayName,

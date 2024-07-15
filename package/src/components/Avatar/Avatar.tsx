@@ -5,6 +5,7 @@ import {
   ImageStyle,
   StyleProp,
   StyleSheet,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
@@ -13,6 +14,7 @@ import Svg, { Circle, CircleProps } from 'react-native-svg';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useLoadingImage } from '../../hooks/useLoadingImage';
 import { getResizedImageUrl } from '../../utils/getResizedImageUrl';
+import { Camera } from '../../icons';
 
 const randomImageBaseUrl = '';
 const randomSvgBaseUrl = '';
@@ -31,6 +33,14 @@ const styles = StyleSheet.create({
     top: 0,
     width: 12,
   },
+  camera: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    borderRadius: 12,
+    padding: 4,
+
+  }
 });
 
 const getInitials = (fullName: string) =>
@@ -54,6 +64,7 @@ export type AvatarProps = {
   presenceIndicator?: CircleProps;
   presenceIndicatorContainerStyle?: StyleProp<ViewStyle>;
   testID?: string;
+  upload?: boolean;
 };
 
 /**
@@ -71,18 +82,19 @@ export const Avatar = (props: AvatarProps) => {
     presenceIndicatorContainerStyle,
     size,
     testID,
+    upload = false,
   } = props;
   const {
     theme: {
       avatar: { container, image, presenceIndicator, presenceIndicatorContainer },
-      colors: { accent_green, white },
+      colors: { accent_green, white, grey },
     },
   } = useTheme();
 
   const { isLoadingImageError, setLoadingImageError } = useLoadingImage();
 
   return (
-    <View>
+    <TouchableOpacity disabled={!upload} activeOpacity={0.8}>
       <View
         style={[
           styles.container,
@@ -157,7 +169,22 @@ export const Avatar = (props: AvatarProps) => {
           </Svg>
         </View>
       )}
-    </View>
+      {
+        upload && (
+          <View style={[{
+            backgroundColor: white,
+          }, styles.camera]}>
+            <Svg>
+              <Camera
+                pathFill={grey}
+                width={40}
+                height={40}
+              />
+            </Svg>
+          </View>
+        )
+      }
+    </TouchableOpacity>
   );
 };
 

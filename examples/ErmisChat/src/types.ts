@@ -68,6 +68,7 @@ export type StackNavigatorParamList = {
     channel: Channel<ErmisChatGenerics>;
     thread: ThreadContextValue<ErmisChatGenerics>['thread'];
   };
+  ProfileScreen: undefined;
 };
 
 export type UserSelectorParamList = {
