@@ -168,7 +168,6 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
       const channel = chatClient.channel(channelType, {
         members,
       });
-      console.log('channel on first', channelType);
 
       // Hack to trick channel component into accepting channel without watching it.
       channel.initialized = true;

@@ -258,7 +258,6 @@ export const GroupChannelDetailsScreen: React.FC<GroupChannelDetailsProps> = ({
       />
       <ScrollView keyboardShouldPersistTaps='always' style={{ backgroundColor: white }}>
         {members.map((member) => {
-          console.log('member', member);
 
           if (!member.user?.id) {
             return null;

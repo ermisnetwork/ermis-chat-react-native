@@ -128,8 +128,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
         query,
         page
       );
-      console.log('-------------------search users------------------');
-      
+
       if (!res?.results) {
         queryInProgress.current = false;
         return;
