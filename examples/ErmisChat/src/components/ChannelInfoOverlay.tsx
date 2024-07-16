@@ -282,6 +282,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                       <View style={styles.detailsContainer}>
                         <Text numberOfLines={1} style={[styles.channelName, { color: black }]}>
                           {channelName}
+                          {/* TODO: Xử lý channel Name ở mọi nơi */}
                         </Text>
                         <Text style={[styles.channelStatus, { color: grey }]}>
                           {otherMembers.length === 1
