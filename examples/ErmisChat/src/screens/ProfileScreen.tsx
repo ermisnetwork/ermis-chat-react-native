@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { View, Text, StyleSheet, SafeAreaView, I18nManager, TextInputProps, TouchableOpacity, Alert } from "react-native"
 import { ScreenHeader } from '../components/ScreenHeader';
 import { StackNavigationProp } from "@react-navigation/stack";
@@ -7,6 +7,8 @@ import { Avatar, LoadingIndicator, useTheme } from "ermis-chat-react-native";
 import { useAppContext } from "../context/AppContext";
 import { TextInput } from "react-native-gesture-handler";
 import ImagePicker from 'react-native-image-crop-picker';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -40,11 +42,28 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         fontWeight: '600',
+    },
+    sheetContainer: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 16
+    },
+    underline: {
+        borderBottomWidth: 0.5,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    sheetButton: {
+        padding: 16,
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+
     }
 
 })
 const onBack = () => {
-    console.log('Back button pressed');
 
 }
 export type ProfileScreenNavigationProp = StackNavigationProp<StackNavigatorParamList, 'ProfileScreen'>;
@@ -68,6 +87,22 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         },
     } = useTheme();
 
+    const bottomSheetRef = useRef<BottomSheet>(null);
+
+    const snapPoints = useMemo(() => ["20%"], []);
+
+    const handleSnapPress = useCallback((index) => {
+        bottomSheetRef.current?.snapToIndex(index);
+    }, []);
+
+    const handleSheetChanges = useCallback((index: number) => {
+        console.log('handleSheetChanges', index);
+    }, []);
+
+    const handleClosePress = useCallback(() => {
+        bottomSheetRef.current?.close()
+    }, []);
+
     const handleSelectionChange: TextInputProps['onSelectionChange'] = ({
         nativeEvent: {
             selection: { end },
@@ -75,7 +110,6 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
     }) => {
         selectionEnd.current = end;
     };
-
     const handleSelectImage = () => {
         return ImagePicker.openPicker({
             width: 300,
@@ -89,14 +123,17 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
                 name: "avatar.jpg"
             }
             chatClient?.uploadFile(file).then((res) => {
-                console.log('upload success', res);
+                Alert.alert('Success', 'Image uploaded successfully');
             }).catch((err) => {
                 setAvatar(chatClient?.user?.avatar || '');
-                console.log('upload error', err);
+                Alert.alert('Error', err.message);
             });
             setAvatar(image.path);
+            handleClosePress();
         }).catch(err => {
             console.error(err);
+            Alert.alert('Error', err.message);
+            handleClosePress
         })
     };
     const handleTakePhoto = () => {
@@ -105,10 +142,23 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
             height: 400,
             cropping: true
         }).then(image => {
-            console.log('file upload', image);
+            let file = {
+                uri: image.path,
+                type: image.mime,
+                name: "avatar.jpg"
+            }
+            chatClient?.uploadFile(file).then((res) => {
+                Alert.alert('Success', 'Image uploaded successfully');
+            }).catch((err) => {
+                setAvatar(chatClient?.user?.avatar || '');
+                Alert.alert('Error', err.message);
+            });
             setAvatar(image.path);
+            handleClosePress
         }).catch(err => {
             console.error(err);
+            Alert.alert('Error', err.message);
+            handleClosePress
         })
     };
 
@@ -124,6 +174,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         setLoading(true);
         await chatClient?.updateProfile(name, aboutMe).then((res) => {
             setLoading(false);
+            Alert.alert('Success', 'Profile updated successfully');
         }).catch((err) => {
             setName(chatClient?.user?.name || '');
             setAboutMe(chatClient?.user?.about_me || '');
@@ -138,10 +189,8 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         setAvatar(chatClient?.user?.avatar || '');
         setName(chatClient?.user?.name || '');
         setAboutMe(chatClient?.user?.about_me || '');
+        handleSnapPress(-1);
     }, []);
-    useEffect(() => {
-        console.log('name: ', name, '----- aboutMe: ', aboutMe);
-    }, [name, aboutMe]);
     return (
         <SafeAreaView
             style={[
@@ -157,7 +206,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
                     image={avatar}
                     size={200}
                     upload={true}
-                    onPress={handleSelectImage}
+                    onPress={() => handleSnapPress(0)}
                 />
                 <View style={{
                     marginTop: 16,
@@ -169,7 +218,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
                     borderColor: grey,
                 }]}>
                     <TextInput
-                        autoFocus={true}
+                        // autoFocus={true}
                         placeholder={name}
                         placeholderTextColor={grey}
                         style={[styles.inputBox, {
@@ -255,6 +304,33 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
                         <LoadingIndicator />
                     </View>}
             </TouchableOpacity>
+            <BottomSheet
+                ref={bottomSheetRef}
+                onChange={handleSheetChanges}
+                snapPoints={snapPoints}
+                enablePanDownToClose={true}
+                index={-1}
+                backgroundStyle={{
+                    backgroundColor: '#f8f8f8',
+                }}
+            >
+                <BottomSheetView style={styles.sheetContainer}>
+                    <TouchableOpacity style={styles.sheetButton} onPress={handleTakePhoto}>
+                        <Text style={{
+                            fontSize: 14,
+                            fontWeight: '400',
+                        }}>Take a photo</Text>
+                    </TouchableOpacity>
+                    <View style={[styles.underline, { borderColor: grey }]} />
+                    <TouchableOpacity style={styles.sheetButton} onPress={handleSelectImage}>
+                        <Text style={{
+                            fontSize: 14,
+                            fontWeight: '400',
+                        }}>Select Gallery</Text>
+                    </TouchableOpacity>
+                    <View style={[styles.underline, { borderColor: grey }]} />
+                </BottomSheetView>
+            </BottomSheet>
         </SafeAreaView>
     )
 }
