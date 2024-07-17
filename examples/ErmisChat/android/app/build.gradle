@@ -79,7 +79,7 @@ android {
     namespace "com.sampleapp"
 
     defaultConfig {
-        applicationId "com.sampleapp"
+        applicationId "com.chat.ermis"
         minSdkVersion rootProject.ext.minSdkVersion
         multiDexEnabled true
         targetSdkVersion rootProject.ext.targetSdkVersion

@@ -1,44 +1,45 @@
 {
   "project_info": {
-    "project_number": "190151624402",
-    "firebase_url": "https://sample-app-v2-ui.firebaseio.com",
-    "project_id": "sample-app-v2-ui",
-    "storage_bucket": "sample-app-v2-ui.appspot.com"
+    "project_number": "1084678114039",
+    "project_id": "ermis-chat",
+    "storage_bucket": "ermis-chat.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:190151624402:android:6d0704d0dfa35b57658f0b",
+        "mobilesdk_app_id": "1:1084678114039:android:7e5568d8f71d51f09b21f2",
         "android_client_info": {
-          "package_name": "com.sampleapp"
+          "package_name": "com.chat.ermis"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "190151624402-ufrr9d4jj2rvjsm5qjhmr4oqiqkadqi7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyChA3QrF3xOPOlMB4mj6I6FsPB_6lIcsCk"
+          "current_key": "AIzaSyAKiWISCShLra3l63TB2JPPhkTeL7Ab6Fs"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "190151624402-ufrr9d4jj2rvjsm5qjhmr4oqiqkadqi7.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "190151624402-bnre78insijtguetkt2uogpgiplvmhe5.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "org.reactjs.native.example.ErmisChat"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084678114039:android:0b9ee5c3311197d09b21f2",
+        "android_client_info": {
+          "package_name": "com.chat.ermis.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKiWISCShLra3l63TB2JPPhkTeL7Ab6Fs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
         }
       }
     }

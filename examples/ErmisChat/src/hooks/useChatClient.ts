@@ -8,6 +8,7 @@ import AsyncStore from '../utils/AsyncStore';
 import Config from 'react-native-config';
 import type { LoginConfig, ErmisChatGenerics } from '../types';
 import { useWeb3Modal } from '@web3modal/wagmi-react-native'
+import { Alert } from 'react-native';
 // Request Push Notification permission from device.
 const requestNotificationPermission = async () => {
   const authStatus = await messaging().requestPermission();
@@ -18,6 +19,8 @@ const requestNotificationPermission = async () => {
 };
 
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+  console.log('Message handled in the background!', remoteMessage);
+
   const messageId = remoteMessage.data?.id as string;
   if (!messageId) {
     return;
@@ -41,6 +44,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
   await client._setToken(user, config.userToken);
   const message = await client.getMessage(messageId);
+  console.log('message from background: ', message);
 
   // create the android channel to send the notification to
   const channelId = await notifee.createChannel({
@@ -96,7 +100,11 @@ export const useChatClient = () => {
       name: config.userName,
       api_key: api_key,
     };
-    const connectedUser = await client.connectUser(user, config.userToken);
+    const connectedUser = await client.connectUser(user, config.userToken).then((res) => res).catch((e) => {
+      console.warn("error: ", e);
+      Alert.alert("Error", "Please check your internet connection and try again");
+      return null;
+    });
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
     await AsyncStore.setItem('@stream-rn-ErmisChat-login-config', config);
@@ -109,11 +117,15 @@ export const useChatClient = () => {
     const isEnabled =
       permissionAuthStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       permissionAuthStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
     if (isEnabled) {
       // Register FCM token with ermis chat server.
-      // const token = await messaging().getToken();
-      // await client.addDevice(token, 'firebase');
+      try {
+        const token = await messaging().getToken();
+        await client.addDevice(token, 'firebase');
+        console.log('FCM token when enabled: ', token);
+      } catch (e) {
+        console.warn("error: ", e);
+      }
 
       // Listen to new FCM tokens and register them with ermis chat server.
       // const unsubscribeTokenRefresh = messaging().onTokenRefresh(async (newToken) => {
@@ -121,11 +133,13 @@ export const useChatClient = () => {
       // });
       // show notifications when on foreground
       const unsubscribeForegroundMessageReceive = messaging().onMessage(async (remoteMessage) => {
+        console.log('Message handled in the foreground!', remoteMessage);
         const messageId = remoteMessage.data?.id;
         if (!messageId) {
           return;
         }
         const message = await client.getMessage(messageId);
+
         if (message.message.user?.name && message.message.text) {
           // create the android channel to send the notification to
           const channelId = await notifee.createChannel({
@@ -187,7 +201,13 @@ export const useChatClient = () => {
     setChatClient(null);
     chatClient?.disconnectUser();
     await AsyncStore.removeItem('@stream-rn-ErmisChat-login-config');
-    close();
+    try {
+      close();
+      const token = await messaging().getToken();
+      chatClient?.removeDevice(token);
+    } catch (e) {
+      console.warn("error: ", e);
+    };
   };
 
   useEffect(() => {
