@@ -24,7 +24,7 @@ export const mapStorableToMessage = <
     deletedAt,
     extraData,
     messageTextUpdatedAt,
-    reactionGroups,
+    reactionCounts,
     updatedAt,
     user,
     ...rest
@@ -42,7 +42,7 @@ export const mapStorableToMessage = <
     latest_reactions: latestReactions,
     message_text_updated_at: messageTextUpdatedAt,
     own_reactions: ownReactions,
-    reaction_groups: reactionGroups ? JSON.parse(reactionGroups) : {},
+    reaction_counts: reactionCounts ? JSON.parse(reactionCounts) : {},
     updated_at: updatedAt,
     user: mapStorableToUser(user),
     ...(extraData ? JSON.parse(extraData) : {}),

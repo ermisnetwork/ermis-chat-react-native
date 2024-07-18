@@ -588,7 +588,7 @@ export const stringifyMessage = <
 >({
   deleted_at,
   latest_reactions,
-  reaction_groups,
+  reaction_counts,
   readBy,
   reply_count,
   status,
@@ -597,11 +597,11 @@ export const stringifyMessage = <
   updated_at,
 }: FormatMessageResponse<ErmisChatGenerics> | MessageType<ErmisChatGenerics>): string =>
   `${latest_reactions ? latest_reactions.map(({ type, user }) => `${type}${user?.id}`).join() : ''
-  }${reaction_groups
-    ? Object.entries(reaction_groups)
+  }${reaction_counts
+    ? Object.entries(reaction_counts)
       .flatMap(
-        ([type, { count, first_reaction_at, last_reaction_at }]) =>
-          `${type}${count}${first_reaction_at}${last_reaction_at}`,
+        ([type, count]) =>
+          `${type}${count}`,
       )
       .join()
     : ''

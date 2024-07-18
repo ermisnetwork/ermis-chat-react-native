@@ -18,7 +18,7 @@ export const mapMessageToStorable = (
     message_text_updated_at,
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     own_reactions,
-    reaction_groups,
+    reaction_counts,
     text,
     type,
     updated_at,
@@ -34,7 +34,7 @@ export const mapMessageToStorable = (
     extraData: JSON.stringify(extraData),
     id,
     messageTextUpdatedAt: mapDateTimeToStorable(message_text_updated_at),
-    reactionGroups: JSON.stringify(reaction_groups),
+    reactionCounts: JSON.stringify(reaction_counts),
     text,
     type,
     updatedAt: mapDateTimeToStorable(updated_at),

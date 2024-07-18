@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'r
 
 import Svg, { Circle } from 'react-native-svg';
 
-import { ReactionGroupResponse, ReactionResponse } from 'ermis-chat-sdk';
+import { ReactionResponse } from 'ermis-chat-sdk';
 
 import {
   MessageContextValue,
@@ -66,8 +66,7 @@ export type ReactionListPropsWithContext<
     /** An array of the own reaction objects to distinguish own reactions visually */
     own_reactions?: ReactionResponse<ErmisChatGenerics>[] | null;
     radius?: number; // not recommended to change this
-    /** An object containing summary for each reaction type on a message */
-    reaction_groups?: Record<string, ReactionGroupResponse> | null;
+    reaction_counts?: Record<string, number> | null;
     reactionSize?: number;
     stroke?: string;
     strokeSize?: number; // not recommended to change this

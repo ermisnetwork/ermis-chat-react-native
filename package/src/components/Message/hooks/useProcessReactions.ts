@@ -27,7 +27,7 @@ type UseProcessReactionsParams<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
   ReactionListProps<ErmisChatGenerics>,
-  'own_reactions' | 'reaction_groups' | 'latest_reactions'
+  'own_reactions' | 'reaction_counts' | 'latest_reactions'
 > &
   Partial<Pick<MessagesContextValue<ErmisChatGenerics>, 'supportedReactions'>> & {
     sortReactions?: ReactionsComparator;
@@ -80,25 +80,23 @@ export const useProcessReactions = <
   const {
     latest_reactions,
     own_reactions,
-    reaction_groups,
+    reaction_counts,
     sortReactions = defaultReactionsSort,
     supportedReactions = contextSupportedReactions,
   } = props;
 
   return useMemo(() => {
-    if (!reaction_groups)
+    if (!reaction_counts)
       return { existingReactions: [], hasReactions: false, totalReactionCount: 0 };
-    const unsortedReactions = Object.entries(reaction_groups).flatMap(
-      ([reactionType, { count, first_reaction_at, last_reaction_at }]) => {
+    const unsortedReactions = Object.entries(reaction_counts).flatMap(
+      ([reactionType, count]) => {
         if (count === 0 || !isSupportedReaction(reactionType, supportedReactions)) return [];
 
         const latestReactedUserNames = getLatestReactedUserNames(reactionType, latest_reactions);
 
         return {
           count,
-          firstReactionAt: first_reaction_at ? new Date(first_reaction_at) : null,
           Icon: getEmojiByReactionType(reactionType, supportedReactions),
-          lastReactionAt: last_reaction_at ? new Date(last_reaction_at) : null,
           latestReactedUserNames,
           own: isOwnReaction<ErmisChatGenerics>(reactionType, own_reactions),
           type: reactionType,
@@ -112,5 +110,5 @@ export const useProcessReactions = <
       hasReactions: unsortedReactions.length > 0,
       totalReactionCount: unsortedReactions.reduce((total, { count }) => total + count, 0),
     };
-  }, [reaction_groups, own_reactions?.length, latest_reactions?.length, sortReactions]);
+  }, [reaction_counts, own_reactions?.length, latest_reactions?.length, sortReactions]);
 };

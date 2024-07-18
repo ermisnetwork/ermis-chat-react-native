@@ -468,7 +468,7 @@ const MessageWithContext = <
   const { existingReactions, hasReactions } = useProcessReactions({
     latest_reactions: message.latest_reactions,
     own_reactions: message.own_reactions,
-    reaction_groups: message.reaction_groups,
+    reaction_counts: message.reaction_counts,
   });
 
   const reactions = hasReactions ? existingReactions : [];

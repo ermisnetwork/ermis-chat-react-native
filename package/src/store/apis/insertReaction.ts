@@ -21,13 +21,13 @@ export const insertReaction = ({
 
   queries.push(createUpsertQuery('reactions', storableReaction));
 
-  const stringifiedNewReactionGroups = JSON.stringify(message.reaction_groups);
+  const stringifiedNewReactionCounts = JSON.stringify(message.reaction_counts);
 
   queries.push(
     createUpdateQuery(
       'messages',
       {
-        reactionGroups: stringifiedNewReactionGroups,
+        reactionCounts: stringifiedNewReactionCounts,
       },
       { id: reaction.message_id },
     ),

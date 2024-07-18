@@ -1649,7 +1649,6 @@ const ChannelWithContext = <
         'parent_id',
         'quoted_message',
         'reaction_counts',
-        'reaction_groups',
         'reactions',
         'status',
         'text',
