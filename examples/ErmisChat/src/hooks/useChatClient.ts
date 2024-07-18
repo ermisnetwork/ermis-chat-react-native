@@ -3,11 +3,9 @@ import { ErmisChat } from 'ermis-chat-sdk';
 import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
 import { QuickSqliteClient } from 'ermis-chat-react-native';
-import { USER_TOKENS, USERS } from '../ChatUsers';
 import AsyncStore from '../utils/AsyncStore';
 import Config from 'react-native-config';
 import type { LoginConfig, ErmisChatGenerics } from '../types';
-import { useWeb3Modal } from '@web3modal/wagmi-react-native'
 import { Alert } from 'react-native';
 // Request Push Notification permission from device.
 const requestNotificationPermission = async () => {
@@ -26,7 +24,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     return;
   }
   const config = await AsyncStore.getItem<LoginConfig | null>(
-    '@stream-rn-ErmisChat-login-config',
+    '@ermisChat-login-config',
     null,
   );
   if (!config) {
@@ -78,7 +76,7 @@ export const useChatClient = () => {
   const [unreadCount, setUnreadCount] = useState<number>();
 
   const unsubscribePushListenersRef = useRef<() => void>();
-  const { close } = useWeb3Modal();
+  // const { disconnect } = useDisconnect();
   /**
    * @param config the user login config
    * @returns function to unsubscribe from listeners
@@ -107,7 +105,7 @@ export const useChatClient = () => {
     });
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
-    await AsyncStore.setItem('@stream-rn-ErmisChat-login-config', config);
+    await AsyncStore.setItem('@ermisChat-login-config', config);
 
     // get profile user
     let profile = await client.queryUser(config.userId);
@@ -119,13 +117,18 @@ export const useChatClient = () => {
       permissionAuthStatus === messaging.AuthorizationStatus.PROVISIONAL;
     if (isEnabled) {
       // Register FCM token with ermis chat server.
-      try {
-        const token = await messaging().getToken();
-        await client.addDevice(token, 'firebase');
-        console.log('FCM token when enabled: ', token);
-      } catch (e) {
-        console.warn("error: ", e);
+      let token = await AsyncStore.getItem<string | null>('@fcm-token', null);
+      if (!token) {
+        try {
+          const token = await messaging().getToken();
+          await client.addDevice(token, 'firebase');
+          console.log('FCM token when enabled: ', token);
+          await AsyncStore.setItem('@fcm-token', token);
+        } catch (e) {
+          console.warn("error: ", e);
+        }
       }
+
 
       // Listen to new FCM tokens and register them with ermis chat server.
       // const unsubscribeTokenRefresh = messaging().onTokenRefresh(async (newToken) => {
@@ -181,7 +184,7 @@ export const useChatClient = () => {
         await loginUser(config);
       } else {
         const config = await AsyncStore.getItem<LoginConfig | null>(
-          '@stream-rn-ErmisChat-login-config',
+          '@ermisChat-login-config',
           null,
         );
 
@@ -197,17 +200,20 @@ export const useChatClient = () => {
   };
 
   const logout = async () => {
+    try {
+      let token = await AsyncStore.getItem<string | null>('@fcm-token', null);
+      if (!token) {
+        token = await messaging().getToken();
+      }
+      await chatClient?.removeDevice(token);
+    } catch (e) {
+      console.error("error: ", e);
+    };
     QuickSqliteClient.resetDB();
     setChatClient(null);
     chatClient?.disconnectUser();
-    await AsyncStore.removeItem('@stream-rn-ErmisChat-login-config');
-    try {
-      close();
-      const token = await messaging().getToken();
-      chatClient?.removeDevice(token);
-    } catch (e) {
-      console.warn("error: ", e);
-    };
+    await AsyncStore.removeItem('@fcm-token');
+    await AsyncStore.removeItem('@ermisChat-login-config');
   };
 
   useEffect(() => {

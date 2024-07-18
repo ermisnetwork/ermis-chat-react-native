@@ -5,7 +5,7 @@ import { Edit, Group, User, useTheme } from 'ermis-chat-react-native';
 import { useAppContext } from '../context/AppContext';
 
 import type { DrawerContentComponentProps } from '@react-navigation/drawer';
-
+import { useDisconnect } from 'wagmi';
 const styles = StyleSheet.create({
   avatar: {
     borderRadius: 20,
@@ -51,7 +51,7 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
   } = useTheme();
 
   const { chatClient, logout } = useAppContext();
-
+  const { disconnect } = useDisconnect();
   if (!chatClient) {
     return null;
   }
@@ -130,6 +130,7 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
         <TouchableOpacity
           onPress={() => {
             logout();
+            disconnect();
           }}
           style={styles.menuItem}
         >

@@ -90,10 +90,10 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('ermischat.keystore')
+            storePassword '123456'
+            keyAlias 'ermischat-alias'
+            keyPassword '123456'
         }
         release {
             if (project.hasProperty('MYAPP_RELEASE_STORE_FILE')) {

@@ -111,7 +111,6 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
   const { signTypedDataAsync } = useSignTypedData();
   const [isLoading, setIsLoading] = useState(false);
   const [isResetWallet, setIsResetWallet] = useState('false');
-  const [severity, setSeverity] = useState('');
   const createNonce = length => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -125,49 +124,46 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
     try {
       if (address && connector) {
 
-        if ((severity && severity === 'error') || isResetWallet === 'true') {
-          //  fix issue reconecting wallet
-          disconnect();
-        } else {
-          setIsLoading(true);
-          const response = await axiosWalletInstance.post('/auth/start', {
-            address,
-          });
 
-          if (response.status === 200) {
-            const challenge = JSON.parse(response.data.challenge);
-            const { types, domain, primaryType, message } = challenge;
-            const nonce = createNonce(20);
+        setIsLoading(true);
+        const response = await axiosWalletInstance.post('/auth/start', {
+          address,
+        });
 
-            const signature = await signTypedDataAsync(challenge);
+        if (response.status === 200) {
+          const challenge = JSON.parse(response.data.challenge);
+          const { types, domain, primaryType, message } = challenge;
+          const nonce = createNonce(20);
+
+          const signature = await signTypedDataAsync(challenge);
 
 
-            if (signature) {
-              const data = {
-                address,
-                signature,
-                nonce,
+          if (signature) {
+            const data = {
+              address,
+              signature,
+              nonce,
+            };
+
+            const responseToken = await axiosWalletInstance.post('/auth', data);
+            if (responseToken.status === 200) {
+              setIsLoading(false);
+              const { token } = responseToken.data;
+              console.log('--------------------token: ', token);
+
+              let config: LoginConfig = {
+                userId: address.toLowerCase(),
+                userImage: 'https://randomuser.me/api/portraits/thumb/women/11.jpg',// this is mock profile, real profile will be added from user sevices.
+                userName: address.toLowerCase(),
+                userToken: token
               };
-
-              const responseToken = await axiosWalletInstance.post('/auth', data);
-              if (responseToken.status === 200) {
-                setIsLoading(false);
-                const { token } = responseToken.data;
-                console.log('--------------------token: ', token);
-
-                let config: LoginConfig = {
-                  userId: address.toLowerCase(),
-                  userImage: 'https://randomuser.me/api/portraits/thumb/women/11.jpg',// this is mock profile, real profile will be added from user sevices.
-                  userName: address.toLowerCase(),
-                  userToken: token
-                };
-                switchUser(config);
-              }
-
+              switchUser(config);
             }
+
           }
-          setIsLoading(false);
         }
+        setIsLoading(false);
+
       } else {
         setIsLoading(false);
       }
@@ -175,9 +171,9 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
       disconnect();
       setIsLoading(false);
     }
-  }, [address, connector, severity, isResetWallet]);
+  }, [address, connector, isResetWallet]);
   useEffect(() => {
-    AsyncStore.setItem('@stream-rn-ErmisChat-user-id', '');
+    AsyncStore.setItem('@ermisChat-user-id', '');
     onLoginWallet();
   }, []);
   useEffect(() => {
