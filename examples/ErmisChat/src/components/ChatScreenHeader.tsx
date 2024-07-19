@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
 import { useChatContext, useTheme } from 'ermis-chat-react-native';
@@ -38,7 +38,14 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
   const navigation = useNavigation<ChatScreenHeaderNavigationProp>();
   const { chatClient } = useAppContext();
   const { isOnline } = useChatContext();
+  const [avatar, setAvatar] = useState<string>(chatClient?.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg');
+  useEffect(() => {
+    setAvatar(chatClient?.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg');
 
+  }, [chatClient?.user?.avatar]);
+  useEffect(() => {
+    console.log('----------chat client ', chatClient?.user);
+  }, [chatClient]);
   return (
     <ScreenHeader
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -46,7 +53,7 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
         <TouchableOpacity onPress={navigation.openDrawer}>
           <Image
             source={{
-              uri: chatClient?.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg',
+              uri: avatar,
             }}
             style={styles.avatar}
           />

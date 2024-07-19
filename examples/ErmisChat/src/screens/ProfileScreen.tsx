@@ -116,7 +116,6 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
             height: 400,
             cropping: true
         }).then(image => {
-            console.log('file upload', image);
             let file = {
                 uri: image.path,
                 type: image.mime,
