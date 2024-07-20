@@ -10,6 +10,7 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
 import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { Avatar, AvatarProps } from '../../Avatar/Avatar';
+import { ChannelContextValue, useChannelContext } from '../../../contexts';
 
 export type MessageAvatarPropsWithContext<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
@@ -18,14 +19,16 @@ export type MessageAvatarPropsWithContext<
   'alignment' | 'lastGroupMessage' | 'message' | 'showAvatar'
 > &
   Pick<ChatContextValue<ErmisChatGenerics>, 'ImageComponent'> &
-  Partial<Pick<AvatarProps, 'size'>>;
+  Partial<Pick<AvatarProps, 'size'>>
+  & Pick<ChannelContextValue<ErmisChatGenerics>, 'channel'>
+  ;
 
 const MessageAvatarWithContext = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
   props: MessageAvatarPropsWithContext<ErmisChatGenerics>,
 ) => {
-  const { alignment, ImageComponent, lastGroupMessage, message, showAvatar, size } = props;
+  const { alignment, ImageComponent, lastGroupMessage, message, showAvatar, size, channel } = props;
   const {
     theme: {
       avatar: { BASE_AVATAR_SIZE },
@@ -36,6 +39,7 @@ const MessageAvatarWithContext = <
   } = useTheme();
 
   const visible = typeof showAvatar === 'boolean' ? showAvatar : lastGroupMessage;
+  let avatar = channel.state?.members[message.user?.id].user?.avatar;
 
   return (
     <View
@@ -44,7 +48,7 @@ const MessageAvatarWithContext = <
     >
       {visible ? (
         <Avatar
-          image={message.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg'}
+          image={avatar}
           ImageComponent={ImageComponent}
           name={message.user?.name || message.user?.id}
           size={size || BASE_AVATAR_SIZE}
@@ -92,6 +96,8 @@ export const MessageAvatar = <
   const { alignment, lastGroupMessage, message, showAvatar } =
     useMessageContext<ErmisChatGenerics>();
   const { ImageComponent } = useChatContext<ErmisChatGenerics>();
+  const { channel } = useChannelContext<ErmisChatGenerics>();
+
   return (
     <MemoizedMessageAvatar
       {...{
@@ -100,6 +106,7 @@ export const MessageAvatar = <
         lastGroupMessage,
         message,
         showAvatar,
+        channel
       }}
       {...props}
     />

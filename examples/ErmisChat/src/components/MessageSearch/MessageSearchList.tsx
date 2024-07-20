@@ -128,7 +128,7 @@ export const MessageSearchList: React.FC<MessageSearchListProps> = React.forward
               <Avatar
                 channelId={item.channel?.id}
                 id={item.user?.id}
-                image={item.user?.image}
+                image={item.user?.avatar}
                 name={item.user?.name}
                 online={item?.user?.online}
                 size={40}

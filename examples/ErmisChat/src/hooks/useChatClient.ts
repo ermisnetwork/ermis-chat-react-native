@@ -36,7 +36,6 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
   const user = {
     id: config.userId,
-    image: config.userImage,
     name: config.userName,
   };
 
@@ -94,8 +93,6 @@ export const useChatClient = () => {
     setChatClient(client);
     const user = {
       id: config.userId,
-      image: config.userImage,
-      name: config.userName,
       api_key: api_key,
     };
     const connectedUser = await client.connectUser(user, config.userToken).then((res) => res).catch((e) => {
@@ -111,6 +108,7 @@ export const useChatClient = () => {
     let profile = await client.queryUser(config.userId);
     client.user = { ...client.user, ...profile }
     client._user = { ...client._user, ...profile }
+
     const permissionAuthStatus = await messaging().hasPermission();
     const isEnabled =
       permissionAuthStatus === messaging.AuthorizationStatus.AUTHORIZED ||

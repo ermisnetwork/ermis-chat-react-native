@@ -113,7 +113,7 @@ export const usePaginatedChannels = <
         return;
       }
 
-      const newChannels =
+      let newChannels =
         queryType === 'loadChannels' && !staticChannelsActive && channels
           ? [...channels, ...channelQueryResponse]
           : channelQueryResponse.map((c) => {
@@ -124,7 +124,34 @@ export const usePaginatedChannels = <
 
             return c;
           });
+      let user_ids: string[] = [];
+      newChannels.forEach((channel) => {
+        channel.data?.members?.forEach((member) => {
+          if (typeof member !== 'string' && member.user && member.user.id) {
+            if (!user_ids.includes(member.user.id)) {
+              user_ids.push(member.user.id);
+            }
+          }
+        });
+      });
+      if (user_ids.length > 0) {
+        try {
+          const respsonse = await client.searchUsers(user_ids);
+          const users = respsonse.results;
 
+          newChannels.map((channel) => {
+            users.forEach((user) => {
+              channel.data?.members?.forEach((member) => {
+                if (typeof member !== 'string' && user.id === member.user?.id) {
+                  member.user = { ...member.user, ...user };
+                  channel.state.members[member.user?.id] = { ...channel.state.members[member.user?.id], ...member };
+                }
+              });
+            });
+          });
+        } catch (e) { console.error(e) };
+      }
+      // TODO: Update members state!!!!
       setChannels(newChannels);
       setStaticChannelsActive(false);
       setHasNextPage(channelQueryResponse.length >= newOptions.limit);

@@ -279,7 +279,7 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
                         </Text>
                         <View style={styles.userItemContainer}>
                           <Avatar
-                            image={member.user?.image}
+                            image={member.user?.avatar}
                             name={member.user?.name || member.user?.id}
                             online={member.user?.online}
                             presenceIndicatorContainerStyle={styles.avatarPresenceIndicator}
@@ -352,6 +352,7 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
                                 : client.channel('messaging', {
                                   members,
                                 });
+                            console.log('-------------------newChannel: ', newChannel);
 
                             setOverlay('none');
                             if (navigation) {

@@ -17,7 +17,6 @@ export const getChannelPreviewDisplayAvatar = <
   const channelData = channel?.data;
   const channelName = channelData?.name;
   const channelImage = channelData?.image;
-
   if (channelImage) {
     return {
       id: channelId,
@@ -28,17 +27,17 @@ export const getChannelPreviewDisplayAvatar = <
     const members = Object.values(channel.state?.members);
     const otherMembers = members.filter((member) => member.user?.id !== currentUserId);
 
-    if (otherMembers.length === 1) {
+    if (otherMembers.length === 1 && channel.type === 'messaging') {
       return {
         id: otherMembers[0].user?.id,
-        image: otherMembers[0].user?.image,
+        image: otherMembers[0].user?.avatar,
         name: channelName || otherMembers[0].user?.name,
       };
     }
 
     return {
       ids: otherMembers.slice(0, 4).map((member) => member.user?.id || ''),
-      images: otherMembers.slice(0, 4).map((member) => member.user?.image || ''),
+      images: otherMembers.slice(0, 4).map((member) => member.user?.avatar || ''),
       names: otherMembers.slice(0, 4).map((member) => member.user?.name || ''),
     };
   }
@@ -65,6 +64,7 @@ export const useChannelPreviewDisplayAvatar = <
   const image = channelData?.image;
   const name = channelData?.name;
   const id = client?.user?.id;
+  const members = channelData?.members;
 
   const [displayAvatar, setDisplayAvatar] = useState(
     getChannelPreviewDisplayAvatar(channel, client),
@@ -72,7 +72,7 @@ export const useChannelPreviewDisplayAvatar = <
 
   useEffect(() => {
     setDisplayAvatar(getChannelPreviewDisplayAvatar(channel, client));
-  }, [id, image, name]);
+  }, [id, image, name, members]);
 
   return displayAvatar;
 };
