@@ -38,14 +38,10 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
   const navigation = useNavigation<ChatScreenHeaderNavigationProp>();
   const { chatClient } = useAppContext();
   const { isOnline } = useChatContext();
-  const [avatar, setAvatar] = useState<string>(chatClient?.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg');
   useEffect(() => {
-    setAvatar(chatClient?.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg');
+    console.log('chatClient?.user?.avatar', chatClient?.user?.avatar);
 
   }, [chatClient?.user?.avatar]);
-  useEffect(() => {
-    console.log('----------chat client ', chatClient?.user);
-  }, [chatClient]);
   return (
     <ScreenHeader
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -53,7 +49,7 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
         <TouchableOpacity onPress={navigation.openDrawer}>
           <Image
             source={{
-              uri: avatar,
+              uri: chatClient?.user?.avatar,
             }}
             style={styles.avatar}
           />

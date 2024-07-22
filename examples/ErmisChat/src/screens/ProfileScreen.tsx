@@ -111,6 +111,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         selectionEnd.current = end;
     };
     const handleSelectImage = () => {
+        console.log("----------------before user: ", chatClient?.user?.avatar);
         return ImagePicker.openPicker({
             width: 300,
             height: 400,
@@ -123,10 +124,12 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
             }
             chatClient?.uploadFile(file).then((res) => {
                 Alert.alert('Success', 'Image uploaded successfully');
+                console.log("response: ", res);
             }).catch((err) => {
                 setAvatar(chatClient?.user?.avatar || '');
                 Alert.alert('Error', err.message);
             });
+            console.log("----------------after user: ", chatClient?.user?.avatar);
             setAvatar(image.path);
             handleClosePress();
         }).catch(err => {
@@ -182,6 +185,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         }).finally(() => {
             setLoading(false);
         });
+
     };
 
     useEffect(() => {

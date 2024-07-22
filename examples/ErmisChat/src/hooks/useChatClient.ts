@@ -108,6 +108,7 @@ export const useChatClient = () => {
     let profile = await client.queryUser(config.userId);
     client.user = { ...client.user, ...profile }
     client._user = { ...client._user, ...profile }
+    client.state.updateUser(profile);
 
     const permissionAuthStatus = await messaging().hasPermission();
     const isEnabled =

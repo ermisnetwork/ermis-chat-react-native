@@ -296,7 +296,7 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
 
                             const members = [client.user.id, member.user?.id || ''];
 
-                            // Check if the channel already exists.
+                            // TODO: KhoaKheu Check if the channel already exists.
                             const channels = await client.queryChannels({
                               distinct: true,
                               members,
@@ -352,7 +352,6 @@ export const UserInfoOverlay = (props: UserInfoOverlayProps) => {
                                 : client.channel('messaging', {
                                   members,
                                 });
-                            console.log('-------------------newChannel: ', newChannel);
 
                             setOverlay('none');
                             if (navigation) {
