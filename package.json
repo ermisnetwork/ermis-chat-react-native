@@ -47,5 +47,6 @@
     "detox-sample-android:test_debug": "PLATFORM=android detox test --configuration android.sample.debug e2e/entries/ErmisChat.e2e.js",
     "detox-sample-ios:test_debug": "PLATFORM=ios detox test --configuration ios.sample.debug e2e/entries/ErmisChat.e2e.js"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@1.22.22",
+  "dependencies": {}
 }

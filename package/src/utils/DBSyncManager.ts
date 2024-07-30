@@ -141,7 +141,7 @@ export class DBSyncManager {
     if (!this.client) return;
 
     await this.executePendingTasks(this.client);
-    await this.sync(this.client);
+    // await this.sync(this.client);
   };
 
   static queueTask = async <

@@ -69,6 +69,7 @@ export type StackNavigatorParamList = {
     thread: ThreadContextValue<ErmisChatGenerics>['thread'];
   };
   ProfileScreen: undefined;
+  InviteScreen: undefined;
 };
 
 export type UserSelectorParamList = {
@@ -78,7 +79,7 @@ export type UserSelectorParamList = {
 
 export type BottomTabNavigatorParamList = {
   ChatScreen: undefined;
-  MentionsScreen: undefined;
+  InviteScreen: undefined;
 };
 
 export type AppTheme = Theme & {

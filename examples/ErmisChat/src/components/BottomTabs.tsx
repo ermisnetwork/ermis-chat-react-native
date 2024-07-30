@@ -9,6 +9,7 @@ import { ChatsTab } from '../icons/ChatsTab';
 import { MentionsTab } from '../icons/MentionsTab';
 
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { ContactsTab } from '../icons/ContactsTab';
 
 const styles = StyleSheet.create({
   notification: {
@@ -56,6 +57,12 @@ export const BottomTabs: React.FC<BottomTabBarProps> = (props) => {
           icon: <MentionsTab />,
           iconActive: <MentionsTab active />,
           title: 'Mentions',
+        };
+      case 'InviteScreen':
+        return {
+          icon: <ContactsTab />,
+          iconActive: <ContactsTab active />,
+          title: 'Invites',
         };
       default:
         return null;

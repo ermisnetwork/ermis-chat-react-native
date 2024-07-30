@@ -40,7 +40,6 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
   const { isOnline } = useChatContext();
   useEffect(() => {
     console.log('chatClient?.user?.avatar', chatClient?.user?.avatar);
-
   }, [chatClient?.user?.avatar]);
   return (
     <ScreenHeader

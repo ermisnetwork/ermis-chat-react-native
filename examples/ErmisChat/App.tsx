@@ -59,6 +59,8 @@ import FastImage from 'react-native-fast-image';
 import { ChannelListScreen } from './src/screens/ChannelListScreen';
 import Config from 'react-native-config';
 import ProfileScreen from './src/screens/ProfileScreen';
+import { MentionsScreen } from './src/screens/MentionsScreen';
+import { InviteScreen } from './src/screens/InviteScreen';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 console.assert = () => null;
@@ -248,7 +250,7 @@ const HomeScreen = () => {
       initialRouteName={initialChannelIdGlobalRef.current ? 'ChannelScreen' : 'MessagingScreen'}
     >
       <Stack.Screen
-        component={ChannelListScreen}
+        component={ChatScreen}
         name='MessagingScreen'
         options={{ headerShown: false }}
       />
@@ -323,6 +325,11 @@ const HomeScreen = () => {
       <Stack.Screen
         component={ProfileScreen}
         name='ProfileScreen'
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={InviteScreen}
+        name='InviteScreen'
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

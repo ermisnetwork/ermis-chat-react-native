@@ -14,3 +14,4 @@ e2e/.env
 *.db
 .idea
 examples/ErmisChat/.env
+examples/ErmisChat/.env.staging
