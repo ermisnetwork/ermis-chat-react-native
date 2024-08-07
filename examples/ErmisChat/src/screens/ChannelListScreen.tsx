@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
 });
 
 const baseFilters = {
-  type: '',
+  type: null,
+  roles: ['owner', 'member'],
 };
 const sort: ChannelSort<ErmisChatGenerics> = {};
 const options = {

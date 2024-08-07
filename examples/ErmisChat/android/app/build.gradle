@@ -76,7 +76,7 @@ android {
 
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
-    namespace "com.sampleapp"
+    namespace "com.chat.ermis"
 
     defaultConfig {
         applicationId "com.chat.ermis"
@@ -90,9 +90,9 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('ermischat.keystore')
+            storeFile file('ermis.keystore')
             storePassword '123456'
-            keyAlias 'ermischat-alias'
+            keyAlias 'ermis-alias'
             keyPassword '123456'
         }
         release {
@@ -123,7 +123,6 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:flipper-integration")
-
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
@@ -151,3 +150,4 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"

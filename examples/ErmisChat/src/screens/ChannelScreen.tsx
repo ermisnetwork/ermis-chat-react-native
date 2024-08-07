@@ -4,6 +4,7 @@ import { RouteProp, useFocusEffect, useNavigation } from '@react-navigation/nati
 import {
   Channel,
   ChannelAvatar,
+  LoadingDots,
   MessageInput,
   MessageList,
   ThreadContextValue,
@@ -13,7 +14,7 @@ import {
   useTheme,
   useTypingString,
 } from 'ermis-chat-react-native';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View, Text, Alert } from 'react-native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -28,6 +29,55 @@ import { useUserSearchContext } from '../context/UserSearchContext';
 
 const styles = StyleSheet.create({
   flex: { flex: 1 },
+  inviteContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inviteView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#D9D9D9',
+    padding: 20,
+    borderRadius: 16,
+  },
+  decription: {
+    color: 'black',
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '400',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  actionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  decline: {
+    backgroundColor: '#EAFEF2',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginRight: 10,
+  },
+  accept: {
+    backgroundColor: '#57B77D',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  textDecline: {
+    opacity: 0.5,
+  },
+  textAccept: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  loading: { position: 'absolute' }
 });
 
 export type ChannelScreenNavigationProp = StackNavigationProp<
@@ -44,6 +94,10 @@ export type ChannelHeaderProps = {
   channel: ErmisChatChannel<ErmisChatGenerics>;
 };
 
+export type InviteViewProps = {
+  channel: ErmisChatChannel<ErmisChatGenerics>;
+  onChange: (state: boolean) => void;
+};
 const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
   const { closePicker } = useAttachmentPickerContext();
   const membersStatus = useChannelMembersStatus(channel);
@@ -61,7 +115,6 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
     channel &&
     Object.values(channel.state.members).length === 2 &&
     channel.id?.indexOf('!members-') === 0;
-
   return (
     <ScreenHeader
       onBack={() => {
@@ -100,6 +153,54 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
   );
 };
 
+// Invites View for the user to accept or reject invites.
+const InviteView: React.FC<InviteViewProps> = ({ channel, onChange }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation<ChannelScreenNavigationProp>();
+  const acceptHandler = () => {
+    setIsLoading(true);
+    channel.acceptInvite().then(() => {
+      onChange(false);
+      setIsLoading(false);
+    }).catch((error) => {
+      setIsLoading(false);
+      Alert.alert('Error', error.message);
+      console.error(error);
+    }
+    );
+  }
+  const rejectHandler = () => {
+    setIsLoading(true);
+    channel.rejectInvite().then(() => {
+      // go back to home screen after rejecting the invite.
+      navigation.goBack();
+      setIsLoading(false);
+    }).catch((error) => {
+      setIsLoading(false);
+      Alert.alert('Error', error.message);
+      console.error(error);
+    }
+    );
+  }
+  return (
+    <View style={styles.inviteContainer}>
+      <View style={styles.inviteView}>
+        <Text style={styles.decription}>Accept the invite to see all message of this conversation</Text>
+        <View style={styles.actionContainer}>
+          <TouchableOpacity onPress={rejectHandler} style={styles.decline} activeOpacity={0.8} disabled={isLoading}>
+            <Text style={styles.textDecline}>Decline</Text>
+            {isLoading && <LoadingDots style={styles.loading} />}
+          </TouchableOpacity>
+          <TouchableOpacity onPress={acceptHandler} style={styles.accept} activeOpacity={0.8} disabled={isLoading}>
+            <Text style={styles.textAccept}>Accept</Text>
+            {isLoading && <LoadingDots style={styles.loading} />}
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+};
+
 // Either provide channel or channelId.
 export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   route: {
@@ -121,6 +222,9 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   const { channelType, reset } = useUserSearchContext();
   const [selectedThread, setSelectedThread] =
     useState<ThreadContextValue<ErmisChatGenerics>['thread']>();
+
+  const [isInvited, setIsInvited] = useState(false);
+
 
   useEffect(() => {
     const initChannel = async () => {
@@ -146,6 +250,18 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   if (!channel || !chatClient) {
     return null;
   }
+  useEffect(() => {
+    console.log('membership: ', channel.state.membership);
+    if (channel.state.membership?.channel_role === 'pending') {
+      setIsInvited(true);
+    }
+  }, []);
+  useEffect(() => {
+    if (channel.state.membership?.channel_role !== 'pending') {
+      setIsInvited(false);
+    }
+  }, [channel.state.membership?.channel_role]);
+
 
   return (
     <View style={[styles.flex, { backgroundColor: white, paddingBottom: bottom }]}>
@@ -161,16 +277,22 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
         thread={selectedThread}
       >
         <ChannelHeader channel={channel} />
-        <MessageList<ErmisChatGenerics>
-          onThreadSelect={(thread) => {
-            setSelectedThread(thread);
-            navigation.navigate('ThreadScreen', {
-              channel,
-              thread,
-            });
-          }}
-        />
-        <MessageInput />
+        {
+          isInvited
+            ? <InviteView channel={channel} onChange={state => setIsInvited(state)} />
+            : <>
+              <MessageList<ErmisChatGenerics>
+                onThreadSelect={(thread) => {
+                  setSelectedThread(thread);
+                  navigation.navigate('ThreadScreen', {
+                    channel,
+                    thread,
+                  });
+                }}
+              />
+              <MessageInput />
+            </>
+        }
       </Channel>
     </View>
   );

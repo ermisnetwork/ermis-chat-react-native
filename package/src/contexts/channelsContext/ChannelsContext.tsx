@@ -21,6 +21,7 @@ import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
 
 import { getDisplayName } from '../utils/getDisplayName';
 import { isTestEnvironment } from '../utils/isTestEnvironment';
+import { ChannelPreviewInviteProps } from '../../components';
 
 export type ChannelsContextValue<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
@@ -120,7 +121,7 @@ export type ChannelsContextValue<
    *
    * Default: [ChannelPreviewMessenger]
    */
-  Preview: React.ComponentType<ChannelPreviewMessengerProps<ErmisChatGenerics>>;
+  Preview: React.ComponentType<ChannelPreviewMessengerProps<ErmisChatGenerics>> | React.ComponentType<ChannelPreviewInviteProps<ErmisChatGenerics>>;
   /**
    * Triggered when the channel list is refreshing, displays a loading spinner at the top of the list
    */
@@ -206,6 +207,12 @@ export type ChannelsContextValue<
    * **Default** [ChannelPreviewUnreadCount]
    */
   PreviewUnreadCount?: React.ComponentType<ChannelPreviewUnreadCountProps<ErmisChatGenerics>>;
+  /**
+    * Function to set the currently invited channel.
+    *
+    */
+  onAccept?: (channel: Channel<ErmisChatGenerics>) => void;
+  onReject?: () => void;
 };
 
 export const ChannelsContext = React.createContext(

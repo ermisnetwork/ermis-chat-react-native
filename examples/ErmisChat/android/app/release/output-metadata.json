@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.sampleapp",
+  "applicationId": "com.chat.ermis",
   "variantName": "release",
   "elements": [
     {

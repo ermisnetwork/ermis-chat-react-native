@@ -31,6 +31,7 @@ import { useChatContext } from '../../contexts/chatContext/ChatContext';
 import { upsertCidsForQuery } from '../../store/apis/upsertCidsForQuery';
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import { ChannelPreviewMessenger } from '../ChannelPreview/ChannelPreviewMessenger';
+import { ChannelPreviewInvite } from '../ChannelPreview/ChannelPreviewInvite';
 import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../Indicators/EmptyStateIndicator';
 import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../Indicators/LoadingErrorIndicator';
 
@@ -60,6 +61,8 @@ export type ChannelListProps<
     | 'Skeleton'
     | 'maxUnreadCount'
     | 'numberOfSkeletons'
+    | 'onAccept'
+    | 'onReject'
   >
 > & {
   /** Optional function to filter channels prior to rendering the list. Do not use any complex logic that would delay the loading of the ChannelList. We recommend using a pure function with array methods like filter/sort/reduce. */
@@ -265,7 +268,7 @@ export const ChannelList = <
     onRemovedFromChannel,
     onSelect,
     options = DEFAULT_OPTIONS,
-    Preview = ChannelPreviewMessenger,
+    Preview = ChannelPreviewMessenger || ChannelPreviewInvite,
     PreviewAvatar,
     PreviewMessage,
     PreviewMutedStatus,
@@ -275,6 +278,8 @@ export const ChannelList = <
     setFlatListRef,
     Skeleton = SkeletonDefault,
     sort = DEFAULT_SORT,
+    onAccept,
+    onReject
   } = props;
 
   const [forceUpdate, setForceUpdate] = useState(0);
@@ -403,6 +408,8 @@ export const ChannelList = <
       }
     },
     Skeleton,
+    onAccept,
+    onReject
   });
 
   return (

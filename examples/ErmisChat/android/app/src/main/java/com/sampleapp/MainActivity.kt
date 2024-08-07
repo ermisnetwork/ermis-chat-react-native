@@ -1,4 +1,4 @@
-package com.sampleapp
+package com.chat.ermis
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

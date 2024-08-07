@@ -124,6 +124,7 @@ export const usePaginatedChannels = <
 
             return c;
           });
+      // TODO: Update member info to members state
       let user_ids: string[] = [];
       newChannels.forEach((channel) => {
         channel.data?.members?.forEach((member) => {

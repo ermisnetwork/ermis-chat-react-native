@@ -49,7 +49,7 @@ export const BottomTabs: React.FC<BottomTabBarProps> = (props) => {
         return {
           icon: <ChatsTab />,
           iconActive: <ChatsTab active />,
-          notification: <UnreadCountBadge />,
+          // notification: <UnreadCountBadge />,
           title: 'Chats',
         };
       case 'MentionsScreen':
@@ -103,7 +103,7 @@ export const BottomTabs: React.FC<BottomTabBarProps> = (props) => {
           <TouchableOpacity key={index} onPress={onPress} style={styles.tabContainer}>
             <View>
               {isFocused ? tab.iconActive : tab.icon}
-              {tab.notification && <View style={styles.notification}>{tab.notification}</View>}
+              {/* {tab.notification && <View style={styles.notification}>{tab.notification}</View>} */}
             </View>
             <Text
               style={[

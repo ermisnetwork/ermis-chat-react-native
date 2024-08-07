@@ -124,7 +124,7 @@ export const useChatClient = () => {
           console.log('FCM token when enabled: ', token);
           await AsyncStore.setItem('@fcm-token', token);
         } catch (e) {
-          console.warn("error: ", e);
+          console.error("error: ", e);
         }
       }
 
