@@ -130,7 +130,11 @@ const ChannelPreviewMessengerWithContext = <
   } = useTheme();
 
   const { client } = useChatContext<ErmisChatGenerics>();
-
+  // useEffect(() => {
+  //   if (channel.state.membership.channel_role === "pending" || client.userID && channel.state.members[client.userID]?.channel_role === 'pending') {
+  //     channel.watch();
+  //   }
+  // }, []);
   const displayName = useChannelPreviewDisplayName(
     channel,
     Math.floor(maxWidth / ((title.fontSize || styles.title.fontSize) / 2)),

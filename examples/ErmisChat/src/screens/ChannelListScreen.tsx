@@ -194,6 +194,7 @@ export const ChannelListScreen: React.FC = () => {
               Preview={ChannelPreview}
               setFlatListRef={setScrollRef}
               sort={sort}
+              type='messenger'
             />
           </View>
         </View>

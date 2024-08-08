@@ -213,6 +213,11 @@ export type ChannelsContextValue<
     */
   onAccept?: (channel: Channel<ErmisChatGenerics>) => void;
   onReject?: () => void;
+  /**
+   * Type of channel list to render.
+   * 
+   */
+  type?: 'messenger' | 'invite';
 };
 
 export const ChannelsContext = React.createContext(

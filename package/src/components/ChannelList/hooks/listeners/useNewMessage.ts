@@ -16,6 +16,7 @@ type Parameters<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmi
       setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
       event: Event<ErmisChatGenerics>,
     ) => void;
+    channelListType?: 'messenger' | 'invite';
   };
 
 export const useNewMessage = <
@@ -24,6 +25,7 @@ export const useNewMessage = <
   lockChannelOrder,
   onNewMessage,
   setChannels,
+  channelListType
 }: Parameters<ErmisChatGenerics>) => {
   const { client } = useChatContext<ErmisChatGenerics>();
 
@@ -41,6 +43,10 @@ export const useNewMessage = <
             // It may happen that channel was hidden using channel.hide(). In that case
             // We remove it from `channels` state, but its still being watched and exists in client.activeChannels.
             const channel = client.channel(event.channel_type, event.channel_id);
+            //TODO: Somehow, membership is not available in channel state. We need to check why.
+            if ((channel.state.membership.channel_role === "pending" || client.userID && channel.state.members[client.userID]?.channel_role === 'pending') && channelListType === 'messenger') return [...channels];
+
+            //TODO: add hide channel api to sdk
             return [channel, ...channels];
           }
 

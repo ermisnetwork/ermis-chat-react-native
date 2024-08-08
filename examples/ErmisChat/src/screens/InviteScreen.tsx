@@ -105,6 +105,7 @@ export const InviteScreen: React.FC = () => {
                 Preview={InviteChannelPreview}
                 setFlatListRef={setScrollRef}
                 sort={sort}
+                type="invite"
             />
         </View>
     </View>)

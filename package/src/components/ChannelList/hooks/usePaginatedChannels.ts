@@ -24,6 +24,7 @@ type Parameters<ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmi
     options: ChannelOptions;
     setForceUpdate: React.Dispatch<React.SetStateAction<number>>;
     sort: ChannelSort<ErmisChatGenerics>;
+    type?: 'messenger' | 'invite';
   };
 
 const DEFAULT_OPTIONS = {
@@ -45,6 +46,7 @@ export const usePaginatedChannels = <
   options = DEFAULT_OPTIONS,
   setForceUpdate,
   sort = {},
+  type
 }: Parameters<ErmisChatGenerics>) => {
   const [channels, setChannels] = useState<Channel<ErmisChatGenerics>[] | null>(null);
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -278,6 +280,7 @@ export const usePaginatedChannels = <
 
     return () => listener?.unsubscribe?.();
   }, [filterStr, sortStr]);
+  console.log('------type: ', type, '------------------------------channels on paginated channels: ', channels?.length);
 
   return {
     channels,

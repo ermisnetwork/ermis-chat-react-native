@@ -34,6 +34,8 @@ import { ChannelPreviewMessenger } from '../ChannelPreview/ChannelPreviewMesseng
 import { ChannelPreviewInvite } from '../ChannelPreview/ChannelPreviewInvite';
 import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../Indicators/EmptyStateIndicator';
 import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../Indicators/LoadingErrorIndicator';
+import { useRejectedFromChannelNotification } from './hooks/listeners/useRejectedFromChannelNotification';
+import { useAcceptedToChannelNotification } from './hooks/listeners/useAcceptedToChannelNotification';
 
 export type ChannelListProps<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
@@ -63,6 +65,7 @@ export type ChannelListProps<
     | 'numberOfSkeletons'
     | 'onAccept'
     | 'onReject'
+    | 'type'
   >
 > & {
   /** Optional function to filter channels prior to rendering the list. Do not use any complex logic that would delay the loading of the ChannelList. We recommend using a pure function with array methods like filter/sort/reduce. */
@@ -213,6 +216,14 @@ export type ChannelListProps<
     setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
     event: Event<ErmisChatGenerics>,
   ) => void;
+  onRejectedFromChannel?: (
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
+  ) => void;
+  onAcceptedToChannel?: (
+    setChannels: React.Dispatch<React.SetStateAction<Channel<ErmisChatGenerics>[] | null>>,
+    event: Event<ErmisChatGenerics>,
+  ) => void;
   /**
    * Object containing channel query options
    * */
@@ -266,6 +277,8 @@ export const ChannelList = <
     onNewMessage,
     onNewMessageNotification,
     onRemovedFromChannel,
+    onRejectedFromChannel,
+    onAcceptedToChannel,
     onSelect,
     options = DEFAULT_OPTIONS,
     Preview = ChannelPreviewMessenger || ChannelPreviewInvite,
@@ -279,7 +292,8 @@ export const ChannelList = <
     Skeleton = SkeletonDefault,
     sort = DEFAULT_SORT,
     onAccept,
-    onReject
+    onReject,
+    type
   } = props;
 
   const [forceUpdate, setForceUpdate] = useState(0);
@@ -302,8 +316,8 @@ export const ChannelList = <
     options,
     setForceUpdate,
     sort,
+    type
   });
-
   // Setup event listeners
   useAddedToChannelNotification({
     onAddedToChannel,
@@ -341,8 +355,13 @@ export const ChannelList = <
     lockChannelOrder,
     onNewMessage,
     setChannels,
+    channelListType: type
   });
-
+  useAcceptedToChannelNotification({
+    onAcceptedToChannel,
+    setChannels,
+    channelListType: type
+  });
   useNewMessageNotification({
     onMessageNew,
     onNewMessageNotification,
@@ -353,13 +372,14 @@ export const ChannelList = <
     onRemovedFromChannel,
     setChannels,
   });
-
+  useRejectedFromChannelNotification({
+    onRejectedFromChannel,
+    setChannels,
+  });
   useUserPresence({
     setChannels,
   });
-
   const channelIdsStr = channels?.reduce((acc, channel) => `${acc}${channel.cid}`, '');
-
   useEffect(() => {
     if (channels === null || staticChannelsActive || !enableOfflineSupport) {
       return;
@@ -371,7 +391,6 @@ export const ChannelList = <
       sort,
     });
   }, [channelIdsStr, staticChannelsActive]);
-
   const channelsContext = useCreateChannelsContext({
     additionalFlatListProps,
     channels: channelRenderFilterFn ? channelRenderFilterFn(channels ?? []) : channels,
@@ -409,7 +428,8 @@ export const ChannelList = <
     },
     Skeleton,
     onAccept,
-    onReject
+    onReject,
+    type
   });
 
   return (

@@ -4566,7 +4566,7 @@ ermis-chat-react-native-core@1.1.0:
     "@web3modal/wagmi-react-native" "^1.4.1"
     dayjs "1.10.5"
     emoji-regex "^10.3.0"
-    ermis-chat-sdk "1.1.0"
+    ermis-chat-sdk "1.3.2"
     i18next "^21.6.14"
     intl-pluralrules "^2.0.1"
     linkifyjs "^4.1.1"
@@ -4588,25 +4588,10 @@ ermis-chat-react-native-core@1.1.0:
   version "0.0.0"
   uid ""
 
-ermis-chat-sdk@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.1.0.tgz#a9d1d0b9107a1a26c52a1fcd812bc77b7e1d3a6b"
-  integrity sha512-RVTlf9OP3Gr0p3b1JBbs3Q5ZUCK8vl+5PYRYXLDFCOWupzJqqZfGXyENa/nVzbkj11gx9jfIhleXzsps4txX1Q==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@types/jsonwebtoken" "~9.0.0"
-    "@types/ws" "^7.4.0"
-    axios "^1.6.0"
-    base64-js "^1.5.1"
-    form-data "^4.0.0"
-    isomorphic-ws "^4.0.1"
-    jsonwebtoken "~9.0.0"
-    ws "^7.4.4"
-
-ermis-chat-sdk@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.3.0.tgz#fec1788475ea1aae4a2ddbb92a4e8d76b6caffc9"
-  integrity sha512-0XS0PaaLQrCQk+wZK3rXqCGXUwBBC+qanTjohaHcyTObEKIMwFaa6PfFynxxw3Scqg6EqyLL7yKo82myBKRY+Q==
+ermis-chat-sdk@1.3.2:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.3.2.tgz#50b613a5ff03d9fba4b3fcf718196e55901486f4"
+  integrity sha512-LZpDKrACspa82ZN8Gs+o9gGQHqXj/ew8pv68iG7u7obytTeYZDlf41CcY1UgIij/iT1v4F4gqFGszq7dbWFOvw==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/jsonwebtoken" "~9.0.0"

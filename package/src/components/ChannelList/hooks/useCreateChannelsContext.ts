@@ -37,6 +37,7 @@ export const useCreateChannelsContext = <
   reloadList,
   setFlatListRef,
   Skeleton,
+  type
 }: ChannelsContextValue<ErmisChatGenerics>) => {
   const channelValueString = channels
     ?.map(
@@ -79,6 +80,7 @@ export const useCreateChannelsContext = <
       reloadList,
       setFlatListRef,
       Skeleton,
+      type
     }),
     [
       channelValueString,
