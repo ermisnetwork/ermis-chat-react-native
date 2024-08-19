@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
+  Alert,
   Image,
   Platform,
   ScrollView,
@@ -11,19 +12,19 @@ import {
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme, version } from 'ermis-chat-react-native';
 
-import { USERS } from '../ChatUsers';
 import { useAppContext } from '../context/AppContext';
-import { RightArrow } from '../icons/RightArrow';
+import { WalletConnect, ErmisChat } from 'ermis-chat-sdk';
 import { ErmisLogo } from '../icons/ErmisLogo';
 import { Settings } from '../icons/Settings';
 import AsyncStore from '../utils/AsyncStore';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
 
-import type { LoginConfig, UserSelectorParamList } from '../types';
+import type { ErmisChatGenerics, LoginConfig, UserSelectorParamList } from '../types';
 import ConnectWallet from '../components/ConnectWallet';
 import { useAccount, useDisconnect, useSignTypedData } from 'wagmi';
-import axiosWalletInstance from '../hooks/axiosWallet';
+import { W3mAccountButton } from '@web3modal/wagmi-react-native'
+import Config from 'react-native-config';
 const styles = StyleSheet.create({
   avatarImage: {
     borderRadius: 20,
@@ -89,22 +90,22 @@ const styles = StyleSheet.create({
   },
 });
 
-export type UserSelectorScreenNavigationProp = StackNavigationProp<
+export type LoginScreenNavigationProp = StackNavigationProp<
   UserSelectorParamList,
-  'UserSelectorScreen'
+  'LoginScreen'
 >;
 
 type Props = {
-  navigation: UserSelectorScreenNavigationProp;
+  // navigation: LoginScreenNavigationProp;
 };
 
-export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
+export const LoginScreen: React.FC<Props> = () => {
   const {
     theme: {
       colors: { black, border, grey, grey_gainsboro, grey_whisper, white_snow },
     },
   } = useTheme();
-  const { switchUser } = useAppContext();
+  const { walletConnect, chatClient, switchUser } = useAppContext();
   const { bottom } = useSafeAreaInsets();
   const { connector, address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
@@ -120,45 +121,45 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
     }
     return result;
   };
+
   const onLoginWallet = useCallback(async () => {
+
     try {
       if (address && connector) {
-
-
         setIsLoading(true);
-        const response = await axiosWalletInstance.post('/auth/start', {
-          address,
+
+        console.log('--------------------address: ', address.toLowerCase());
+        let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
+        const client = ErmisChat.getInstance<ErmisChatGenerics>(api_key, {
+          timeout: 6000,
+          logger: (type, msg) => console.log(type, msg),
+          baseURL: Config.REACT_APP_API_URL || 'https://api.ermis.network',
         });
+        const wallet = WalletConnect.getInstance<ErmisChatGenerics>(client, address.toLowerCase());
+        // call startAuth to get challenge
+        const startAuthResponse = await wallet.startAuth();
+        // get challenge
+        const challenge = JSON.parse(startAuthResponse.challenge);
+        // get nonce
+        const nonce = createNonce(20);
+        // get signature
+        const signature = await signTypedDataAsync(challenge);
 
-        if (response.status === 200) {
-          const challenge = JSON.parse(response.data.challenge);
-          const { types, domain, primaryType, message } = challenge;
-          const nonce = createNonce(20);
+        if (signature) {
 
-          const signature = await signTypedDataAsync(challenge);
+          await wallet.getAuth(signature, nonce);
 
+          let getTokenReponse = await wallet.getToken();
 
-          if (signature) {
-            const data = {
-              address,
-              signature,
-              nonce,
-            };
+          let { token } = getTokenReponse;
 
-            const responseToken = await axiosWalletInstance.post('/auth', data);
-            if (responseToken.status === 200) {
-              setIsLoading(false);
-              const { token } = responseToken.data;
-              console.log('--------------------token: ', token);
+          let config: LoginConfig = {
+            userId: address.toLowerCase(),
+            userToken: token
+          };
 
-              let config: LoginConfig = {
-                userId: address.toLowerCase(),
-                userToken: token
-              };
-              switchUser(config);
-            }
+          switchUser(config);
 
-          }
         }
         setIsLoading(false);
 
@@ -166,17 +167,21 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
         setIsLoading(false);
       }
     } catch (error) {
+      Alert.alert('Error', error.message);
       disconnect();
       setIsLoading(false);
     }
   }, [address, connector, isResetWallet]);
   useEffect(() => {
-    AsyncStore.setItem('@ermisChat-user-id', '');
     onLoginWallet();
   }, []);
   useEffect(() => {
     onLoginWallet();
   }, [onLoginWallet]);
+  useEffect(() => {
+    console.log('--------------------isConnected: ', isConnected);
+
+  }, [isConnected]);
   return (
     <SafeAreaView
       edges={['right', 'top', 'left']}
@@ -191,6 +196,7 @@ export const UserSelectorScreen: React.FC<Props> = ({ navigation }) => {
         <View style={styles.titleContainer}>
           <ErmisLogo />
           <Text style={[styles.title, { color: black }]}>Welcome to Ermis Chat</Text>
+          <W3mAccountButton />
         </View>
         <View style={styles.walletView}>
           <View style={{

@@ -32,7 +32,7 @@ export type ErmisChatGenerics = {
 
 export type DrawerNavigatorParamList = {
   HomeScreen: undefined;
-  UserSelectorScreen: undefined;
+  LoginScreen: undefined;
 };
 
 export type StackNavigatorParamList = {
@@ -74,7 +74,7 @@ export type StackNavigatorParamList = {
 
 export type UserSelectorParamList = {
   AdvancedUserSelectorScreen: undefined;
-  UserSelectorScreen: undefined;
+  LoginScreen: undefined;
 };
 
 export type BottomTabNavigatorParamList = {

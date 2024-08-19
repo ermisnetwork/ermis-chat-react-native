@@ -124,6 +124,9 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     try {
       const page = 1;
       const limit = 25;
+      // project_id?: number,
+      // page_size?: string,
+      // page?: number
       const res = await chatClient?.queryUsers(
         limit,
         query,

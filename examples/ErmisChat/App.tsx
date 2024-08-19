@@ -33,7 +33,7 @@ import { NewGroupChannelAssignNameScreen } from './src/screens/NewGroupChannelAs
 import { OneOnOneChannelDetailScreen } from './src/screens/OneOnOneChannelDetailScreen';
 import { SharedGroupsScreen } from './src/screens/SharedGroupsScreen';
 import { ThreadScreen } from './src/screens/ThreadScreen';
-import { UserSelectorScreen } from './src/screens/UserSelectorScreen';
+import { LoginScreen } from './src/screens/LoginScreen';
 
 import type { ErmisChat } from 'ermis-chat-sdk';
 import '@walletconnect/react-native-compat'
@@ -95,14 +95,9 @@ const wagmiConfig = defaultWagmiConfig({
     }
   },
 });
-createWeb3Modal({
-  projectId,
-  chains,
-  wagmiConfig
-});
+
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator<StackNavigatorParamList>();
-const UserSelectorStack = createStackNavigator<UserSelectorParamList>();
 const App = () => {
   const { chatClient, isConnecting, loginUser, logout, switchUser, unreadCount } = useChatClient();
   const colorScheme = useColorScheme();
@@ -146,6 +141,11 @@ const App = () => {
           }
         }
       });
+    createWeb3Modal({
+      projectId,
+      chains,
+      wagmiConfig
+    });
     return () => {
       unsubscribeOnNotificationOpen();
       unsubscribeForegroundEvent();
@@ -176,7 +176,7 @@ const App = () => {
               ) : chatClient ? (
                 <DrawerNavigatorWrapper chatClient={chatClient} />
               ) : (
-                <UserSelector />
+                <LoginScreen />
               )}
               <Web3Modal />
             </AppContext.Provider>
@@ -226,20 +226,6 @@ const DrawerNavigatorWrapper: React.FC<{
   );
 };
 
-const UserSelector = () => (
-  <UserSelectorStack.Navigator initialRouteName='UserSelectorScreen'>
-    {/* <UserSelectorStack.Screen
-      component={AdvancedUserSelectorScreen}
-      name='AdvancedUserSelectorScreen'
-      options={{ gestureEnabled: false }}
-    /> */}
-    <UserSelectorStack.Screen
-      component={UserSelectorScreen}
-      name='UserSelectorScreen'
-      options={{ gestureEnabled: false, headerShown: false }}
-    />
-  </UserSelectorStack.Navigator>
-);
 
 // TODO: Split the stack into multiple stacks - ChannelStack, CreateChannelStack etc.
 const HomeScreen = () => {

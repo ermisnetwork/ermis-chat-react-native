@@ -7,13 +7,13 @@ export default function ConnectWallet() {
 
     return (
         <>
-            <TouchableOpacity onPress={() => open()} style={styles.container}>
+            <TouchableOpacity onPress={() => open({ view: 'Networks' })} style={styles.container}>
                 <Text style={{
                     color: 'white',
                     fontSize: 20,
                     fontWeight: 'bold',
                     padding: 20,
-                }}>Connect Wallet</Text>
+                }}>Login via Wallet</Text>
             </TouchableOpacity>
         </>
     )
