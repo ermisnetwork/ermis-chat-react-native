@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { DevSettings, LogBox, Platform, useColorScheme } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import { DarkTheme, DefaultTheme, NavigationContainer } from '@react-navigation/native';
+import { DarkTheme, DefaultTheme, NavigationContainer, useNavigationState } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
@@ -61,6 +61,9 @@ import Config from 'react-native-config';
 import ProfileScreen from './src/screens/ProfileScreen';
 import { MentionsScreen } from './src/screens/MentionsScreen';
 import { InviteScreen } from './src/screens/InviteScreen';
+import { PlatformScreen } from './src/screens/PlatformScreen';
+import { SdkScreen } from './src/screens/SdkScreen';
+import AsyncStore from './src/utils/AsyncStore';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 console.assert = () => null;
@@ -99,7 +102,7 @@ const wagmiConfig = defaultWagmiConfig({
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator<StackNavigatorParamList>();
 const App = () => {
-  const { chatClient, isConnecting, loginUser, logout, switchUser, unreadCount } = useChatClient();
+  const { chatClient, walletConnect, isConnecting, loginUser, logout, switchUser, unreadCount } = useChatClient();
   const colorScheme = useColorScheme();
   const ErmisChatTheme = useErmisChatTheme();
   useEffect(() => {
@@ -170,7 +173,7 @@ const App = () => {
           }}
         >
           <WagmiConfig config={wagmiConfig} >
-            <AppContext.Provider value={{ chatClient, loginUser, logout, switchUser, unreadCount }}>
+            <AppContext.Provider value={{ chatClient, walletConnect, loginUser, logout, switchUser, unreadCount }}>
               {isConnecting && !chatClient ? (
                 <LoadingScreen />
               ) : chatClient ? (
@@ -186,54 +189,81 @@ const App = () => {
     </SafeAreaProvider>
   );
 };
+type DrawerNavigatorType = {
+  initialRoute: keyof StackNavigatorParamList | undefined;
+}
 
-const DrawerNavigator: React.FC = () => (
-  <Drawer.Navigator
-    drawerContent={MenuDrawer}
-    screenOptions={{
-      drawerStyle: {
-        width: 300,
-      },
-    }}
-  >
-    <Drawer.Screen component={HomeScreen} name='HomeScreen' options={{ headerShown: false }} />
-  </Drawer.Navigator>
-);
+const DrawerNavigator: React.FC<DrawerNavigatorType> = ({ initialRoute }) => {
+  const navigationState = useNavigationState((state) => state);
+  useEffect(() => {
+    if (navigationState) {
+      const currentRoute = navigationState.routes[navigationState.index].name;
+      AsyncStore.setItem('@ermisPlatform', currentRoute);
+    }
+  }, [navigationState]);
+  useEffect(() => {
+    console.log('initialRoute', initialRoute);
+  }, []);
+
+  return (
+    <Drawer.Navigator
+      // drawerContent={MenuDrawer}
+      initialRouteName={initialRoute}
+      screenOptions={{
+        drawerStyle: {
+          width: 300,
+        },
+      }}
+    >
+      <Drawer.Screen component={PlatformScreen} name='PlatformScreen' options={{ headerShown: false }} />
+      <Drawer.Screen component={SdkScreen} name='SdkScreen' options={{ headerShown: false }} />
+      <Drawer.Screen component={HomeScreen} name='Ermis' options={{ headerShown: false }} />
+    </Drawer.Navigator>
+  )
+};
 
 const DrawerNavigatorWrapper: React.FC<{
   chatClient: ErmisChat<ErmisChatGenerics>;
 }> = ({ chatClient }) => {
   const { bottom } = useSafeAreaInsets();
   const ErmisChatTheme = useErmisChatTheme();
-
-  return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <OverlayProvider<ErmisChatGenerics> bottomInset={bottom} value={{ style: ErmisChatTheme }}>
-        <Chat<ErmisChatGenerics>
-          client={chatClient}
-          enableOfflineSupport
-          // @ts-expect-error
-          ImageComponent={FastImage}
-        >
-          <AppOverlayProvider>
-            <UserSearchProvider>
-              <DrawerNavigator />
-            </UserSearchProvider>
-          </AppOverlayProvider>
-        </Chat>
-      </OverlayProvider>
-    </GestureHandlerRootView>
-  );
+  const [initialRoute, setInitialRoute] = React.useState<keyof StackNavigatorParamList | undefined>(undefined);
+  useEffect(() => {
+    const fetchPlatform = async () => {
+      const ermisPlatform = await AsyncStore.getItem<keyof StackNavigatorParamList>('@ermisPlatform', null);
+      setInitialRoute(ermisPlatform || "PlatformScreen");
+    };
+    fetchPlatform();
+  }, []);
+  if (initialRoute) {
+    return (
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <OverlayProvider<ErmisChatGenerics> bottomInset={bottom} value={{ style: ErmisChatTheme }}>
+          <Chat<ErmisChatGenerics>
+            client={chatClient}
+            enableOfflineSupport
+            // @ts-expect-error
+            ImageComponent={FastImage}
+          >
+            <AppOverlayProvider>
+              <UserSearchProvider>
+                <DrawerNavigator initialRoute={initialRoute} />
+              </UserSearchProvider>
+            </AppOverlayProvider>
+          </Chat>
+        </OverlayProvider>
+      </GestureHandlerRootView>
+    );
+  }
 };
 
 
 // TODO: Split the stack into multiple stacks - ChannelStack, CreateChannelStack etc.
 const HomeScreen = () => {
   const { overlay } = useOverlayContext();
-
   return (
     <Stack.Navigator
-      initialRouteName={initialChannelIdGlobalRef.current ? 'ChannelScreen' : 'MessagingScreen'}
+      initialRouteName={initialChannelIdGlobalRef.current ? 'ChannelScreen' : "MessagingScreen"}
     >
       <Stack.Screen
         component={ChatScreen}
@@ -318,6 +348,16 @@ const HomeScreen = () => {
         name='InviteScreen'
         options={{ headerShown: false }}
       />
+      <Stack.Screen
+        component={PlatformScreen}
+        name='PlatformScreen'
+        options={{ headerShown: false }}
+      />
+      {/* <Stack.Screen
+        component={SdkScreen}
+        name='SdkScreen'
+        options={{ headerShown: false }}
+      /> */}
     </Stack.Navigator>
   );
 };

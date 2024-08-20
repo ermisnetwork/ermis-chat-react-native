@@ -123,40 +123,43 @@ export const usePaginatedUsers = (): PaginatedUsers => {
 
     try {
       const page = 1;
-      const limit = 25;
+      const page_size = 25;
       // project_id?: number,
       // page_size?: string,
       // page?: number
-      const res = await chatClient?.queryUsers(
-        limit,
-        query,
-        page
+      const res = await chatClient?.searchUsers(
+        page,
+        page_size,
+        query
       );
 
-      if (!res?.results) {
-        queryInProgress.current = false;
-        return;
-      }
+      /*
+      ** response always return array, so we don't need to check res?.data
+      */
+      // if (!res?.data || res?.data.length === 0) {
+      //   queryInProgress.current = false;
+      //   return;
+      // }
 
       // Dumb check to avoid duplicates
-      if (query === searchText && results.findIndex((r) => res?.results[0].id === r.id) > -1) {
+      if (query === searchText && res?.data.length !== 0 && results.findIndex((r) => res?.data[0].id === r.id) > -1) {
         queryInProgress.current = false;
         return;
       }
 
       setResults((r) => {
         if (query !== searchText) {
-          return res?.results;
+          return res?.data;
         }
-        return r.concat(res?.results || []);
+        return r.concat(res?.data || []);
       });
 
-      if (res?.results.length < 10 && (offset.current === 0 || query === searchText)) {
+      if (res?.data.length < 10 && (offset.current === 0 || query === searchText)) {
         hasMoreResults.current = false;
       }
 
       if (!query && offset.current === 0) {
-        setInitialResults(res?.results || []);
+        setInitialResults(res?.data || []);
       }
     } catch (e) {
       console.error('search users error : ', e);

@@ -70,6 +70,8 @@ export type StackNavigatorParamList = {
   };
   ProfileScreen: undefined;
   InviteScreen: undefined;
+  PlatformScreen: undefined;
+  SdkScreen: undefined;
 };
 
 export type UserSelectorParamList = {

@@ -235,7 +235,7 @@ const queryUsers = async <
       limit
     );
     const users: SuggestionUser<ErmisChatGenerics>[] = [];
-    response.results.forEach((user) => isUserResponse(user) && users.push(user));
+    response.data.forEach((user) => isUserResponse(user) && users.push(user));
     if (onReady && users) {
       onReady(users);
     }

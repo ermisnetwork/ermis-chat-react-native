@@ -139,8 +139,9 @@ export const usePaginatedChannels = <
       });
       if (user_ids.length > 0) {
         try {
-          const respsonse = await client.searchUsers(user_ids);
-          const users = respsonse.results;
+          let project_id = '';
+          const respsonse = await client.getBatchUsers(user_ids, project_id, 1, 1);
+          const users = respsonse.data;
 
           newChannels.map((channel) => {
             users.forEach((user) => {

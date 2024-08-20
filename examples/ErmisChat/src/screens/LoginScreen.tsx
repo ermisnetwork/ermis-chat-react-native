@@ -178,10 +178,6 @@ export const LoginScreen: React.FC<Props> = () => {
   useEffect(() => {
     onLoginWallet();
   }, [onLoginWallet]);
-  useEffect(() => {
-    console.log('--------------------isConnected: ', isConnected);
-
-  }, [isConnected]);
   return (
     <SafeAreaView
       edges={['right', 'top', 'left']}

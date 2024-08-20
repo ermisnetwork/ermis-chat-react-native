@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ErmisChat } from 'ermis-chat-sdk';
+import { ErmisChat, WalletConnect } from 'ermis-chat-sdk';
 import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
 import { QuickSqliteClient } from 'ermis-chat-react-native';
@@ -71,9 +71,9 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
 export const useChatClient = () => {
   const [chatClient, setChatClient] = useState<ErmisChat<ErmisChatGenerics> | null>(null);
+  const [walletConnect, setWalletConnect] = useState<WalletConnect<ErmisChatGenerics> | null>(null);
   const [isConnecting, setIsConnecting] = useState(true);
   const [unreadCount, setUnreadCount] = useState<number>();
-
   const unsubscribePushListenersRef = useRef<() => void>();
   // const { disconnect } = useDisconnect();
   /**
@@ -106,8 +106,7 @@ export const useChatClient = () => {
 
     // get profile user
     let profile = await client.queryUser(config.userId);
-    client.user = { ...client.user, ...profile }
-    client._user = { ...client._user, ...profile }
+    client._setUser(profile);
     client.state.updateUser(profile);
 
     const permissionAuthStatus = await messaging().hasPermission();
@@ -250,6 +249,7 @@ export const useChatClient = () => {
 
   return {
     chatClient,
+    walletConnect,
     isConnecting,
     loginUser,
     logout,
