@@ -229,11 +229,7 @@ const queryUsers = async <
   onReady?: (users: SuggestionUser<ErmisChatGenerics>[]) => void,
 ): Promise<void> => {
   if (typeof query === 'string') {
-    const limit = 30;
-
-    const response = await client.queryUsers(
-      limit
-    );
+    const response = await client.queryUsers();
     const users: SuggestionUser<ErmisChatGenerics>[] = [];
     response.data.forEach((user) => isUserResponse(user) && users.push(user));
     if (onReady && users) {

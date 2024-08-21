@@ -10,6 +10,8 @@ export const UserSearchProvider = (
   props: React.PropsWithChildren<{ value?: UserSearchContextValue }>,
 ) => {
   const { children, value } = props;
+  console.log('~~~~~~~~~~~~~~~~~~~~~~value', value);
+
   const paginatedUsers = usePaginatedUsers();
 
   const userSearchContext = { ...paginatedUsers, ...value };

@@ -139,8 +139,7 @@ export const usePaginatedChannels = <
       });
       if (user_ids.length > 0) {
         try {
-          let project_id = '';
-          const respsonse = await client.getBatchUsers(user_ids, project_id, 1, 1);
+          const respsonse = await client.getBatchUsers(user_ids);
           const users = respsonse.data;
 
           newChannels.map((channel) => {
@@ -281,7 +280,6 @@ export const usePaginatedChannels = <
 
     return () => listener?.unsubscribe?.();
   }, [filterStr, sortStr]);
-  console.log('------type: ', type, '------------------------------channels on paginated channels: ', channels?.length);
 
   return {
     channels,

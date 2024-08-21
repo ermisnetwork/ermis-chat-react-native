@@ -207,8 +207,8 @@ const DrawerNavigator: React.FC<DrawerNavigatorType> = ({ initialRoute }) => {
 
   return (
     <Drawer.Navigator
-      // drawerContent={MenuDrawer}
-      initialRouteName={initialRoute}
+      drawerContent={MenuDrawer}
+      // initialRouteName={initialRoute}
       screenOptions={{
         drawerStyle: {
           width: 300,
@@ -217,7 +217,8 @@ const DrawerNavigator: React.FC<DrawerNavigatorType> = ({ initialRoute }) => {
     >
       <Drawer.Screen component={PlatformScreen} name='PlatformScreen' options={{ headerShown: false }} />
       <Drawer.Screen component={SdkScreen} name='SdkScreen' options={{ headerShown: false }} />
-      <Drawer.Screen component={HomeScreen} name='Ermis' options={{ headerShown: false }} />
+      <Drawer.Screen component={HomeScreen} name='ErmisScreen' options={{ headerShown: false }} />
+      <Drawer.Screen component={ProfileScreen} name='ProfileScreen' options={{ headerShown: false }} />
     </Drawer.Navigator>
   )
 };
@@ -353,11 +354,11 @@ const HomeScreen = () => {
         name='PlatformScreen'
         options={{ headerShown: false }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         component={SdkScreen}
         name='SdkScreen'
         options={{ headerShown: false }}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };

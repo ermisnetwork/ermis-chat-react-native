@@ -6341,10 +6341,10 @@ eol@^0.9.1:
   resolved "https://registry.npmjs.org/eol/-/eol-0.9.1.tgz"
   integrity sha512-Ds/TEoZjwggRoz/Q2O7SE3i4Jm66mqTDfmdHdq/7DKVk3bro9Q8h6WdXKdPqFLMoqxrDK5SVRzHVPOS6uuGtrg==
 
-ermis-chat-sdk@1.4.11:
-  version "1.4.11"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.4.11.tgz#5b05e66038cbfcecffe57fd801c35f066ec137c2"
-  integrity sha512-0tOPixxi9h8yoEUtN6Ngv7dpy22ph+eCsh4et+BmPsMgx0dsQFy/essPcc7mm2aUyHDwkLMtzT0Pv9g3bpxgAQ==
+ermis-chat-sdk@1.4.15:
+  version "1.4.15"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.4.15.tgz#e9d03c8e3b20d5e6d7103b54a231377fb64143ae"
+  integrity sha512-dJOStDxEFdjdwZNzUJUKbFjWK1o4rOH9pbrzsOSdeHGqjuF/G4HaPUhTNz/UDCly4n0M3fsccNG5K9lQaEUDJA==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/jsonwebtoken" "~9.0.0"

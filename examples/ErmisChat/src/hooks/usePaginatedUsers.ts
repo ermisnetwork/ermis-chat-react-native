@@ -127,19 +127,22 @@ export const usePaginatedUsers = (): PaginatedUsers => {
       // project_id?: number,
       // page_size?: string,
       // page?: number
+      console.log('search users query : ', query);
+
       const res = await chatClient?.searchUsers(
         page,
         page_size,
         query
       );
+      console.log('search users res : ', res);
 
       /*
       ** response always return array, so we don't need to check res?.data
       */
-      // if (!res?.data || res?.data.length === 0) {
-      //   queryInProgress.current = false;
-      //   return;
-      // }
+      if (!res?.data || res?.data.length === 0) {
+        queryInProgress.current = false;
+        return;
+      }
 
       // Dumb check to avoid duplicates
       if (query === searchText && res?.data.length !== 0 && results.findIndex((r) => res?.data[0].id === r.id) > -1) {

@@ -95,23 +95,7 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => navigation.navigate('NewDirectMessagingScreen')}
-            style={styles.menuItem}
-          >
-            <Edit height={24} pathFill={grey} width={24} />
-            <Text
-              style={[
-                styles.menuTitle,
-                {
-                  color: black,
-                },
-              ]}
-            >
-              New Direct Messages
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('NewGroupChannelAddMemberScreen')}
+            onPress={() => navigation.navigate('PlatformScreen')}
             style={styles.menuItem}
           >
             <Group height={24} pathFill={grey} width={24} />
@@ -123,7 +107,39 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
                 },
               ]}
             >
-              New Group
+              Test Platform
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('SdkScreen')}
+            style={styles.menuItem}
+          >
+            <Group height={24} pathFill={grey} width={24} />
+            <Text
+              style={[
+                styles.menuTitle,
+                {
+                  color: black,
+                },
+              ]}
+            >
+              Sdks
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ErmisScreen')}
+            style={styles.menuItem}
+          >
+            <Edit height={24} pathFill={grey} width={24} />
+            <Text
+              style={[
+                styles.menuTitle,
+                {
+                  color: black,
+                },
+              ]}
+            >
+              Ermis
             </Text>
           </TouchableOpacity>
         </View>
