@@ -138,7 +138,9 @@ export const LoginScreen: React.FC<Props> = () => {
 
           let getTokenReponse = await wallet.getAuth(signature);
 
-          let { token } = getTokenReponse;
+          let { token, refresh_token } = getTokenReponse;
+          console.log('--------------------token: ', token);
+          console.log('--------------------refresh_token: ', refresh_token);
 
           let config: LoginConfig = {
             userId: address.toLowerCase(),

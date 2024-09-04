@@ -120,14 +120,18 @@ export const usePaginatedUsers = (): PaginatedUsers => {
       return;
     }
     setLoading(true);
+    /*
+    ** response always return array, so we don't need to check res?.data
+    */
+    if (query == "") {
+      queryInProgress.current = false;
+      setLoading(false);
+      return;
+    }
 
     try {
       const page = 1;
       const page_size = 25;
-      // project_id?: number,
-      // page_size?: string,
-      // page?: number
-      console.log('search users query : ', query);
 
       const res = await chatClient?.searchUsers(
         page,
@@ -136,13 +140,6 @@ export const usePaginatedUsers = (): PaginatedUsers => {
       );
       console.log('search users res : ', res);
 
-      /*
-      ** response always return array, so we don't need to check res?.data
-      */
-      if (!res?.data || res?.data.length === 0) {
-        queryInProgress.current = false;
-        return;
-      }
 
       // Dumb check to avoid duplicates
       if (query === searchText && res?.data.length !== 0 && results.findIndex((r) => res?.data[0].id === r.id) > -1) {

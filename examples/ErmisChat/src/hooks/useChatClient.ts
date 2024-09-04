@@ -30,8 +30,11 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
   if (!config) {
     return;
   }
+
   let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
+
   let project_id = "6fbdecb0-1ec8-4e32-99d7-ff2683e308b7"
+
   const client = ErmisChat.getInstance(api_key, project_id);
 
   const user = {
@@ -101,7 +104,10 @@ export const useChatClient = () => {
       Alert.alert("Error", "Please check your internet connection and try again");
       return null;
     });
-    client.connectToSSE();
+
+    // connect to SSE, this will keep the connection alive and listen to new messages from user servers.
+    await client.connectToSSE();
+
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
     await AsyncStore.setItem('@ermisChat-login-config', config);
@@ -113,8 +119,8 @@ export const useChatClient = () => {
     client._setUser(profile);
     client.state.updateUser(profile);
 
-    let chains = await client.getChains();
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~chains: ', chains);
+    // let chains = await client.getChains();
+    // console.log('~~~~~~~~~~~~~~~~~~~~~~~~chains: ', chains);
 
     const permissionAuthStatus = await messaging().hasPermission();
     const isEnabled =
@@ -217,6 +223,7 @@ export const useChatClient = () => {
     QuickSqliteClient.resetDB();
     setChatClient(null);
     chatClient?.disconnectUser();
+    chatClient?.disconnectFromSSE();
     await AsyncStore.removeItem('@fcm-token');
     await AsyncStore.removeItem('@ermisChat-login-config');
   };

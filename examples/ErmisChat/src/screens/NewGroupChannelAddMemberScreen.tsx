@@ -106,7 +106,7 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
         titleText='Add Group Members'
       />
       <View>
-        <View
+        {/* <View
           style={[
             styles.inputBoxContainer,
             {
@@ -130,7 +130,7 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
             ]}
             value={searchText}
           />
-        </View>
+        </View> */}
         <FlatList
           data={selectedUsers}
           horizontal

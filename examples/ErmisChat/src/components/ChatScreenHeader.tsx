@@ -30,7 +30,7 @@ type ChatScreenHeaderNavigationProp = CompositeNavigationProp<
 >;
 
 export const ChatScreenHeader: React.FC<{ title?: string, MiddleContent?: React.ElementType }> = ({ title, MiddleContent = () => <></> }) => {
-  const navigationState = useNavigationState((state) => state);
+  // const navigationState = useNavigationState((state) => state);
   const {
     theme: {
       colors: { accent_blue },
@@ -41,20 +41,20 @@ export const ChatScreenHeader: React.FC<{ title?: string, MiddleContent?: React.
   const { chatClient } = useAppContext();
   const { isOnline } = useChatContext();
   const [platform, setPlatform] = useState<string>();
-  useEffect(() => {
-    const fetchPlatform = async () => {
-      if (navigationState) {
-        const currentRoute = navigationState.routes[navigationState.index].name;
-        AsyncStore.setItem('@ermisPlatform', currentRoute);
-        if (currentRoute === 'SdkScreen') {
-          setPlatform('SDKs');
-        } else {
-          setPlatform('Ermis')
-        }
-      }
-    };
-    fetchPlatform();
-  }, [navigationState]);
+  // useEffect(() => {
+  //   const fetchPlatform = async () => {
+  //     if (navigationState) {
+  //       const currentRoute = navigationState.routes[navigationState.index].name;
+  //       AsyncStore.setItem('@ermisPlatform', currentRoute);
+  //       if (currentRoute === 'SdkScreen') {
+  //         setPlatform('SDKs');
+  //       } else {
+  //         setPlatform('Ermis')
+  //       }
+  //     }
+  //   };
+  //   fetchPlatform();
+  // }, [navigationState]);
   useEffect(() => {
     console.log('chatClient?.user?.avatar', chatClient?.user?.avatar);
   }, [chatClient?.user?.avatar]);
@@ -63,12 +63,12 @@ export const ChatScreenHeader: React.FC<{ title?: string, MiddleContent?: React.
       // eslint-disable-next-line react/no-unstable-nested-components
       LeftContent={() => (
         <TouchableOpacity onPress={navigation.openDrawer}>
-          {/* <Image
+          <Image
             source={{
               uri: chatClient?.user?.avatar,
             }}
             style={styles.avatar}
-          /> */}
+          />
           <Text>{platform}</Text>
         </TouchableOpacity>
       )}

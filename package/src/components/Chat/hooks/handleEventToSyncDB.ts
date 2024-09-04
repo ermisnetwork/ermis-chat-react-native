@@ -65,6 +65,7 @@ export const handleEventToSyncDB = <
           return [];
         }
       } else {
+        // In case of a channel that is waiting for invite acceptance, it will be warned and skipped
         console.warn(
           `Received ${type} event for a non initialized channel that is not in DB, skipping event`,
           { event },

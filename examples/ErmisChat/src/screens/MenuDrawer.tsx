@@ -114,7 +114,7 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
               Test Platform
             </Text>
           </TouchableOpacity> */}
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate('SdkScreen')}
             style={styles.menuItem}
           >
@@ -129,8 +129,8 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
             >
               Sdks
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate('ErmisScreen')}
             style={styles.menuItem}
           >
@@ -145,7 +145,7 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
             >
               Ermis
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <TouchableOpacity
           onPress={() => {
