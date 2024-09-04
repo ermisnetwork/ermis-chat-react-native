@@ -113,7 +113,7 @@ export const ChannelListScreen: React.FC = () => {
         },
       ]}
     >
-      <ChatScreenHeader />
+      <ChatScreenHeader title='Ermis Chat' />
 
       <View style={styles.flex}>
         <View

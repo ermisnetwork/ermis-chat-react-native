@@ -46,7 +46,6 @@ export const usePaginatedChannels = <
   options = DEFAULT_OPTIONS,
   setForceUpdate,
   sort = {},
-  type
 }: Parameters<ErmisChatGenerics>) => {
   const [channels, setChannels] = useState<Channel<ErmisChatGenerics>[] | null>(null);
   const [error, setError] = useState<Error | undefined>(undefined);

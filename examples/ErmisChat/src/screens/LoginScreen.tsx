@@ -112,15 +112,6 @@ export const LoginScreen: React.FC<Props> = () => {
   const { signTypedDataAsync } = useSignTypedData();
   const [isLoading, setIsLoading] = useState(false);
   const [isResetWallet, setIsResetWallet] = useState('false');
-  const createNonce = length => {
-    let result = '';
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const charactersLength = characters.length;
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  };
 
   const onLoginWallet = useCallback(async () => {
 
@@ -130,26 +121,22 @@ export const LoginScreen: React.FC<Props> = () => {
 
         console.log('--------------------address: ', address.toLowerCase());
         let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
-        const client = ErmisChat.getInstance<ErmisChatGenerics>(api_key, {
+        const wallet = WalletConnect.getInstance(api_key, address.toLowerCase(), {
           timeout: 6000,
           logger: (type, msg) => console.log(type, msg),
           baseURL: Config.REACT_APP_API_URL || 'https://api.ermis.network',
         });
-        const wallet = WalletConnect.getInstance<ErmisChatGenerics>(client, address.toLowerCase());
+
         // call startAuth to get challenge
         const startAuthResponse = await wallet.startAuth();
         // get challenge
         const challenge = JSON.parse(startAuthResponse.challenge);
-        // get nonce
-        const nonce = createNonce(20);
         // get signature
         const signature = await signTypedDataAsync(challenge);
 
         if (signature) {
 
-          await wallet.getAuth(signature, nonce);
-
-          let getTokenReponse = await wallet.getToken();
+          let getTokenReponse = await wallet.getAuth(signature);
 
           let { token } = getTokenReponse;
 

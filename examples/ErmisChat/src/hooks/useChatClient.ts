@@ -31,8 +31,8 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     return;
   }
   let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
-
-  const client = ErmisChat.getInstance(api_key);
+  let project_id = "6fbdecb0-1ec8-4e32-99d7-ff2683e308b7"
+  const client = ErmisChat.getInstance(api_key, project_id);
 
   const user = {
     id: config.userId,
@@ -71,7 +71,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
 export const useChatClient = () => {
   const [chatClient, setChatClient] = useState<ErmisChat<ErmisChatGenerics> | null>(null);
-  const [walletConnect, setWalletConnect] = useState<WalletConnect<ErmisChatGenerics> | null>(null);
+  const [walletConnect, setWalletConnect] = useState(null);
   const [isConnecting, setIsConnecting] = useState(true);
   const [unreadCount, setUnreadCount] = useState<number>();
   const unsubscribePushListenersRef = useRef<() => void>();
@@ -82,9 +82,10 @@ export const useChatClient = () => {
    */
   const loginUser = async (config: LoginConfig) => {
     let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
+    let project_id = "6fbdecb0-1ec8-4e32-99d7-ff2683e308b7";
     // unsubscribe from previous push listeners
     unsubscribePushListenersRef.current?.();
-    const client = ErmisChat.getInstance<ErmisChatGenerics>(api_key, {
+    const client = ErmisChat.getInstance<ErmisChatGenerics>(api_key, project_id, {
       timeout: 6000,
       logger: (type, msg) => console.log(type, msg),
       baseURL: Config.REACT_APP_API_URL || 'https://api.ermis.network',
@@ -100,14 +101,20 @@ export const useChatClient = () => {
       Alert.alert("Error", "Please check your internet connection and try again");
       return null;
     });
+    client.connectToSSE();
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
     setUnreadCount(initialUnreadCount);
     await AsyncStore.setItem('@ermisChat-login-config', config);
 
     // get profile user
     let profile = await client.queryUser(config.userId);
+    console.log('profile: ', profile);
+
     client._setUser(profile);
     client.state.updateUser(profile);
+
+    let chains = await client.getChains();
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~chains: ', chains);
 
     const permissionAuthStatus = await messaging().hasPermission();
     const isEnabled =

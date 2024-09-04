@@ -1052,6 +1052,10 @@ PODS:
     - React-Core
   - react-native-netinfo (11.3.2):
     - React-Core
+  - react-native-pager-view (6.3.4):
+    - glog
+    - RCT-Folly (= 2022.05.16.00)
+    - React-Core
   - react-native-quick-sqlite (8.0.2):
     - React
     - React-callinvoker
@@ -1340,6 +1344,7 @@ DEPENDENCIES:
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-pager-view (from `../node_modules/react-native-pager-view`)
   - react-native-quick-sqlite (from `../node_modules/react-native-quick-sqlite`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-video (from `../node_modules/react-native-video`)
@@ -1480,6 +1485,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-mmkv"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-pager-view:
+    :path: "../node_modules/react-native-pager-view"
   react-native-quick-sqlite:
     :path: "../node_modules/react-native-quick-sqlite"
   react-native-safe-area-context:
@@ -1616,6 +1623,7 @@ SPEC CHECKSUMS:
   react-native-image-resizer: d9fb629a867335bdc13230ac2a58702bb8c8828f
   react-native-mmkv: c405cc720dbdd8b1330b1bcf064196ca8cbb5a7c
   react-native-netinfo: 076df4f9b07f6670acf4ce9a75aac8d34c2e2ccc
+  react-native-pager-view: 7c7a38b540b7b0f1cb0d0e5a415591b43c4a92fc
   react-native-quick-sqlite: 2b225dadc63b670f027111e58f6f169773f6d755
   react-native-safe-area-context: b97eb6f9e3b7f437806c2ce5983f479f8eb5de4b
   react-native-video: 2e38d3e0f7382427539b6b436812553480fcf70a

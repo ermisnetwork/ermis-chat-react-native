@@ -13,7 +13,6 @@ import {
   EventHandler,
   logChatPromiseExecution,
   MessageResponse,
-  Reaction,
   SendMessageAPIResponse,
   ErmisChat,
   Event as ErmisEvent,
@@ -1961,10 +1960,7 @@ const ChannelWithContext = <
 
     const payload: Parameters<ChannelClass<ErmisChatGenerics>['sendReaction']> = [
       messageId,
-      {
-        type,
-      } as Reaction<ErmisChatGenerics>,
-      { enforce_unique: enforceUniqueReaction },
+      type,
     ];
 
     if (!enableOfflineSupport) {

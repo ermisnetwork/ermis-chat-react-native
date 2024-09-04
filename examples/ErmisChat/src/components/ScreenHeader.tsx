@@ -82,7 +82,7 @@ export const BackButton: React.FC<{
 };
 
 type ScreenHeaderProps = {
-  titleText: string;
+  titleText?: string;
   inSafeArea?: boolean;
   LeftContent?: React.ElementType;
   onBack?: () => void;

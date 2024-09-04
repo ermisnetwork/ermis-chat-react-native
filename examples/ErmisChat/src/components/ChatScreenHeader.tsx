@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { CompositeNavigationProp, useNavigation } from '@react-navigation/native';
+import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { CompositeNavigationProp, useNavigation, useNavigationState } from '@react-navigation/native';
 import { useChatContext, useTheme } from 'ermis-chat-react-native';
 
 import { RoundButton } from './RoundButton';
@@ -14,6 +14,7 @@ import type { StackNavigationProp } from '@react-navigation/stack';
 
 import type { DrawerNavigatorParamList, StackNavigatorParamList } from '../types';
 import { NetworkDownIndicator } from './NetworkDownIndicator';
+import AsyncStore from '../utils/AsyncStore';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -28,7 +29,8 @@ type ChatScreenHeaderNavigationProp = CompositeNavigationProp<
   StackNavigationProp<StackNavigatorParamList>
 >;
 
-export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis Chat' }) => {
+export const ChatScreenHeader: React.FC<{ title?: string, MiddleContent?: React.ElementType }> = ({ title, MiddleContent = () => <></> }) => {
+  const navigationState = useNavigationState((state) => state);
   const {
     theme: {
       colors: { accent_blue },
@@ -38,6 +40,21 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
   const navigation = useNavigation<ChatScreenHeaderNavigationProp>();
   const { chatClient } = useAppContext();
   const { isOnline } = useChatContext();
+  const [platform, setPlatform] = useState<string>();
+  useEffect(() => {
+    const fetchPlatform = async () => {
+      if (navigationState) {
+        const currentRoute = navigationState.routes[navigationState.index].name;
+        AsyncStore.setItem('@ermisPlatform', currentRoute);
+        if (currentRoute === 'SdkScreen') {
+          setPlatform('SDKs');
+        } else {
+          setPlatform('Ermis')
+        }
+      }
+    };
+    fetchPlatform();
+  }, [navigationState]);
   useEffect(() => {
     console.log('chatClient?.user?.avatar', chatClient?.user?.avatar);
   }, [chatClient?.user?.avatar]);
@@ -46,12 +63,13 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
       // eslint-disable-next-line react/no-unstable-nested-components
       LeftContent={() => (
         <TouchableOpacity onPress={navigation.openDrawer}>
-          <Image
+          {/* <Image
             source={{
               uri: chatClient?.user?.avatar,
             }}
             style={styles.avatar}
-          />
+          /> */}
+          <Text>{platform}</Text>
         </TouchableOpacity>
       )}
       // eslint-disable-next-line react/no-unstable-nested-components
@@ -65,7 +83,7 @@ export const ChatScreenHeader: React.FC<{ title?: string }> = ({ title = 'Ermis 
         </RoundButton>
       )}
       // eslint-disable-next-line react/no-unstable-nested-components
-      Title={isOnline ? undefined : () => <NetworkDownIndicator titleSize='large' />}
+      Title={isOnline ? title ? undefined : () => <MiddleContent /> : () => <NetworkDownIndicator titleSize='large' />}
       titleText={title}
     />
   );

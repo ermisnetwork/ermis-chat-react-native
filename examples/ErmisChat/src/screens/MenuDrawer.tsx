@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Edit, Group, User, useTheme } from 'ermis-chat-react-native';
 
@@ -55,10 +55,9 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
   if (!chatClient) {
     return null;
   }
-
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: white }]}>
-      <View style={styles.userRow}>
+      <TouchableOpacity style={styles.userRow} onPress={() => navigation.navigate('ProfileScreen')}>
         <Image
           source={{
             uri: chatClient.user?.avatar,
@@ -73,12 +72,17 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
             },
           ]}
         >
-          {chatClient.user?.name}
+          {chatClient.user?.name ?
+            (chatClient.user.name.length > 20 ?
+              `${chatClient.user.name.substring(0, 20)}...` :
+              chatClient.user.name) :
+            ''
+          }
         </Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.menuContainer}>
         <View>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate('ProfileScreen')}
             style={styles.menuItem}
           >
@@ -93,8 +97,8 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
             >
               Profile
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </TouchableOpacity> */}
+          {/* <TouchableOpacity
             onPress={() => navigation.navigate('PlatformScreen')}
             style={styles.menuItem}
           >
@@ -109,7 +113,7 @@ export const MenuDrawer = ({ navigation }: DrawerContentComponentProps) => {
             >
               Test Platform
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity
             onPress={() => navigation.navigate('SdkScreen')}
             style={styles.menuItem}
