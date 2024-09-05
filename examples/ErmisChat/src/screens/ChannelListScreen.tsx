@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
 
 const baseFilters = {
   type: ["general", "team", "messaging"],
-  roles: ['owner', 'member'],
+  roles: ["owner", "moder", "member"],
 };
 const sort: ChannelSort<ErmisChatGenerics> = {};
 const options = {

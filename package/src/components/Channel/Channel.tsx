@@ -2002,7 +2002,7 @@ const ChannelWithContext = <
         removeMessage(message);
         return;
       }
-      await client.deleteMessage(message.id);
+      await channel.deleteMessage(message.id);
       return;
     }
 

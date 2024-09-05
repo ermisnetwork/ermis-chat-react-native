@@ -13,7 +13,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme, version } from 'ermis-chat-react-native';
 
 import { useAppContext } from '../context/AppContext';
-import { WalletConnect, ErmisChat } from 'ermis-chat-sdk';
+import { ErmisAuth, ErmisChat } from 'ermis-chat-sdk';
 import { ErmisLogo } from '../icons/ErmisLogo';
 import { Settings } from '../icons/Settings';
 import AsyncStore from '../utils/AsyncStore';
@@ -121,22 +121,21 @@ export const LoginScreen: React.FC<Props> = () => {
 
         console.log('--------------------address: ', address.toLowerCase());
         let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
-        const wallet = WalletConnect.getInstance(api_key, address.toLowerCase(), {
+        const ermisAuth = ErmisAuth.getInstance(api_key, address.toLowerCase(), {
           timeout: 6000,
           logger: (type, msg) => console.log(type, msg),
           baseURL: Config.REACT_APP_API_URL || 'https://api.ermis.network',
         });
 
         // call startAuth to get challenge
-        const startAuthResponse = await wallet.startAuth();
-        // get challenge
-        const challenge = JSON.parse(startAuthResponse.challenge);
+        const startAuthResponse = await ermisAuth.startAuth();
+
         // get signature
-        const signature = await signTypedDataAsync(challenge);
+        const signature = await signTypedDataAsync(startAuthResponse);
 
         if (signature) {
 
-          let getTokenReponse = await wallet.getAuth(signature);
+          let getTokenReponse = await ermisAuth.getAuth(signature);
 
           let { token, refresh_token } = getTokenReponse;
           console.log('--------------------token: ', token);

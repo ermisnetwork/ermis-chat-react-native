@@ -1,4 +1,4 @@
-import type { Channel, ErmisChat } from 'ermis-chat-sdk';
+import type { Channel } from 'ermis-chat-sdk';
 
 import type { Schema } from './schema';
 
@@ -30,7 +30,7 @@ export type PendingTask = {
       type: PendingTaskTypes['sendReaction'];
     }
     | {
-      payload: Parameters<ErmisChat['deleteMessage']>;
+      payload: Parameters<Channel['deleteMessage']>;
       type: PendingTaskTypes['deleteMessage'];
     }
     | {

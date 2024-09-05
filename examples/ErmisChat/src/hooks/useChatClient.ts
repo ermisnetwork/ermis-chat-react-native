@@ -85,7 +85,7 @@ export const useChatClient = () => {
    */
   const loginUser = async (config: LoginConfig) => {
     let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
-    let project_id = "6fbdecb0-1ec8-4e32-99d7-ff2683e308b7";
+    let project_id = "b44937e4-c0d4-4a73-847c-3730a923ce83";
     // unsubscribe from previous push listeners
     unsubscribePushListenersRef.current?.();
     const client = ErmisChat.getInstance<ErmisChatGenerics>(api_key, project_id, {

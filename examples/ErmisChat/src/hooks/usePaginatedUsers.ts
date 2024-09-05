@@ -114,6 +114,15 @@ export const usePaginatedUsers = (): PaginatedUsers => {
       fetchUsers(newText);
     }
   };
+  // Initial load users.
+  // const getListUser = async () => {
+  //   setLoading(true);
+  //   const usersResponse = await chatClient?.queryUsers();
+  //   console.log("data users : ", usersResponse?.data);
+
+  //   setInitialResults(usersResponse?.data || []);
+  //   setLoading(false);
+  // }
   // TODO: KhoaKheu need to store in local storage, just update new user when select user or load channel when start app
   const fetchUsers = async (query = '') => {
     if (queryInProgress.current || !chatClient?.userID) {
@@ -123,11 +132,11 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     /*
     ** response always return array, so we don't need to check res?.data
     */
-    if (query == "") {
-      queryInProgress.current = false;
-      setLoading(false);
-      return;
-    }
+    // if (query == "") {
+    //   queryInProgress.current = false;
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       const page = 1;
@@ -138,8 +147,6 @@ export const usePaginatedUsers = (): PaginatedUsers => {
         page_size,
         query
       );
-      console.log('search users res : ', res);
-
 
       // Dumb check to avoid duplicates
       if (query === searchText && res?.data.length !== 0 && results.findIndex((r) => res?.data[0].id === r.id) > -1) {
@@ -174,6 +181,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
 
   useEffect(() => {
     fetchUsers();
+    // getListUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -192,7 +192,7 @@ export class DBSyncManager {
     }
 
     if (task.type === 'delete-message') {
-      return await client.deleteMessage(...task.payload);
+      return await channel.deleteMessage(...task.payload);
     }
 
     throw new Error('Invalid task type');
