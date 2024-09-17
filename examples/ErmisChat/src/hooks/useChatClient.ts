@@ -251,8 +251,8 @@ export const useChatClient = () => {
           0,
         );
         setUnreadCount(countUnread);
-      }
-    });
+
+      });
 
     return () => {
       if (listener) {

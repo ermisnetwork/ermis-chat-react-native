@@ -4608,10 +4608,10 @@ ermis-chat-sdk@1.1.0:
     jsonwebtoken "~9.0.0"
     ws "^7.4.4"
 
-ermis-chat-sdk@1.9.7:
-  version "1.9.7"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.9.7.tgz#898874bc3373360d62431af68b0c2947bcf250d6"
-  integrity sha512-3PJFLGgQiGFeYe7zqvziyraIU+Y5YmLbQrmwnbnVJ0mYH2lPT3vn4ybPldnejhpn3wdbMM6EKemWnCa+CZZLmw==
+ermis-chat-sdk@1.9.8:
+  version "1.9.8"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.9.8.tgz#5d794d12ede6f0f4d3ff7aa5d7462c17bdc64b79"
+  integrity sha512-VFVah41Xur1FMrLMuDrZCm0mPiWbPNXvMS+Uz6kjL61TimPIEmaM5KrNrpDTovXtHadnoo4mYFRPFwMRkThJ4w==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/event-source-polyfill" "^1.0.5"

@@ -1565,6 +1565,11 @@ const ChannelWithContext = <
         const attachment = updatedMessage.attachments[i];
         const image = attachment.originalImage;
         const file = attachment.originalFile;
+        attachment.title = attachment.title ? attachment.title : attachment.type === "image" ? image?.name : file?.name;
+        attachment.file_size = attachment.file_size ? attachment.file_size : attachment.type === "image" ? image?.size : file?.size;
+        if (attachment.type === "video") {
+          attachment.thumb_url = attachment.thumb_url ? attachment.thumb_url : attachment.asset_url;
+        }
         // check if image_url is not a remote url
         if (
           attachment.type === 'image' &&
@@ -1584,7 +1589,7 @@ const ChannelWithContext = <
 
           const uploadResponse = doImageUploadRequest
             ? await doImageUploadRequest(image, channel)
-            : await channel.sendImage(compressedUri, filename, contentType);
+            : await channel.sendFile(compressedUri, filename, contentType);
 
           attachment.image_url = uploadResponse.file;
           delete attachment.originalFile;

@@ -1120,7 +1120,7 @@ export const MessageInputProvider = <
             filename,
             client.createAbortControllerForNextRequest(),
           );
-          channel.sendImage(compressedUri, filename, contentType).then(
+          channel.sendFile(compressedUri, filename, contentType).then(
             (res) => {
               uploadAbortControllerRef.current.delete(filename);
               if (asyncIds.includes(id)) {
@@ -1153,7 +1153,7 @@ export const MessageInputProvider = <
             filename,
             client.createAbortControllerForNextRequest(),
           );
-          response = await channel.sendImage(compressedUri, filename, contentType);
+          response = await channel.sendFile(compressedUri, filename, contentType);
           uploadAbortControllerRef.current.delete(filename);
         }
       }
