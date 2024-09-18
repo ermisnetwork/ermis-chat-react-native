@@ -36,18 +36,19 @@ export const usePaginatedAttachments = (
       }
 
       // TODO: Use this when support for attachment_type is ready.
-      const res = await chatClient?.search(
-        {
-          cid: { $in: [channel.cid] },
-        },
-        { 'attachments.type': { $in: [attachmentType] } },
-        {
-          limit: 10,
-          offset: offset.current,
-        },
-      );
+      // const res = await chatClient?.search(
+      //   {
+      //     cid: { $in: [channel.cid] },
+      //   },
+      //   { 'attachments.type': { $in: [attachmentType] } },
+      //   {
+      //     limit: 10,
+      //     offset: offset.current,
+      //   },
+      // );
+      const res: any = await channel.queryAttachmentMessages();
 
-      const newMessages = res?.results.map((r) => r.message);
+      const newMessages = res?.attachments.map((r) => r.message);
 
       if (!newMessages) {
         queryInProgress.current = false;

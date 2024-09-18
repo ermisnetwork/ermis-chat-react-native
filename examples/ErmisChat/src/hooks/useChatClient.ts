@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ErmisChat, WalletConnect } from 'ermis-chat-sdk';
+import { ErmisChat, ErmisAuth } from 'ermis-chat-sdk';
 import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
 import { QuickSqliteClient } from 'ermis-chat-react-native';
@@ -171,7 +171,7 @@ export const useChatClient = () => {
               channelId,
               pressAction: {
                 id: 'default',
-              },
+              }
             },
             body: message.message.text,
             data,
@@ -251,8 +251,8 @@ export const useChatClient = () => {
           0,
         );
         setUnreadCount(countUnread);
-
-      });
+      }
+    });
 
     return () => {
       if (listener) {

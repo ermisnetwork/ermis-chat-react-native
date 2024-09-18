@@ -190,6 +190,10 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         setAboutMe(chatClient?.user?.about_me || '');
         handleSnapPress(-1);
     }, []);
+    useEffect(() => {
+        console.log('avatar', avatar);
+    }, [avatar]);
+
     return (
         <SafeAreaView
             style={[

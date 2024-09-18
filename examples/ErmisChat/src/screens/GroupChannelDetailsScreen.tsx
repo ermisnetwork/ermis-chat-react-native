@@ -180,7 +180,7 @@ export const GroupChannelDetailsScreen: React.FC<GroupChannelDetailsProps> = ({
 
   const membersStatus = useChannelMembersStatus(channel);
   const displayName = useChannelPreviewDisplayName<ErmisChatGenerics>(channel, 20);
-  
+
   const allMembersLength = allMembers.length;
   useEffect(() => {
     setMembers(allMembers);
