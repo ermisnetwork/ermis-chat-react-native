@@ -72,6 +72,9 @@ export type StackNavigatorParamList = {
   InviteScreen: undefined;
   PlatformScreen: undefined;
   SdkScreen: undefined;
+  ChannelDetailsScreen: {
+    channel: Channel<ErmisChatGenerics>;
+  };
 };
 
 export type UserSelectorParamList = {

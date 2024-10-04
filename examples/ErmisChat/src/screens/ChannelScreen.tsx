@@ -114,7 +114,8 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
   const isOneOnOneConversation =
     channel &&
     Object.values(channel.state.members).length === 2 &&
-    channel.id?.indexOf('!members-') === 0;
+    channel.type === 'messaging';
+
   return (
     <ScreenHeader
       onBack={() => {
@@ -131,15 +132,16 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
         <TouchableOpacity
           onPress={() => {
             closePicker();
-            if (isOneOnOneConversation) {
-              navigation.navigate('OneOnOneChannelDetailScreen', {
-                channel,
-              });
-            } else {
-              navigation.navigate('GroupChannelDetailsScreen', {
-                channel,
-              });
-            }
+            // if (isOneOnOneConversation) {
+            //   navigation.navigate('OneOnOneChannelDetailScreen', {
+            //     channel,
+            //   });
+            // } else {
+            //   navigation.navigate('GroupChannelDetailsScreen', {
+            //     channel,
+            //   });
+            // }
+            navigation.navigate('ChannelDetailsScreen', { channel })
           }}
         >
           <ChannelAvatar channel={channel} />
@@ -282,13 +284,13 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
             ? <InviteView channel={channel} onChange={state => setIsInvited(state)} />
             : <>
               <MessageList<ErmisChatGenerics>
-                onThreadSelect={(thread) => {
-                  setSelectedThread(thread);
-                  navigation.navigate('ThreadScreen', {
-                    channel,
-                    thread,
-                  });
-                }}
+              // onThreadSelect={(thread) => {
+              //   setSelectedThread(thread);
+              //   navigation.navigate('ThreadScreen', {
+              //     channel,
+              //     thread,
+              //   });
+              // }}
               />
               <MessageInput />
             </>

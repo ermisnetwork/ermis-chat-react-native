@@ -17,7 +17,8 @@ const requestNotificationPermission = async () => {
 };
 
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  console.log('Message handled in the background!', remoteMessage);
+  const logMessage = `Received background message: ${JSON.stringify(remoteMessage)}`;
+  console.log('message from background: ', logMessage);
 
   const messageId = remoteMessage.data?.id as string;
   if (!messageId) {
@@ -33,7 +34,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
   let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
 
-  let project_id = "6fbdecb0-1ec8-4e32-99d7-ff2683e308b7"
+  let project_id = "b44937e4-c0d4-4a73-847c-3730a923ce83"
 
   const client = ErmisChat.getInstance(api_key, project_id);
 
@@ -44,7 +45,6 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
   await client._setToken(user, config.userToken);
   const message = await client.getMessage(messageId);
-  console.log('message from background: ', message);
 
   // create the android channel to send the notification to
   const channelId = await notifee.createChannel({
@@ -100,12 +100,11 @@ export const useChatClient = () => {
       api_key: api_key,
     };
     const connectedUser = await client.connectUser(user, config.userToken).then((res) => res).catch((e) => {
-      console.warn("error: ", e);
       Alert.alert("Error", "Please check your internet connection and try again");
       return null;
     });
 
-    // connect to SSE, this will keep the connection alive and listen to new messages from user servers.
+    // connect to SSE, which will keep the connection alive and listen to new messages from user servers.
     await client.connectToSSE();
 
     const initialUnreadCount = connectedUser?.me?.total_unread_count;
@@ -114,7 +113,6 @@ export const useChatClient = () => {
 
     // get profile user
     let profile = await client.queryUser(config.userId);
-    console.log('profile: ', profile);
 
     client._setUser(profile);
     client.state.updateUser(profile);

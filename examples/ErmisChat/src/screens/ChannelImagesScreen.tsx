@@ -72,7 +72,7 @@ export const ChannelImagesScreen: React.FC<ChannelImagesScreenProps> = ({
     setSelectedMessage: setImage,
   } = useImageGalleryContext<ErmisChatGenerics>();
   const { setOverlay } = useOverlayContext();
-  const { loading, loadMore, messages } = usePaginatedAttachments(channel, 'image');
+  const { loading, loadMore, attachtments } = usePaginatedAttachments(channel, 'image');
   const {
     theme: {
       colors: { white },

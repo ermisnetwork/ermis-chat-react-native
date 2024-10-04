@@ -15,9 +15,10 @@ import { useUserSearchContext } from '../../context/UserSearchContext';
 
 import type { UserResponse } from 'ermis-chat-sdk';
 
-import type { ErmisChatGenerics } from '../../types';
+import type { ErmisChatGenerics, ContactResponse } from '../../types';
 import { Search } from '../../icons/Search';
 import calendar from 'dayjs/plugin/calendar';
+import { useAppContext } from '../../context/AppContext';
 
 dayjs.extend(calendar);
 
@@ -68,6 +69,7 @@ type UserSearchResultsProps = {
   results?: UserResponse<ErmisChatGenerics>[];
   showOnlineStatus?: boolean;
   toggleSelectedUser?: (user: UserResponse<ErmisChatGenerics>) => void;
+  isContacts?: boolean;
 };
 
 export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
@@ -76,6 +78,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
   results: resultsProp,
   showOnlineStatus = true,
   toggleSelectedUser,
+  isContacts = false,
 }) => {
   const {
     loading,

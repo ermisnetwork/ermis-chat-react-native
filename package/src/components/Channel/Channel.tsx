@@ -1714,6 +1714,8 @@ const ChannelWithContext = <
     if (channel?.state?.filterErrorMessages) {
       channel.state.filterErrorMessages();
     }
+    // in some cases, you don't need to generate a new message id here, sdk will do it for you
+    // but in this case, we need to generate the id to store it in the db and preview the message
     const message_id = generateRandomId();
     const messagePreview = createMessagePreview({
       ...message,

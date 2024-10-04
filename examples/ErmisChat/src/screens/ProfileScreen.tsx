@@ -121,12 +121,12 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
                 name: "avatar.jpg"
             }
             chatClient?.uploadFile(file).then((res) => {
+                setAvatar(res.avatar);
                 Alert.alert('Success', 'Image uploaded successfully');
             }).catch((err) => {
                 setAvatar(chatClient?.user?.avatar || '');
                 Alert.alert('Error', err.message);
             });
-            setAvatar(image.path);
             handleClosePress();
         }).catch(err => {
             console.error(err);
@@ -190,9 +190,6 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         setAboutMe(chatClient?.user?.about_me || '');
         handleSnapPress(-1);
     }, []);
-    useEffect(() => {
-        console.log('avatar', avatar);
-    }, [avatar]);
 
     return (
         <SafeAreaView

@@ -2,21 +2,22 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
-import type { Channel, MessageResponse } from 'ermis-chat-sdk';
+import type { Channel, MessageResponse, Attachment } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../types';
 
 export const usePaginatedAttachments = (
   channel: Channel<ErmisChatGenerics>,
-  attachmentType: string,
+  attachmentType?: string,
 ) => {
   const { chatClient } = useAppContext();
-  const offset = useRef(0);
+  // const offset = useRef(0);
   const hasMoreResults = useRef(true);
   const queryInProgress = useRef(false);
   const [loading, setLoading] = useState(true);
-  const [messages, setMessages] = useState<MessageResponse<ErmisChatGenerics>[]>([]);
-
+  // const [attachtments, setActtachments] = useState<Attachment<ErmisChatGenerics>[]>([]);
+  const [media, setMedia] = useState<Attachment<ErmisChatGenerics>[]>([]);
+  const [files, setFiles] = useState<Attachment<ErmisChatGenerics>[]>([]);
   const fetchAttachments = async () => {
     if (queryInProgress.current) {
       return;
@@ -27,7 +28,7 @@ export const usePaginatedAttachments = (
     try {
       queryInProgress.current = true;
 
-      offset.current = offset.current + messages.length;
+      // offset.current = offset.current + attachtments.length;
 
       if (!hasMoreResults.current) {
         queryInProgress.current = false;
@@ -35,30 +36,28 @@ export const usePaginatedAttachments = (
         return;
       }
 
-      // TODO: Use this when support for attachment_type is ready.
-      // const res = await chatClient?.search(
-      //   {
-      //     cid: { $in: [channel.cid] },
-      //   },
-      //   { 'attachments.type': { $in: [attachmentType] } },
-      //   {
-      //     limit: 10,
-      //     offset: offset.current,
-      //   },
-      // );
-      const res: any = await channel.queryAttachmentMessages();
+      const res = await channel.queryAttachmentMessages();
 
-      const newMessages = res?.attachments.map((r) => r.message);
 
-      if (!newMessages) {
+      const newAttachments: Attachment<ErmisChatGenerics>[] = res?.attachments;
+
+      if (!newAttachments) {
         queryInProgress.current = false;
         setLoading(false);
         return;
       }
 
-      setMessages((existingMessages) => existingMessages.concat(newMessages));
+      newAttachments.map((attachment) => {
+        if (attachment.content_type?.startsWith('image/') || attachment.content_type?.startsWith('video/')) {
+          setMedia((existingMedia) => existingMedia.concat(attachment));
+        } else {
+          setFiles((existingFiles) => existingFiles.concat(attachment));
+        }
+      });
 
-      if (newMessages.length < 10) {
+      // setActtachments((existingAttachments) => existingAttachments.concat(newAttachments));
+
+      if (newAttachments.length < 10) {
         hasMoreResults.current = false;
       }
     } catch (e) {
@@ -69,7 +68,7 @@ export const usePaginatedAttachments = (
   };
 
   const loadMore = () => {
-    fetchAttachments();
+    // fetchAttachments();
   };
 
   useEffect(() => {
@@ -80,6 +79,8 @@ export const usePaginatedAttachments = (
   return {
     loading,
     loadMore,
-    messages,
+    // attachtments,
+    media,
+    files,
   };
 };

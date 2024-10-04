@@ -102,7 +102,7 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
       return;
     }
     //TODO: KhoaKheu Check if the channel already exists.
-    const channel = chatClient.channel(channelType, generateRandomId(), {
+    const channel = chatClient.channel(channelType, {
       members: [...selectedUserIds, chatClient.user?.id],
       name: groupName,
     });

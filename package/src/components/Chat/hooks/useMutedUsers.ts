@@ -14,8 +14,8 @@ export const useMutedUsers = <
   );
 
   useEffect(() => {
-    const handleEvent = (event: Event<ErmisChatGenerics>) => {
-      setMutedUsers((mutes) => event.me?.mutes || mutes || []);
+    const handleEvent = (_event: Event<ErmisChatGenerics>) => {
+      setMutedUsers((mutes) => mutes || []);
     };
 
     const listener = client?.on('notification.mutes_updated', handleEvent);

@@ -102,6 +102,8 @@
 			from a message.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like access to your photo gallery to share image in a message.</string>
+	<key>NSDocumentsUsageDescription</key>
+	<string>We need access to documents to store logs.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

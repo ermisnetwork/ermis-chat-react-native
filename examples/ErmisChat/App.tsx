@@ -25,6 +25,7 @@ import { ChannelScreen } from './src/screens/ChannelScreen';
 import { ChannelPinnedMessagesScreen } from './src/screens/ChannelPinnedMessagesScreen';
 import { ChatScreen } from './src/screens/ChatScreen';
 import { GroupChannelDetailsScreen } from './src/screens/GroupChannelDetailsScreen';
+import { ChannelDetailsScreen } from './src/screens/ChannelDetailsScreen';
 import { LoadingScreen } from './src/screens/LoadingScreen';
 import { MenuDrawer } from './src/screens/MenuDrawer';
 import { NewDirectMessagingScreen } from './src/screens/NewDirectMessagingScreen';
@@ -103,6 +104,7 @@ const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator<StackNavigatorParamList>();
 const App = () => {
   const { chatClient, walletConnect, isConnecting, loginUser, logout, switchUser, unreadCount } = useChatClient();
+
   const colorScheme = useColorScheme();
   const ErmisChatTheme = useErmisChatTheme();
   useEffect(() => {
@@ -347,6 +349,11 @@ const HomeScreen = () => {
       <Stack.Screen
         component={InviteScreen}
         name='InviteScreen'
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ChannelDetailsScreen}
+        name='ChannelDetailsScreen'
         options={{ headerShown: false }}
       />
       {/* <Stack.Screen

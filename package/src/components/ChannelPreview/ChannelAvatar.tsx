@@ -11,7 +11,7 @@ import { GroupAvatar } from '../Avatar/GroupAvatar';
 
 export type ChannelAvatarProps<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
-> = Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'>;
+> = Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'> & { size?: number };
 
 /**
  * This UI component displays an avatar for a particular channel.
@@ -19,9 +19,9 @@ export type ChannelAvatarProps<
 export const ChannelAvatarWithContext = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelAvatarProps<ErmisChatGenerics> & Pick<ChatContextValue, 'ImageComponent'>,
+  props: ChannelAvatarProps<ErmisChatGenerics> & Pick<ChatContextValue, 'ImageComponent'> & { size?: number },
 ) => {
-  const { channel, ImageComponent } = props;
+  const { channel, ImageComponent, size } = props;
 
   const displayAvatar = useChannelPreviewDisplayAvatar(channel);
   const displayPresence = useChannelPreviewDisplayPresence(channel);
@@ -32,7 +32,7 @@ export const ChannelAvatarWithContext = <
         ImageComponent={ImageComponent}
         images={displayAvatar.images}
         names={displayAvatar.names}
-        size={40}
+        size={size || 40}
       />
     );
   }
@@ -43,7 +43,7 @@ export const ChannelAvatarWithContext = <
       ImageComponent={ImageComponent}
       name={displayAvatar.name}
       online={displayPresence}
-      size={40}
+      size={size || 40}
     />
   );
 };

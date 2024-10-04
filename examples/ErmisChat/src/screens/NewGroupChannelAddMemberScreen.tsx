@@ -148,7 +148,7 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
           style={selectedUsers.length ? styles.flatList : {}}
         />
       </View>
-      <UserSearchResults />
+      <UserSearchResults isContacts={true} />
     </View>
   );
 };

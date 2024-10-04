@@ -4,8 +4,9 @@ import Dayjs from 'dayjs';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
   FileIcon,
+  generateRandomId,
   getFileSizeDisplayText,
-  goToURL,
+  // goToURL,
   ThemeProvider,
   useTheme,
 } from 'ermis-chat-react-native';
@@ -80,7 +81,7 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
     params: { channel },
   },
 }) => {
-  const { loading, loadMore, messages } = usePaginatedAttachments(channel, 'file');
+  const { loading, loadMore, files } = usePaginatedAttachments(channel, 'file');
   const insets = useSafeAreaInsets();
   const {
     theme: {
@@ -104,8 +105,9 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
       }
     > = {};
 
-    messages.forEach((message) => {
-      const month = Dayjs(message.created_at).format('MMM YYYY');
+    files.forEach((file) => {
+      const month = Dayjs(file.created_at).format('MMM YYYY');
+      console.log('~~~~~~~~~~~~~~file: ', file);
 
       if (!newSections[month]) {
         newSections[month] = {
@@ -114,17 +116,11 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
         };
       }
 
-      message.attachments?.forEach((a) => {
-        if (a.type !== 'file') {
-          return;
-        }
-
-        newSections[month].data.push(a);
-      });
+      newSections[month].data.push(file);
     });
 
     setSections(Object.values(newSections));
-  }, [messages]);
+  }, [files]);
 
   return (
     <View
@@ -145,15 +141,15 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
             onEndReached={loadMore}
             renderItem={({ index, item: attachment, section }) => (
               <TouchableOpacity
-                key={`${attachment.asset_url}${attachment.image_url}${attachment.og_scrape_url}${attachment.thumb_url}${attachment.type}`}
-                onPress={() => goToURL(attachment.asset_url)}
+                key={`${attachment.id}`}
+                onPress={() => console.log(attachment.url)}
                 style={{
                   borderBottomColor: border,
                   borderBottomWidth: index === section.data.length - 1 ? 0 : 1,
                 }}
               >
                 <View style={[styles.container, { backgroundColor: white_snow }]}>
-                  <FileIcon mimeType={attachment.mime_type} />
+                  <FileIcon mimeType={attachment.content_type} />
                   <View style={styles.details}>
                     <Text
                       numberOfLines={1}
@@ -164,7 +160,7 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
                         },
                       ]}
                     >
-                      {attachment.title}
+                      {attachment.file_name}
                     </Text>
                     <Text
                       style={[
@@ -174,7 +170,7 @@ export const ChannelFilesScreen: React.FC<ChannelFilesScreenProps> = ({
                         },
                       ]}
                     >
-                      {getFileSizeDisplayText(attachment.file_size)}
+                      {getFileSizeDisplayText(attachment.content_length)}
                     </Text>
                   </View>
                 </View>
