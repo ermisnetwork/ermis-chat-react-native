@@ -27,6 +27,8 @@ import { Media } from '../components/ChannelInfo/Media';
 import { Files } from '../components/ChannelInfo/Files';
 import { usePaginatedAttachments } from '../hooks/usePaginatedAttachments';
 import { BackButton, ScreenHeader } from '../components/ScreenHeader';
+import { RoundButton } from '../components/RoundButton';
+import { NewDirectMessageIcon } from '../icons/NewDirectMessageIcon';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -37,6 +39,12 @@ const styles = StyleSheet.create({
     backButton: {
         position: 'absolute',
         left: 8,
+        top: 8,
+        zIndex: 1,
+    },
+    rightButton: {
+        position: 'absolute',
+        right: 8,
         top: 8,
         zIndex: 1,
     },
@@ -95,7 +103,7 @@ export const ChannelDetailsScreen: React.FC<ChannelDetailsScreenProps> = ({
 }) => {
     const {
         theme: {
-            colors: { accent_green, accent_red, black, border, grey, white, white_smoke },
+            colors: { accent_green, accent_red, black, border, grey, white, white_smoke, accent_blue },
         },
     } = useTheme();
     const { chatClient } = useAppContext();
@@ -125,6 +133,17 @@ export const ChannelDetailsScreen: React.FC<ChannelDetailsScreenProps> = ({
 
     return (
         <SafeAreaView style={[{ backgroundColor: white }, styles.container]}>
+            {/* <ScreenHeader titleText='' RightContent={() => {
+                return (
+                    <RoundButton
+                        onPress={() => {
+                            // navigation.navigate('NewDirectMessagingScreen');
+                        }}
+                    >
+                        <NewDirectMessageIcon active color={accent_blue} height={25} width={25} />
+                    </RoundButton>
+                )
+            }} /> */}
             <View style={styles.userInfoContainer}>
                 <View style={styles.backButton}>
                     <BackButton />
@@ -133,6 +152,19 @@ export const ChannelDetailsScreen: React.FC<ChannelDetailsScreenProps> = ({
                 <Text style={[styles.displayName, {
                     color: black,
                 }]}>{displayName}</Text>
+                <View
+                    style={styles.rightButton}
+                >
+                    <RoundButton
+                        onPress={() => {
+                            navigation.navigate('ChannelUpdatingScreen', {
+                                channel
+                            });
+                        }}
+                    >
+                        <NewDirectMessageIcon active color={accent_blue} height={25} width={25} />
+                    </RoundButton>
+                </View>
                 <View style={styles.actionContainer}>
                     <TouchableOpacity style={styles.actionButton}>
                         <Mute height={24} width={24} />

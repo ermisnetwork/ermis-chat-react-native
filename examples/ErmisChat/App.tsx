@@ -65,6 +65,7 @@ import { InviteScreen } from './src/screens/InviteScreen';
 import { PlatformScreen } from './src/screens/PlatformScreen';
 import { SdkScreen } from './src/screens/SdkScreen';
 import AsyncStore from './src/utils/AsyncStore';
+import { ChannelUpdatingScreen } from './src/screens/ChannelUpdatingScreen';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 console.assert = () => null;
@@ -354,6 +355,11 @@ const HomeScreen = () => {
       <Stack.Screen
         component={ChannelDetailsScreen}
         name='ChannelDetailsScreen'
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ChannelUpdatingScreen}
+        name='ChannelUpdatingScreen'
         options={{ headerShown: false }}
       />
       {/* <Stack.Screen

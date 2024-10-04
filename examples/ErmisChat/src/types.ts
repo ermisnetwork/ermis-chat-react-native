@@ -75,6 +75,9 @@ export type StackNavigatorParamList = {
   ChannelDetailsScreen: {
     channel: Channel<ErmisChatGenerics>;
   };
+  ChannelUpdatingScreen: {
+    channel: Channel<ErmisChatGenerics>;
+  }
 };
 
 export type UserSelectorParamList = {
