@@ -31,6 +31,8 @@ export const useChannelVisible = <
       if (typeof onChannelVisible === 'function') {
         onChannelVisible(setChannels, event);
       } else {
+        console.log("useChannelVisible -> event", event);
+
         if (event.channel_id && event.channel_type) {
           const channel = await getChannel<ErmisChatGenerics>({
             client,

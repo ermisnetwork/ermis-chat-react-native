@@ -35,7 +35,7 @@ import { ChannelPreviewInvite } from '../ChannelPreview/ChannelPreviewInvite';
 import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../Indicators/EmptyStateIndicator';
 import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../Indicators/LoadingErrorIndicator';
 import { useRejectedFromChannelNotification } from './hooks/listeners/useRejectedFromChannelNotification';
-import { useAcceptedToChannelNotification } from './hooks/listeners/useAcceptedToChannelNotification';
+import { useAcceptedInvitedToChannelNotification } from './hooks/listeners/useAcceptedInvitedToChannelNotification';
 
 export type ChannelListProps<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
@@ -319,10 +319,12 @@ export const ChannelList = <
     type
   });
   // Setup event listeners
-  useAddedToChannelNotification({
-    onAddedToChannel,
-    setChannels,
-  });
+  if (type === 'invite') {
+    useAddedToChannelNotification({
+      onAddedToChannel,
+      setChannels,
+    });
+  }
 
   useChannelDeleted({
     onChannelDeleted,
@@ -357,7 +359,7 @@ export const ChannelList = <
     setChannels,
     channelListType: type
   });
-  useAcceptedToChannelNotification({
+  useAcceptedInvitedToChannelNotification({
     onAcceptedToChannel,
     setChannels,
     channelListType: type

@@ -34,6 +34,10 @@ export const useNewMessage = <
       if (typeof onNewMessage === 'function') {
         onNewMessage(lockChannelOrder, setChannels, event);
       } else {
+        // If channel is not in messenger list, don't add it.
+        if (channelListType === 'invite') {
+          return;
+        }
         setChannels((channels) => {
           if (!channels) return channels;
           const channelInList = channels.filter((channel) => channel.cid === event.cid).length > 0;

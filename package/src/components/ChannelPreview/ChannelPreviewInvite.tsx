@@ -121,7 +121,7 @@ const ChannelPreviewInviteWithContext = <
     onSelect,
     PreviewAvatar = ChannelAvatar,
     PreviewTitle = ChannelPreviewTitle,
-    onAccept,
+    // onAccept,
     onReject
   } = props;
   const { vw } = useViewport();
@@ -144,9 +144,9 @@ const ChannelPreviewInviteWithContext = <
   const acceptHandler = () => {
     setIsLoading(true);
     channel.acceptInvite().then(() => {
-      if (onAccept) {
-        onAccept(channel);
-      }
+      // if (onAccept) {
+      //   onAccept(channel);
+      // }
       setIsLoading(false);
     }).catch((error) => {
       setIsLoading(false);

@@ -28,10 +28,12 @@ export const ChannelUpdatingScreen: React.FC<ChannelUpdatingScreenProps> = ({
     return (
         <View style={styles.container}>
             <ScreenHeader titleText="Edit Channel" />
-            <Avatar image={avatar}
-                size={200}
-                upload={true}
-                onPress={() => handleSnapPress(0)} />
+            <Avatar
+                image={avatar}
+                size={59}
+                upload
+                onPress={() => handleSnapPress(0)}
+            />
         </View>
     )
 }

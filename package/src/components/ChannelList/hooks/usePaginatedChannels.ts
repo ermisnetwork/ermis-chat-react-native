@@ -46,6 +46,7 @@ export const usePaginatedChannels = <
   options = DEFAULT_OPTIONS,
   setForceUpdate,
   sort = {},
+  type
 }: Parameters<ErmisChatGenerics>) => {
   const [channels, setChannels] = useState<Channel<ErmisChatGenerics>[] | null>(null);
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -231,7 +232,7 @@ export const usePaginatedChannels = <
         });
 
         if (channelsFromDB) {
-          const offlineChannels = client.hydrateActiveChannels(channelsFromDB, {
+          const offlineChannels = client.hydrateChannels(channelsFromDB, {
             offlineMode: true,
             skipInitialization: [], // passing empty array will clear out the existing messages from channel state, this removes the possibility of duplicate messages
           });
@@ -279,7 +280,10 @@ export const usePaginatedChannels = <
 
     return () => listener?.unsubscribe?.();
   }, [filterStr, sortStr]);
+  useEffect(() => {
+    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~channels of type : ", type, "channels length: ", channels?.length);
 
+  }, [channels])
   return {
     channels,
     error,

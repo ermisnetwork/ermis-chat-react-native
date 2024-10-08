@@ -52,7 +52,7 @@ export * from './ChannelList/hooks/listeners/useNewMessage';
 export * from './ChannelList/hooks/listeners/useNewMessageNotification';
 export * from './ChannelList/hooks/listeners/useRemovedFromChannelNotification';
 export * from './ChannelList/hooks/listeners/useRejectedFromChannelNotification';
-export * from './ChannelList/hooks/listeners/useAcceptedToChannelNotification';
+export * from './ChannelList/hooks/listeners/useAcceptedInvitedToChannelNotification';
 export * from './ChannelList/hooks/listeners/useUserPresence';
 export * from './ChannelList/hooks/useCreateChannelsContext';
 export * from './ChannelList/hooks/usePaginatedChannels';

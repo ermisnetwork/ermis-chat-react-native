@@ -153,7 +153,7 @@ export const handleEventToSyncDB = <
   if (
     type === 'channel.updated' ||
     type === 'channel.visible' ||
-    type === 'notification.added_to_channel' ||
+    // type === 'notification.added_to_channel' ||// This event is handled in useAcceptedInvitedToChannelNotification
     type === 'notification.message_new'
   ) {
     if (event.channel) {
