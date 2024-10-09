@@ -82,7 +82,7 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
   navigation,
 }) => {
   const { chatClient } = useAppContext();
-  const { selectedUserIds, selectedUsers, channelType } = useUserSearchContext();
+  const { selectedUserIds, selectedUsers, channelType, reset } = useUserSearchContext();
 
   const {
     theme: {
@@ -106,12 +106,14 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
       members: [...selectedUserIds, chatClient.user?.id],
       name: groupName,
     });
+    console.log("channel id: ", channel.id);
 
-    // TODO: Maybe there is a better way to do this.
-    navigation.pop(2);
-    navigation.replace('ChannelScreen', {
-      channelId: channel.id,
-    });
+    // reset();
+    // // TODO: Maybe there is a better way to do this.
+    // // navigation.pop(2);
+    // // navigation.replace('ChannelScreen', {
+    // //   channelId: channel.id,
+    // // });
   };
 
   return (

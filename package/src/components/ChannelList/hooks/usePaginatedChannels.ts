@@ -46,7 +46,6 @@ export const usePaginatedChannels = <
   options = DEFAULT_OPTIONS,
   setForceUpdate,
   sort = {},
-  type
 }: Parameters<ErmisChatGenerics>) => {
   const [channels, setChannels] = useState<Channel<ErmisChatGenerics>[] | null>(null);
   const [error, setError] = useState<Error | undefined>(undefined);
@@ -127,34 +126,9 @@ export const usePaginatedChannels = <
             return c;
           });
       // TODO: Update member info to members state
-      let user_ids: string[] = [];
-      newChannels.forEach((channel) => {
-        channel.data?.members?.forEach((member) => {
-          if (typeof member !== 'string' && member.user && member.user.id) {
-            if (!user_ids.includes(member.user.id)) {
-              user_ids.push(member.user.id);
-            }
-          }
-        });
-      });
-      if (user_ids.length > 0) {
-        try {
-          const respsonse = await client.getBatchUsers(user_ids);
-          const users = respsonse.data;
 
-          newChannels.map((channel) => {
-            users.forEach((user) => {
-              channel.data?.members?.forEach((member) => {
-                if (typeof member !== 'string' && user.id === member.user?.id) {
-                  member.user = { ...member.user, ...user };
-                  channel.state.members[member.user?.id] = { ...channel.state.members[member.user?.id], ...member };
-                }
-              });
-            });
-          });
-        } catch (e) { console.error(e) };
-      }
       // TODO: Update members state!!!!
+      // TODO: Sort list channels.
       setChannels(newChannels);
       setStaticChannelsActive(false);
       setHasNextPage(channelQueryResponse.length >= newOptions.limit);
@@ -221,7 +195,7 @@ export const usePaginatedChannels = <
   const sortStr = useMemo(() => JSON.stringify(sort), [sort]);
 
   useEffect(() => {
-    const loadOfflineChannels = () => {
+    const loadOfflineChannels = async () => {
       if (!client?.user?.id) return;
 
       try {
@@ -232,7 +206,8 @@ export const usePaginatedChannels = <
         });
 
         if (channelsFromDB) {
-          const offlineChannels = client.hydrateChannels(channelsFromDB, {
+          // TODO KhoaKheu: cần xử lý việc hạn chế queryBatchUsers -> chỉ gọi khi load app.
+          const offlineChannels = await client.hydrateChannels(channelsFromDB, {
             offlineMode: true,
             skipInitialization: [], // passing empty array will clear out the existing messages from channel state, this removes the possibility of duplicate messages
           });
@@ -280,10 +255,6 @@ export const usePaginatedChannels = <
 
     return () => listener?.unsubscribe?.();
   }, [filterStr, sortStr]);
-  useEffect(() => {
-    console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~channels of type : ", type, "channels length: ", channels?.length);
-
-  }, [channels])
   return {
     channels,
     error,

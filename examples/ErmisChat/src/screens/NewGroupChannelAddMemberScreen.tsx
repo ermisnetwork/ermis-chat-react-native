@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { ArrowRight, Search, useTheme } from 'ermis-chat-react-native';
 
@@ -7,10 +7,10 @@ import { UserGridItem } from '../components/UserSearch/UserGridItem';
 import { UserSearchResults } from '../components/UserSearch/UserSearchResults';
 import { useAppContext } from '../context/AppContext';
 import { useUserSearchContext } from '../context/UserSearchContext';
-
+import type { ContactResult, UserResponse } from 'ermis-chat-sdk';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
-import type { StackNavigatorParamList } from '../types';
+import type { ErmisChatGenerics, StackNavigatorParamList } from '../types';
 
 const styles = StyleSheet.create({
   container: {
@@ -90,6 +90,20 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
     }
     navigation.navigate('NewGroupChannelAssignNameScreen');
   };
+  const [contacts, setContacts] = useState<UserResponse<ErmisChatGenerics>[]>([]);
+  useEffect(() => {
+    const fetchContacts = async () => {
+      const contactResult = await chatClient?.queryContacts();
+      if (contactResult) {
+        const users = contactResult.contact_user_ids.map((userId) => {
+          const user = chatClient?.state.users[userId];
+          return user;
+        })
+        setContacts(users as UserResponse<ErmisChatGenerics>[]);
+      }
+    };
+    fetchContacts();
+  }, []);
 
   if (!chatClient) {
     return null;
@@ -148,7 +162,7 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
           style={selectedUsers.length ? styles.flatList : {}}
         />
       </View>
-      <UserSearchResults isContacts={true} />
+      <UserSearchResults results={contacts} />
     </View>
   );
 };

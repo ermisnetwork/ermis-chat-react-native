@@ -4,7 +4,7 @@ import { useAppContext } from '../context/AppContext';
 
 import type { UserFilters, UserResponse } from 'ermis-chat-sdk';
 
-import type { ErmisChatGenerics, ContactResponse } from '../types';
+import type { ErmisChatGenerics } from '../types';
 
 export type PaginatedUsers = {
   clearText: () => void;
@@ -28,7 +28,6 @@ export type PaginatedUsers = {
   toggleUser: (user: UserResponse<ErmisChatGenerics>) => void;
   channelType: string;
   setChannelType: React.Dispatch<React.SetStateAction<string>>;
-  getContacts: () => Promise<UserResponse<ErmisChatGenerics>[]>;
 };
 
 export const usePaginatedUsers = (): PaginatedUsers => {
@@ -178,28 +177,6 @@ export const usePaginatedUsers = (): PaginatedUsers => {
   const loadMore = () => {
     fetchUsers(searchText);
   };
-  const getContacts = async (): Promise<UserResponse<ErmisChatGenerics>[]> => {
-    const users: UserResponse<ErmisChatGenerics>[] = [];
-    try {
-      const contactResponse: ContactResponse = await chatClient?.queryContacts();
-      if (contactResponse) {
-        console.log('contactResponse:', contactResponse);
-
-        const userIDs: string[] = contactResponse.project_id_user_ids[chatClient?.projectId] || [];
-        console.log('userIDs:', userIDs);
-
-        userIDs.forEach((userID) => {
-          const user = chatClient?.state.users[userID];
-          if (user) {
-            users.push(user);
-          }
-        });
-      }
-    } catch (e) {
-      console.error('getContacts error:', e);
-    }
-    return users;
-  }
   useEffect(() => {
     fetchUsers();
     // getListUser();
@@ -228,6 +205,5 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     toggleUser,
     channelType,
     setChannelType,
-    getContacts
   };
 };

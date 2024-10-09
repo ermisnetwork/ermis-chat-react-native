@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { Channel, ChannelMemberResponse } from 'ermis-chat-sdk';
+import type { Channel, UserResponse } from 'ermis-chat-sdk';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 import { useViewport } from '../../../hooks/useViewport';
@@ -9,8 +9,7 @@ import type { DefaultErmisChatGenerics } from '../../../types/types';
 
 const ELLIPSIS = `...`;
 
-const getMemberName = (member: ChannelMemberResponse) =>
-  member.user?.name || member.user?.id || 'Unknown User';
+const getMemberName = (member: UserResponse) => member.name || member.id || 'Unknown User';
 
 export const getChannelPreviewDisplayName = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
@@ -23,19 +22,18 @@ export const getChannelPreviewDisplayName = <
   characterLimit: number;
   channelName?: string;
   currentUserId?: string;
-  members?: Channel<ErmisChatGenerics>['state']['members'];
+  members?: UserResponse<ErmisChatGenerics>[];
 }): string => {
   if (channelName) return channelName;
+  if (!members) return 'Unknown Channel';
 
-  const channelMembers = Object.values(members || {});
+  const otherMembers = members.filter((member) => member.id !== currentUserId);
 
-  const otherMembers = channelMembers.filter((member) => member.user?.id !== currentUserId);
   otherMembers.sort((prevUser, nextUser) =>
-    (prevUser?.user?.name ?? '')
+    (prevUser?.name ?? '')
       .toLowerCase()
-      .localeCompare((nextUser?.user?.name ?? '').toLocaleUpperCase()),
+      .localeCompare((nextUser?.name ?? '').toLocaleUpperCase()),
   );
-
   const createChannelNameSuffix = (remainingNumberOfMembers: number) =>
     remainingNumberOfMembers <= 1 ? `${ELLIPSIS}` : `,${ELLIPSIS}+${remainingNumberOfMembers}`;
 
@@ -61,11 +59,11 @@ export const getChannelPreviewDisplayName = <
     } else {
       const remainingNumberOfMembers = originalArray.length - index;
       const truncateLimit = characterLimit - (ELLIPSIS.length + result.length);
-      const tuncatedCurrentMemberName = `, ${currentMemberName.slice(0, truncateLimit)}`;
+      const truncatedCurrentMemberName = `, ${currentMemberName.slice(0, truncateLimit)}`;
 
       const channelNameSuffix = createChannelNameSuffix(remainingNumberOfMembers);
 
-      return `${result}${tuncatedCurrentMemberName}${channelNameSuffix}`;
+      return `${result}${truncatedCurrentMemberName}${channelNameSuffix}`;
     }
   }, '');
 
@@ -82,12 +80,23 @@ export const useChannelPreviewDisplayName = <
   const { vw } = useViewport();
 
   const DEFAULT_MAX_CHARACTER_LENGTH = (vw(100) - 16) / 6;
-
+  // TODO: tối ưu get displayName(code lại hoàn toàn)
   const currentUserId = client?.userID;
-  const members = channel?.state?.members;
-  const numOfMembers = Object.keys(members || {}).length;
   const channelName = channel?.data?.name;
   const characterLimit = characterLength || DEFAULT_MAX_CHARACTER_LENGTH;
+  const channelMembers = Object.values(channel?.state?.members || {});
+  const numOfMembers = channelMembers.length;
+
+  const members = channelMembers.map((member) => {
+    if (member.user?.id) {
+      const user = client.state?.users[member.user?.id];
+      if (user) {
+        return user
+      }
+    }
+    return member.user || { id: member.user_id } as UserResponse<ErmisChatGenerics>;
+  });
+
   const [displayName, setDisplayName] = useState(
     getChannelPreviewDisplayName({
       channelName,

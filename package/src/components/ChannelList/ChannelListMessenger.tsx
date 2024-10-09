@@ -153,7 +153,9 @@ const ChannelListMessengerWithContext = <
 
   const onEndReached = () => {
     if (!onEndReachedCalledDuringCurrentScrollRef.current && hasNextPage) {
-      loadNextPage();
+      // TODO: Khoakheu need to set flag to pagination
+      // loadNextPage();
+
       onEndReachedCalledDuringCurrentScrollRef.current = true;
     }
   };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { Channel, ErmisChat } from 'ermis-chat-sdk';
+import type { Channel, ErmisChat, UserResponse } from 'ermis-chat-sdk';
 
 import { useChatContext } from '../../../contexts/chatContext/ChatContext';
 
@@ -24,21 +24,31 @@ export const getChannelPreviewDisplayAvatar = <
       name: channelName,
     };
   } else if (currentUserId) {
-    const members = Object.values(channel.state?.members);
-    const otherMembers = members.filter((member) => member.user?.id !== currentUserId);
+    const channelMembers = Object.values(channel?.state?.members || {});
+
+    const members = channelMembers.map((member) => {
+      if (member.user?.id) {
+        const user = client.state?.users[member.user?.id];
+        if (user) {
+          return user
+        }
+      }
+      return member.user || { id: member.user_id } as UserResponse<ErmisChatGenerics>;
+    });
+    const otherMembers = members.filter((member) => member.id !== currentUserId);
 
     if (otherMembers.length === 1 && channel.type === 'messaging') {
       return {
-        id: otherMembers[0].user?.id,
-        image: otherMembers[0].user?.avatar,
-        name: channelName || otherMembers[0].user?.name,
+        id: otherMembers[0].id,
+        image: otherMembers[0].avatar,
+        name: channelName || otherMembers[0].name,
       };
     }
 
     return {
-      ids: otherMembers.slice(0, 4).map((member) => member.user?.id || ''),
-      images: otherMembers.slice(0, 4).map((member) => member.user?.avatar || ''),
-      names: otherMembers.slice(0, 4).map((member) => member.user?.name || ''),
+      ids: otherMembers.slice(0, 4).map((member) => member.id || ''),
+      images: otherMembers.slice(0, 4).map((member) => member.avatar || ''),
+      names: otherMembers.slice(0, 4).map((member) => member.name || ''),
     };
   }
   return {

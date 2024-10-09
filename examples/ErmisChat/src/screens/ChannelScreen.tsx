@@ -237,9 +237,9 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
       const newChannel = chatClient?.channel(channelType, channelId);
       if (!newChannel?.initialized) {
         await newChannel?.watch();
+
       }
       setChannel(newChannel);
-      reset();
     };
 
     initChannel();
@@ -248,7 +248,9 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   useFocusEffect(() => {
     setSelectedThread(undefined);
   });
-
+  useEffect(() => {
+    console.log('---------channel on ChannelScreen: ', channelId);
+  }, []);
   if (!channel || !chatClient) {
     return null;
   }
@@ -263,6 +265,7 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
       setIsInvited(false);
     }
   }, [channel.state.membership?.channel_role]);
+
 
 
   return (
