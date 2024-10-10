@@ -103,9 +103,10 @@ export const ChannelPreview: React.FC<ChannelPreviewMessengerProps<ErmisChatGene
                   });
                   setOverlay('none');
                 },
-                subtext: `Are you sure you want to delete this ${otherMembers.length === 1 ? 'conversation' : 'group'
+                subtext: `Are you sure you want to delete this ${channel.type === "messaging" ? 'conversation' : 'group'
                   }?`,
-                title: `Delete ${otherMembers.length === 1 ? 'Conversation' : 'Group'}`,
+                title: `Delete ${channel.type === "messaging" ? 'Conversation' : 'Group'
+                  }`,
               });
               setOverlay('confirmation');
             }}

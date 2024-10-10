@@ -23,6 +23,8 @@ import Animated, {
 import {
   Avatar,
   CircleClose,
+  useChannelPreviewDisplayName,
+  useChatContext,
   User,
   UserMinus,
   useTheme,
@@ -33,7 +35,8 @@ import { useAppOverlayContext } from '../context/AppOverlayContext';
 import { useBottomSheetOverlayContext } from '../context/BottomSheetOverlayContext';
 import { useChannelInfoOverlayContext } from '../context/ChannelInfoOverlayContext';
 import { Delete } from '../icons/Delete';
-
+import { ErmisChatGenerics } from '../types';
+import { UserResponse } from 'ermis-chat-sdk';
 dayjs.extend(relativeTime);
 
 const avatarSize = 64;
@@ -111,7 +114,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
   const width = vw(100) - 60;
 
   const { channel, clientId, navigation } = data || {};
-
+  const { client } = useChatContext<ErmisChatGenerics>();
   const {
     theme: {
       colors: { accent_red, black, border, grey, white },
@@ -220,32 +223,42 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
     ? Math.floor(width / 8 - Object.keys(channel.state.members || {}).length.toString().length)
     : 0;
   // TODO:  KhoaKheu do: map members to users state
-  const channelName = channel
-    ? channel.data?.name ||
-    Object.values(channel.state.members)
-      .slice(0)
-      .reduce((returnString, currentMember, index, originalArray) => {
-        const returnStringLength = returnString.length;
-        const currentMemberName =
-          currentMember.user?.name || currentMember.user?.id || 'Unknown User';
-        // a rough approximation of when the +Number shows up
-        if (returnStringLength + (currentMemberName.length + 2) < maxWidth) {
-          if (returnStringLength) {
-            returnString += `, ${currentMemberName}`;
-          } else {
-            returnString = currentMemberName;
-          }
-        } else {
-          const remainingMembers = originalArray.length - index;
-          returnString += `, +${remainingMembers}`;
-          originalArray.splice(1); // exit early
-        }
-        return returnString;
-      }, '')
-    : '';
-  const otherMembers = channel
-    ? Object.values(channel.state.members).filter((member) => member.user?.id !== clientId)
-    : [];
+  // const channelName = channel
+  //   ? channel.data?.name ||
+  //   Object.values(channel.state.members)
+  //     .slice(0)
+  //     .reduce((returnString, currentMember, index, originalArray) => {
+  //       const returnStringLength = returnString.length;
+  //       const currentMemberName =
+  //         currentMember.user?.name || currentMember.user?.id || 'Unknown User';
+  //       // a rough approximation of when the +Number shows up
+  //       if (returnStringLength + (currentMemberName.length + 2) < maxWidth) {
+  //         if (returnStringLength) {
+  //           returnString += `, ${currentMemberName}`;
+  //         } else {
+  //           returnString = currentMemberName;
+  //         }
+  //       } else {
+  //         const remainingMembers = originalArray.length - index;
+  //         returnString += `, +${remainingMembers}`;
+  //         originalArray.splice(1); // exit early
+  //       }
+  //       return returnString;
+  //     }, '')
+  //   : '';
+  const channelName = useChannelPreviewDisplayName(channel, 20);
+  const channelMembers = Object.values(channel?.state?.members || {});
+  const channelMembersLength = channelMembers.length;
+  const members = channelMembers.map((member) => {
+    if (member.user?.id) {
+      const user = client.state?.users[member.user?.id];
+      if (user) {
+        return user
+      }
+    }
+    return member.user || { id: member.user_id, name: member.user_id } as UserResponse<ErmisChatGenerics>;
+  });
+  const otherMembers = members.filter((member) => member.id !== clientId)
 
   return (
     <Animated.View pointerEvents={visible ? 'auto' : 'none'} style={StyleSheet.absoluteFill}>
@@ -283,31 +296,29 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                       <View style={styles.detailsContainer}>
                         <Text numberOfLines={1} style={[styles.channelName, { color: black }]}>
                           {channelName}
-                          {/* TODO: Xử lý channel Name ở mọi nơi */}
                         </Text>
                         <Text style={[styles.channelStatus, { color: grey }]}>
+                          {/* TODO: xử lý watcher để hiển thị online */}
                           {otherMembers.length === 1
-                            ? otherMembers[0].user?.online
+                            ? otherMembers[0].online// missing online field. 
                               ? 'Online'
-                              : `Last Seen ${dayjs(otherMembers[0].user?.last_active).fromNow()}`
-                            : `${Object.keys(channel.state.members).length} Members, ${Object.values(channel.state.members).filter(
-                              (member) => !!member.user?.online,
+                              : `Last Seen ${dayjs(otherMembers[0].last_active).fromNow()}`
+                            : `${channelMembersLength} Members, ${members.filter(
+                              (member) => !!member.online,
                             ).length
                             } Online`}
                         </Text>
                         <FlatList
                           contentContainerStyle={styles.flatListContent}
-                          data={Object.values(channel.state.members)
-                            .map((member) => member.user)
-                            .sort((a, b) =>
-                              !!a?.online && !b?.online
+                          data={members.sort((a, b) =>
+                            !!a?.online && !b?.online
+                              ? -1
+                              : a?.id === clientId && b?.id !== clientId
                                 ? -1
-                                : a?.id === clientId && b?.id !== clientId
-                                  ? -1
-                                  : !!a?.online && !!b?.online
-                                    ? 0
-                                    : 1,
-                            )}
+                                : !!a?.online && !!b?.online
+                                  ? 0
+                                  : 1,
+                          )}
                           horizontal
                           keyExtractor={(item, index) => `${item?.id}_${index}`}
                           renderItem={({ item }) =>
@@ -334,15 +345,9 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                           if (state === State.END) {
                             setOverlay('none');
                             if (navigation) {
-                              if (otherMembers.length === 1) {
-                                navigation.navigate('OneOnOneChannelDetailScreen', {
-                                  channel,
-                                });
-                              } else {
-                                navigation.navigate('GroupChannelDetailsScreen', {
-                                  channel,
-                                });
-                              }
+                              navigation.navigate('ChannelDetailsScreen', {
+                                channel,
+                              });
                             }
                           }
                         }}
@@ -361,7 +366,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                           <Text style={[styles.rowText, { color: black }]}>View info</Text>
                         </View>
                       </TapGestureHandler>
-                      {otherMembers.length > 1 && (
+                      {channel.type === 'team' && (
                         <TapGestureHandler
                           onHandlerStateChange={({ nativeEvent: { state } }) => {
                             if (state === State.END) {
@@ -380,7 +385,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                           </View>
                         </TapGestureHandler>
                       )}
-                      <TapGestureHandler
+                      {channel.type === "messaging" && <TapGestureHandler
                         onHandlerStateChange={({ nativeEvent: { state } }) => {
                           if (state === State.END) {
                             setData({
@@ -389,9 +394,9 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                                 channel.delete();
                                 setOverlay('none');
                               },
-                              subtext: `Are you sure you want to delete this ${otherMembers.length === 1 ? 'conversation' : 'group'
+                              subtext: `Are you sure you want to delete this ${channel.type === "messaging" ? 'conversation' : 'group'
                                 }?`,
-                              title: `Delete ${otherMembers.length === 1 ? 'Conversation' : 'Group'
+                              title: `Delete ${channel.type === "messaging" ? 'Conversation' : 'Group'
                                 }`,
                             });
                             setOverlay('confirmation');
@@ -413,7 +418,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                             Delete conversation
                           </Text>
                         </View>
-                      </TapGestureHandler>
+                      </TapGestureHandler>}
                       <TapGestureHandler
                         onHandlerStateChange={({ nativeEvent: { state } }) => {
                           if (state === State.END) {

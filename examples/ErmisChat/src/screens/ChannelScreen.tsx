@@ -248,9 +248,6 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   useFocusEffect(() => {
     setSelectedThread(undefined);
   });
-  useEffect(() => {
-    console.log('---------channel on ChannelScreen: ', channelId);
-  }, []);
   if (!channel || !chatClient) {
     return null;
   }
