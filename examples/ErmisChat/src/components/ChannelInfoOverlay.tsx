@@ -219,6 +219,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
   const maxWidth = channel
     ? Math.floor(width / 8 - Object.keys(channel.state.members || {}).length.toString().length)
     : 0;
+  // TODO:  KhoaKheu do: map members to users state
   const channelName = channel
     ? channel.data?.name ||
     Object.values(channel.state.members)
@@ -313,7 +314,7 @@ export const ChannelInfoOverlay = (props: ChannelInfoOverlayProps) => {
                             item ? (
                               <View style={styles.userItemContainer}>
                                 <Avatar
-                                  image={item.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg'}
+                                  image={item.avatar}
                                   name={item.name || item.id}
                                   online={item.online}
                                   presenceIndicatorContainerStyle={styles.avatarPresenceIndicator}

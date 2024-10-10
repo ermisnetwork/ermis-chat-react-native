@@ -5,6 +5,7 @@ import {
   ImageStyle,
   StyleProp,
   StyleSheet,
+  Text,
   TouchableOpacity,
   View,
   ViewStyle,
@@ -66,6 +67,7 @@ export type AvatarProps = {
   testID?: string;
   upload?: boolean;
   onPress?: () => void;
+  id?: string;
 };
 
 /**
@@ -84,7 +86,8 @@ export const Avatar = (props: AvatarProps) => {
     size,
     testID,
     upload = false,
-    onPress
+    onPress,
+    id
   } = props;
   const {
     theme: {
@@ -94,6 +97,14 @@ export const Avatar = (props: AvatarProps) => {
   } = useTheme();
 
   const { isLoadingImageError, setLoadingImageError } = useLoadingImage();
+
+  const initialFirstNameChar = name ? name?.charAt(0).toUpperCase() : id?.charAt(0).toUpperCase();
+
+  const getRandomColor = () => {
+    const colors = ['#FF5733', '#3357FF', '#FF33A1', '#FFC300', '#C70039', '#900C3F'];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
 
   return (
     <TouchableOpacity disabled={!upload} activeOpacity={0.8} onPress={onPress}>
@@ -112,12 +123,20 @@ export const Avatar = (props: AvatarProps) => {
         {isLoadingImageError ? (
           <View
             style={{
-              backgroundColor: '#ececec',
+              backgroundColor: getRandomColor(),
               borderRadius: size / 2,
               height: size,
               width: size,
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-          />
+          >
+            <Text style={{
+              color: '#ffffff',
+              fontSize: size / 2,
+              textAlign: 'center',
+            }}>{initialFirstNameChar}</Text>
+          </View>
         ) : (
           <ImageComponent
             accessibilityLabel={testID || 'Avatar Image'}

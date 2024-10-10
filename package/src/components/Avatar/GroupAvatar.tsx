@@ -116,7 +116,7 @@ export const GroupAvatar = (props: GroupAvatarProps) => {
       {isLoadingImageError ? (
         <View
           style={{
-            backgroundColor: '#ececec',
+            backgroundColor: '#e9e9',
             borderRadius: size / 2,
             height: size,
             width: size,

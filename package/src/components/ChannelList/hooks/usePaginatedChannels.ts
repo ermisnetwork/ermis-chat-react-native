@@ -125,7 +125,12 @@ export const usePaginatedChannels = <
 
             return c;
           });
-      // TODO: Update member info to members state
+      newChannels.sort((a, b) => {
+        if (a.state.last_message_at && b.state.last_message_at) {
+          return b.state.last_message_at.getTime() - a.state.last_message_at.getTime();
+        }
+        return 0;
+      });
 
       // TODO: Update members state!!!!
       // TODO: Sort list channels.

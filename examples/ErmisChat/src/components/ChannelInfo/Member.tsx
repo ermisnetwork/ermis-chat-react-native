@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import { ErmisChatGenerics } from "../../types";
-import type { Channel, UserResponse } from 'ermis-chat-sdk';
-import { Avatar } from "ermis-chat-react-native";
+import type { Channel, ChannelMemberResponse, UserResponse } from 'ermis-chat-sdk';
+import { Avatar, useChatContext } from "ermis-chat-react-native";
 
 const styles = StyleSheet.create({
     container: {
@@ -51,11 +51,22 @@ type MemberProps = {
 };
 
 export const Member: React.FC<MemberProps> = ({ channel }) => {
-    const allMembers = Object.values(channel.state.members);
-    const [members, setMembers] = useState(allMembers);
-    const allMembersLength = allMembers.length;
+    const { client } = useChatContext<ErmisChatGenerics>();
+    const channelMembers = Object.values(channel.state.members);
+
+    const [members, setMembers] = useState([] as ChannelMemberResponse<ErmisChatGenerics>[]);
+    const allMembersLength = channelMembers.length;
     useEffect(() => {
-        setMembers(allMembers);
+        const members = channelMembers.map((member) => {
+            if (member.user?.id) {
+                const user = client.state?.users[member.user?.id];
+                if (user) {
+                    member.user = user;
+                }
+            }
+            return member;
+        });
+        setMembers(members);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [allMembersLength]);
     const channelCreatorId =
@@ -72,7 +83,7 @@ export const Member: React.FC<MemberProps> = ({ channel }) => {
                             <Avatar
                                 channelId={channel.id}
                                 id={member.user?.id}
-                                image={member.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/10.jpg'}
+                                image={member.user?.avatar}
                                 name={member.user?.name}
                                 online={member.user?.online}
                                 size={40}

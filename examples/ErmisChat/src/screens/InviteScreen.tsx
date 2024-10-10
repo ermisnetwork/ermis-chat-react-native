@@ -42,6 +42,7 @@ const options = {
 // export type InviteScreenProps = {
 //     navigation: InviteScreenNavigationProp;
 // };
+// TODO: Khoakheu do: The Invited Channel will be separated from the Channel List.
 export const InviteScreen: React.FC = () => {
     const { chatClient } = useAppContext();
     const navigation = useNavigation();

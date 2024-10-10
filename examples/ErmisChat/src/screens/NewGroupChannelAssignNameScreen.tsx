@@ -108,12 +108,12 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
     });
     console.log("channel id: ", channel.id);
 
-    // reset();
-    // // TODO: Maybe there is a better way to do this.
-    // // navigation.pop(2);
-    // // navigation.replace('ChannelScreen', {
-    // //   channelId: channel.id,
-    // // });
+    reset();
+    // TODO: Maybe there is a better way to do this.
+    navigation.pop(2);
+    navigation.replace('ChannelScreen', {
+      channelId: channel.id,
+    });
   };
 
   return (

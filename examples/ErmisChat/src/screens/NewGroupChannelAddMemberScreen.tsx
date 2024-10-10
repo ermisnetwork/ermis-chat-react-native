@@ -97,7 +97,17 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
       if (contactResult) {
         const users = contactResult.contact_user_ids.map((userId) => {
           const user = chatClient?.state.users[userId];
-          return user;
+          if (user) {
+            return user;
+          }
+          // user info not available in user service. return a dummy user object
+          return {
+            id: userId,
+            name: userId,
+            avatar: undefined,
+            about_me: undefined,
+            project_id: chatClient?.projectId,
+          } as UserResponse<ErmisChatGenerics>;
         })
         setContacts(users as UserResponse<ErmisChatGenerics>[]);
       }

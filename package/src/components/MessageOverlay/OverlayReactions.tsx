@@ -129,7 +129,7 @@ export const OverlayReactions = (props: OverlayReactionsProps) => {
       (fetchedReactions.map((reaction) => ({
         alignment: 'left',
         id: reaction.user?.id,
-        image: reaction.user?.avatar || 'https://randomuser.me/api/portraits/thumb/women/11.jpg',
+        image: reaction.user?.avatar,
         name: reaction.user?.name,
         type: reaction.type,
       })) as Reaction[]),

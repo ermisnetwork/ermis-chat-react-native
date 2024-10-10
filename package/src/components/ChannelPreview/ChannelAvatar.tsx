@@ -39,6 +39,7 @@ export const ChannelAvatarWithContext = <
 
   return (
     <Avatar
+      id={displayAvatar.id}
       image={displayAvatar.image}
       ImageComponent={ImageComponent}
       name={displayAvatar.name}
