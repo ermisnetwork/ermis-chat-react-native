@@ -39,8 +39,13 @@ const MessageAvatarWithContext = <
   } = useTheme();
 
   const visible = typeof showAvatar === 'boolean' ? showAvatar : lastGroupMessage;
-
-  let avatar = message.user ? channel.state?.members[message.user?.id].user?.avatar : "";
+  let avatar = "";
+  if (message.user && message.user.id) {
+    const user = channel._client.state.users[message.user.id];
+    if (user && user.avatar) {
+      avatar = user.avatar;
+    }
+  }
 
   return (
     <View

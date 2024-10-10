@@ -31,7 +31,8 @@ import {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import {
   IconProps,
-  LOLReaction,
+  Laughing,
+  // LOLReaction,
   LoveReaction,
   ThumbsDownReaction,
   ThumbsUpReaction,
@@ -79,7 +80,7 @@ const reactionData: ReactionData[] = [
     type: 'sad',
   },
   {
-    Icon: LOLReaction,
+    Icon: Laughing,
     type: 'haha',
   },
   {

@@ -211,8 +211,7 @@ export const usePaginatedChannels = <
         });
 
         if (channelsFromDB) {
-          // TODO KhoaKheu: cần xử lý việc hạn chế queryBatchUsers -> chỉ gọi khi load app.
-          const offlineChannels = await client.hydrateChannels(channelsFromDB, {
+          const { channels: offlineChannels } = await client.hydrateChannels(channelsFromDB, {
             offlineMode: true,
             skipInitialization: [], // passing empty array will clear out the existing messages from channel state, this removes the possibility of duplicate messages
           });

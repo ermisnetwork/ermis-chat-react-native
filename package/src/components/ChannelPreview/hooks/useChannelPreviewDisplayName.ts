@@ -115,7 +115,7 @@ export const useChannelPreviewDisplayName = <
         members,
       }),
     );
-  }, [channelName, currentUserId, characterLimit, numOfMembers]);
+  }, [channelName, currentUserId, characterLimit, numOfMembers, client]);
 
   return displayName;
 };

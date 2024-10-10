@@ -17,34 +17,56 @@ const requestNotificationPermission = async () => {
 };
 
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-  const logMessage = `Received background message: ${JSON.stringify(remoteMessage)}`;
-  console.log('message from background: ', logMessage);
 
-  const messageId = remoteMessage.data?.id as string;
-  if (!messageId) {
-    return;
-  }
-  const config = await AsyncStore.getItem<LoginConfig | null>(
-    '@ermisChat-login-config',
-    null,
-  );
-  if (!config) {
-    return;
-  }
+  // const messageId = remoteMessage.data;
+  // if (!messageId) {
+  //   return;
+  // }
+  // const config = await AsyncStore.getItem<LoginConfig | null>(
+  //   '@ermisChat-login-config',
+  //   null,
+  // );
+  // if (!config) {
+  //   return;
+  // }
 
-  let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
+  // let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
 
-  let project_id = "b44937e4-c0d4-4a73-847c-3730a923ce83"
+  // let project_id = "b44937e4-c0d4-4a73-847c-3730a923ce83"
 
-  const client = ErmisChat.getInstance(api_key, project_id);
+  // const client = ErmisChat.getInstance(api_key, project_id);
 
-  const user = {
-    id: config.userId,
-    name: config.userName,
-  };
+  // const user = {
+  //   id: config.userId,
+  //   name: config.userName,
+  // };
 
-  await client._setToken(user, config.userToken);
-  const message = await client.getMessage(messageId);
+  // await client._setToken(user, config.userToken);
+
+  // let testObj = {
+  //   "cid": "team:b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
+  //   "created_at": "2024-10-10T09:37:37.404647602Z",
+  //   "type": "message.new",
+  //   "channel_id": "b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
+  //   "channel_type": "team",
+  //   "message": {
+  //     "id": "dd6bd0b6-beab-4aaa-ba83-1f8d08a2d012",
+  //     "text": "zxc",
+  //     "type": "regular",
+  //     "cid": "team:b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
+  //     "user": {
+  //       "id": "0x9ccc65054c60e22743063f4c3b26f7ea04863806"
+  //     },
+  //     "created_at": "2024-10-10T09:37:37.404642637Z"
+  //   },
+  //   "user": {
+  //     "id": "0x9ccc65054c60e22743063f4c3b26f7ea04863806"
+  //   },
+  //   "unread_count": 0,
+  //   "total_unread_count": 147,
+  //   "unread_channels": 27
+  // }
+
 
   // create the android channel to send the notification to
   const channelId = await notifee.createChannel({
@@ -52,24 +74,23 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
     name: 'Chat Messages',
   });
 
-  if (message.message.user?.name && message.message.text) {
-    const { stream, ...rest } = remoteMessage.data ?? {};
-    const data = {
-      ...rest,
-      ...((stream as unknown as Record<string, string> | undefined) ?? {}), // extract and merge stream object if present
-    };
-    await notifee.displayNotification({
-      android: {
-        channelId,
-        pressAction: {
-          id: 'default',
-        },
-      },
-      body: message.message.text,
-      data,
-      title: 'New message from ' + message.message.user.name,
-    });
-  }
+  // display the notification on foreground
+  const { stream, ...rest } = remoteMessage.data ?? {};
+  const data = {
+    ...rest,
+    ...((stream as unknown as Record<string, string> | undefined) ?? {}), // extract and merge stream object if present
+  };
+  await notifee.displayNotification({
+    android: {
+      channelId,
+      pressAction: {
+        id: 'default',
+      }
+    },
+    body: "test message from background",
+    data,
+    title: "test message",
+  });
 });
 
 export const useChatClient = () => {
@@ -127,6 +148,7 @@ export const useChatClient = () => {
     if (isEnabled) {
       // Register FCM token with ermis chat server.
       let token = await AsyncStore.getItem<string | null>('@fcm-token', null);
+      console.log('--------FCM token when enabled: ', token);
       if (!token) {
         try {
           const token = await messaging().getToken();
@@ -146,36 +168,28 @@ export const useChatClient = () => {
       // show notifications when on foreground
       const unsubscribeForegroundMessageReceive = messaging().onMessage(async (remoteMessage) => {
         console.log('Message handled in the foreground!', remoteMessage);
-        const messageId = remoteMessage.data?.id;
-        if (!messageId) {
-          return;
-        }
-        const message = await client.getMessage(messageId);
-
-        if (message.message.user?.name && message.message.text) {
-          // create the android channel to send the notification to
-          const channelId = await notifee.createChannel({
-            id: 'foreground',
-            name: 'Foreground Messages',
-          });
-          // display the notification on foreground
-          const { stream, ...rest } = remoteMessage.data ?? {};
-          const data = {
-            ...rest,
-            ...((stream as unknown as Record<string, string> | undefined) ?? {}), // extract and merge stream object if present
-          };
-          await notifee.displayNotification({
-            android: {
-              channelId,
-              pressAction: {
-                id: 'default',
-              }
-            },
-            body: message.message.text,
-            data,
-            title: 'New message from ' + message.message.user.name,
-          });
-        }
+        // create the android channel to send the notification to
+        const channelId = await notifee.createChannel({
+          id: 'foreground',
+          name: 'Foreground Messages',
+        });
+        // display the notification on foreground
+        const { stream, ...rest } = remoteMessage.data ?? {};
+        const data = {
+          ...rest,
+          ...((stream as unknown as Record<string, string> | undefined) ?? {}), // extract and merge stream object if present
+        };
+        await notifee.displayNotification({
+          android: {
+            channelId,
+            pressAction: {
+              id: 'default',
+            }
+          },
+          body: "test message",
+          data,
+          title: 'New message from ',
+        });
       });
 
       unsubscribePushListenersRef.current = () => {

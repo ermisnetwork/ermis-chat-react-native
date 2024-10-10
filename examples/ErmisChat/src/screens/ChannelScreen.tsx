@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk';
-import { RouteProp, useFocusEffect, useNavigation } from '@react-navigation/native';
+import { RouteProp, useFocusEffect, useNavigation, useNavigationState } from '@react-navigation/native';
 import {
   Channel,
   ChannelAvatar,
@@ -105,6 +105,9 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
   const { isOnline } = useChatContext();
   const { chatClient } = useAppContext();
   const navigation = useNavigation<ChannelScreenNavigationProp>();
+  const routes = useNavigationState((state) => state.routes);
+  console.log('routes', routes);
+
   const typing = useTypingString();
 
   if (!channel || !chatClient) {
@@ -248,20 +251,25 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   useFocusEffect(() => {
     setSelectedThread(undefined);
   });
-  if (!channel || !chatClient) {
-    return null;
-  }
   useEffect(() => {
-    console.log('membership: ', channel.state.membership);
+    if (!channel) {
+      return;
+    }
     if (channel.state.membership?.channel_role === 'pending') {
       setIsInvited(true);
     }
   }, []);
   useEffect(() => {
+    if (!channel) {
+      return;
+    }
     if (channel.state.membership?.channel_role !== 'pending') {
       setIsInvited(false);
     }
-  }, [channel.state.membership?.channel_role]);
+  }, [channel?.state.membership?.channel_role]);
+  if (!channel || !chatClient) {
+    return null;
+  }
 
 
 
