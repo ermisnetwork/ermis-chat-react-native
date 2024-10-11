@@ -1,17 +1,17 @@
 import React from 'react';
 
-import type { Reaction } from './OverlayReactions';
-
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { Avatar, AvatarProps } from '../Avatar/Avatar';
 
 export type OverlayReactionsAvatarProps = {
-  reaction: Reaction;
+  image: string;
+  name: string;
 } & Partial<Pick<AvatarProps, 'size'>>;
 
 export const OverlayReactionsAvatar = (props: OverlayReactionsAvatarProps) => {
   const {
-    reaction: { image, name },
+    image,
+    name,
     size,
   } = props;
 

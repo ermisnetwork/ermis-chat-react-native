@@ -68,8 +68,8 @@ import { TypingProvider } from '../../contexts/typingContext/TypingContext';
 import { useAppStateListener } from '../../hooks/useAppStateListener';
 
 import {
-  Laughing,
-  // LOLReaction,
+  // Laughing,
+  LOLReaction,
   LoveReaction,
   ThumbsDownReaction,
   ThumbsUpReaction,
@@ -181,7 +181,7 @@ export const reactionData: ReactionData[] = [
     type: 'sad',
   },
   {
-    Icon: Laughing,
+    Icon: LOLReaction,
     type: 'haha',
   },
   {

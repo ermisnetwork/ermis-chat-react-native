@@ -42,7 +42,7 @@ export const OverlayReactionsItem = <
   reaction,
   supportedReactions,
 }: OverlayReactionsItemProps<ErmisChatGenerics>) => {
-  const { id, name, type } = reaction;
+  const { id, type } = reaction;
   const {
     theme: {
       colors: { accent_blue, black, grey_gainsboro, white },
@@ -63,7 +63,6 @@ export const OverlayReactionsItem = <
   const alignment = client.userID && client.userID === id ? 'right' : 'left';
   const x = avatarSize / 2 - (avatarSize / (radius * 4)) * (alignment === 'left' ? 1 : -1);
   const y = avatarSize - radius;
-
   const left =
     alignment === 'left'
       ? x -
@@ -74,11 +73,17 @@ export const OverlayReactionsItem = <
     y -
     radius -
     (Number(reactionBubbleBackground.height || 0) || styles.reactionBubbleBackground.height);
+  let user = client.state?.users[id];
+  if (!user) {
+    user = { id, name: id };
+  }
+  const name = user.name || user.id;
+  const image = user.avatar || "";
 
   return (
     <View style={[styles.avatarContainer, avatarContainer]}>
       <View style={styles.avatarInnerContainer}>
-        <OverlayReactionsAvatar reaction={reaction} size={avatarSize} />
+        <OverlayReactionsAvatar name={name} image={image} size={avatarSize} />
         <View style={[StyleSheet.absoluteFill]}>
           <Svg>
             <Circle

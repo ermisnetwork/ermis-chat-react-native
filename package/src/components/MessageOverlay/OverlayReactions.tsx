@@ -13,8 +13,8 @@ import type { Alignment } from '../../contexts/messageContext/MessageContext';
 import type { MessageOverlayContextValue } from '../../contexts/messageOverlayContext/MessageOverlayContext';
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import {
-  Laughing,
-  // LOLReaction,
+  // Laughing,
+  LOLReaction,
   LoveReaction,
   ThumbsDownReaction,
   ThumbsUpReaction,
@@ -67,7 +67,7 @@ const reactionData: ReactionData[] = [
     type: 'sad',
   },
   {
-    Icon: Laughing,
+    Icon: LOLReaction,
     type: 'haha',
   },
   {

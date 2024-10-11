@@ -16,64 +16,35 @@ const requestNotificationPermission = async () => {
   console.log('Permission Status', { authStatus, isEnabled });
 };
 
+// let testObj = {
+//   "cid": "team:b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
+//   "created_at": "2024-10-10T09:37:37.404647602Z",
+//   "type": "message.new",
+//   "channel_id": "b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
+//   "channel_type": "team",
+//   "message": {
+//     "id": "dd6bd0b6-beab-4aaa-ba83-1f8d08a2d012",
+//     "text": "zxc",
+//     "type": "regular",
+//     "cid": "team:b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
+//     "user": {
+//       "id": "0x9ccc65054c60e22743063f4c3b26f7ea04863806"
+//     },
+//     "created_at": "2024-10-10T09:37:37.404642637Z"
+//   },
+//   "user": {
+//     "id": "0x9ccc65054c60e22743063f4c3b26f7ea04863806"
+//   },
+//   "unread_count": 0,
+//   "total_unread_count": 147,
+//   "unread_channels": 27
+// }
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
-  // const messageId = remoteMessage.data;
-  // if (!messageId) {
-  //   return;
-  // }
-  // const config = await AsyncStore.getItem<LoginConfig | null>(
-  //   '@ermisChat-login-config',
-  //   null,
-  // );
-  // if (!config) {
-  //   return;
-  // }
-
-  // let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
-
-  // let project_id = "b44937e4-c0d4-4a73-847c-3730a923ce83"
-
-  // const client = ErmisChat.getInstance(api_key, project_id);
-
-  // const user = {
-  //   id: config.userId,
-  //   name: config.userName,
-  // };
-
-  // await client._setToken(user, config.userToken);
-
-  // let testObj = {
-  //   "cid": "team:b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
-  //   "created_at": "2024-10-10T09:37:37.404647602Z",
-  //   "type": "message.new",
-  //   "channel_id": "b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
-  //   "channel_type": "team",
-  //   "message": {
-  //     "id": "dd6bd0b6-beab-4aaa-ba83-1f8d08a2d012",
-  //     "text": "zxc",
-  //     "type": "regular",
-  //     "cid": "team:b44937e4-c0d4-4a73-847c-3730a923ce83:11767b8a-f90a-42e8-8d8b-05eb5ac02083",
-  //     "user": {
-  //       "id": "0x9ccc65054c60e22743063f4c3b26f7ea04863806"
-  //     },
-  //     "created_at": "2024-10-10T09:37:37.404642637Z"
-  //   },
-  //   "user": {
-  //     "id": "0x9ccc65054c60e22743063f4c3b26f7ea04863806"
-  //   },
-  //   "unread_count": 0,
-  //   "total_unread_count": 147,
-  //   "unread_channels": 27
-  // }
-
-
-  // create the android channel to send the notification to
   const channelId = await notifee.createChannel({
-    id: 'chat-messages',
-    name: 'Chat Messages',
+    id: 'background',
+    name: 'Background Messages',
   });
-
   // display the notification on foreground
   const { stream, ...rest } = remoteMessage.data ?? {};
   const data = {
@@ -87,9 +58,9 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
         id: 'default',
       }
     },
-    body: "test message from background",
+    body: "ditmekhoakheuhahaha",
     data,
-    title: "test message",
+    title: 'New message from background',
   });
 });
 
@@ -186,9 +157,9 @@ export const useChatClient = () => {
               id: 'default',
             }
           },
-          body: "test message",
+          body: "ditmekhoakheu",
           data,
-          title: 'New message from ',
+          title: 'New message from foreground',
         });
       });
 
