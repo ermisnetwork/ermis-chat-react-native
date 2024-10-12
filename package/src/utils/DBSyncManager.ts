@@ -1,6 +1,6 @@
-import type { AxiosError } from 'axios';
+// import type { AxiosError } from 'axios';
 import dayjs from 'dayjs';
-import type { APIErrorResponse, ErmisChat } from 'ermis-chat-sdk';
+import type { APIErrorResponse, ErmisChat, ExtendAxiosError } from 'ermis-chat-sdk';
 
 import { handleEventToSyncDB } from '../components/Chat/hooks/handleEventToSyncDB';
 import { getAllChannelIds, getLastSyncedAt, upsertUserSyncStatus } from '../store/apis';
@@ -159,7 +159,7 @@ export class DBSyncManager {
     try {
       response = await this.executeTask<ErmisChatGenerics>({ client, task });
     } catch (e) {
-      if ((e as AxiosError<APIErrorResponse>)?.response?.data?.code === 4) {
+      if ((e as ExtendAxiosError<APIErrorResponse>)?.response?.data?.code === 4) {
         // Error code 16 - message already exists
         // ignore
       } else {
@@ -213,7 +213,7 @@ export class DBSyncManager {
           task,
         });
       } catch (e) {
-        if ((e as AxiosError<APIErrorResponse>)?.response?.data?.code === 4) {
+        if ((e as ExtendAxiosError<APIErrorResponse>)?.response?.data?.code === 4) {
           // Error code 16 - message already exists
           // ignore
         } else {

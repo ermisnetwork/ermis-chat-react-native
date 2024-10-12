@@ -1,5 +1,6 @@
 .PHONY: netlify
 .PHONY: example-build example-deps
+.PHONY: link-ermis-chat-sdk
 
 EXAMPLES_PATH = ../examples
 NATIVE_EXAMPLES = ErmisChat
@@ -28,7 +29,7 @@ $(WRAPPER_PACKAGES_DEPS): %/node_modules/installed_dependencies: %/yarn.lock %/p
 	cd $* && yarn install
 	touch $@
 
-node_modules/installed_dependencies: yarn.lock package.json
+node_modules/installed_dependencies: yarn.lock package.json link-ermis-chat-sdk
 	yarn install
 	touch $@
 
@@ -41,3 +42,7 @@ clean:
 	rm -rf $(addsuffix /node_modules,$(WRAPPER_PACKAGES)) || true
 	rm -rf dist || true
 	rm -rf node_modules || true
+
+link-ermis-chat-sdk:
+	yarn link ermis-chat-sdk
+	touch $@
