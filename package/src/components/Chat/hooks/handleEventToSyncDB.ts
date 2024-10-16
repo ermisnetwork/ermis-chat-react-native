@@ -98,6 +98,8 @@ export const handleEventToSyncDB = <
 
   if (type === 'message.new') {
     const message = event.message;
+
+    // TODO: Khoakheu: handle when user is added to a channel but channel is not in db
     if (message && (!message.parent_id || message.show_in_channel)) {
       return queriesWithChannelGuard((flushOverride) =>
         upsertMessages({

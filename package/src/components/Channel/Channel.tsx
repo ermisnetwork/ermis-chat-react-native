@@ -729,6 +729,8 @@ const ChannelWithContext = <
         } else {
           logChatPromiseExecution(channel.markRead(), 'mark read');
         }
+        console.log('------------------------------mark read');
+
       },
       defaultThrottleInterval,
       throttleOptions,

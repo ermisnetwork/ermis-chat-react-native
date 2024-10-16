@@ -58,7 +58,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
         id: 'default',
       }
     },
-    body: "ditmekhoakheuhahaha",
+    body: "test background",
     data,
     title: 'New message from background',
   });
@@ -157,7 +157,7 @@ export const useChatClient = () => {
               id: 'default',
             }
           },
-          body: "ditmekhoakheu",
+          body: "test foreground",
           data,
           title: 'New message from foreground',
         });

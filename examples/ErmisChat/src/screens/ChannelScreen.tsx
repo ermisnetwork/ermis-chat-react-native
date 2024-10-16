@@ -105,6 +105,8 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
   const { isOnline } = useChatContext();
   const { chatClient } = useAppContext();
   const navigation = useNavigation<ChannelScreenNavigationProp>();
+
+  // TODO: Khoakheu: Handle navigation go back.
   const routes = useNavigationState((state) => state.routes);
   console.log('routes', routes);
 

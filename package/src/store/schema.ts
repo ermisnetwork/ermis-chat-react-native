@@ -303,6 +303,7 @@ export type Schema = {
     online?: boolean;
     role?: string;
     updatedAt?: string;
+    avatar?: string;
   };
   userSyncStatus: {
     appSettings: string;
