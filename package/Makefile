@@ -29,7 +29,7 @@ $(WRAPPER_PACKAGES_DEPS): %/node_modules/installed_dependencies: %/yarn.lock %/p
 	cd $* && yarn install
 	touch $@
 
-node_modules/installed_dependencies: yarn.lock package.json link-ermis-chat-sdk
+node_modules/installed_dependencies: yarn.lock package.json
 	yarn install
 	touch $@
 

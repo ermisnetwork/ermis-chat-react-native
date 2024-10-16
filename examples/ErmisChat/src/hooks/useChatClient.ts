@@ -86,6 +86,7 @@ export const useChatClient = () => {
       baseURL: Config.REACT_APP_API_URL || 'https://api.ermis.network',
     });
     console.log('api url: ', Config.REACT_APP_API_URL, "   api key: ", Config.REACT_APP_API_KEY)
+
     setChatClient(client);
     const user = {
       id: config.userId,
@@ -119,7 +120,6 @@ export const useChatClient = () => {
     if (isEnabled) {
       // Register FCM token with ermis chat server.
       let token = await AsyncStore.getItem<string | null>('@fcm-token', null);
-      console.log('--------FCM token when enabled: ', token);
       if (!token) {
         try {
           const token = await messaging().getToken();
