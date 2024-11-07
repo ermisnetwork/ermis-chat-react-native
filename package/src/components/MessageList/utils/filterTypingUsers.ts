@@ -23,10 +23,12 @@ export const filterTypingUsers = <
   const typingKeys = Object.keys(typing);
 
   typingKeys.forEach((typingKey) => {
+
     if (!typing[typingKey]) return;
+    const typingKeyUserId = typing[typingKey].user?.id || typingKey;
 
     /** removes own typing events */
-    if (client.user?.id === typing[typingKey].user?.id) {
+    if (client.user?.id === typingKeyUserId) {
       return;
     }
 
@@ -38,9 +40,11 @@ export const filterTypingUsers = <
       return;
     }
 
-    const user = typing[typingKey].user?.name || typing[typingKey].user?.id;
-    if (user) {
-      nonSelfUsers.push(user);
+    //! Khoakheu: Done!!. Dont need update user info on typing event. just compare typing user id with user id on client state.
+    const userName = client?.state?.users[typingKeyUserId]?.name || typing[typingKey].user?.name || typing[typingKey].user?.id;
+    // const user = typing[typingKey].user?.name || typing[typingKey].user?.id;
+    if (userName) {
+      nonSelfUsers.push(userName);
     }
   });
 

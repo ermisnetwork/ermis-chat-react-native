@@ -119,7 +119,6 @@ export const LoginScreen: React.FC<Props> = () => {
       if (address && connector) {
         setIsLoading(true);
 
-        console.log('--------------------address: ', address.toLowerCase());
         let api_key = Config.REACT_APP_API_KEY || "VskVZNX0ouKF1751699014812";
         const ermisAuth = ErmisAuth.getInstance(api_key, address.toLowerCase(), {
           timeout: 6000,
@@ -138,8 +137,6 @@ export const LoginScreen: React.FC<Props> = () => {
           let getTokenReponse = await ermisAuth.getAuth(signature);
 
           let { token, refresh_token } = getTokenReponse;
-          console.log('--------------------token: ', token);
-          console.log('--------------------refresh_token: ', refresh_token);
 
           let config: LoginConfig = {
             userId: address.toLowerCase(),

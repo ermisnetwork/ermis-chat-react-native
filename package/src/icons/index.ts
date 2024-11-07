@@ -1,3 +1,4 @@
+
 export * from './utils/base';
 
 export * from './ArrowRight';
@@ -92,3 +93,6 @@ export * from './XLS';
 export * from './XLSX';
 export * from './ZIP';
 export * from './Laughing'
+export * from './New'
+export * from './Mail'
+export * from './Right'

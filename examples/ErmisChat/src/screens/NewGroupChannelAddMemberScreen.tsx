@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { ArrowRight, Search, useTheme } from 'ermis-chat-react-native';
 
 import { ScreenHeader } from '../components/ScreenHeader';
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   navigationButton: {
     paddingRight: 8,
   },
-  userGridItemContainer: { marginHorizontal: 8, width: 64 },
+  userGridItemContainer: { marginHorizontal: 8, width: 64, marginTop: 8 },
 });
 
 type RightArrowButtonProps = {
@@ -53,12 +53,13 @@ const RightArrowButton: React.FC<RightArrowButtonProps> = (props) => {
   const {
     theme: {
       colors: { accent_blue },
+      ermisColors
     },
   } = useTheme();
-
+  const colorScheme = useColorScheme();
   return (
     <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.navigationButton}>
-      <ArrowRight pathFill={disabled ? 'transparent' : accent_blue} />
+      <ArrowRight pathFill={disabled ? 'transparent' : ermisColors[colorScheme].Primary.primary} />
     </TouchableOpacity>
   );
 };
@@ -90,30 +91,6 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
     }
     navigation.navigate('NewGroupChannelAssignNameScreen');
   };
-  const [contacts, setContacts] = useState<UserResponse<ErmisChatGenerics>[]>([]);
-  useEffect(() => {
-    const fetchContacts = async () => {
-      const contactResult = await chatClient?.queryContacts();
-      if (contactResult) {
-        const users = contactResult.contact_user_ids.map((userId) => {
-          const user = chatClient?.state.users[userId];
-          if (user) {
-            return user;
-          }
-          // user info not available in user service. return a dummy user object
-          return {
-            id: userId,
-            name: userId,
-            avatar: undefined,
-            about_me: undefined,
-            project_id: chatClient?.projectId,
-          } as UserResponse<ErmisChatGenerics>;
-        })
-        setContacts(users as UserResponse<ErmisChatGenerics>[]);
-      }
-    };
-    fetchContacts();
-  }, []);
 
   if (!chatClient) {
     return null;
@@ -127,7 +104,7 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
         RightContent={() => (
           <RightArrowButton disabled={selectedUsers.length === 0} onPress={onRightArrowPress} />
         )}
-        titleText='Add Group Members'
+        titleText='Add Members To Channel'
       />
       <View>
         {/* <View
@@ -172,7 +149,7 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
           style={selectedUsers.length ? styles.flatList : {}}
         />
       </View>
-      <UserSearchResults results={contacts} />
+      <UserSearchResults results={[]} />
     </View>
   );
 };

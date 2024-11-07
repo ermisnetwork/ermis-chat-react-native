@@ -3,7 +3,7 @@ import type React from 'react';
 import EmojiRegex from 'emoji-regex';
 import type { DebouncedFunc } from 'lodash';
 import debounce from 'lodash/debounce';
-import type {
+import {
   Channel,
   ChannelMemberAPIResponse,
   ChannelMemberResponse,
@@ -11,6 +11,7 @@ import type {
   FormatMessageResponse,
   ErmisChat,
   UserResponse,
+  generateChannelId
 } from 'ermis-chat-sdk';
 
 import { IconProps } from '../../src/icons/utils/base';
@@ -627,3 +628,7 @@ export const getFileNameFromPath = (path: string) => {
   const match = path.match(pattern);
   return match ? match[0] : '';
 };
+
+export const genenrateChannelId = (projectId: string) => {
+  return generateChannelId(projectId);
+}

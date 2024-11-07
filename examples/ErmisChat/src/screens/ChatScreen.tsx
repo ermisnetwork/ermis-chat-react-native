@@ -3,8 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { ChannelListScreen } from './ChannelListScreen';
 import { MentionsScreen } from './MentionsScreen';
-import { InviteScreen } from './InviteScreen';
 import { BottomTabs } from '../components/BottomTabs';
+import { ContactsScreen } from './ContactsScreen';
 
 import type { RouteProp } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
@@ -25,6 +25,6 @@ export const ChatScreen: React.FC<Props> = () => (
   // eslint-disable-next-line react/no-unstable-nested-components
   <Tab.Navigator tabBar={(props) => <BottomTabs {...props} />}>
     <Tab.Screen component={ChannelListScreen} name='ChatScreen' options={{ headerShown: false }} />
-    <Tab.Screen component={InviteScreen} name='InviteScreen' options={{ headerShown: false }} />
+    <Tab.Screen component={ContactsScreen} name='ContactsScreen' options={{ headerShown: false }} />
   </Tab.Navigator>
 );

@@ -7,7 +7,7 @@ import { UnreadCountBadge } from './UnreadCountBadge';
 
 import { ChatsTab } from '../icons/ChatsTab';
 import { MentionsTab } from '../icons/MentionsTab';
-
+import { ContactsScreen } from '../screens/ContactsScreen';
 import type { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { ContactsTab } from '../icons/ContactsTab';
 
@@ -58,11 +58,11 @@ export const BottomTabs: React.FC<BottomTabBarProps> = (props) => {
           iconActive: <MentionsTab active />,
           title: 'Mentions',
         };
-      case 'InviteScreen':
+      case 'ContactsScreen':
         return {
           icon: <ContactsTab />,
           iconActive: <ContactsTab active />,
-          title: 'Invites',
+          title: 'Contacts',
         };
       default:
         return null;

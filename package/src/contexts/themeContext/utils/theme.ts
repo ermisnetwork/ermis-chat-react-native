@@ -2,7 +2,7 @@ import type { ColorValue, ImageStyle, TextStyle, ViewStyle } from 'react-native'
 import type { CircleProps, StopProps } from 'react-native-svg';
 
 import type { IconProps } from '../../../icons/utils/base';
-
+import { System } from './colors';
 export const DEFAULT_STATUS_ICON_SIZE = 16;
 
 export const Colors = {
@@ -32,7 +32,6 @@ export const Colors = {
   white_smoke: '#F2F2F2',
   white_snow: '#FCFCFC',
 };
-
 export type MarkdownStyle = Partial<{
   autolink: TextStyle;
   blockQuoteBar: ViewStyle;
@@ -159,6 +158,7 @@ export type Theme = {
     unreadText: TextStyle;
   };
   colors: typeof Colors & { [key: string]: string };
+  ermisColors: typeof System;
   dateHeader: {
     container: ViewStyle;
     text: TextStyle;
@@ -734,6 +734,7 @@ export const defaultTheme: Theme = {
   colors: {
     ...Colors,
   },
+  ermisColors: System,
   dateHeader: {
     container: {},
     text: {},

@@ -77,7 +77,8 @@ export type StackNavigatorParamList = {
   };
   ChannelUpdatingScreen: {
     channel: Channel<ErmisChatGenerics>;
-  }
+  };
+  ContactsScreen: undefined;
 };
 
 export type UserSelectorParamList = {
@@ -87,7 +88,7 @@ export type UserSelectorParamList = {
 
 export type BottomTabNavigatorParamList = {
   ChatScreen: undefined;
-  InviteScreen: undefined;
+  ContactsScreen: undefined;
 };
 
 export type AppTheme = Theme & {

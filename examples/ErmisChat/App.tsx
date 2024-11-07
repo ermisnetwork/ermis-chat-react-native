@@ -66,6 +66,7 @@ import { PlatformScreen } from './src/screens/PlatformScreen';
 import { SdkScreen } from './src/screens/SdkScreen';
 import AsyncStore from './src/utils/AsyncStore';
 import { ChannelUpdatingScreen } from './src/screens/ChannelUpdatingScreen';
+import { ContactsScreen } from './src/screens/ContactsScreen';
 
 LogBox.ignoreLogs(['Non-serializable values were found in the navigation state']);
 console.assert = () => null;
@@ -176,7 +177,7 @@ const App = () => {
           }}
         >
           <WagmiConfig config={wagmiConfig} >
-            <AppContext.Provider value={{ chatClient, walletConnect, loginUser, logout, switchUser, unreadCount }}>
+            <AppContext.Provider value={{ chatClient, loginUser, logout, switchUser, unreadCount }}>
               {isConnecting && !chatClient ? (
                 <LoadingScreen />
               ) : chatClient ? (
@@ -245,7 +246,7 @@ const DrawerNavigatorWrapper: React.FC<{
         <OverlayProvider<ErmisChatGenerics> bottomInset={bottom} value={{ style: ErmisChatTheme }}>
           <Chat<ErmisChatGenerics>
             client={chatClient}
-            enableOfflineSupport
+            // enableOfflineSupport
             // @ts-expect-error
             ImageComponent={FastImage}
           >
@@ -360,6 +361,11 @@ const HomeScreen = () => {
       <Stack.Screen
         component={ChannelUpdatingScreen}
         name='ChannelUpdatingScreen'
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={ContactsScreen}
+        name='ContactsScreen'
         options={{ headerShown: false }}
       />
       {/* <Stack.Screen

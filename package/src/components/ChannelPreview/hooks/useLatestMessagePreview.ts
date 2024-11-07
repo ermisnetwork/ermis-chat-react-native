@@ -164,6 +164,57 @@ const getLatestMessageReadStatus = <
     ? MessageReadStatus.READ
     : MessageReadStatus.UNREAD;
 };
+// const getTypingMessagePreview = <
+//   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
+// >(
+//   channel: Channel<ErmisChatGenerics>,
+//   client: ErmisChat<ErmisChatGenerics>,
+//   t: TFunction
+// ) => {
+//   const typing = channel.state?.typing;
+//   const nonSelfUsers: string[] = [];
+
+//   if (!client || !client.user || !typing) return [];
+
+//   const typingKeys = Object.keys(typing);
+//   console.log("-----------------typingKeys", typingKeys);
+
+//   typingKeys.forEach((typingKey) => {
+
+//     if (!typing[typingKey]) return;
+//     const typingKeyUserId = typing[typingKey].user?.id || typingKey;
+
+//     /** removes own typing events */
+//     if (client.user?.id === typingKeyUserId) {
+//       return;
+//     }
+
+//     const userName = client?.state?.users[typingKeyUserId]?.name || typing[typingKey].user?.name || typing[typingKey].user?.id;
+
+//     if (userName) {
+//       nonSelfUsers.push(userName);
+//     }
+//   });
+
+//   if (nonSelfUsers.length === 1) {
+//     return [{ bold: false, text: t('{{ user }} is typing', { user: nonSelfUsers[0] }) }];
+//   }
+
+//   if (nonSelfUsers.length > 1) {
+//     /**
+//      * Joins the multiple names with number after first name
+//      * example: "Dan and Neil"
+//      */
+//     return [{
+//       bold: false, text: t('{{ firstUser }} and {{ nonSelfUserLength }} more are typing', {
+//         firstUser: nonSelfUsers[0],
+//         nonSelfUserLength: nonSelfUsers.length - 1,
+//       })
+//     }];
+//   }
+
+//   return [];
+// }
 
 const getLatestMessagePreview = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
@@ -197,6 +248,7 @@ const getLatestMessagePreview = <
   const channelStateLastMessage = messages.length ? messages[messages.length - 1] : undefined;
 
   const message = lastMessage !== undefined ? lastMessage : channelStateLastMessage;
+  // TODO: KhoaKheu: handle typing message from event
 
   return {
     created_at: message?.created_at,

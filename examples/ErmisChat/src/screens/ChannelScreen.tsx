@@ -108,7 +108,7 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
 
   // TODO: Khoakheu: Handle navigation go back.
   const routes = useNavigationState((state) => state.routes);
-  console.log('routes', routes);
+  // console.log('routes', routes);
 
   const typing = useTypingString();
 
@@ -240,12 +240,13 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
       }
       // TODO: KhoaKheu Init (2) team channel one more time after creating a new channel.
       const newChannel = chatClient?.channel(channelType, channelId);
+
       if (!newChannel?.initialized) {
         await newChannel?.watch();
 
       }
       setChannel(newChannel);
-    };
+    }; 6
 
     initChannel();
   }, [channelId, chatClient]);
@@ -257,6 +258,18 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
     if (!channel) {
       return;
     }
+    const initChannel = async () => {
+      const options = {
+        data: {
+          name: channel._data.name
+        }
+      }
+
+      // await channel.watch();
+      // TODO: Khoakheu: trước đây khi tạo channel sẽ truyền channelID thay vì channel. Nhưng bây giờ sửa lại luồng,
+      // channelId sẽ được tạo khi gọi chatClient.channel(). Nên cần xử lý ở sdk xem cần thêm trường hợp cho hàm này không. Phân tích lại luồng của sdk này.
+    };
+    initChannel();
     if (channel.state.membership?.channel_role === 'pending') {
       setIsInvited(true);
     }

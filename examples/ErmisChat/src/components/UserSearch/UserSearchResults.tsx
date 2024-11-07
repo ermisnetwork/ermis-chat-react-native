@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  FlatList,
   SectionList,
   StyleSheet,
   Text,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from 'react-native';
 import dayjs from 'dayjs';
 import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
-import { Avatar, CheckSend, Close, useTheme, useViewport } from 'ermis-chat-react-native';
-
+import { Avatar, CheckSend, Close, useTheme, useViewport, Right } from 'ermis-chat-react-native';
 import { useUserSearchContext } from '../../context/UserSearchContext';
 
 import type { UserResponse } from 'ermis-chat-sdk';
@@ -81,9 +82,11 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
     loading,
     loadMore,
     results: resultsContext,
+    contacts,
     searchText,
     selectedUserIds,
     toggleUser,
+    fetchContacts
   } = useUserSearchContext();
   const [sections, setSections] = useState<
     Array<{
@@ -91,6 +94,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
       title: string;
     }>
   >([]);
+  const [visibleItemCount, setVisibleItemCount] = useState(2);
   const {
     theme: {
       colors: {
@@ -104,13 +108,18 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
         white_smoke,
         white_snow,
       },
+      ermisColors
     },
   } = useTheme();
+  const colorScheme = useColorScheme();
   const { vw } = useViewport();
 
-
+  const handleViewMore = () => {
+    setVisibleItemCount(prevCount => prevCount + 2);
+  };
   const results = resultsProp || resultsContext;
-  const resultsLength = results.length;
+  const contactsLength = contacts.length;
+
   useEffect(() => {
     const newSections: {
       [key: string]: {
@@ -119,8 +128,9 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
       };
     } = {};
 
-    results.forEach((user) => {
-      const initial = user.name?.slice(0, 1).toUpperCase();
+    contacts.forEach((user) => {
+
+      const initial = user.name ? user.name?.slice(0, 1).toUpperCase() : user.id.slice(0, 1).toUpperCase();
 
       if (!initial) {
         return;
@@ -135,58 +145,48 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
         newSections[initial].data.push(user);
       }
     });
-    setSections(Object.values(newSections));
+
+    setSections(Object.values(newSections).sort((a, b) => a.title.localeCompare(b.title)));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [resultsLength]);
+  }, [contactsLength]);
+  useEffect(() => {
+
+    if (contacts.length === 0) {
+      fetchContacts();
+    }
+  }, []);
 
   return (
     <View style={[styles.flex, { backgroundColor: white_snow }]}>
-      {groupedAlphabetically && sections.length > 0 && (
-        <View style={styles.gradient}>
-          <Svg height={24} style={styles.absolute} width={vw(100)}>
-            <Rect fill='url(#gradient)' height={24} width={vw(100)} x={0} y={0} />
-            <Defs>
-              <LinearGradient
-                gradientUnits='userSpaceOnUse'
-                id='gradient'
-                x1={0}
-                x2={0}
-                y1={0}
-                y2={24}
-              >
-                <Stop offset={1} stopColor={bg_gradient_start} stopOpacity={1} />
-                <Stop offset={0} stopColor={bg_gradient_end} stopOpacity={1} />
-              </LinearGradient>
-            </Defs>
-          </Svg>
-          <Text
-            style={[
-              styles.matches,
-              {
-                color: grey,
-              },
-            ]}
-          >
-            {searchText ? `Matches for "${searchText}"` : 'On the platform'}
-          </Text>
-        </View>
-      )}
-      {loading && (!results || results.length === 0) && searchText === '' ? (
+      {searchText && <Text
+        style={[
+          styles.matches,
+          {
+            color: grey,
+            paddingHorizontal: 8,
+          },
+        ]}
+      >
+        Suggested
+      </Text>}
+      {loading && searchText === '' ? (
         <ActivityIndicator size='small' />
-      ) : (
-        <SectionList
+      ) : (!results || results.length == 0) ? <></> : (
+        <FlatList
           keyboardDismissMode='interactive'
           keyboardShouldPersistTaps='handled'
           // eslint-disable-next-line react/no-unstable-nested-components
-          ListEmptyComponent={() => (
-            <View style={styles.emptyResultIndicator}>
-              <Search fill={grey_gainsboro} scale={5} />
-              <Text style={[{ color: grey }, styles.emptyResultIndicatorText]}>
-                {loading ? 'Loading...' : 'No user matches these keywords...'}
-              </Text>
-            </View>
-          )}
-          onEndReached={loadMore}
+          // ListEmptyComponent={() => (
+          //   <View style={styles.emptyResultIndicator}>
+          //     <Search fill={grey_gainsboro} scale={5} />
+          //     <Text style={[{ color: grey }, styles.emptyResultIndicatorText]}>
+          //       {loading ? 'Loading...' : 'No user matches these keywords...'}
+          //     </Text>
+          //   </View>
+          // )}
+          // onEndReached={loadMore}
+          data={results}
+          style={{ flex: 1 }}
           renderItem={({ item }) => (
             <TouchableOpacity
               key={item.id}
@@ -205,7 +205,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
                 },
               ]}
             >
-              <Avatar image={item.avatar} name={item.name} size={40} />
+              <Avatar image={item.avatar} name={item.name} size={40} id={item.id} />
               <View style={styles.searchResultUserDetails}>
                 <Text
                   style={[
@@ -230,7 +230,7 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
                   </Text>
                 )}
               </View>
-              {selectedUserIds.indexOf(item.id) > -1 && (
+              {selectedUserIds.indexOf(item.id) > -1 ? (
                 <>
                   {removeOnPressOnly ? (
                     <Close pathFill={black} />
@@ -238,7 +238,89 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
                     <CheckSend pathFill={accent_blue} />
                   )}
                 </>
-              )}
+              ) : <Right />}
+            </TouchableOpacity>
+          )}
+        />
+      )}
+      {contacts.length > 0 && <>
+        {results.length > 0 && <Text
+          style={[
+            styles.matches,
+            {
+              color: grey,
+              paddingHorizontal: 8,
+            },
+          ]}
+        >
+          Contacts
+        </Text>}
+        <SectionList
+          keyboardDismissMode='interactive'
+          keyboardShouldPersistTaps='handled'
+          // eslint-disable-next-line react/no-unstable-nested-components
+          ListEmptyComponent={() => (
+            <View style={styles.emptyResultIndicator}>
+              <Search fill={grey_gainsboro} scale={5} />
+              <Text style={[{ color: grey }, styles.emptyResultIndicatorText]}>
+                {loading ? 'Loading...' : 'No user matches these keywords...'}
+              </Text>
+            </View>
+          )}
+          // style={{ flex: 1 }}
+          onEndReached={loadMore}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              key={item.id}
+              onPress={() => {
+                if (toggleSelectedUser) {
+                  toggleSelectedUser(item);
+                } else {
+                  toggleUser(item);
+                }
+              }}
+              style={[
+                styles.searchResultContainer,
+                {
+                  backgroundColor: white_snow,
+                  borderBottomColor: border,
+                },
+              ]}
+            >
+              <Avatar image={item.avatar} name={item.name} size={40} id={item.id} />
+              <View style={styles.searchResultUserDetails}>
+                <Text
+                  style={[
+                    styles.searchResultUserName,
+                    {
+                      color: black,
+                    },
+                  ]}
+                >
+                  {item.name || item.id}
+                </Text>
+                {showOnlineStatus && (
+                  <Text
+                    style={[
+                      styles.searchResultUserLastOnline,
+                      {
+                        color: grey,
+                      },
+                    ]}
+                  >
+                    Last online {dayjs(item.last_active).calendar()}
+                  </Text>
+                )}
+              </View>
+              {selectedUserIds.indexOf(item.id) > -1 ? (
+                <>
+                  {removeOnPressOnly ? (
+                    <Close pathFill={black} />
+                  ) : (
+                    <CheckSend pathFill={ermisColors[colorScheme].Primary.primary} />
+                  )}
+                </>
+              ) : <Right />}
             </TouchableOpacity>
           )}
           renderSectionHeader={({ section: { title } }) => {
@@ -264,7 +346,8 @@ export const UserSearchResults: React.FC<UserSearchResultsProps> = ({
           sections={sections}
           stickySectionHeadersEnabled
         />
-      )}
+      </>
+      }
     </View>
   );
 };

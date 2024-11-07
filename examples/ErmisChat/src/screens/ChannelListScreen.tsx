@@ -12,6 +12,7 @@ import { usePaginatedSearchedMessages } from '../hooks/usePaginatedSearchedMessa
 import type { ChannelSort } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../types';
+import InvitedChannelPreview from '../components/InvitedChannelPreview';
 
 const styles = StyleSheet.create({
   channelListContainer: {
@@ -171,6 +172,8 @@ export const ChannelListScreen: React.FC = () => {
             showResultCount
           />
         )}
+        {/* <InvitedChannelPreview chatClient={chatClient} navigation={navigation} /> */}
+
         <View style={{ flex: searchQuery ? 0 : 1 }}>
           <View style={[styles.channelListContainer, { opacity: searchQuery ? 0 : 1 }]}>
             <ChannelList<ErmisChatGenerics>

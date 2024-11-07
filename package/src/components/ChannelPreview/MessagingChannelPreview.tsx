@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { ChannelAvatar } from './ChannelAvatar';
@@ -7,7 +7,6 @@ import type { ChannelPreviewProps } from './ChannelPreview';
 import { ChannelPreviewTitle } from './ChannelPreviewTitle';
 import { useChannelPreviewDisplayName } from './hooks/useChannelPreviewDisplayName';
 
-import type { LatestMessagePreview } from './hooks/useLatestMessagePreview';
 
 import {
   ChannelsContextValue,
@@ -16,7 +15,7 @@ import {
 import { useTheme } from '../../contexts/themeContext/ThemeContext';
 import { useViewport } from '../../hooks/useViewport';
 import type { DefaultErmisChatGenerics } from '../../types/types';
-import { LoadingDots } from '../Indicators/LoadingDots';
+import { ArrowRight } from '../../icons';
 
 const styles = StyleSheet.create({
   container: {
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
   loading: { position: 'absolute' }
 });
 
-export type ChannelPreviewInvitePropsWithContext<
+export type MessagingChannelPreviewPropsWithContext<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<ChannelPreviewProps<ErmisChatGenerics>, 'channel'> &
   Pick<
@@ -68,61 +67,18 @@ export type ChannelPreviewInvitePropsWithContext<
     | 'onSelect'
     | 'PreviewAvatar'
     | 'PreviewTitle'
-    | 'onAccept'
-    | 'onReject'
-  > & {
-    /**
-     * Latest message on a channel, formatted for preview
-     *
-     * e.g.,
-     *
-     * ```json
-     * {
-     *  created_at: '' ,
-     *  messageObject: { ... },
-     *  previews: {
-     *    bold: true,
-     *    text: 'This is the message preview text'
-     *  },
-     *  status: 0 | 1 | 2 // read states of the latest message.
-     * }
-     * ```
-     *
-     * The read status is either of the following:
-     *
-     * 0: The message was not sent by the current user
-     * 1: The message was sent by the current user and is unread
-     * 2: The message was sent by the current user and is read
-     *
-     * @overrideType object
-     */
-    latestMessagePreview: LatestMessagePreview<ErmisChatGenerics>;
-    /**
-     * Formatter function for date of latest message.
-     * @param date Message date
-     * @returns Formatted date string
-     *
-     * By default today's date is shown in 'HH:mm A' format and other dates
-     * are displayed in 'DD/MM/YY' format. props.latestMessage.created_at is the
-     * default formatted date. This default logic is part of ChannelPreview component.
-     */
-    formatLatestMessageDate?: (date: Date) => string;
-    /** Number of unread messages on the channel */
-    unread?: number;
-  };
+  >;
 
-const ChannelPreviewInviteWithContext = <
+const MessagingChannelPreviewWithContext = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewInvitePropsWithContext<ErmisChatGenerics>,
+  props: MessagingChannelPreviewPropsWithContext<ErmisChatGenerics>,
 ) => {
   const {
     channel,
     onSelect,
     PreviewAvatar = ChannelAvatar,
     PreviewTitle = ChannelPreviewTitle,
-    // onAccept,
-    onReject
   } = props;
   const { vw } = useViewport();
 
@@ -131,7 +87,7 @@ const ChannelPreviewInviteWithContext = <
   const {
     theme: {
       channelPreview: { container, contentContainer, row, title },
-      colors: { border, white_snow },
+      colors: { border, white_snow, grey_dark },
     },
   } = useTheme();
 
@@ -140,35 +96,7 @@ const ChannelPreviewInviteWithContext = <
     channel,
     Math.floor(maxWidth / ((title.fontSize || styles.title.fontSize) / 2)),
   );
-  const [isLoading, setIsLoading] = useState(false);
-  const acceptHandler = () => {
-    setIsLoading(true);
-    channel.acceptInvite().then(() => {
-      // if (onAccept) {
-      //   onAccept(channel);
-      // }
-      setIsLoading(false);
-    }).catch((error) => {
-      setIsLoading(false);
-      Alert.alert('Error', error.message);
-      console.error(error);
-    }
-    );
-  }
-  const rejectHandler = () => {
-    setIsLoading(true);
-    channel.rejectInvite().then(() => {
-      if (onReject) {
-        onReject();
-      }
-      setIsLoading(false);
-    }).catch((error) => {
-      setIsLoading(false);
-      Alert.alert('Error', error.message);
-      console.error(error);
-    }
-    );
-  }
+
   return (
     <TouchableOpacity
       onPress={() => {
@@ -195,14 +123,7 @@ const ChannelPreviewInviteWithContext = <
         <View style={[styles.row, row]}>
           <View />
           <View style={styles.statusContainer}>
-            <TouchableOpacity onPress={rejectHandler} style={styles.decline} activeOpacity={0.8} disabled={isLoading}>
-              <Text style={styles.text}>Decline</Text>
-              {isLoading && <LoadingDots style={styles.loading} />}
-            </TouchableOpacity>
-            <TouchableOpacity onPress={acceptHandler} style={styles.accept} activeOpacity={0.8} disabled={isLoading}>
-              <Text style={styles.text}>Accept</Text>
-              {isLoading && <LoadingDots style={styles.loading} />}
-            </TouchableOpacity>
+            <ArrowRight fill={grey_dark} width={24} height={24} />
           </View>
         </View>
       </View>
@@ -210,31 +131,31 @@ const ChannelPreviewInviteWithContext = <
   );
 };
 
-export type ChannelPreviewInviteProps<
+export type MessagingChannelPreviewProps<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Partial<
   Omit<
-    ChannelPreviewInvitePropsWithContext<ErmisChatGenerics>,
-    'channel' | 'latestMessagePreview'
+    MessagingChannelPreviewPropsWithContext<ErmisChatGenerics>,
+    'channel'
   >
 > &
   Pick<
-    ChannelPreviewInvitePropsWithContext<ErmisChatGenerics>,
-    'channel' | 'latestMessagePreview'
+    MessagingChannelPreviewPropsWithContext<ErmisChatGenerics>,
+    'channel'
   >;
 
-const MemoizedChannelPreviewInviteWithContext = React.memo(
-  ChannelPreviewInviteWithContext,
-) as typeof ChannelPreviewInviteWithContext;
+const MemoizedMessagingChannelPreviewWithContext = React.memo(
+  MessagingChannelPreviewWithContext,
+) as typeof MessagingChannelPreviewWithContext;
 
 /**
  * This UI component displays an individual preview item for each channel in a list. It also receives all props
  * from the ChannelPreview component.
  */
-export const ChannelPreviewInvite = <
+export const MessagingChannelPreview = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 >(
-  props: ChannelPreviewInviteProps<ErmisChatGenerics>,
+  props: MessagingChannelPreviewProps<ErmisChatGenerics>,
 ) => {
   const {
     onSelect,
@@ -242,7 +163,7 @@ export const ChannelPreviewInvite = <
     PreviewTitle,
   } = useChannelsContext<ErmisChatGenerics>();
   return (
-    <MemoizedChannelPreviewInviteWithContext
+    <MemoizedMessagingChannelPreviewWithContext
       {...{
         onSelect,
         PreviewAvatar,
@@ -253,4 +174,4 @@ export const ChannelPreviewInvite = <
   );
 };
 
-ChannelPreviewInvite.displayName = 'ChannelPreviewInvite{channelPreview}';
+MessagingChannelPreview.displayName = 'MessagingChannelPreview{channelPreview}';

@@ -100,12 +100,6 @@ export const Avatar = (props: AvatarProps) => {
 
   const initialFirstNameChar = name ? name?.charAt(0).toUpperCase() : id?.charAt(0).toUpperCase();
 
-  const getRandomColor = () => {
-    const colors = ['#FF5733', '#3357FF', '#FF33A1', '#FFC300', '#C70039', '#900C3F'];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  };
-
   return (
     <TouchableOpacity disabled={!upload} activeOpacity={0.8} onPress={onPress}>
       <View
@@ -123,7 +117,7 @@ export const Avatar = (props: AvatarProps) => {
         {isLoadingImageError ? (
           <View
             style={{
-              backgroundColor: getRandomColor(),
+              backgroundColor: "#C70039",
               borderRadius: size / 2,
               height: size,
               width: size,

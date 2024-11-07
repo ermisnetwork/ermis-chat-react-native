@@ -5,12 +5,11 @@ import { ErmisChatGenerics, StackNavigatorParamList } from "../types"
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ChatScreenHeader } from '../components/ChatScreenHeader';
 import { useAppContext } from "../context/AppContext";
-import { useTheme, ChannelList, CircleClose, Search } from 'ermis-chat-react-native';
+import { useTheme, ChannelList, CircleClose, Search, InvitedChannelPreview, InvitedChannelList } from 'ermis-chat-react-native';
 import { Channel } from 'ermis-chat-sdk';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import { ScreenHeader } from "../components/ScreenHeader";
 import type { ChannelSort } from 'ermis-chat-sdk';
-import { InviteChannelPreview } from "../components/InviteChannelPreview";
 
 const styles = StyleSheet.create({
     invitesContainer: {
@@ -97,16 +96,15 @@ export const InviteScreen: React.FC = () => {
                 }}
                 onAccept={(channel) => {
                     console.log('onAccept', channel);
-                    // đang chưa nhận được event
+                    // Khoakheu đang chưa nhận được event
                     navigation.navigate('ChannelScreen', {
                         channel,
                     });
                 }}
                 options={options}
-                Preview={InviteChannelPreview}
+                Preview={InvitedChannelPreview}
                 setFlatListRef={setScrollRef}
                 sort={sort}
-                type="invite"
             />
         </View>
     </View>)

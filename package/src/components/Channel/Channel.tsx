@@ -856,14 +856,16 @@ const ChannelWithContext = <
   }, [channelId]);
 
   useEffect(() => {
+    console.log("channel data from channel.tsx", channel._data);
     const handleEvent: EventHandler<ErmisChatGenerics> = (event) => {
       if (channel.cid === event.cid) copyChannelState();
     };
 
     const { unsubscribe } = client.on('notification.mark_read', handleEvent);
     return unsubscribe;
-  }, []);
 
+
+  }, []);
   const channelQueryCallRef = useRef(
     async (
       queryCall: () => Promise<void>,

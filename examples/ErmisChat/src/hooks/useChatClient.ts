@@ -92,6 +92,7 @@ export const useChatClient = () => {
       id: config.userId,
       api_key: api_key,
     };
+
     const connectedUser = await client.connectUser(user, config.userToken).then((res) => res).catch((e) => {
       Alert.alert("Error", "Please check your internet connection and try again");
       return null;

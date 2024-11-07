@@ -28,6 +28,10 @@ export const RootSvg = (props: IconProps) => {
 export type RootPathProps = Pick<PathProps, 'd'> & {
   pathFill?: SvgProps['fill'];
   pathOpacity?: PathProps['opacity'];
+  stroke?: PathProps['stroke'];
+  strokeWidth?: PathProps['strokeWidth'];
+  strokeLinecap?: PathProps['strokeLinecap'];
+  strokeLinejoin?: PathProps['strokeLinejoin'];
 };
 
 export const RootPath = (props: RootPathProps) => {
@@ -37,7 +41,10 @@ export const RootPath = (props: RootPathProps) => {
     },
   } = useTheme();
 
-  const { d, pathFill = black, pathOpacity } = props;
+  const { d, pathFill = black, pathOpacity, stroke,
+    strokeWidth,
+    strokeLinecap,
+    strokeLinejoin, } = props;
   return (
     <Path
       {...{
@@ -46,6 +53,10 @@ export const RootPath = (props: RootPathProps) => {
         fill: pathFill,
         fillRule: 'evenodd',
         opacity: pathOpacity,
+        stroke,
+        strokeWidth,
+        strokeLinecap,
+        strokeLinejoin,
       }}
     />
   );

@@ -31,7 +31,7 @@ import { useChatContext } from '../../contexts/chatContext/ChatContext';
 import { upsertCidsForQuery } from '../../store/apis/upsertCidsForQuery';
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import { ChannelPreviewMessenger } from '../ChannelPreview/ChannelPreviewMessenger';
-import { ChannelPreviewInvite } from '../ChannelPreview/ChannelPreviewInvite';
+import { InvitedChannelPreview } from '../ChannelPreview/InvitedChannelPreview';
 import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../Indicators/EmptyStateIndicator';
 import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../Indicators/LoadingErrorIndicator';
 import { useRejectedFromChannelNotification } from './hooks/listeners/useRejectedFromChannelNotification';
@@ -281,7 +281,7 @@ export const ChannelList = <
     onAcceptedToChannel,
     onSelect,
     options = DEFAULT_OPTIONS,
-    Preview = ChannelPreviewMessenger || ChannelPreviewInvite,
+    Preview = ChannelPreviewMessenger || InvitedChannelPreview,
     PreviewAvatar,
     PreviewMessage,
     PreviewMutedStatus,

@@ -51,7 +51,7 @@ export const UserGridItem: React.FC<UserGridItemProps> = ({
 }) => {
   const {
     theme: {
-      colors: { black, white_snow },
+      colors: { black, white_snow, grey },
     },
   } = useTheme();
   return (
@@ -62,7 +62,7 @@ export const UserGridItem: React.FC<UserGridItemProps> = ({
         online={user.online}
         presenceIndicator={presenceIndicator}
         presenceIndicatorContainerStyle={styles.presenceIndicatorContainer}
-        size={64}
+        size={48}
       />
       {removeButton && (
         <View
@@ -76,8 +76,8 @@ export const UserGridItem: React.FC<UserGridItemProps> = ({
           <Close />
         </View>
       )}
-      <Text numberOfLines={2} style={[styles.selectedUserItemName, { color: black }]}>
-        {user.name}
+      <Text numberOfLines={1} style={[styles.selectedUserItemName, { color: grey }]}>
+        {user.name || `${user.id.slice(0, 8)}...`}
       </Text>
     </TouchableOpacity>
   );

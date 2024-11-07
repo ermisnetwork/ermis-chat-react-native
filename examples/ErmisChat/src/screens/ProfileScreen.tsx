@@ -115,6 +115,8 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
             height: 400,
             cropping: true
         }).then(image => {
+
+            // TODO: KhoaKheu: can't upload from oneplus android 13
             let file = {
                 uri: image.path,
                 type: image.mime,

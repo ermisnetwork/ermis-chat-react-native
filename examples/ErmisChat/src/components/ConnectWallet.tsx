@@ -1,13 +1,17 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, useColorScheme } from 'react-native'
 import { useWeb3Modal } from '@web3modal/wagmi-react-native'
-import React from 'react'
-
+import React, { useEffect } from 'react'
+import { useTheme } from 'ermis-chat-react-native'
 export default function ConnectWallet() {
     const { open } = useWeb3Modal()
-
+    const {
+        theme: {
+            ermisColors
+        } } = useTheme();
+    const colorScheme = useColorScheme();
     return (
         <>
-            <TouchableOpacity onPress={() => open({ view: 'Networks' })} style={styles.container}>
+            <TouchableOpacity onPress={() => open({ view: 'Networks' })} style={[styles.container, { backgroundColor: ermisColors[colorScheme].Primary.primary }]}>
                 <Text style={{
                     color: 'white',
                     fontSize: 20,
@@ -26,7 +30,7 @@ const styles = StyleSheet.create(
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 50,
-            backgroundColor: 'blue',
+            // backgroundColor: 'blue',
         },
     }
 )

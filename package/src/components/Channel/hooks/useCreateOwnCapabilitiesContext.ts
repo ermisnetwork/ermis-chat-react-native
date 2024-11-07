@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 
 import type { Channel } from 'ermis-chat-sdk';
 
+// TODO: KhoaKheu: update field own_capabilities to member_capabilities of class channel on ermis-chat-sdk
+
 import {
   allOwnCapabilities,
   OwnCapabilitiesContextValue,
@@ -19,16 +21,16 @@ export const useCreateOwnCapabilitiesContext = <
   overrideCapabilities?: Partial<OwnCapabilitiesContextValue>;
 }) => {
   const [own_capabilities, setOwnCapabilites] = useState(
-    JSON.stringify(channel.data?.own_capabilities as Array<string>),
+    JSON.stringify(channel.data?.own_capabilities || channel.data?.member_capabilities as Array<string>),
   );
   const overrideCapabilitiesStr = overrideCapabilities
     ? JSON.stringify(Object.values(overrideCapabilities))
     : null;
 
-  // Effect to watch for changes in channel.data?.own_capabilities and update the own_capabilties state accordingly.
+  // Effect to watch for changes in channel.data?.own_capabilities||channel.data?.member_capabilities and update the own_capabilties state accordingly.
   useEffect(() => {
-    setOwnCapabilites(JSON.stringify(channel.data?.own_capabilities as Array<string>));
-  }, [channel.data?.own_capabilities]);
+    setOwnCapabilites(JSON.stringify(channel.data?.own_capabilities || channel.data?.member_capabilities as Array<string>));
+  }, [channel.data?.own_capabilities || channel.data?.member_capabilities]);
 
   // Effect to listen to the `capabilities.changed` event.
   useEffect(() => {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Channel,
@@ -58,13 +58,19 @@ const styles = StyleSheet.create({
   },
   noChats: { fontSize: 12 },
   searchContainer: {
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
+    borderWidth: 0.5,
     flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 33,
+    marginHorizontal: 24,
+    marginTop: 8,
+    alignItems: 'center',
+    borderColor: 'grey',
   },
   searchContainerLeft: {
     fontSize: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 20,
     textAlignVertical: 'center',
   },
   searchContainerMiddle: {
@@ -119,10 +125,11 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
   const {
     theme: {
       colors: { accent_blue, black, border, grey, white },
+      ermisColors
     },
   } = useTheme();
   const { chatClient } = useAppContext();
-
+  const colorScheme = useColorScheme();
   const {
     onChangeSearchText,
     onFocusInput,
@@ -181,10 +188,24 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
 
     initChannel();
   }, [chatClient, selectedUserIds, selectedUsersLength]);
-
   const renderUserSearch = ({ inSafeArea }: { inSafeArea: boolean }) => (
     <View style={[{ backgroundColor: white }, focusOnSearchInput ? styles.container : undefined]}>
-      <ScreenHeader inSafeArea={inSafeArea} onBack={reset} titleText='New Chat' />
+      <ScreenHeader inSafeArea={inSafeArea} titleText='New Chat' LeftContent={() => {
+        return <TouchableOpacity
+          onPress={() => {
+            reset();
+            navigation.goBack();
+          }}
+        >
+          <Text style={{
+            fontWeight: "400",
+            fontSize: 14,
+            lineHeight: 21,
+            letterSpacing: 0.5,
+            color: "#6E8597"
+          }}>Cancel</Text>
+        </TouchableOpacity>
+      }} />
       <TouchableOpacity
         activeOpacity={1}
         onPress={() => {
@@ -196,13 +217,9 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
         }}
         style={[
           styles.searchContainer,
-          {
-            backgroundColor: white,
-            borderBottomColor: border,
-          },
         ]}
       >
-        <Text
+        {searchText.length > 0 && <Text
           style={[
             styles.searchContainerLeft,
             {
@@ -210,8 +227,8 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
             },
           ]}
         >
-          TO:
-        </Text>
+          To:
+        </Text>}
         <View style={styles.searchContainerMiddle}>
           <View style={styles.selectedUsersContainer}>
             {selectedUsers.map((tag, index) => {
@@ -232,7 +249,7 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
               <TextInput
                 onChangeText={onChangeSearchText}
                 onFocus={onFocusInput}
-                placeholder='Type a name'
+                placeholder='Search'
                 placeholderTextColor={grey}
                 ref={searchInputRef}
                 style={[
@@ -247,9 +264,6 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
             </View>
           )}
         </View>
-        <View style={styles.searchContainerRight}>
-          {selectedUsers.length === 0 ? <User pathFill={grey} /> : <UserAdd pathFill={grey} />}
-        </View>
       </TouchableOpacity>
       {focusOnSearchInput && !searchText && selectedUsers.length === 0 && (
         <TouchableOpacity
@@ -260,17 +274,17 @@ export const NewDirectMessagingScreen: React.FC<NewDirectMessagingScreenProps> =
           style={styles.createGroupButtonContainer}
         >
           <RoundButton>
-            <Group pathFill={accent_blue} />
+            <Group pathFill={ermisColors[colorScheme].Primary.primary} />
           </RoundButton>
           <Text
             style={[
               styles.createGroupButtonText,
               {
-                color: black,
+                color: ermisColors[colorScheme].Primary.primary,
               },
             ]}
           >
-            Create a Group
+            New channel
           </Text>
         </TouchableOpacity>
       )}

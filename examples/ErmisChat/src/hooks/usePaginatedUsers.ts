@@ -28,6 +28,8 @@ export type PaginatedUsers = {
   toggleUser: (user: UserResponse<ErmisChatGenerics>) => void;
   channelType: string;
   setChannelType: React.Dispatch<React.SetStateAction<string>>;
+  contacts: UserResponse<ErmisChatGenerics>[];
+  fetchContacts: () => void;
 };
 
 export const usePaginatedUsers = (): PaginatedUsers => {
@@ -39,7 +41,10 @@ export const usePaginatedUsers = (): PaginatedUsers => {
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<UserResponse<ErmisChatGenerics>[]>([]);
   const [searchText, setSearchText] = useState('');
+  const [debouncedSearchText, setDebouncedSearchText] = useState('');
   const [selectedUserIds, setSelectedUserIds] = useState<string[]>([]);
+
+  const [contacts, setContacts] = useState<UserResponse<ErmisChatGenerics>[]>([]);
   const [selectedUsers, setSelectedUsers] = useState<UserResponse<ErmisChatGenerics>[]>([]);
   const [channelType, setChannelType] = useState<string>('messaging'); // ['messaging', 'team'
   const hasMoreResults = useRef(true);
@@ -113,15 +118,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
       fetchUsers(newText);
     }
   };
-  // Initial load users.
-  // const getListUser = async () => {
-  //   setLoading(true);
-  //   const usersResponse = await chatClient?.queryUsers();
-  //   console.log("data users : ", usersResponse?.data);
 
-  //   setInitialResults(usersResponse?.data || []);
-  //   setLoading(false);
-  // }
   // TODO: KhoaKheu need to store in local storage, just update new user when select user or load channel when start app
   const fetchUsers = async (query = '') => {
     if (queryInProgress.current || !chatClient?.userID) {
@@ -131,11 +128,11 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     /*
     ** response always return array, so we don't need to check res?.data
     */
-    // if (query == "") {
-    //   queryInProgress.current = false;
-    //   setLoading(false);
-    //   return;
-    // }
+    if (searchText == "") {
+      queryInProgress.current = false;
+      setLoading(false);
+      return;
+    }
 
     try {
       const page = 1;
@@ -173,15 +170,45 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     queryInProgress.current = false;
     setLoading(false);
   };
+  const fetchContacts = async () => {
+    setLoading(true);
+    try {
+      const contactResponse = await chatClient?.queryContacts();
 
+      if (contactResponse) {
+        setContacts(contactResponse.contact_users);
+      }
+      setLoading(false);
+    } catch (e) {
+      console.error('fetch contacts error : ', e);
+      setLoading(false);
+    }
+  }
   const loadMore = () => {
     fetchUsers(searchText);
   };
   useEffect(() => {
-    fetchUsers();
-    // getListUser();
+    fetchUsers('');
+    // fetchContacts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchText(searchText);
+    }, 1000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchText]);
+  useEffect(() => {
+    if (debouncedSearchText) {
+      fetchUsers(debouncedSearchText);
+    } else {
+      setResults(initialResults || []);
+      setLoading(false);
+    }
+  }, [debouncedSearchText]);
   return {
     clearText: () => {
       setSearchText('');
@@ -205,5 +232,7 @@ export const usePaginatedUsers = (): PaginatedUsers => {
     toggleUser,
     channelType,
     setChannelType,
+    contacts,
+    fetchContacts
   };
 };
