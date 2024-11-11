@@ -1,0 +1,34 @@
+node_modules/
+.expo/*
+npm-debug.*
+*.jks
+*.p12
+*.key
+*.mobileprovision
+report.*.json
+yarn-error.log
+.DS_Store
+dist/
+lib/
+# lib/ ignores metro-dev-helpers/lib so:
+!metro-dev-helpers/lib
+.env*
+examples/ErmisChat/ios/vendor/
+vendor
+pods
+.gradle
+.idea
+examples/ErmisChat/build
+local.properties
+xcuserdata
+.tern-port
+
+########################################### Custom ##############################################
+
+**/ios/GoogleService-Info.plist
+**/google-services.json
+**/.env
+
+coverage/
+
+#################################################################################################
