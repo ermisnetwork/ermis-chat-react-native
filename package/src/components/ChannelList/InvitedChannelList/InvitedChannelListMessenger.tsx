@@ -8,13 +8,13 @@ import type { Channel } from 'ermis-chat-sdk';
 import {
     ChannelsContextValue,
     useChannelsContext,
-} from '../../contexts/channelsContext/ChannelsContext';
-import { useChatContext } from '../../contexts/chatContext/ChatContext';
-import { useDebugContext } from '../../contexts/debugContext/DebugContext';
-import { useTheme } from '../../contexts/themeContext/ThemeContext';
+} from '../../../contexts/channelsContext/ChannelsContext';
+import { useChatContext } from '../../../contexts/chatContext/ChatContext';
+import { useDebugContext } from '../../../contexts/debugContext/DebugContext';
+import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
-import type { DefaultErmisChatGenerics } from '../../types/types';
-import { InvitedChannelPreview } from '../ChannelPreview/InvitedChannelPreview';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
+import { InvitedChannelPreview } from '../../ChannelPreview/InvitedChannelPreview/InvitedChannelPreview';
 
 const styles = StyleSheet.create({
     flatList: { flex: 1 },

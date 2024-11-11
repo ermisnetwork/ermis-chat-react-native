@@ -31,7 +31,7 @@ import { useChatContext } from '../../contexts/chatContext/ChatContext';
 import { upsertCidsForQuery } from '../../store/apis/upsertCidsForQuery';
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import { ChannelPreviewMessenger } from '../ChannelPreview/ChannelPreviewMessenger';
-import { InvitedChannelPreview } from '../ChannelPreview/InvitedChannelPreview';
+import { InvitedChannelPreview } from '../ChannelPreview/InvitedChannelPreview/InvitedChannelPreview';
 import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../Indicators/EmptyStateIndicator';
 import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../Indicators/LoadingErrorIndicator';
 import { useRejectedFromChannelNotification } from './hooks/listeners/useRejectedFromChannelNotification';

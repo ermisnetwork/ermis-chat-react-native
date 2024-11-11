@@ -35,7 +35,7 @@ import { OneOnOneChannelDetailScreen } from './src/screens/OneOnOneChannelDetail
 import { SharedGroupsScreen } from './src/screens/SharedGroupsScreen';
 import { ThreadScreen } from './src/screens/ThreadScreen';
 import { LoginScreen } from './src/screens/LoginScreen';
-
+import { SettingsScreen } from './src/screens/SettingsScreen';
 import type { ErmisChat } from 'ermis-chat-sdk';
 import '@walletconnect/react-native-compat'
 import { WagmiConfig } from 'wagmi'
@@ -366,6 +366,11 @@ const HomeScreen = () => {
       <Stack.Screen
         component={ContactsScreen}
         name='ContactsScreen'
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        component={SettingsScreen}
+        name='SettingsScreen'
         options={{ headerShown: false }}
       />
       {/* <Stack.Screen

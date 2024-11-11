@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from 'ermis-chat-react-native';
 
@@ -39,8 +39,10 @@ export const BottomTabs: React.FC<BottomTabBarProps> = (props) => {
   const {
     theme: {
       colors: { black, grey, white },
+      ermisColors
     },
   } = useTheme();
+  const colorScheme = useColorScheme();
   const { bottom } = useSafeAreaInsets();
 
   const getTab = (key: string) => {
@@ -109,7 +111,7 @@ export const BottomTabs: React.FC<BottomTabBarProps> = (props) => {
               style={[
                 styles.tabTitle,
                 {
-                  color: isFocused ? black : grey,
+                  color: isFocused ? ermisColors[colorScheme].Primary.primary : grey,
                 },
               ]}
             >

@@ -79,6 +79,7 @@ export type StackNavigatorParamList = {
     channel: Channel<ErmisChatGenerics>;
   };
   ContactsScreen: undefined;
+  SettingsScreen: undefined;
 };
 
 export type UserSelectorParamList = {
@@ -117,3 +118,12 @@ export type LoginConfig = {
   userImage?: string;
   userName?: string;
 };
+export const ActionType = {
+  LEAVE: 'leave',
+  DELETE: 'delete',
+  REMOVE_MEMBER: 'remove_member',
+  REMOVE_MODER: 'remove_moder',
+  TRUNCATE: 'truncate', // tất cả tin nhắn trong cuộc trò chuyện sẽ bị xoá, chỉ sử dụng cho channel direct
+  BLOCK: 'block',
+  UNBLOCK: 'unblock',
+}

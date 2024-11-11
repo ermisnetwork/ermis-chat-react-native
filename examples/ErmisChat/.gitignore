@@ -1,3 +1,6 @@
+.env
+.env.product
+.env.staging
 \# OSX
 #
 .DS_Store
@@ -32,7 +35,6 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
-
 # node.js
 #
 node_modules/

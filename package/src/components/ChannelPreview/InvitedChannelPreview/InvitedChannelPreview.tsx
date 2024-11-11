@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import { ChannelAvatar } from './ChannelAvatar';
-import type { ChannelPreviewProps } from './ChannelPreview';
-import { ChannelPreviewTitle } from './ChannelPreviewTitle';
-import { useChannelPreviewDisplayName } from './hooks/useChannelPreviewDisplayName';
+import { ChannelAvatar } from './../ChannelAvatar';
+import type { ChannelPreviewProps } from './../ChannelPreview';
+import { ChannelPreviewTitle } from './../ChannelPreviewTitle';
+import { useChannelPreviewDisplayName } from './../hooks/useChannelPreviewDisplayName';
 
 
 import {
   ChannelsContextValue,
   useChannelsContext,
-} from '../../contexts/channelsContext/ChannelsContext';
-import { useTheme } from '../../contexts/themeContext/ThemeContext';
-import { useViewport } from '../../hooks/useViewport';
-import type { DefaultErmisChatGenerics } from '../../types/types';
-import { LoadingDots } from '../Indicators/LoadingDots';
+} from '../../../contexts/channelsContext/ChannelsContext';
+import { useTheme } from '../../../contexts/themeContext/ThemeContext';
+import { useViewport } from '../../../hooks/useViewport';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
+import { LoadingDots } from '../../Indicators/LoadingDots';
 
 const styles = StyleSheet.create({
   container: {
@@ -103,7 +103,7 @@ const InvitedChannelPreviewWithContext = <
   const [isLoading, setIsLoading] = useState(false);
   const acceptHandler = () => {
     setIsLoading(true);
-    channel.acceptInvite().then(() => {
+    channel.acceptInvite('accept').then(() => {
       // if (onAccept) {
       //   onAccept(channel);
       // }

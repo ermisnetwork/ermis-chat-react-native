@@ -10,18 +10,15 @@ import { useTheme } from '../../../contexts/themeContext/ThemeContext';
 
 import type { DefaultErmisChatGenerics } from '../../../types/types';
 import { Avatar, AvatarProps } from '../../Avatar/Avatar';
-import { ChannelContextValue, useChannelContext } from '../../../contexts';
 
 export type MessageAvatarPropsWithContext<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = Pick<
   MessageContextValue<ErmisChatGenerics>,
-  'alignment' | 'lastGroupMessage' | 'message' | 'showAvatar'
+  'alignment' | 'lastGroupMessage' | 'message' | 'showAvatar' | 'channel'
 > &
   Pick<ChatContextValue<ErmisChatGenerics>, 'ImageComponent'> &
-  Partial<Pick<AvatarProps, 'size'>>
-  & Pick<ChannelContextValue<ErmisChatGenerics>, 'channel'>
-  ;
+  Partial<Pick<AvatarProps, 'size'>>;
 
 const MessageAvatarWithContext = <
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
@@ -99,10 +96,9 @@ export const MessageAvatar = <
 >(
   props: MessageAvatarProps<ErmisChatGenerics>,
 ) => {
-  const { alignment, lastGroupMessage, message, showAvatar } =
+  const { alignment, lastGroupMessage, message, showAvatar, channel } =
     useMessageContext<ErmisChatGenerics>();
   const { ImageComponent } = useChatContext<ErmisChatGenerics>();
-  const { channel } = useChannelContext<ErmisChatGenerics>();
 
   return (
     <MemoizedMessageAvatar

@@ -164,30 +164,29 @@ const ChannelHeader: React.FC<ChannelHeaderProps> = ({ channel }) => {
 const InviteView: React.FC<InviteViewProps> = ({ channel, onChange }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation<ChannelScreenNavigationProp>();
-  const acceptHandler = () => {
+  const acceptHandler = async () => {
     setIsLoading(true);
-    channel.acceptInvite().then(() => {
+    try {
+      await channel.acceptInvite("accept");
       onChange(false);
       setIsLoading(false);
-    }).catch((error) => {
+    } catch (error) {
       setIsLoading(false);
       Alert.alert('Error', error.message);
       console.error(error);
     }
-    );
   }
-  const rejectHandler = () => {
+  const rejectHandler = async () => {
     setIsLoading(true);
-    channel.rejectInvite().then(() => {
-      // go back to home screen after rejecting the invite.
+    try {
+      await channel.rejectInvite();
       navigation.goBack();
       setIsLoading(false);
-    }).catch((error) => {
+    } catch (error) {
       setIsLoading(false);
       Alert.alert('Error', error.message);
       console.error(error);
     }
-    );
   }
   return (
     <View style={styles.inviteContainer}>
@@ -215,7 +214,6 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
   },
 }) => {
   const { chatClient } = useAppContext();
-  const navigation = useNavigation();
   const { bottom } = useSafeAreaInsets();
   const {
     theme: {
@@ -258,18 +256,7 @@ export const ChannelScreen: React.FC<ChannelScreenProps> = ({
     if (!channel) {
       return;
     }
-    const initChannel = async () => {
-      const options = {
-        data: {
-          name: channel._data.name
-        }
-      }
 
-      // await channel.watch();
-      // TODO: Khoakheu: trước đây khi tạo channel sẽ truyền channelID thay vì channel. Nhưng bây giờ sửa lại luồng,
-      // channelId sẽ được tạo khi gọi chatClient.channel(). Nên cần xử lý ở sdk xem cần thêm trường hợp cho hàm này không. Phân tích lại luồng của sdk này.
-    };
-    initChannel();
     if (channel.state.membership?.channel_role === 'pending') {
       setIsInvited(true);
     }

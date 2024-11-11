@@ -15,3 +15,4 @@ e2e/.env
 .idea
 examples/ErmisChat/.env
 examples/ErmisChat/.env.staging
+examples/ErmisChat/.env.product

@@ -4,37 +4,37 @@ import type { FlatList } from 'react-native-gesture-handler';
 
 import type { Channel, ChannelFilters, ChannelOptions, ChannelSort, Event } from 'ermis-chat-sdk';
 
-import { ChannelListFooterLoadingIndicator } from './ChannelListFooterLoadingIndicator';
-import { ChannelListHeaderErrorIndicator } from './ChannelListHeaderErrorIndicator';
-import { ChannelListHeaderNetworkDownIndicator } from './ChannelListHeaderNetworkDownIndicator';
-import { ChannelListLoadingIndicator } from './ChannelListLoadingIndicator';
-import { ChannelListMessengerProps } from './ChannelListMessenger';
-import { useAddedToChannelNotification } from './hooks/listeners/useAddedToChannelNotification';
-import { useChannelDeleted } from './hooks/listeners/useChannelDeleted';
-import { useChannelHidden } from './hooks/listeners/useChannelHidden';
-import { useChannelTruncated } from './hooks/listeners/useChannelTruncated';
-import { useChannelUpdated } from './hooks/listeners/useChannelUpdated';
-import { useChannelVisible } from './hooks/listeners/useChannelVisible';
-import { useNewMessage } from './hooks/listeners/useNewMessage';
-import { useNewMessageNotification } from './hooks/listeners/useNewMessageNotification';
-import { useRemovedFromChannelNotification } from './hooks/listeners/useRemovedFromChannelNotification';
-import { useUserPresence } from './hooks/listeners/useUserPresence';
-import { useCreateChannelsContext } from './hooks/useCreateChannelsContext';
-import { usePaginatedChannels } from './hooks/usePaginatedChannels';
-import { Skeleton as SkeletonDefault } from './Skeleton';
+import { ChannelListFooterLoadingIndicator } from '../ChannelListFooterLoadingIndicator';
+import { ChannelListHeaderErrorIndicator } from '../ChannelListHeaderErrorIndicator';
+import { ChannelListHeaderNetworkDownIndicator } from '../ChannelListHeaderNetworkDownIndicator';
+import { ChannelListLoadingIndicator } from '../ChannelListLoadingIndicator';
+import { ChannelListMessengerProps } from '../ChannelListMessenger';
+import { useAddedToChannelNotification } from '../hooks/listeners/useAddedToChannelNotification';
+import { useChannelDeleted } from '../hooks/listeners/useChannelDeleted';
+import { useChannelHidden } from '../hooks/listeners/useChannelHidden';
+import { useChannelTruncated } from '../hooks/listeners/useChannelTruncated';
+import { useChannelUpdated } from '../hooks/listeners/useChannelUpdated';
+import { useChannelVisible } from '../hooks/listeners/useChannelVisible';
+import { useNewMessage } from '../hooks/listeners/useNewMessage';
+import { useNewMessageNotification } from '../hooks/listeners/useNewMessageNotification';
+import { useRemovedFromChannelNotification } from '../hooks/listeners/useRemovedFromChannelNotification';
+import { useUserPresence } from '../hooks/listeners/useUserPresence';
+import { useCreateChannelsContext } from '../hooks/useCreateChannelsContext';
+import { usePaginatedChannels } from '../hooks/usePaginatedChannels';
+import { Skeleton as SkeletonDefault } from '../Skeleton';
 
 import {
     ChannelsContextValue,
     ChannelsProvider,
-} from '../../contexts/channelsContext/ChannelsContext';
-import { useChatContext } from '../../contexts/chatContext/ChatContext';
-import { upsertCidsForQuery } from '../../store/apis/upsertCidsForQuery';
-import type { DefaultErmisChatGenerics } from '../../types/types';
-import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../Indicators/EmptyStateIndicator';
-import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../Indicators/LoadingErrorIndicator';
-import { useRejectedFromChannelNotification } from './hooks/listeners/useRejectedFromChannelNotification';
-import { useAcceptedInvitedToChannelNotification } from './hooks/listeners/useAcceptedInvitedToChannelNotification';
-import { InvitedChannelPreview } from '../ChannelPreview/InvitedChannelPreview';
+} from '../../../contexts/channelsContext/ChannelsContext';
+import { useChatContext } from '../../../contexts/chatContext/ChatContext';
+import { upsertCidsForQuery } from '../../../store/apis/upsertCidsForQuery';
+import type { DefaultErmisChatGenerics } from '../../../types/types';
+import { EmptyStateIndicator as EmptyStateIndicatorDefault } from '../../Indicators/EmptyStateIndicator';
+import { LoadingErrorIndicator as LoadingErrorIndicatorDefault } from '../../Indicators/LoadingErrorIndicator';
+import { useRejectedFromChannelNotification } from '../hooks/listeners/useRejectedFromChannelNotification';
+import { useAcceptedInvitedToChannelNotification } from '../hooks/listeners/useAcceptedInvitedToChannelNotification';
+import { InvitedChannelPreview } from '../../ChannelPreview/InvitedChannelPreview/InvitedChannelPreview';
 import { InvitedChannelListMessenger } from './InvitedChannelListMessenger';
 
 export type ChannelListProps<

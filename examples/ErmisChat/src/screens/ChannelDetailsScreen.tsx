@@ -11,7 +11,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
-import { StackNavigatorParamList } from '../types';
+import { ActionType, StackNavigatorParamList } from '../types';
 import { RouteProp } from '@react-navigation/native';
 import { useAppContext } from '../context/AppContext';
 import { useAppOverlayContext } from '../context/AppOverlayContext';
@@ -111,21 +111,35 @@ export const ChannelDetailsScreen: React.FC<ChannelDetailsScreenProps> = ({
     const { setData } = useBottomSheetOverlayContext();
     const displayName = useChannelPreviewDisplayName(channel, 20);
     const { loading, loadMore, files, media } = usePaginatedAttachments(channel);
+    const isDirectChat = channel.type === "messaging";
 
     const [index, setIndex] = React.useState(0);
 
-    const [routes] = React.useState([
-        { key: 'members', title: 'Members' },
-        { key: 'media', title: 'Media' },
-        { key: 'files', title: 'Files' },
-    ]);
+    const [routes] = React.useState(() => {
+        return isDirectChat ? [
+            { key: 'media', title: 'Media' },
+            { key: 'files', title: 'Files' },
+        ] : [
+            { key: 'members', title: 'Members' },
+            { key: 'media', title: 'Media' },
+            { key: 'files', title: 'Files' },
+        ]
+    });
 
-    const renderScene = SceneMap({
+    const renderScene = SceneMap(isDirectChat ? {
+        media: () => { return <Media media={media} loadMore={loadMore} loading={loading} /> },
+        files: () => { return <Files files={files} loadMore={loadMore} loading={loading} /> },
+    } : {
         members: () => { return <Member channel={channel} /> },
         media: () => { return <Media media={media} loadMore={loadMore} loading={loading} /> },
         files: () => { return <Files files={files} loadMore={loadMore} loading={loading} /> },
     });
 
+    const [actionType, setActionType] = useState<string>(ActionType.LEAVE);
+
+    const deleteChannelHandler = async () => {
+
+    }
 
     if (!channel) {
         return null;
@@ -174,7 +188,7 @@ export const ChannelDetailsScreen: React.FC<ChannelDetailsScreenProps> = ({
                         <Search height={24} width={24} fill={'#979797'} />
                         <Text style={styles.actionTitle}>Search</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.actionButton}>
+                    <TouchableOpacity style={styles.actionButton} >
                         <LogOut height={24} width={24} />
                         <Text style={styles.actionTitle}>Leave</Text>
                     </TouchableOpacity>

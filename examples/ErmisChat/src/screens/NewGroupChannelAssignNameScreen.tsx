@@ -147,7 +147,7 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
   navigation,
 }) => {
   const { chatClient } = useAppContext();
-  const { selectedUserIds, selectedUsers, channelType, reset } = useUserSearchContext();
+  const { selectedUserIds, selectedUsers, reset } = useUserSearchContext();
 
   const {
     theme: {
@@ -247,12 +247,13 @@ export const NewGroupChannelAssignNameScreen: React.FC<NewGroupChannelAssignName
 
     const channelId = genenrateChannelId(chatClient.projectId);
 
-    const channel = chatClient.channel(channelType, channelId, {
+    const channel = chatClient.channel("team", channelId, {
       members: [...selectedUserIds, chatClient.user?.id],
       name: groupName,
       description,
       image: channelAvatar
     });
+    console.log("channel.type", channel.type);
 
     // TODO: Maybe there is a better way to do this.
     navigation.pop(2);

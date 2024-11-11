@@ -1,19 +1,18 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { ActivityIndicator, FlatList, SectionList, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { ChatScreenHeader } from "../components/ChatScreenHeader";
-import { UserSearchResults } from '../components/UserSearch/UserSearchResults';
+import { ActivityIndicator, FlatList, SectionList, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from "react-native";
 import { useAppContext } from '../context/AppContext';
 import { useUserSearchContext } from '../context/UserSearchContext';
-import type { Channel, ChannelSort, ContactResult, UserResponse } from 'ermis-chat-sdk';
+import type { Channel, ChannelSort, UserResponse } from 'ermis-chat-sdk';
 import type { ErmisChatGenerics, StackNavigatorParamList } from '../types';
 import { ScreenHeader } from "../components/ScreenHeader";
-import { Avatar, ChannelList, useTheme, MessagingChannelPreview, InvitedChannelPreview } from "ermis-chat-react-native";
+import { Avatar, useTheme, useViewport, Right } from "ermis-chat-react-native";
 import { Search } from "../icons/Search";
 import dayjs from 'dayjs';
 import calendar from 'dayjs/plugin/calendar';
 import { GoForward } from "../icons/GoForward";
 import { useNavigation, useScrollToTop } from "@react-navigation/native";
 import { usePaginatedSearchedMessages } from "../hooks/usePaginatedSearchedMessages";
+import { StackNavigationProp } from "@react-navigation/stack";
 dayjs.extend(calendar);
 
 const styles = StyleSheet.create({
@@ -70,66 +69,186 @@ const options = {
     state: true,
     watch: true,
 };
+export type ContactsScreenNavigationProp = StackNavigationProp<
+    StackNavigatorParamList,
+    'ContactsScreen'
+>;
+
+export type ContactsScreenProps = {
+    navigation: ContactsScreenNavigationProp;
+};
 export const ContactsScreen: React.FC = () => {
     const { chatClient } = useAppContext();
-    const navigation = useNavigation();
-
-
+    const navigation = useNavigation<ContactsScreenNavigationProp>();
+    const {
+        loading,
+        loadMore,
+        results: resultsContext,
+        contacts,
+        searchText,
+        selectedUserIds,
+        toggleUser,
+        fetchContacts
+    } = useUserSearchContext();
+    const [sections, setSections] = useState<
+        Array<{
+            data: UserResponse<ErmisChatGenerics>[];
+            title: string;
+        }>
+    >([]);
+    const [visibleItemCount, setVisibleItemCount] = useState(2);
     const {
         theme: {
-            colors: { black, grey, grey_gainsboro, grey_whisper, white, white_snow },
+            colors: {
+                accent_blue,
+                bg_gradient_end,
+                bg_gradient_start,
+                black,
+                border,
+                grey,
+                grey_gainsboro,
+                white_smoke,
+                white_snow,
+            },
+            ermisColors
         },
     } = useTheme();
-    const searchInputRef = useRef<TextInput | null>(null);
-    const scrollRef = useRef<FlatList<Channel<ErmisChatGenerics>> | null>(null);
+    const colorScheme = useColorScheme();
+    const { vw } = useViewport();
 
-    const [searchInputText, setSearchInputText] = useState('');
-    const [searchQuery, setSearchQuery] = useState('');
-
-    const chatClientUserId = chatClient?.user?.id;
-
-    const filters = useMemo(
-        () => ({
-            ...baseFilters,
-        }),
-        [chatClientUserId],
-    );
-    useScrollToTop(scrollRef);
-
-    const setScrollRef = (ref: React.RefObject<FlatList<Channel<ErmisChatGenerics>> | null>) => {
-        scrollRef.current = ref;
+    const handleViewMore = () => {
+        setVisibleItemCount(prevCount => prevCount + 2);
     };
+    const contactsLength = contacts.length;
 
-    if (!chatClient) {
-        return null;
+    useEffect(() => {
+        const newSections: {
+            [key: string]: {
+                data: UserResponse<ErmisChatGenerics>[];
+                title: string;
+            };
+        } = {};
+
+        contacts.forEach((user) => {
+
+            const initial = user.name ? user.name?.slice(0, 1).toUpperCase() : user.id.slice(0, 1).toUpperCase();
+
+            if (!initial) {
+                return;
+            }
+
+            if (!newSections[initial]) {
+                newSections[initial] = {
+                    data: [user],
+                    title: initial,
+                };
+            } else {
+                newSections[initial].data.push(user);
+            }
+        });
+
+        setSections(Object.values(newSections).sort((a, b) => a.title.localeCompare(b.title)));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [contactsLength]);
+    useEffect(() => {
+
+        if (contacts.length === 0) {
+            fetchContacts();
+        }
+    }, []);
+    const onNavigateToChat = async (userId: string) => {
+        if (!userId) return;
+        if (!chatClient?.user?.id) {
+            return;
+        }
+        const members = [chatClient?.user?.id, userId];
+        const channel = chatClient.channel('messaging', {
+            members,
+        });
+        await channel.watch();
+        navigation.replace('ChannelScreen', {
+            channel
+        });
     }
-
     return (
         <View style={styles.container}>
             <ScreenHeader titleText="Contacts" LeftContent={() => <></>} />
-            <ChannelList<ErmisChatGenerics>
-                additionalFlatListProps={{
-                    getItemLayout: (_, index) => ({
-                        index,
-                        length: 65,
-                        offset: 65 * index,
-                    }),
-                    keyboardDismissMode: 'on-drag',
+            <SectionList
+                keyboardDismissMode='interactive'
+                keyboardShouldPersistTaps='handled'
+                // eslint-disable-next-line react/no-unstable-nested-components
+                ListEmptyComponent={() => (
+                    <View style={styles.emptyResultIndicator}>
+                        <Search fill={grey_gainsboro} scale={5} />
+                        <Text style={[{ color: grey }, styles.emptyResultIndicatorText]}>
+                            {loading ? 'Loading...' : 'No user matches these keywords...'}
+                        </Text>
+                    </View>
+                )}
+                // style={{ flex: 1 }}
+                onEndReached={loadMore}
+                renderItem={({ item }) => (
+                    <TouchableOpacity
+                        key={item.id}
+                        onPress={() => onNavigateToChat(item.id)}
+                        style={[
+                            styles.searchResultContainer,
+                            {
+                                backgroundColor: white_snow,
+                                borderBottomColor: border,
+                            },
+                        ]}
+                    >
+                        <Avatar image={item.avatar} name={item.name} size={40} id={item.id} />
+                        <View style={styles.searchResultUserDetails}>
+                            <Text
+                                style={[
+                                    styles.searchResultUserName,
+                                    {
+                                        color: black,
+                                    },
+                                ]}
+                            >
+                                {item.name || item.id}
+                            </Text>
+
+                            <Text
+                                style={[
+                                    styles.searchResultUserLastOnline,
+                                    {
+                                        color: grey,
+                                    },
+                                ]}
+                            >
+                                Last online {dayjs(item.last_active).calendar()}
+                            </Text>
+
+                        </View>
+                        <Right />
+                    </TouchableOpacity>
+                )}
+                renderSectionHeader={({ section: { title } }) => {
+                    if (searchText) {
+                        return null;
+                    }
+
+                    return (
+                        <Text
+                            key={title}
+                            style={[
+                                styles.sectionHeader,
+                                {
+                                    backgroundColor: white_smoke,
+                                    color: grey,
+                                },
+                            ]}
+                        >
+                            {title}
+                        </Text>
+                    );
                 }}
-                filters={filters}
-                HeaderNetworkDownIndicator={() => null}
-                maxUnreadCount={99}
-                onSelect={(channel) => {
-                    navigation.navigate('ChannelScreen', {
-                        channel,
-                    });
-                }}
-                options={options}
-                // Preview={InvitedChannelPreview}
-                setFlatListRef={setScrollRef}
-                sort={sort}
-                type='messenger'
-                sectionList
+                sections={sections}
+                stickySectionHeadersEnabled
             />
         </View>
     )

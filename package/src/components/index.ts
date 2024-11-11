@@ -61,7 +61,7 @@ export * from './ChannelList/Skeleton';
 export * from './ChannelPreview/ChannelAvatar';
 export * from './ChannelPreview/ChannelPreview';
 export * from './ChannelPreview/ChannelPreviewMessenger';
-export * from './ChannelPreview/InvitedChannelPreview';
+export * from './ChannelPreview/InvitedChannelPreview/InvitedChannelPreview';
 export * from './ChannelPreview/ChannelPreviewMessage';
 export * from './ChannelPreview/ChannelPreviewStatus';
 export * from './ChannelPreview/ChannelPreviewTitle';

@@ -84,7 +84,6 @@ export const NewGroupChannelAddMemberScreen: React.FC<Props> = ({ navigation }) 
 
   const { onChangeSearchText, onFocusInput, removeUser, reset, searchText, selectedUsers } =
     useUserSearchContext();
-
   const onRightArrowPress = () => {
     if (selectedUsers.length === 0) {
       return;

@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable } from 'react-native';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import { ChannelList, CircleClose, Search, useTheme } from 'ermis-chat-react-native';
 import { Channel } from 'ermis-chat-sdk';
@@ -13,6 +13,8 @@ import type { ChannelSort } from 'ermis-chat-sdk';
 
 import type { ErmisChatGenerics } from '../types';
 import InvitedChannelPreview from '../components/InvitedChannelPreview';
+
+import { FloatingActionButtons } from '../components/FloatingActionButton';
 
 const styles = StyleSheet.create({
   channelListContainer: {
@@ -46,6 +48,36 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 0, // removal of iOS top padding for weird centering
     textAlignVertical: 'center', // for android vertical text centering
+  },
+
+  buttonContainer: {
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    zIndex: 1,
+    bottom: 20,
+    right: 20,
+  },
+  button: {
+    zIndex: 1,
+    height: 56,
+    width: 56,
+    borderRadius: 100,
+    backgroundColor: '#b58df1',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  content: {
+    fontSize: 24,
+    color: '#f8f9ff',
+  },
+  shadow: {
+    shadowColor: '#171717',
+    shadowOffset: { width: -0.5, height: 3.5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });
 
@@ -115,7 +147,7 @@ export const ChannelListScreen: React.FC = () => {
       ]}
     >
       <ChatScreenHeader title='Ermis Chat' />
-
+      <FloatingActionButtons />
       <View style={styles.flex}>
         <View
           style={[
