@@ -1679,6 +1679,11 @@
   dependencies:
     "@types/ms" "*"
 
+"@types/event-source-polyfill@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@types/event-source-polyfill/-/event-source-polyfill-1.0.5.tgz#7223387b99ff519b0fed6278961c84315ffc14b7"
+  integrity sha512-iaiDuDI2aIFft7XkcwMzDWLqo7LVDixd2sR6B4wxJut9xcp/Ev9bO4EFg4rm6S9QxATLBj5OPxdeocgmhjwKaw==
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.4.tgz#8467d4b3c087805d63580480890791277ce35c44"
@@ -3180,10 +3185,10 @@ envinfo@^7.7.2:
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.8.1.tgz#06377e3e5f4d379fea7ac592d5ad8927e0c4d475"
   integrity sha512-/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==
 
-ermis-chat-react-native-core@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.1.0.tgz#a5e8a0d3054d2ceb4458607df850c24c90fd0f4f"
-  integrity sha512-El/To3CfSu5ZJ76eHx8IrGoB8ryxElwhaHadFuSpQMu2T6/g/53qRcDkeFPCtIrg1iRaPhVvxvgCZiI8dTDjAA==
+ermis-chat-react-native-core@1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.1.6.tgz#898f47b4677e5b7bcfb6ca120e1a3bd16eeedb6c"
+  integrity sha512-FWVV5eP9/keumFftn24uNho/OWK/LCbeMGYr3wzgWiwZcv4SXwldB3NoM1rEXn/itysFEr7IQ1GqKEW3w3rRIA==
   dependencies:
     "@gorhom/bottom-sheet" "4.4.8"
     "@react-native-async-storage/async-storage" "^1.23.1"
@@ -3191,7 +3196,7 @@ ermis-chat-react-native-core@1.1.0:
     "@web3modal/wagmi-react-native" "^1.4.1"
     dayjs "1.10.5"
     emoji-regex "^10.3.0"
-    ermis-chat-sdk "1.1.0"
+    ermis-chat-sdk "1.11.28"
     i18next "^21.6.14"
     intl-pluralrules "^2.0.1"
     linkifyjs "^4.1.1"
@@ -3201,20 +3206,23 @@ ermis-chat-react-native-core@1.1.0:
     react-native-get-random-values "^1.11.0"
     react-native-markdown-package "1.8.2"
     react-native-modal "^13.0.1"
+    react-native-sse "^1.2.1"
     react-native-url-polyfill "^1.3.0"
     viem "1.21.4"
     wagmi "1.4.13"
 
-ermis-chat-sdk@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.1.0.tgz#a9d1d0b9107a1a26c52a1fcd812bc77b7e1d3a6b"
-  integrity sha512-RVTlf9OP3Gr0p3b1JBbs3Q5ZUCK8vl+5PYRYXLDFCOWupzJqqZfGXyENa/nVzbkj11gx9jfIhleXzsps4txX1Q==
+ermis-chat-sdk@1.11.28:
+  version "1.11.28"
+  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.11.28.tgz#e0a2ce794dfeb2fae32b8efc5bec4294e9203181"
+  integrity sha512-rMg/LHYPGxyLSSkb30/2IyTTA/0zbfXvj5Ibug/uo69tmamgKdxC9bpvLh0h23nzMPpsxyCPhB35ylcXFHC7ZA==
   dependencies:
     "@babel/runtime" "^7.16.3"
+    "@types/event-source-polyfill" "^1.0.5"
     "@types/jsonwebtoken" "~9.0.0"
     "@types/ws" "^7.4.0"
     axios "^1.6.0"
     base64-js "^1.5.1"
+    event-source-polyfill "^1.0.31"
     form-data "^4.0.0"
     isomorphic-ws "^4.0.1"
     jsonwebtoken "~9.0.0"
@@ -3344,6 +3352,11 @@ ethereum-cryptography@^2.0.0:
     "@noble/hashes" "1.4.0"
     "@scure/bip32" "1.4.0"
     "@scure/bip39" "1.3.0"
+
+event-source-polyfill@^1.0.31:
+  version "1.0.31"
+  resolved "https://registry.yarnpkg.com/event-source-polyfill/-/event-source-polyfill-1.0.31.tgz#45fb0a6fc1375b2ba597361ba4287ffec5bf2e0c"
+  integrity sha512-4IJSItgS/41IxN5UVAVuAyczwZF7ZIEsM1XAoUzIHA6A+xzusEZUutdXz2Nr+MQPLxfTiCvqE79/C8HT8fKFvA==
 
 event-target-shim@^5.0.0, event-target-shim@^5.0.1:
   version "5.0.1"
@@ -5736,6 +5749,11 @@ react-native-modal@^13.0.1:
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
+
+react-native-sse@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-sse/-/react-native-sse-1.2.1.tgz#d7d063173bf5f3cd2cb6978141ec5d57591dff4b"
+  integrity sha512-zejanlScF+IB9tYnbdry0MT34qjBXbiV/E72qGz33W/tX1bx8MXsbB4lxiuPETc9v/008vYZ60yjIstW22VlVg==
 
 react-native-url-polyfill@2.0.0:
   version "2.0.0"
