@@ -20,6 +20,7 @@ cd package/native-package
 npm version --no-git-tag-version "$1"
 sed -e 's|"ermis-chat-react-native-core": "[^"]*"|"ermis-chat-react-native-core": "'"$1"'"|g' -i.bak package.json
 rm package.json.bak
+cd ..
 
 sed -e 's|"version": "[^"]*"|"version": "'"$1"'"|g' -i.bak src/version.json
 rm src/version.json.bak
@@ -33,7 +34,9 @@ git add native-package/yarn.lock
 
 npm version --no-git-tag-version "$1"
 
+echo "Publishing ermis-chat-react-native-core with tag $tag..."
 npm publish --tag="$tag"
+echo "Core package published successfully!"
 
 cd native-package
 npm publish --tag="$tag"
