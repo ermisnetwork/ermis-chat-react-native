@@ -3185,10 +3185,27 @@ envinfo@^7.7.2:
   resolved "https://registry.yarnpkg.com/envinfo/-/envinfo-7.8.1.tgz#06377e3e5f4d379fea7ac592d5ad8927e0c4d475"
   integrity sha512-/o+BXHmB7ocbHEAs6F2EnG0ogybVVUdkRunTT2glZU9XAaGmhqskrvKwqXuDfNjEO0LZKWdejEEpnq8aM0tOaw==
 
-ermis-chat-react-native-core@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.1.6.tgz#898f47b4677e5b7bcfb6ca120e1a3bd16eeedb6c"
-  integrity sha512-FWVV5eP9/keumFftn24uNho/OWK/LCbeMGYr3wzgWiwZcv4SXwldB3NoM1rEXn/itysFEr7IQ1GqKEW3w3rRIA==
+ermis-chat-js-sdk@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/ermis-chat-js-sdk/-/ermis-chat-js-sdk-1.4.0.tgz#53d9333627faeff835a7b963da61bd93c781feda"
+  integrity sha512-0o1uysU0pXhIvT7H2PbtdOX8dA7JY/mV9S6MR7YU5ubhqk35bW0j8PQLSgJ329JrgyNT1RdiXeLkvBnAi25MbA==
+  dependencies:
+    "@babel/runtime" "^7.16.3"
+    "@types/event-source-polyfill" "^1.0.5"
+    "@types/jsonwebtoken" "~9.0.0"
+    "@types/ws" "^7.4.0"
+    axios "^1.6.0"
+    base64-js "^1.5.1"
+    event-source-polyfill "^1.0.31"
+    form-data "^4.0.0"
+    isomorphic-ws "^4.0.1"
+    jsonwebtoken "~9.0.0"
+    ws "^7.4.4"
+
+ermis-chat-react-native-core@1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/ermis-chat-react-native-core/-/ermis-chat-react-native-core-1.1.8.tgz#6d823bcba113a366295eaef02bdadf9696d43327"
+  integrity sha512-EwocQ3zGXUsC6pfc6z9/mkMvHx6dirGLH7rseuiH2A1Vb72U5SYM+sv2A+Uh3LVKN4OWF0Onee07bSCRTgdlbw==
   dependencies:
     "@gorhom/bottom-sheet" "4.4.8"
     "@react-native-async-storage/async-storage" "^1.23.1"
@@ -3196,7 +3213,7 @@ ermis-chat-react-native-core@1.1.6:
     "@web3modal/wagmi-react-native" "^1.4.1"
     dayjs "1.10.5"
     emoji-regex "^10.3.0"
-    ermis-chat-sdk "1.11.28"
+    ermis-chat-js-sdk "^1.4.0"
     i18next "^21.6.14"
     intl-pluralrules "^2.0.1"
     linkifyjs "^4.1.1"
@@ -3210,23 +3227,6 @@ ermis-chat-react-native-core@1.1.6:
     react-native-url-polyfill "^1.3.0"
     viem "1.21.4"
     wagmi "1.4.13"
-
-ermis-chat-sdk@1.11.28:
-  version "1.11.28"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.11.28.tgz#e0a2ce794dfeb2fae32b8efc5bec4294e9203181"
-  integrity sha512-rMg/LHYPGxyLSSkb30/2IyTTA/0zbfXvj5Ibug/uo69tmamgKdxC9bpvLh0h23nzMPpsxyCPhB35ylcXFHC7ZA==
-  dependencies:
-    "@babel/runtime" "^7.16.3"
-    "@types/event-source-polyfill" "^1.0.5"
-    "@types/jsonwebtoken" "~9.0.0"
-    "@types/ws" "^7.4.0"
-    axios "^1.6.0"
-    base64-js "^1.5.1"
-    event-source-polyfill "^1.0.31"
-    form-data "^4.0.0"
-    isomorphic-ws "^4.0.1"
-    jsonwebtoken "~9.0.0"
-    ws "^7.4.4"
 
 error-ex@^1.3.1:
   version "1.3.2"
