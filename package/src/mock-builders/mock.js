@@ -1,7 +1,7 @@
 /* eslint no-underscore-dangle: 0 */
 /* eslint no-param-reassign: 0 */
 
-import { ErmisChat } from 'ermis-chat-sdk';
+import { ErmisChat } from 'ermis-chat-js-sdk';
 
 const apiKey = 'API_KEY';
 const token = 'dummy_token';

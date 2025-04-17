@@ -2,14 +2,14 @@ import React, { useMemo, useRef, useState } from 'react';
 import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View, Pressable } from 'react-native';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import { ChannelList, CircleClose, Search, useTheme } from 'ermis-chat-react-native';
-import { Channel } from 'ermis-chat-sdk';
+import { Channel } from 'ermis-chat-js-sdk';
 import { ChannelPreview } from '../components/ChannelPreview';
 import { ChatScreenHeader } from '../components/ChatScreenHeader';
 import { MessageSearchList } from '../components/MessageSearch/MessageSearchList';
 import { useAppContext } from '../context/AppContext';
 import { usePaginatedSearchedMessages } from '../hooks/usePaginatedSearchedMessages';
 
-import type { ChannelSort } from 'ermis-chat-sdk';
+import type { ChannelSort } from 'ermis-chat-js-sdk';
 
 import type { ErmisChatGenerics } from '../types';
 import InvitedChannelPreview from '../components/InvitedChannelPreview';

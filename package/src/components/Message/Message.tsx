@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { GestureResponderEvent, Keyboard, StyleProp, View, ViewStyle } from 'react-native';
 
-import type { Attachment, UserResponse } from 'ermis-chat-sdk';
+import type { Attachment, UserResponse } from 'ermis-chat-js-sdk';
 
 import { useCreateMessageContext } from './hooks/useCreateMessageContext';
 import { useMessageActionHandlers } from './hooks/useMessageActionHandlers';

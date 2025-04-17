@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 
 import { renderHook } from '@testing-library/react-native';
 
-import type { DefaultGenerics, ErmisChat } from 'ermis-chat-sdk';
+import type { DefaultGenerics, ErmisChat } from 'ermis-chat-js-sdk';
 
 import { useCreatePaginatedMessageListContext } from '../../../components/Channel/hooks/useCreatePaginatedMessageListContext';
 import {

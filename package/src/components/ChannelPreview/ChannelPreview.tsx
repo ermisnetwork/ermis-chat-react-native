@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import type { Channel, ChannelState, Event, MessageResponse } from 'ermis-chat-sdk';
+import type { Channel, ChannelState, Event, MessageResponse } from 'ermis-chat-js-sdk';
 
 import { useLatestMessagePreview } from './hooks/useLatestMessagePreview';
 
@@ -17,7 +17,7 @@ export type ChannelPreviewPropsWithContext<
 > = Pick<ChatContextValue<ErmisChatGenerics>, 'client'> &
   Pick<ChannelsContextValue<ErmisChatGenerics>, 'Preview' | 'forceUpdate'> & {
     /**
-     * Instance of Channel from ermis-chat-sdk package.
+     * Instance of Channel from ermis-chat-js-sdk package.
      */
     channel: Channel<ErmisChatGenerics>;
   };

@@ -1,4 +1,4 @@
-import { ChainProjectResponse, UserWithProjectsResponse, Project } from 'ermis-chat-sdk';
+import { ChainProjectResponse, UserWithProjectsResponse, Project } from 'ermis-chat-js-sdk';
 import { useNavigation } from "@react-navigation/native";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { SafeAreaView, Text, TouchableOpacity, View, Dimensions, useWindowDimensions, StatusBar, StyleSheet, TextInputProps } from "react-native";

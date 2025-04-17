@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import type { Channel } from 'ermis-chat-sdk';
+import type { Channel } from 'ermis-chat-js-sdk';
 
-// TODO: KhoaKheu: update field own_capabilities to member_capabilities of class channel on ermis-chat-sdk
+// TODO: KhoaKheu: update field own_capabilities to member_capabilities of class channel on ermis-chat-js-sdk
 
 import {
   allOwnCapabilities,

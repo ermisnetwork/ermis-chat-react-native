@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 import { ChatContextValue, useChatContext } from '../../contexts/chatContext/ChatContext';
 

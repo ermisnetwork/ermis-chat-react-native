@@ -1,4 +1,4 @@
-import type { ChannelAPIResponse } from 'ermis-chat-sdk';
+import type { ChannelAPIResponse } from 'ermis-chat-js-sdk';
 
 import { getChannelMessages } from './getChannelMessages';
 import { getMembers } from './getMembers';

@@ -5,7 +5,7 @@ import Dayjs from 'dayjs';
 import type { TFunction } from 'i18next';
 import type { Moment } from 'moment';
 
-import type { TranslationLanguages } from 'ermis-chat-sdk';
+import type { TranslationLanguages } from 'ermis-chat-js-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import { getDisplayName } from '../utils/getDisplayName';

@@ -1,4 +1,4 @@
-import type { Channel, ReactionResponse, UserResponse } from 'ermis-chat-sdk';
+import type { Channel, ReactionResponse, UserResponse } from 'ermis-chat-js-sdk';
 
 import { updateReaction } from '../store/apis';
 import { insertReaction } from '../store/apis/insertReaction';

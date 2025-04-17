@@ -1,4 +1,4 @@
-import type { MessageResponse } from 'ermis-chat-sdk';
+import type { MessageResponse } from 'ermis-chat-js-sdk';
 
 import { mapStorableToReaction } from './mapStorableToReaction';
 

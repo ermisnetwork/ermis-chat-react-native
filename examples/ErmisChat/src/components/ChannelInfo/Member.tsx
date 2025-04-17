@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import { ErmisChatGenerics } from "../../types";
-import type { Channel, ChannelMemberResponse, UserResponse } from 'ermis-chat-sdk';
+import type { Channel, ChannelMemberResponse, UserResponse } from 'ermis-chat-js-sdk';
 import { Avatar, useChatContext } from "ermis-chat-react-native";
 
 const styles = StyleSheet.create({

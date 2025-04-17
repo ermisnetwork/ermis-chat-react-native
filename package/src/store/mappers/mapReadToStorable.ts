@@ -1,4 +1,4 @@
-import type { ReadResponse } from 'ermis-chat-sdk';
+import type { ReadResponse } from 'ermis-chat-js-sdk';
 
 import { mapDateTimeToStorable } from './mapDateTimeToStorable';
 

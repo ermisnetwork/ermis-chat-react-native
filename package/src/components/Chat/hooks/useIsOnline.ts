@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import type { NetInfoSubscription } from '@react-native-community/netinfo';
 
-import type { ErmisChat, Event as ErmisEvent } from 'ermis-chat-sdk';
+import type { ErmisChat, Event as ErmisEvent } from 'ermis-chat-js-sdk';
 
 import { useAppStateListener } from '../../../hooks/useAppStateListener';
 import { useIsMountedRef } from '../../../hooks/useIsMountedRef';

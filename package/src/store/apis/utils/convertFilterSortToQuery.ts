@@ -1,4 +1,4 @@
-import type { ChannelFilters, ChannelSort } from 'ermis-chat-sdk';
+import type { ChannelFilters, ChannelSort } from 'ermis-chat-js-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../../types/types';
 

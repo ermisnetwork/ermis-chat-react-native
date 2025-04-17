@@ -1,6 +1,6 @@
 .PHONY: netlify
 .PHONY: example-build example-deps
-.PHONY: link-ermis-chat-sdk
+.PHONY: link-ermis-chat-js-sdk
 
 EXAMPLES_PATH = ../examples
 NATIVE_EXAMPLES = ErmisChat
@@ -43,6 +43,6 @@ clean:
 	rm -rf dist || true
 	rm -rf node_modules || true
 
-link-ermis-chat-sdk:
-	yarn link ermis-chat-sdk
+link-ermis-chat-js-sdk:
+	yarn link ermis-chat-js-sdk
 	touch $@

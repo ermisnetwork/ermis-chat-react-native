@@ -24,7 +24,7 @@ import { usePaginatedAttachments } from '../hooks/usePaginatedAttachments';
 import { Picture } from '../icons/Picture';
 
 import type { RouteProp } from '@react-navigation/native';
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 

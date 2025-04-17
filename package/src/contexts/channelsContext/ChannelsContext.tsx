@@ -3,7 +3,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 import type { FlatListProps } from 'react-native';
 import type { FlatList } from 'react-native-gesture-handler';
 
-import type { Channel } from 'ermis-chat-sdk';
+import type { Channel } from 'ermis-chat-js-sdk';
 
 import type { HeaderErrorProps } from '../../components/ChannelList/ChannelListHeaderErrorIndicator';
 import type { QueryChannels } from '../../components/ChannelList/hooks/usePaginatedChannels';

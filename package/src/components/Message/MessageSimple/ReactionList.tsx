@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'r
 
 import Svg, { Circle } from 'react-native-svg';
 
-import { ReactionResponse } from 'ermis-chat-sdk';
+import { ReactionResponse } from 'ermis-chat-js-sdk';
 
 import {
   MessageContextValue,

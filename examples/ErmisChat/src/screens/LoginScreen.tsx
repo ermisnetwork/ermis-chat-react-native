@@ -13,7 +13,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTheme, version } from 'ermis-chat-react-native';
 
 import { useAppContext } from '../context/AppContext';
-import { ErmisAuth, ErmisChat } from 'ermis-chat-sdk';
+import { ErmisAuth, ErmisChat } from 'ermis-chat-js-sdk';
 import { ErmisLogo } from '../icons/ErmisLogo';
 import { Settings } from '../icons/Settings';
 import AsyncStore from '../utils/AsyncStore';
@@ -142,6 +142,10 @@ export const LoginScreen: React.FC<Props> = () => {
             userId: address.toLowerCase(),
             userToken: token
           };
+          // let config: LoginConfig = {
+          //   userId: "0x8eb718033b4a3c5f8bdea1773ded0259b2300f5d".toLowerCase(),
+          //   userToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiMHg4ZWI3MTgwMzNiNGEzYzVmOGJkZWExNzczZGVkMDI1OWIyMzAwZjVkIiwiY2xpZW50X2lkIjoiNmZiZGVjYjAtMWVjOC00ZTMyLTk5ZDctZmYyNjgzZTMwOGI3IiwiY2hhaW5faWQiOjAsInByb2plY3RfaWQiOiJiNDQ5MzdlNC1jMGQ0LTRhNzMtODQ3Yy0zNzMwYTkyM2NlODMiLCJhcGlrZXkiOiJrVUNxcWJmRVF4a1pnZTdISERGY0l4Zm9IenFTWlVhbSIsImVybWlzIjp0cnVlLCJleHAiOjE4MzM0ODUyNjU3ODgsImFkbWluIjpmYWxzZSwiZ2F0ZSI6ZmFsc2V9.rCxKmGJYYnHVZC8rZT_DJjBDBqYuHoiQa37zgPO7AMU"
+          // };
 
           switchUser(config);
 

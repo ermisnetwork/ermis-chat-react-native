@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext } from 'react';
 import type { ImageProps } from 'react-native';
 
-import type { AppSettingsAPIResponse, Channel, Mute, ErmisChat } from 'ermis-chat-sdk';
+import type { AppSettingsAPIResponse, Channel, Mute, ErmisChat } from 'ermis-chat-js-sdk';
 
 import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';
@@ -20,7 +20,7 @@ export type ChatContextValue<
    * The ErmisChat client object
    *
    * ```
-   * import { ErmisChat } from 'ermis-chat-sdk';
+   * import { ErmisChat } from 'ermis-chat-js-sdk';
    * import { Chat } from 'ermis-chat-react-native';
    *
    * const client = ErmisChat.getInstance('api_key);
@@ -48,12 +48,12 @@ export type ChatContextValue<
    */
   setActiveChannel: (newChannel?: Channel<ErmisChatGenerics>) => void;
   /**
-   * Instance of channel object from ermis-chat-sdk package.
+   * Instance of channel object from ermis-chat-js-sdk package.
    *
    * Please check the docs around how to create or query channel
    *
    * ```
-   * import { ErmisChat, Channel } from 'ermis-chat-sdk';
+   * import { ErmisChat, Channel } from 'ermis-chat-js-sdk';
    * import { Chat, Channel} from 'ermis-chat-react-native';
    *
    * const client = ErmisChat.getInstance('api_key');

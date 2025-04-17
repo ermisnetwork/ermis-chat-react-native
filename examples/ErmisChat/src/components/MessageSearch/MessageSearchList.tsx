@@ -7,7 +7,7 @@ import { Avatar, Spinner, useTheme, useViewport } from 'ermis-chat-react-native'
 
 import { MESSAGE_SEARCH_LIMIT } from '../../hooks/usePaginatedSearchedMessages';
 
-import type { MessageResponse } from 'ermis-chat-sdk';
+import type { MessageResponse } from 'ermis-chat-js-sdk';
 
 import type { ErmisChatGenerics } from '../../types';
 

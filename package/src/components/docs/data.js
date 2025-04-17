@@ -1,6 +1,6 @@
 /* global require */
 const Dayjs = require('dayjs');
-const ErmisChat = require('ermis-chat-sdk').ErmisChat;
+const ErmisChat = require('ermis-chat-js-sdk').ErmisChat;
 export const client = new ErmisChat('qk4nn7rpcn75');
 
 client.connectUser(

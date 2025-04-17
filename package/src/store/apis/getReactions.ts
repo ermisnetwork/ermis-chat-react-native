@@ -1,4 +1,4 @@
-import type { ReactionResponse } from 'ermis-chat-sdk';
+import type { ReactionResponse } from 'ermis-chat-js-sdk';
 
 import type { DefaultErmisChatGenerics } from '../../types/types';
 import { mapStorableToReaction } from '../mappers/mapStorableToReaction';

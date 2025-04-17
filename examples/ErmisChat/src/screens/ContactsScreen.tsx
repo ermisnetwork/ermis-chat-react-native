@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { ActivityIndicator, FlatList, SectionList, StyleSheet, Text, TextInput, TouchableOpacity, useColorScheme, View } from "react-native";
 import { useAppContext } from '../context/AppContext';
 import { useUserSearchContext } from '../context/UserSearchContext';
-import type { Channel, ChannelSort, UserResponse } from 'ermis-chat-sdk';
+import type { Channel, ChannelSort, UserResponse } from 'ermis-chat-js-sdk';
 import type { ErmisChatGenerics, StackNavigatorParamList } from '../types';
 import { ScreenHeader } from "../components/ScreenHeader";
 import { Avatar, useTheme, useViewport, Right } from "ermis-chat-react-native";

@@ -1,4 +1,4 @@
-import { Channel, Attachment } from 'ermis-chat-sdk';
+import { Channel, Attachment } from 'ermis-chat-js-sdk';
 import { ErmisChatGenerics } from '../../types';
 import {
     Dimensions,

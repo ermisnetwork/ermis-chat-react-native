@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 import { Attachment as AttachmentDefault } from './Attachment';
 

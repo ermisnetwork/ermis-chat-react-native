@@ -19,7 +19,7 @@ import Animated, {
 
 import { BottomSheetModal, BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
-import type { UserResponse } from 'ermis-chat-sdk';
+import type { UserResponse } from 'ermis-chat-js-sdk';
 
 import { AnimatedGalleryImage } from './components/AnimatedGalleryImage';
 import { AnimatedGalleryVideo } from './components/AnimatedGalleryVideo';

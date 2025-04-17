@@ -6,7 +6,7 @@ import { UserGridItem } from './UserGridItem';
 
 import { EmptySearchState } from '../../icons/EmptySearchState';
 
-import type { UserResponse } from 'ermis-chat-sdk';
+import type { UserResponse } from 'ermis-chat-js-sdk';
 
 import type { ErmisChatGenerics } from '../../types';
 

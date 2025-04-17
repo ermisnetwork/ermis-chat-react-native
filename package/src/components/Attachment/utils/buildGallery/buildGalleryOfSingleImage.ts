@@ -1,4 +1,4 @@
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 import { buildThumbnail } from './buildThumbnail';
 

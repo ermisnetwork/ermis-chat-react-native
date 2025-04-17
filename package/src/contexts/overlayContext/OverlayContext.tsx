@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import type { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 import type { AttachmentPickerProps } from '../../components/AttachmentPicker/AttachmentPicker';
 import type { ImageGalleryCustomComponents } from '../../components/ImageGallery/ImageGallery';

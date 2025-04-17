@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 import {
   MessageContextValue,

@@ -9,7 +9,7 @@ import {
   ViewToken,
 } from 'react-native';
 
-import type { FormatMessageResponse } from 'ermis-chat-sdk';
+import type { FormatMessageResponse } from 'ermis-chat-js-sdk';
 
 import {
   isMessageWithStylesReadByAndDateSeparator,

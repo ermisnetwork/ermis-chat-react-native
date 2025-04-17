@@ -16,7 +16,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-import type { UserResponse } from 'ermis-chat-sdk';
+import type { UserResponse } from 'ermis-chat-js-sdk';
 
 import { useAudioController } from './hooks/useAudioController';
 import { useCountdown } from './hooks/useCountdown';

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext, useState } from 'react';
 
-import type { CommandResponse, UserResponse } from 'ermis-chat-sdk';
+import type { CommandResponse, UserResponse } from 'ermis-chat-js-sdk';
 
 import type { AutoCompleteSuggestionHeaderProps } from '../../components/AutoCompleteInput/AutoCompleteSuggestionHeader';
 import type { AutoCompleteSuggestionItemProps } from '../../components/AutoCompleteInput/AutoCompleteSuggestionItem';

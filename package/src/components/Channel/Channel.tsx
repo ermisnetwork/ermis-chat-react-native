@@ -17,7 +17,7 @@ import {
   ErmisChat,
   Event as ErmisEvent,
   Message as ErmisMessage,
-} from 'ermis-chat-sdk';
+} from 'ermis-chat-js-sdk';
 
 import { useCreateChannelContext } from './hooks/useCreateChannelContext';
 

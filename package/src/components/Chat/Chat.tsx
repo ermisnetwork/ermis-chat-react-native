@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { Image, Platform } from 'react-native';
 
-import type { Channel, ErmisChat } from 'ermis-chat-sdk';
+import type { Channel, ErmisChat } from 'ermis-chat-js-sdk';
 
 import { useAppSettings } from './hooks/useAppSettings';
 import { useCreateChatContext } from './hooks/useCreateChatContext';

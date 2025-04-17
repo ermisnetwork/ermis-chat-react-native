@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { Channel, ChannelState } from 'ermis-chat-sdk';
+import type { Channel, ChannelState } from 'ermis-chat-js-sdk';
 
 import type { EmptyStateProps } from '../../components/Indicators/EmptyStateIndicator';
 import type { LoadingProps } from '../../components/Indicators/LoadingIndicator';
@@ -15,12 +15,12 @@ export type ChannelContextValue<
   ErmisChatGenerics extends DefaultErmisChatGenerics = DefaultErmisChatGenerics,
 > = {
   /**
-   * Instance of channel object from ermis-chat-sdk package.
+   * Instance of channel object from ermis-chat-js-sdk package.
    *
    * Please check the docs around how to create or query channel 
    *
    * ```
-   * import { ErmisChat, Channel } from 'ermis-chat-sdk';
+   * import { ErmisChat, Channel } from 'ermis-chat-js-sdk';
    * import { Chat, Channel} from 'ermis-chat-react-native';
    *
    * const client = ErmisChat.getInstance('api_key');

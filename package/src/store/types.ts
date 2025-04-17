@@ -1,4 +1,4 @@
-import type { Channel } from 'ermis-chat-sdk';
+import type { Channel } from 'ermis-chat-js-sdk';
 
 import type { Schema } from './schema';
 

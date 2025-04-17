@@ -1,4 +1,4 @@
-import type { Channel, ChannelResponse } from 'ermis-chat-sdk';
+import type { Channel, ChannelResponse } from 'ermis-chat-js-sdk';
 
 import { mapDateTimeToStorable } from './mapDateTimeToStorable';
 

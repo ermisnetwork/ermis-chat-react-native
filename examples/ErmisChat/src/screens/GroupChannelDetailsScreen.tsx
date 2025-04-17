@@ -36,7 +36,7 @@ import { RemoveUser } from '../icons/RemoveUser';
 import { getUserActivityStatus } from '../utils/getUserActivityStatus';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
-import type { Channel, UserResponse } from 'ermis-chat-sdk';
+import type { Channel, UserResponse } from 'ermis-chat-js-sdk';
 
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';
 import { Pin } from '../icons/Pin';

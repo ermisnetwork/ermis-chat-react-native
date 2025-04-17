@@ -37,7 +37,7 @@ import { useUserInfoOverlayContext } from '../context/UserInfoOverlayContext';
 
 import type { ErmisChatGenerics } from '../types';
 import { useAppContext } from '../context/AppContext';
-import { UserResponse } from 'ermis-chat-sdk';
+import { UserResponse } from 'ermis-chat-js-sdk';
 
 dayjs.extend(relativeTime);
 

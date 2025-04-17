@@ -6346,10 +6346,10 @@ eol@^0.9.1:
   resolved "https://registry.npmjs.org/eol/-/eol-0.9.1.tgz"
   integrity sha512-Ds/TEoZjwggRoz/Q2O7SE3i4Jm66mqTDfmdHdq/7DKVk3bro9Q8h6WdXKdPqFLMoqxrDK5SVRzHVPOS6uuGtrg==
 
-ermis-chat-sdk@1.11.27:
-  version "1.11.27"
-  resolved "https://registry.yarnpkg.com/ermis-chat-sdk/-/ermis-chat-sdk-1.11.27.tgz#c0aede5b68df4a2a9125173fa1cc1b3f75bd1b7e"
-  integrity sha512-eAHCvsTWn8tSByuy85F3C57WzYfkulClRPMvcgs6gUR3m+lWBB0Rkd+f1vt0Hb5xwct9g2HUSg3LN63muZvc3Q==
+ermis-chat-js-sdk@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/ermis-chat-js-sdk/-/ermis-chat-js-sdk-1.4.0.tgz#53d9333627faeff835a7b963da61bd93c781feda"
+  integrity sha512-0o1uysU0pXhIvT7H2PbtdOX8dA7JY/mV9S6MR7YU5ubhqk35bW0j8PQLSgJ329JrgyNT1RdiXeLkvBnAi25MbA==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@types/event-source-polyfill" "^1.0.5"

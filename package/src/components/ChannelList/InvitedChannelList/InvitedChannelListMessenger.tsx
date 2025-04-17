@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 // See https://github.com/software-mansion/react-native-gesture-handler/issues/598
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 
-import type { Channel } from 'ermis-chat-sdk';
+import type { Channel } from 'ermis-chat-js-sdk';
 
 import {
     ChannelsContextValue,

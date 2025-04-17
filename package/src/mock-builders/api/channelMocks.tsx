@@ -4,7 +4,7 @@ import type {
   FormatMessageResponse,
   MessageResponse,
   UserResponse,
-} from 'ermis-chat-sdk';
+} from 'ermis-chat-js-sdk';
 
 import {
   GROUP_CHANNEL_MEMBERS_MOCK,

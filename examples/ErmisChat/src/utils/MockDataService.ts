@@ -1,6 +1,6 @@
 import { generateRandomId } from 'ermis-chat-react-native';
 
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 const messageSearchByFileAttachmentType = () => {
   const attachments: Attachment[] = [

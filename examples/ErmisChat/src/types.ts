@@ -1,5 +1,5 @@
 import type { Immutable } from 'seamless-immutable';
-import type { Channel, UserResponse } from 'ermis-chat-sdk';
+import type { Channel, UserResponse } from 'ermis-chat-js-sdk';
 import type { ThreadContextValue } from 'ermis-chat-react-native';
 import type { Theme } from '@react-navigation/native';
 

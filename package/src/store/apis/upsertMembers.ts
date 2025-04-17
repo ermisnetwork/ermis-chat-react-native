@@ -1,4 +1,4 @@
-import type { ChannelMemberResponse } from 'ermis-chat-sdk';
+import type { ChannelMemberResponse } from 'ermis-chat-js-sdk';
 
 import { mapMemberToStorable } from '../mappers/mapMemberToStorable';
 import { mapUserToStorable } from '../mappers/mapUserToStorable';

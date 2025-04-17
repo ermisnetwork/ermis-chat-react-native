@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import type { FlatList } from 'react-native-gesture-handler';
 
-import type { Channel, ChannelFilters, ChannelOptions, ChannelSort, Event } from 'ermis-chat-sdk';
+import type { Channel, ChannelFilters, ChannelOptions, ChannelSort, Event } from 'ermis-chat-js-sdk';
 
 import { ChannelListFooterLoadingIndicator } from './ChannelListFooterLoadingIndicator';
 import { ChannelListHeaderErrorIndicator } from './ChannelListHeaderErrorIndicator';

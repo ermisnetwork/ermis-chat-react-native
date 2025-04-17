@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 
 import type { TouchableOpacityProps } from 'react-native';
 
-import type { Attachment, ChannelState, MessageResponse } from 'ermis-chat-sdk';
+import type { Attachment, ChannelState, MessageResponse } from 'ermis-chat-js-sdk';
 
 import type { AttachmentProps } from '../../components/Attachment/Attachment';
 import type { AttachmentActionsProps } from '../../components/Attachment/AttachmentActions';

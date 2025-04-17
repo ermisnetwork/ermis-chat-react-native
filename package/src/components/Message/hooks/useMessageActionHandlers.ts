@@ -1,4 +1,4 @@
-import type { MessageResponse } from 'ermis-chat-sdk';
+import type { MessageResponse } from 'ermis-chat-js-sdk';
 
 import type { ChannelContextValue } from '../../../contexts/channelContext/ChannelContext';
 import type { ChatContextValue } from '../../../contexts/chatContext/ChatContext';

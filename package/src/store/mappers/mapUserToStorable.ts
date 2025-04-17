@@ -1,4 +1,4 @@
-import type { UserResponse } from 'ermis-chat-sdk';
+import type { UserResponse } from 'ermis-chat-js-sdk';
 
 import type { TableRow } from '../types';
 

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { Attachment } from 'ermis-chat-sdk';
+import type { Attachment } from 'ermis-chat-js-sdk';
 
 import type { ActionHandler } from '../../components/Attachment/Attachment';
 import { ReactionSummary } from '../../components/Message/hooks/useProcessReactions';

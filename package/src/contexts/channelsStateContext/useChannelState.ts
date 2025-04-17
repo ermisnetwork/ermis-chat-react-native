@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react';
 
-import type { Channel as ChannelType } from 'ermis-chat-sdk';
+import type { Channel as ChannelType } from 'ermis-chat-js-sdk';
 
 import { useChannelsStateContext } from './ChannelsStateContext';
 

@@ -1,4 +1,4 @@
-import type { FormatMessageResponse, MessageResponse } from 'ermis-chat-sdk';
+import type { FormatMessageResponse, MessageResponse } from 'ermis-chat-js-sdk';
 
 import { mapDateTimeToStorable } from './mapDateTimeToStorable';
 

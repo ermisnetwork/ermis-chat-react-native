@@ -16,7 +16,7 @@ import {
   UserOptions,
   UserResponse,
   UserSort,
-} from 'ermis-chat-sdk';
+} from 'ermis-chat-js-sdk';
 
 import { useCreateMessageInputContext } from './hooks/useCreateMessageInputContext';
 import { useMessageDetailsForState } from './hooks/useMessageDetailsForState';

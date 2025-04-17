@@ -36,7 +36,7 @@ import { useBottomSheetOverlayContext } from '../context/BottomSheetOverlayConte
 import { useChannelInfoOverlayContext } from '../context/ChannelInfoOverlayContext';
 import { Delete } from '../icons/Delete';
 import { ErmisChatGenerics } from '../types';
-import { UserResponse } from 'ermis-chat-sdk';
+import { UserResponse } from 'ermis-chat-js-sdk';
 dayjs.extend(relativeTime);
 
 const avatarSize = 64;

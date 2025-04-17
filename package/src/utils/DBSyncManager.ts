@@ -1,6 +1,6 @@
 // import type { AxiosError } from 'axios';
 import dayjs from 'dayjs';
-import type { APIErrorResponse, ErmisChat, ExtendAxiosError } from 'ermis-chat-sdk';
+import type { APIErrorResponse, ErmisChat, ExtendAxiosError } from 'ermis-chat-js-sdk';
 
 import { handleEventToSyncDB } from '../components/Chat/hooks/handleEventToSyncDB';
 import { getAllChannelIds, getLastSyncedAt, upsertUserSyncStatus } from '../store/apis';

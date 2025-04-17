@@ -7,7 +7,7 @@ import { UserGridItem } from '../components/UserSearch/UserGridItem';
 import { UserSearchResults } from '../components/UserSearch/UserSearchResults';
 import { useAppContext } from '../context/AppContext';
 import { useUserSearchContext } from '../context/UserSearchContext';
-import type { ContactResult, UserResponse } from 'ermis-chat-sdk';
+import type { ContactResult, UserResponse } from 'ermis-chat-js-sdk';
 import type { StackNavigationProp } from '@react-navigation/stack';
 
 import type { ErmisChatGenerics, StackNavigatorParamList } from '../types';

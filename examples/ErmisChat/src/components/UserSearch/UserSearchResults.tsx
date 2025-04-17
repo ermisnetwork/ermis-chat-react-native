@@ -14,7 +14,7 @@ import Svg, { Defs, LinearGradient, Rect, Stop } from 'react-native-svg';
 import { Avatar, CheckSend, Close, useTheme, useViewport, Right } from 'ermis-chat-react-native';
 import { useUserSearchContext } from '../../context/UserSearchContext';
 
-import type { UserResponse } from 'ermis-chat-sdk';
+import type { UserResponse } from 'ermis-chat-js-sdk';
 
 import type { ErmisChatGenerics } from '../../types';
 import { Search } from '../../icons/Search';

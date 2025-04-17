@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext } from 'react';
 
 import type { ImageProps } from 'react-native';
 
-import type { Attachment, TranslationLanguages } from 'ermis-chat-sdk';
+import type { Attachment, TranslationLanguages } from 'ermis-chat-js-sdk';
 
 import { useResettableState } from './hooks/useResettableState';
 

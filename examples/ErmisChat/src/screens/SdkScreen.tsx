@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { SafeAreaView, Text, TouchableOpacity, View, Dimensions, useWindowDimensions, StatusBar, StyleSheet, TextInputProps } from "react-native";
 import { useAppContext } from "../context/AppContext";
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { ChainProjectResponse, UserWithProjectsResponse, Project } from 'ermis-chat-sdk';
+import { ChainProjectResponse, UserWithProjectsResponse, Project } from 'ermis-chat-js-sdk';
 import { ChatScreenHeader } from "../components/ChatScreenHeader";
 import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { useTheme } from "ermis-chat-react-native";

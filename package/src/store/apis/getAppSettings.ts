@@ -1,4 +1,4 @@
-import type { AppSettingsAPIResponse } from 'ermis-chat-sdk';
+import type { AppSettingsAPIResponse } from 'ermis-chat-js-sdk';
 
 import { QuickSqliteClient } from '../QuickSqliteClient';
 import { createSelectQuery } from '../sqlite-utils/createSelectQuery';

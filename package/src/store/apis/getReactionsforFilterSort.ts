@@ -1,4 +1,4 @@
-import type { ReactionFilters, ReactionResponse, ReactionSort } from 'ermis-chat-sdk';
+import type { ReactionFilters, ReactionResponse, ReactionSort } from 'ermis-chat-js-sdk';
 
 import { getReactions } from './getReactions';
 import { selectReactionsForMessages } from './queries/selectReactionsForMessages';

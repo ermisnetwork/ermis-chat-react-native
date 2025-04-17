@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useContext } from 'react';
 
-import type { ChannelState } from 'ermis-chat-sdk';
+import type { ChannelState } from 'ermis-chat-js-sdk';
 
 import type { DefaultErmisChatGenerics, UnknownType } from '../../types/types';
 import { DEFAULT_BASE_CONTEXT_VALUE } from '../utils/defaultBaseContextValue';

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import type { Channel, Event } from 'ermis-chat-sdk';
+import type { Channel, Event } from 'ermis-chat-js-sdk';
 
 import { useChatContext } from '../../../../contexts/chatContext/ChatContext';
 

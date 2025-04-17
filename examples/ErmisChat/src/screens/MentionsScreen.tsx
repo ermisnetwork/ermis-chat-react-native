@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { AtMentions, useTheme } from 'ermis-chat-react-native';
-import { MessageResponse } from 'ermis-chat-sdk';
+import { MessageResponse } from 'ermis-chat-js-sdk';
 
 import { ChatScreenHeader } from '../components/ChatScreenHeader';
 import { MessageSearchList } from '../components/MessageSearch/MessageSearchList';

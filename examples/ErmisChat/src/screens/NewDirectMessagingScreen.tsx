@@ -19,7 +19,7 @@ import { useAppContext } from '../context/AppContext';
 import { useUserSearchContext } from '../context/UserSearchContext';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
-import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk';
+import type { Channel as ErmisChatChannel } from 'ermis-chat-js-sdk';
 
 import { NewDirectMessagingSendButton } from '../components/NewDirectMessagingSendButton';
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import type { ErmisChat } from 'ermis-chat-sdk';
+import type { ErmisChat } from 'ermis-chat-js-sdk';
 
 import { handleEventToSyncDB } from './handleEventToSyncDB';
 

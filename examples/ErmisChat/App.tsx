@@ -36,7 +36,7 @@ import { SharedGroupsScreen } from './src/screens/SharedGroupsScreen';
 import { ThreadScreen } from './src/screens/ThreadScreen';
 import { LoginScreen } from './src/screens/LoginScreen';
 import { SettingsScreen } from './src/screens/SettingsScreen';
-import type { ErmisChat } from 'ermis-chat-sdk';
+import type { ErmisChat } from 'ermis-chat-js-sdk';
 import '@walletconnect/react-native-compat'
 import { WagmiConfig } from 'wagmi'
 import { mainnet, polygon, arbitrum, avalanche, optimism, bsc, fantom, gnosis } from 'viem/chains'

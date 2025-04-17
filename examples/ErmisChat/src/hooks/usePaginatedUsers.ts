@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
-import type { UserFilters, UserResponse } from 'ermis-chat-sdk';
+import type { UserFilters, UserResponse } from 'ermis-chat-js-sdk';
 
 import type { ErmisChatGenerics } from '../types';
 

@@ -1,4 +1,4 @@
-import type { ExtendableGenerics, LiteralStringForUnion } from 'ermis-chat-sdk';
+import type { ExtendableGenerics, LiteralStringForUnion } from 'ermis-chat-js-sdk';
 
 import type { FileStateValue } from '../utils/utils';
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useAppContext } from '../context/AppContext';
 
-import type { Channel, MessageResponse, Attachment } from 'ermis-chat-sdk';
+import type { Channel, MessageResponse, Attachment } from 'ermis-chat-js-sdk';
 
 import type { ErmisChatGenerics } from '../types';
 

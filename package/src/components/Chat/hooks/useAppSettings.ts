@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-sdk';
+import type { AppSettingsAPIResponse, ErmisChat } from 'ermis-chat-js-sdk';
 
 // import { useIsMountedRef } from '../../../hooks/useIsMountedRef';
 import * as dbApi from '../../../store/apis';

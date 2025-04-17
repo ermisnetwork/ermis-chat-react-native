@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import type { StackNavigationProp } from '@react-navigation/stack';
-import type { ChannelState } from 'ermis-chat-sdk';
+import type { ChannelState } from 'ermis-chat-js-sdk';
 import type { ChannelContextValue } from 'ermis-chat-react-native';
 
 import type { StackNavigatorParamList, ErmisChatGenerics } from '../types';

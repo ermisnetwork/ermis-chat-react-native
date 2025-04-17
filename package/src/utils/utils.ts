@@ -11,8 +11,7 @@ import {
   FormatMessageResponse,
   ErmisChat,
   UserResponse,
-  generateChannelId
-} from 'ermis-chat-sdk';
+} from 'ermis-chat-js-sdk';
 
 import { IconProps } from '../../src/icons/utils/base';
 import { MessageType } from '../components/MessageList/hooks/useMessageList';
@@ -628,7 +627,3 @@ export const getFileNameFromPath = (path: string) => {
   const match = path.match(pattern);
   return match ? match[0] : '';
 };
-
-export const genenrateChannelId = (projectId: string) => {
-  return generateChannelId(projectId);
-}

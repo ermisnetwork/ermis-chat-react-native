@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Attachment } from 'ermis-chat-sdk';
+import { Attachment } from 'ermis-chat-js-sdk';
 
 import type { DefaultErmisChatGenerics, FileUpload, ImageUpload } from '../../../types/types';
 import { generateRandomId } from '../../../utils/utils';

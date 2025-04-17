@@ -21,7 +21,7 @@ import { Mute } from '../icons/Mute';
 import { Search } from '../icons/Search';
 import { LogOut } from '../icons/LogOut';
 import { SceneMap, TabView } from 'react-native-tab-view';
-import type { Channel, UserResponse } from 'ermis-chat-sdk';
+import type { Channel, UserResponse } from 'ermis-chat-js-sdk';
 import { Member } from '../components/ChannelInfo/Member';
 import { Media } from '../components/ChannelInfo/Media';
 import { Files } from '../components/ChannelInfo/Files';

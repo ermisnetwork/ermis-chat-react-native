@@ -13,7 +13,7 @@ import {
 } from '../context/BottomSheetOverlayContext';
 import { usePaginatedUsers } from '../hooks/usePaginatedUsers';
 
-import type { UserResponse } from 'ermis-chat-sdk';
+import type { UserResponse } from 'ermis-chat-js-sdk';
 
 import { ErmisChatGenerics } from '../types';
 

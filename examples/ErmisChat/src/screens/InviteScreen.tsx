@@ -6,10 +6,10 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ChatScreenHeader } from '../components/ChatScreenHeader';
 import { useAppContext } from "../context/AppContext";
 import { useTheme, ChannelList, CircleClose, Search, InvitedChannelPreview, InvitedChannelList } from 'ermis-chat-react-native';
-import { Channel } from 'ermis-chat-sdk';
+import { Channel } from 'ermis-chat-js-sdk';
 import { useNavigation, useScrollToTop } from '@react-navigation/native';
 import { ScreenHeader } from "../components/ScreenHeader";
-import type { ChannelSort } from 'ermis-chat-sdk';
+import type { ChannelSort } from 'ermis-chat-js-sdk';
 
 const styles = StyleSheet.create({
     invitesContainer: {

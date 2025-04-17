@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import type { Channel as ErmisChatChannel } from 'ermis-chat-sdk';
+import type { Channel as ErmisChatChannel } from 'ermis-chat-js-sdk';
 import { RouteProp, useFocusEffect, useNavigation, useNavigationState } from '@react-navigation/native';
 import {
   Channel,
