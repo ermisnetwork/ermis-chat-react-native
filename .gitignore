@@ -13,6 +13,5 @@ e2e/.env
 .DS_STORE
 *.db
 .idea
-examples/ErmisChat/.env
-examples/ErmisChat/.env.staging
-examples/ErmisChat/.env.product
+examples/ErmisChat/.env*
+**.env
