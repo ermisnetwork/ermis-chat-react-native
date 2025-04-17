@@ -1,7 +1,7 @@
 {
   "name": "ermis-chat-react-native-core",
   "description": "The official React Native components for Ermis Chat, a service for building chat applications",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "author": "Ermis.network Inc",
   "repository": {
     "type": "git",
